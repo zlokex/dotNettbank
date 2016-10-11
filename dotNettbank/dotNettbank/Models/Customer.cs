@@ -15,9 +15,10 @@ namespace dotNettbank.Models
         public string LastName { get; set; }
         public string Address { get; set; }
         public string PhoneNo { get; set; }
-        [ForeignKey("Postage")] // Poststed
-        public string Postcode { get; set; } // Postnr
+        public string PostCode { get; set; } // Postnr
+        public PostalArea PostalArea { get; set; } // Poststed
         public string Password { get; set; }
-        public bool LoggedIn { get; set; }
+
+        public virtual IEnumerable<Account> Accounts { get; set; } // List of accounts belonging to Customer
     }
 }

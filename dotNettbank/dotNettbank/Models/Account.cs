@@ -10,18 +10,14 @@ using System.Web;
 
 namespace dotNettbank.Models
 {
-    public enum AccountType
-    {
-        Saving, Regular, Credit
-    }
 
     public class Account
     {
         [Key]
         public int AccountNo { get; set; }
-        [ForeignKey("Customer")]
-        public string BirthNo { get; set; } // Fødselsnummer
         public double Balance { get; set; }
-        public AccountType AccountType { get; set; }
+
+        public Customer Owner { get; set; } // Eier av konto
+
     }
 }

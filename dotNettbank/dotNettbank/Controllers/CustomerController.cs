@@ -24,19 +24,35 @@ namespace dotNettbank.Controllers
             return View();
         }
 
-        public ActionResult Overview()
+        public ActionResult Overview() // Total oversikt
         {
             return View();
         }
 
-        public ActionResult AccountStatement()
+        public ActionResult AccountStatement() // Kontoutskrift
         {
             return View();
         }
 
-        public ActionResult PaymentInsert()
+        public ActionResult PaymentInsert() // Legg til betaling
         {
             return View();
         }
+
+        public ActionResult Transfer() // Overføre (Mellom egne konti)
+        {
+            return View();
+        }
+
+        public ActionResult DueTransactions() // Forfallsoversikt
+        {
+            return View();
+        }
+
+        public ActionResult PaymentReceipts() // Utførte betalinger
+        {
+            return View();
+        }
+        
     }
 }
