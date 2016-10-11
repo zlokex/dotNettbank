@@ -13,5 +13,30 @@ namespace dotNettbank.Controllers
         {
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult LoginBankID()
+        {
+            return View();
+        }
+
+        public ActionResult Overview()
+        {
+            return View();
+        }
+
+        public ActionResult AccountStatement()
+        {
+            return View();
+        }
+
+        public ActionResult PaymentInsert()
+        {
+            return View();
+        }
     }
 }
