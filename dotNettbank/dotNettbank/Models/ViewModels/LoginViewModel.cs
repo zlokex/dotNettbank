@@ -8,11 +8,11 @@ namespace dotNettbank.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="Fødselsnummer må oppgis")]
         [Display(Name ="Fødeselsnummer")]
         public string BirthNo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Passord må oppgis")]
         [Display(Name ="Passord")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
