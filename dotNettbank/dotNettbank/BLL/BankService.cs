@@ -56,6 +56,7 @@ namespace dotNettbank.BLL
             // Create new domain Customer
             var customer = new Customer();
             // Populate domain model from view model
+            customer.BirthNo = regCustomer.BirthNo;
             customer.FirstName = regCustomer.FirstName;
             customer.LastName = regCustomer.LastName;
             customer.Address = regCustomer.Address;

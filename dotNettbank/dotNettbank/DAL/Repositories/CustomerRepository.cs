@@ -1,6 +1,7 @@
 ﻿using dotNettbank.Models.DomainModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -31,6 +32,8 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
+                Debug.WriteLine("DEBUG: " + e.Message);
+                
                 return false;
             }
             
