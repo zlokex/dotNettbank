@@ -1,5 +1,5 @@
 ﻿using dotNettbank.BLL;
-using dotNettbank.ViewModels;
+using dotNettbank.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +24,11 @@ namespace dotNettbank.Controllers
             if (Session["LoggedIn"] == null)
             {
                 Session["LoggedIn"] = false;
-                ViewBag.Innlogget = false;
+                ViewBag.LoggedIn = false;
             }
             else
             {
-                ViewBag.Innlogget = (bool) Session["LoggedIn"];
+                ViewBag.LoggedIn = (bool) Session["LoggedIn"];
             }
             return View();
         }
@@ -41,14 +41,14 @@ namespace dotNettbank.Controllers
             {
                 // Ja brukernavn og passord er OK!
                 Session["LoggedIn"] = true;
-                ViewBag.Innlogget = true;
+                ViewBag.LoggedIn = true;
                 return View();
             }
             else
             {
                 // Nei brukernavn og passord er IKKE OK!
                 Session["LoggedIn"] = false;
-                ViewBag.Innlogget = false;
+                ViewBag.LoggedIn = false;
                 return View();
             }
         }
@@ -62,8 +62,8 @@ namespace dotNettbank.Controllers
         {
             if (Session["LoggedIn"] != null)
             {
-                bool loggetInn = (bool)Session["LoggedIn"];
-                if (loggetInn)
+                bool LoggedIn = (bool)Session["LoggedIn"];
+                if (LoggedIn)
                 {
                     return View();
                 }

@@ -1,4 +1,4 @@
-﻿using dotNettbank.Models;
+﻿using dotNettbank.Models.DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +12,28 @@ namespace dotNettbank.DAL.Repositories
 
         public Customer getCustomerByBirthNo(string birthNo)
         {
-            return db.Customers.Single(c => c.BirthNo == birthNo);
+            return db.Customers.FirstOrDefault(c => c.BirthNo == birthNo);
         }
 
         public Customer getCustomerByLoginFields(byte[] hashedPassword, string birthNo)
         {
             return db.Customers.FirstOrDefault(
                 c => c.Password == hashedPassword && c.BirthNo == birthNo);
+        }
+
+        public bool addCustomer(Customer customer)
+        {
+            try
+            {
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
 
     }

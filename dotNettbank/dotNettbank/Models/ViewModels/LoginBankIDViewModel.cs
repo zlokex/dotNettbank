@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace dotNettbank.ViewModels
+namespace dotNettbank.Models.ViewModels
 {
     public class LoginBankIDViewModel
     {

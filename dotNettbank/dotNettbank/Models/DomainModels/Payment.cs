@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace dotNettbank.Models
+namespace dotNettbank.Models.DomainModels
 {
     public enum PaymentStatus
     {
@@ -19,8 +19,8 @@ namespace dotNettbank.Models
         public DateTime DateAdded { get; set; } // Dato lagt til
         public DateTime DueDate { get; set; } // Forfallsdato
         public double Amount { get; set; } // Beløp
-        public Account FromAccount { get; set; } //FraKonto
-        public Account ToAccount { get; set; } //TilKonto
+        public virtual Account FromAccount { get; set; } //FraKonto
+        public virtual Account ToAccount { get; set; } //TilKonto
 
         public PaymentStatus PaymentStatus { get; set; }
     }

@@ -8,7 +8,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
-namespace dotNettbank.Models
+namespace dotNettbank.Models.DomainModels
 {
 
     public class Account
@@ -17,7 +17,7 @@ namespace dotNettbank.Models
         public int AccountNo { get; set; }
         public double Balance { get; set; }
 
-        public Customer Owner { get; set; } // Eier av konto
+        public virtual Customer Owner { get; set; } // Eier av konto
 
     }
 }

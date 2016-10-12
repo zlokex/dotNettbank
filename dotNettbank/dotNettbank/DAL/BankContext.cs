@@ -1,4 +1,4 @@
-﻿using dotNettbank.Models;
+﻿using dotNettbank.Models.DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,7 +10,7 @@ namespace dotNettbank.DAL
 {
     public class BankContext : DbContext
     {
-        public BankContext() : base("Bank")
+        public BankContext() : base("name=Bank")
         {
             Database.CreateIfNotExists();
         }
