@@ -31,11 +31,11 @@ namespace dotNettbank.BLL
 
         public bool checkValidLogin(LoginViewModel login)
         {
-            byte[] hashedPassword = lagHash(login.Password);
+            byte[] hashedPassword = createHash(login.Password);
             Customer customer = customerRepository.getCustomerByBirthNo(login.BirthNo);
             if (customer != null)
             {
-                byte[] passordForTest = lagHash(login.Password + customer.Salt);
+                byte[] passordForTest = createHash(login.Password + customer.Salt);
                 bool passwordCorrect = customer.Password.SequenceEqual(passordForTest);
                 return passwordCorrect; // Return true if password is correct, false otherwise
             }
@@ -49,9 +49,9 @@ namespace dotNettbank.BLL
         public bool registerCustomer(RegisterCustomer regCustomer)
         {
             // Generate salt and create hashed password from salt
-            string salt = lagSalt();
+            string salt = generateSalt();
             var passwordAndSalt = regCustomer.Password + salt;
-            byte[] passwordDB = lagHash(passwordAndSalt);
+            byte[] passwordDB = createHash(passwordAndSalt);
 
             // Create new domain Customer
             var customer = new Customer();
@@ -69,7 +69,7 @@ namespace dotNettbank.BLL
             return customerRepository.addCustomer(customer);
         }
 
-        private static string lagSalt()
+        private static string generateSalt()
         {
             byte[] randomArray = new byte[10];
             string randomString;
@@ -81,7 +81,7 @@ namespace dotNettbank.BLL
         }
 
 
-        private static byte[] lagHash(string innStreng)
+        private static byte[] createHash(string innStreng)
         {
             byte[] innData, utData;
             var algoritme = SHA256.Create();
@@ -90,9 +90,9 @@ namespace dotNettbank.BLL
             return utData;
         }
 
-        public string HashStreng(string innStreng)
+        public string HashString(string innStreng)
         {
-            byte[] hash = lagHash(innStreng);
+            byte[] hash = createHash(innStreng);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < hash.Length; i++)
             {
