@@ -61,7 +61,7 @@ namespace dotNettbank.BLL
             customer.LastName = regCustomer.LastName;
             customer.Address = regCustomer.Address;
             customer.PhoneNo = regCustomer.PhoneNo;
-            customer.PostCode = regCustomer.PostCode;
+            //customer.PostCode = regCustomer.PostCode;
             // customer.PostalArea = postalAreaRepository.addPostalArea(regCustomer.PostCode); TODO: update repository in DAL
             customer.Password = passwordDB;
             customer.Salt = salt;
