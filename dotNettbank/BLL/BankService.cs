@@ -1,6 +1,5 @@
 ﻿using dotNettbank.DAL.Repositories;
-using dotNettbank.Models.DomainModels;
-using dotNettbank.Models.ViewModels;
+using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +28,13 @@ namespace dotNettbank.BLL
             transactionRepository = new TransactionRepository();
         }
 
-        public bool checkValidLogin(LoginViewModel login)
+        public bool checkValidLogin(string password, string birthNo)
         {
-            byte[] hashedPassword = createHash(login.Password);
-            Customer customer = customerRepository.getCustomerByBirthNo(login.BirthNo);
+            byte[] hashedPassword = createHash(password);
+            Customer customer = customerRepository.getCustomerByBirthNo(birthNo);
             if (customer != null)
             {
-                byte[] passordForTest = createHash(login.Password + customer.Salt);
+                byte[] passordForTest = createHash(password + customer.Salt);
                 bool passwordCorrect = customer.Password.SequenceEqual(passordForTest);
                 return passwordCorrect; // Return true if password is correct, false otherwise
             }
@@ -46,21 +45,21 @@ namespace dotNettbank.BLL
             }
         }
 
-        public bool registerCustomer(RegisterCustomer regCustomer)
+        public bool registerCustomer(string password, string birthNo, string firstName, string lastName, string address, string phoneNo)
         {
             // Generate salt and create hashed password from salt
             string salt = generateSalt();
-            var passwordAndSalt = regCustomer.Password + salt;
+            var passwordAndSalt = password + salt;
             byte[] passwordDB = createHash(passwordAndSalt);
 
             // Create new domain Customer
             var customer = new Customer();
             // Populate domain model from view model
-            customer.BirthNo = regCustomer.BirthNo;
-            customer.FirstName = regCustomer.FirstName;
-            customer.LastName = regCustomer.LastName;
-            customer.Address = regCustomer.Address;
-            customer.PhoneNo = regCustomer.PhoneNo;
+            customer.BirthNo = birthNo;
+            customer.FirstName = firstName;
+            customer.LastName = lastName;
+            customer.Address = address;
+            customer.PhoneNo = phoneNo;
             //customer.PostCode = regCustomer.PostCode;
             // customer.PostalArea = postalAreaRepository.addPostalArea(regCustomer.PostCode); TODO: update repository in DAL
             customer.Password = passwordDB;

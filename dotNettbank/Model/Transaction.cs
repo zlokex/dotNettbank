@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace dotNettbank.Models.DomainModels
+namespace dotNettbank.Model
 {
 
     // Transaction: Created when a payment is completed.
