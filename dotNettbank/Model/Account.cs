@@ -14,7 +14,7 @@ namespace dotNettbank.Model
     public class Account
     {
         [Key]
-        public int AccountNo { get; set; }
+        public string AccountNo { get; set; }
         public double Balance { get; set; }
         public AccountType Type { get; set; } // Kontotype
         public double InterestRate { get; set; } // Rentesats

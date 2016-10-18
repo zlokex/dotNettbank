@@ -13,7 +13,7 @@ namespace dotNettbank.DAL.Repositories
 
         // GET SINGLE MODEL
 
-        public Account getByAccountNo(int accountNo)
+        public Account getByAccountNo(string accountNo)
         {
             return db.Accounts.FirstOrDefault(a => a.AccountNo == accountNo);
         }
