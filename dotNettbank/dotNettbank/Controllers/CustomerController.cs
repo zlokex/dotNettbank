@@ -45,7 +45,7 @@ namespace dotNettbank.Controllers
                 // Ja brukernavn og passord er OK!
                 Session["LoggedIn"] = true;
                 ViewBag.LoggedIn = true;
-                return View();
+                return RedirectToAction("Overview");
             }
             else
             {
