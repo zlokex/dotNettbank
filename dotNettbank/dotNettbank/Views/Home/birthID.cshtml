@@ -19,12 +19,11 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="col-sm-9">
                         @Html.LabelFor(model => model.BirthNo, htmlAttributes: new {  })
-                        @Html.DisplayNameFor(n => n.BirthNo)
                     </div>
 
                    
                     <div class="col-sm-9">
-                        @Html.EditorFor(model => model.BirthNo, new { htmlAttributes = new { placeholder = Html.DisplayNameFor(n => n.BirthNo), @class = "form-control"} })
+                        @Html.EditorFor(model => model.BirthNo, new { htmlAttributes = new { placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(n => n.BirthNo).ToHtmlString()), @class = "form-control"} })
                         @Html.ValidationMessageFor(model => model.BirthNo, "", new { @class = "text-danger" })
                     </div>
 
