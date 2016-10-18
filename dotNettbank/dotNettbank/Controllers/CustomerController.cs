@@ -1,4 +1,5 @@
 ﻿using dotNettbank.BLL;
+using dotNettbank.Model;
 using dotNettbank.Models;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace dotNettbank.Controllers
         public ActionResult Login(LoginViewModel loginCredentials)
         {
             string password = loginCredentials.Password;
-            string birthNo = loginCredentials.BirthNo;
+            string birthNo = loginCredentials.BirthNo;        
 
             // sjekk om innlogging OK
             if (bankService.checkValidLogin(password, birthNo))
@@ -46,7 +47,7 @@ namespace dotNettbank.Controllers
                 // Ja brukernavn og passord er OK!
                 Session["LoggedIn"] = true;
                 ViewBag.LoggedIn = true;
-                return View();
+                return RedirectToAction("Overview");
             }
             else
             {
@@ -64,6 +65,7 @@ namespace dotNettbank.Controllers
                 bool LoggedIn = (bool)Session["LoggedIn"];
                 if (LoggedIn)
                 {
+
                     return View();
                 }
             }

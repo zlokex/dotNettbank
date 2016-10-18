@@ -28,6 +28,11 @@ namespace dotNettbank.BLL
             transactionRepository = new TransactionRepository();
         }
 
+        public List<Account> getListByBirthNo(string birthNo)
+        {
+            return accountRepository.getListByBirthNo(birthNo);
+        }
+
         public bool checkValidLogin(string password, string birthNo)
         {
             byte[] hashedPassword = createHash(password);
