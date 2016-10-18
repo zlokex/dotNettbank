@@ -180,6 +180,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Customer\InnloggetSide.cshtml" />
+    <Content Include="Views\Customer\Overview.cshtml" />
+    <Content Include="Views\Customer\AccountStatement.cshtml" />
+    <Content Include="Views\Customer\PaymentInsert.cshtml" />
+    <Content Include="Views\Customer\Transfer.cshtml" />
+    <Content Include="Views\Customer\DueTransactions.cshtml" />
+    <Content Include="Views\Customer\PaymentReceipts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
