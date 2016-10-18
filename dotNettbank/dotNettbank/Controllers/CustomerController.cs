@@ -57,11 +57,6 @@ namespace dotNettbank.Controllers
             }
         }
 
-        public ActionResult LoginBankID()
-        {
-            return View();
-        }
-
         public ActionResult Overview() // Total oversikt
         {
             if (Session["LoggedIn"] != null)
@@ -85,7 +80,7 @@ namespace dotNettbank.Controllers
             return View();
         }
 
-        public ActionResult Transfer() // Overføre (Mellom egne konti)
+        public ActionResult Transfer() // Overføre (Mellom egne konti) // LAV PRIO
         {
             return View();
         }
@@ -95,7 +90,7 @@ namespace dotNettbank.Controllers
             return View();
         }
 
-        public ActionResult PaymentReceipts() // Utførte betalinger
+        public ActionResult PaymentReceipts() // Utførte betalinger // LAV PRIO
         {
             return View();
         }
