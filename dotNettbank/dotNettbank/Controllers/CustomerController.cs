@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace dotNettbank.Controllers
 {
+    //CustomerController har ansvar for kunder (innlogget).
     public class CustomerController : Controller
     {
         BankService bankService = new BankService();
@@ -78,6 +79,7 @@ namespace dotNettbank.Controllers
 
         public ActionResult PaymentInsert() // Legg til betaling
         {
+
             return View();
         }
 

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace dotNettbank.Controllers
 {
+    //HomeController har ansvar for hjemmesiden før innlogging.
     public class HomeController : Controller
     {
         // GET: Customer
