@@ -77,6 +77,7 @@ namespace dotNettbank.Controllers
 
         public ActionResult PaymentInsert() // Legg til betaling
         {
+
             return View();
         }
 
