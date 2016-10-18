@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Models\PaymentInsertModel.cs" />
     <Compile Include="Models\RegisterCustomer.cs" />
+    <Compile Include="Models\signin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\LoginBankIDViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -179,6 +180,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LayoutInnlogget.cshtml" />
+    <Content Include="Views\Home\birthID.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -196,7 +198,9 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\img\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
