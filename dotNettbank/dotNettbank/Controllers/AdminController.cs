@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace dotNettbank.Controllers
 {
-
+    //AdminController har ansvar for administrative handlinger f.esk legg til eller slette kunde
     public class AdminController : Controller
     {
         BankService bankService = new BankService();
