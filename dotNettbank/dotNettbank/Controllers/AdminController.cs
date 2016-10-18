@@ -1,6 +1,6 @@
 ﻿using dotNettbank.BLL;
-using dotNettbank.Models.DomainModels;
-using dotNettbank.Models.ViewModels;
+using dotNettbank.Model;
+using dotNettbank.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,13 @@ namespace dotNettbank.Controllers
                 return View();
             }
             // Add customer to DB through BLL:
-            if (bankService.registerCustomer(regCustomer))
+            string password = regCustomer.Password;
+            string birthNo = regCustomer.BirthNo;
+            string firstName = regCustomer.FirstName;
+            string lastName = regCustomer.LastName;
+            string address = regCustomer.Address;
+            string phoneNo = regCustomer.PhoneNo;
+            if (bankService.registerCustomer(password, birthNo, firstName, lastName, address, phoneNo))
             {
                 // If succesfull:
                 return RedirectToAction("Index");

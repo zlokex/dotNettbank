@@ -1,5 +1,5 @@
 ﻿using dotNettbank.BLL;
-using dotNettbank.Models.ViewModels;
+using dotNettbank.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,8 +37,11 @@ namespace dotNettbank.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel loginCredentials)
         {
+            string password = loginCredentials.Password;
+            string birthNo = loginCredentials.BirthNo;
+
             // sjekk om innlogging OK
-            if (bankService.checkValidLogin(loginCredentials))
+            if (bankService.checkValidLogin(password, birthNo))
             {
                 // Ja brukernavn og passord er OK!
                 Session["LoggedIn"] = true;

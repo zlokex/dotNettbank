@@ -1,4 +1,4 @@
-﻿using dotNettbank.Models.DomainModels;
+﻿using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +6,11 @@ using System.Web;
 
 namespace dotNettbank.DAL.Repositories
 {
-    public class PostalAreaRepository
+    public class AccountRepository
     {
         BankContext db = new BankContext();
 
-        public PostalArea addPostalArea(string postcode)
+        public List<Account> getAllAccounts()
         {
             return null;
         }

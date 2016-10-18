@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace dotNettbank.Models.DomainModels
+namespace dotNettbank.Model
 {
     public class PostalArea
     {

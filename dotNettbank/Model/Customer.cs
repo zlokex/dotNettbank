@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace dotNettbank.Models.DomainModels
+namespace dotNettbank.Model
 {
     public class Customer
     {
