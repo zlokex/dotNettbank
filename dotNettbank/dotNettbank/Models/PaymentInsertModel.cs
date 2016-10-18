@@ -29,3 +29,4 @@ namespace dotNettbank.Models
         public string beløp { get; set; }
     }
 }
+

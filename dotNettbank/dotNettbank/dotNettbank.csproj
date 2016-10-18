@@ -181,6 +181,7 @@
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LayoutInnlogget.cshtml" />
     <Content Include="Views\Home\birthID.cshtml" />
+    <Content Include="Views\Customer\PaymentInsert.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
