@@ -35,7 +35,17 @@
             <tr>
                 <td class="hiddenRow">
                     <div id="accordion_@i" class="collapse">
+                        @Html.LabelFor(modelItem => item.FromName)
                         @Html.DisplayFor(modelItem => item.FromName)
+
+                        @Html.LabelFor(modelItem => item.ToName)
+                        @Html.DisplayFor(modelItem => item.ToName)
+
+                        @Html.LabelFor(modelItem => item.FromAccountNo)
+                        @Html.DisplayFor(modelItem => item.FromAccountNo)
+
+                        @Html.LabelFor(modelItem => item.ToAccountNo)
+                        @Html.DisplayFor(modelItem => item.ToAccountNo)
                     </div>
                 </td>
             </tr>
