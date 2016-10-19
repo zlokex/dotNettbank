@@ -9,7 +9,7 @@ namespace dotNettbank.Models
     public class LoginViewModel
     {
         [Required(ErrorMessage ="Fødselsnummer må oppgis")]
-        [Display(Name ="Fødeselsnummer")]
+        [Display(Name ="Fødselsnummer")]
         public string BirthNo { get; set; }
 
         [Required(ErrorMessage = "Passord må oppgis")]

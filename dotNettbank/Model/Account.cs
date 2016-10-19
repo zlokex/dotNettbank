@@ -14,7 +14,7 @@ namespace dotNettbank.Model
     public class Account
     {
         [Key]
-        public int AccountNo { get; set; }
+        public string AccountNo { get; set; }
         public double Balance { get; set; }
         public AccountType Type { get; set; } // Kontotype
         public double InterestRate { get; set; } // Rentesats
@@ -39,6 +39,12 @@ namespace dotNettbank.Model
         public static AccountType Saving { get { return new AccountType("Sparekonto"); } }
         public static AccountType BSU { get { return new AccountType("BSU-konto"); } }
         public static AccountType Credit { get { return new AccountType("Kredittkort"); } }
+
+        // Override ToString to display value:
+        public override string ToString()
+        {
+            return Value;
+        }
 
         // Eksempel: Type = AccountType.Saving;
     }

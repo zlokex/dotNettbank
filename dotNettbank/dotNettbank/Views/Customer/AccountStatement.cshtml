@@ -1,7 +1,14 @@
-﻿
+﻿@model dotNettbank.Models.AccountStatement
+
 @{
     ViewBag.Title = "AccountStatement";
+    Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
+    //WebGrid grid = new WebGrid(Model)
 }
 
-<h2>AccountStatement</h2>
+<h2>Kontoutskrift</h2>
+
+@Html.DropDownListFor(model => model.Account, new SelectList(Model.Accounts, "AccountNo", "Type"))
+
+@Html.Partial("TransactionsPartial", Model.Transactions)
 

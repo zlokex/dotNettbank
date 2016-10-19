@@ -1,4 +1,8 @@
-﻿body {
+﻿.hiddenRow {
+    padding: 0 !important;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -19,4 +23,9 @@ textarea {
 
 .konto{
     background-color: aquamarine;
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 4b17df962c1d16f215675fb290e536305510e625

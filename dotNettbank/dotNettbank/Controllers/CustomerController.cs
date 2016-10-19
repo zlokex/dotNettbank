@@ -74,7 +74,40 @@ namespace dotNettbank.Controllers
 
         public ActionResult AccountStatement() // Kontoutskrift
         {
-            return View();
+            AccountViewModel a = new AccountViewModel()
+            {
+                Type = AccountType.Usage,
+                AccountNo = "12345",
+                Balance = 10000
+            };
+
+            var accounts = new List<AccountViewModel>();
+            accounts.Add(a);
+            accounts.Add(a);
+
+            TransactionViewModel t = new TransactionViewModel()
+            {
+                Date = new DateTime(2016, 1, 1),
+                Message = "Beskrivelse",
+                InAmount = 1000,
+                //OutAmount = 0,
+                FromName = "André Hovda",
+                ToName = "Magnus Barnholt",
+                FromAccountNo = "12345",
+                ToAccountNo = "23456"
+            };
+
+            var transactions = new List<TransactionViewModel>();
+            transactions.Add(t);
+            transactions.Add(t);
+            transactions.Add(t);
+            transactions.Add(t);
+
+            var accountStatement = new AccountStatement();
+            //accountStatement.Accounts.Add(a);
+            accountStatement.Accounts = accounts;
+            accountStatement.Transactions = transactions;
+            return View(accountStatement);
         }
 
         public ActionResult PaymentInsert() // Legg til betaling
