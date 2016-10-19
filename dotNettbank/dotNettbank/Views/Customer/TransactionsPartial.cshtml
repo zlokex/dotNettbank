@@ -27,15 +27,25 @@
         @foreach (var item in Model)
         {
             <tr data-toggle="collapse" data-target="#accordion_@i" class="clickable">
-                <th scope="row">@Html.DisplayFor(modelItem => item.Date)</th>
-                <td>@Html.DisplayFor(modelItem => item.Message)</td>
-                <td>@Html.DisplayFor(modelItem => item.InAmount)</td>
-                <td>@Html.DisplayFor(modelItem => item.OutAmount)</td>
+                <td class="col-md-3">@Html.DisplayFor(modelItem => item.Date)</td>
+                <td class="col-md-3">@Html.DisplayFor(modelItem => item.Message)</td>
+                <td class="col-md-3">@Html.DisplayFor(modelItem => item.InAmount)</td>
+                <td class="col-md-3">@Html.DisplayFor(modelItem => item.OutAmount)</td>
             </tr>
             <tr>
-                <td class="hiddenRow">
+                <td class="hiddenRow col-md-12">
                     <div id="accordion_@i" class="collapse">
+                        @Html.LabelFor(modelItem => item.FromName)
                         @Html.DisplayFor(modelItem => item.FromName)
+
+                        @Html.LabelFor(modelItem => item.ToName)
+                        @Html.DisplayFor(modelItem => item.ToName)
+
+                        @Html.LabelFor(modelItem => item.FromAccountNo)
+                        @Html.DisplayFor(modelItem => item.FromAccountNo)
+
+                        @Html.LabelFor(modelItem => item.ToAccountNo)
+                        @Html.DisplayFor(modelItem => item.ToAccountNo)
                     </div>
                 </td>
             </tr>
