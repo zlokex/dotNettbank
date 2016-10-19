@@ -1,4 +1,8 @@
-﻿body {
+﻿.hiddenRow {
+    padding: 0 !important;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -15,11 +19,9 @@ input,
 select,
 textarea {
     max-width: 280px;
-<<<<<<< HEAD
 }
 
 .konto{
     background-color: aquamarine;
-=======
->>>>>>> e8b30b6d0a5209a3dc5ed95ec04467a5709d9dbe
 }
+

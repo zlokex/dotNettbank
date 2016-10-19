@@ -4,10 +4,10 @@
     ViewBag.Title = "TransactionsPartial";
     Layout = null;
 }
-<script>
-$('.collapse').on('show.bs.collapse', function () {
-    $('.collapse.in').collapse('hide');
-});
+<script type="text/javascript">
+    $('.collapse').on('show.bs.collapse', function () {
+        $('.collapse.in').collapse('hide');
+    });
 </script>
 <h2>Transaksjoner</h2>
 
@@ -33,7 +33,7 @@ $('.collapse').on('show.bs.collapse', function () {
                 <td>@Html.DisplayFor(modelItem => item.OutAmount)</td>
             </tr>
             <tr>
-                <td>
+                <td class="hiddenRow">
                     <div id="accordion_@i" class="collapse">
                         @Html.DisplayFor(modelItem => item.FromName)
                     </div>
