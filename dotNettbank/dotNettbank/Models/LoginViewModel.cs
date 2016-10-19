@@ -16,5 +16,10 @@ namespace dotNettbank.Models
         [Display(Name ="Passord")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "BankID må oppgis")]
+        [Display(Name = "BankID")]
+        [DataType(DataType.Password)]
+        public string BankID { get; set; }
     }
 }
