@@ -84,7 +84,7 @@ namespace dotNettbank.BLL
             return randomString;
         }
 
-
+        //TODO Lag en try catch for tilfellet hvor passord ikke er skrevet inn
         private static byte[] createHash(string innStreng)
         {
             byte[] innData, utData;
