@@ -10,7 +10,7 @@ namespace dotNettbank.Models
     {
         public string konto { get; set; }
         [Required(ErrorMessage = "Kontonr må oppgis")]
-        [Display(Name = "Kontonr:")]
+        [Display(Name = "")]
         public string tilKontonr { get; set; }
 
         public int saldo { get; set; }
