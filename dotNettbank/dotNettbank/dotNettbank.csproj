@@ -192,6 +192,7 @@
     <Content Include="Views\Customer\PaymentInsert.cshtml" />
     <Content Include="Views\Customer\PaymentReceipts.cshtml" />
     <Content Include="Views\Customer\Transfer.cshtml" />
+    <Content Include="Views\Customer\TransactionsPartial.cshtml" />
     <None Include="Views\Home\personalPassword.cshtml" />
     <Content Include="Views\Home\bankID.cshtml" />
     <None Include="Web.Debug.config">

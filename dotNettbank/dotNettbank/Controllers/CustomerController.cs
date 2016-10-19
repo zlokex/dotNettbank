@@ -76,10 +76,14 @@ namespace dotNettbank.Controllers
         {
             AccountViewModel a = new AccountViewModel()
             {
-                //Type = AccountType.Usage,
+                Type = AccountType.Usage,
                 AccountNo = "12345",
                 Balance = 10000
             };
+
+            var accounts = new List<AccountViewModel>();
+            accounts.Add(a);
+            accounts.Add(a);
 
             TransactionViewModel t = new TransactionViewModel()
             {
@@ -93,9 +97,16 @@ namespace dotNettbank.Controllers
                 ToAccountNo = "23456"
             };
 
+            var transactions = new List<TransactionViewModel>();
+            transactions.Add(t);
+            transactions.Add(t);
+            transactions.Add(t);
+            transactions.Add(t);
+
             var accountStatement = new AccountStatement();
             //accountStatement.Accounts.Add(a);
-            //accountStatement.Transactions.Add(t);
+            accountStatement.Accounts = accounts;
+            accountStatement.Transactions = transactions;
             return View(accountStatement);
         }
 
