@@ -76,6 +76,7 @@ namespace dotNettbank.Controllers
             {
                 return RedirectToAction("LoginBirth");
             }
+            
             else if (model.BankID == null)
             {
                 model.BankID = " "; // Change BankID from null to " " to avoid being stuck in loop.
@@ -86,7 +87,11 @@ namespace dotNettbank.Controllers
             string birthNo = (string)TempData["birthNo"];
             TempData["birthNo"] = birthNo;
             string bankID = model.BankID;
-
+            // If birthNo is empty, redirect to LoginBirth:
+            if (birthNo == null)
+            {
+                return RedirectToAction("LoginBirth");
+            }
             //Debug.WriteLine("birthNo: " + birthNo + ", bankId: " + bankID);
 
             // Valider bankId ved hjelp av fødselsnummer og engangskode:
@@ -118,12 +123,9 @@ namespace dotNettbank.Controllers
         [HttpPost]
         public ActionResult LoginPassword(LoginViewModel model)
         {
+            
+            
             /*
-            // If birthNo is empty, redirect to LoginBirth:
-            if (model.BirthNo == null)
-            {
-                return RedirectToAction("LoginBirth");
-            }
             // If BankId is empty, remove password value and go to bankId view:
             else if (model.BankID == null)
             {
@@ -140,12 +142,18 @@ namespace dotNettbank.Controllers
             string password = model.Password;
             string birthNo = (string)TempData["birthNo"];
             TempData["birthNo"] = birthNo;
+            // If birthNo is empty, redirect to LoginBirth:
+            if (birthNo == null)
+            {
+                return RedirectToAction("LoginBirth");
+            }
             //Debug.WriteLine("birthNo: " + birthNo + ", passord: " + password);
             if (bankService.checkValidLogin(password, birthNo))
             {
                 // Ja brukernavn og passord er OK!
                 Session["LoggedIn"] = true;
                 Session["UserId"] = birthNo;
+                TempData["birthNo"] = null;
                 return RedirectToAction("Overview", "Customer", new { area = "" });
             }
             else
