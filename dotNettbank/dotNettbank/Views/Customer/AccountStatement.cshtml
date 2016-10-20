@@ -3,12 +3,29 @@
 @{
     ViewBag.Title = "AccountStatement";
     Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
-    //WebGrid grid = new WebGrid(Model)
 }
 
 <h2>Kontoutskrift</h2>
 
 @Html.DropDownListFor(model => model.Account, new SelectList(Model.Accounts, "AccountNo", "Type"))
+
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+       $('.datepicker').datepicker(); //Initialise any date pickers
+    });
+</script>
+
+<div class="form-group input-group-sm">
+    @Html.LabelFor(model => model.fromDate)
+    @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control datepicker", placeholder = "Enter Drop-off date here..." })
+    @Html.ValidationMessageFor(model => model.fromDate)
+</div>
+
+<div class="form-group input-group-sm">
+    @Html.LabelFor(model => model.toDate)
+    @Html.TextBoxFor(model => model.toDate, new { @class = "form-control datepicker", placeholder = "Enter Drop-off date here..." })
+    @Html.ValidationMessageFor(model => model.toDate)
+</div>
 
 @Html.Partial("TransactionsPartial", Model.Transactions)
 

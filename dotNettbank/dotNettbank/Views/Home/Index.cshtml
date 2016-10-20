@@ -10,7 +10,28 @@
                 <div class="panel-heading">
                     <h3>BankID - Logg inn</h3>
                 </div>
-                @Html.Partial("birthID", Model)
+
+                <script type="text/javascript">
+                    function hentBokerAjax()
+                    {
+                        $("#BokerListe").load("/Ajax/HentBoker", { sjanger: $("#idListe").val() });
+                    }
+
+                    function hentBokerAjax1()
+                    {
+                        $.getJSON("/Ajax/HentBoker1",{sjanger:$("#idListe").val()},function(bok)
+                        {
+                            var ut="";
+                            for (var i in bok)
+                            {
+                                ut +=bok[i].id + " " + bok[i].Tittel + " " + bok[i].Sjanger + "<br/>";
+                            }
+                            $("#BokerListe").html(ut);
+                        });
+                    }
+                </script>
+
+                @Html.Partial("birthID", Model);
 
                 <div class="panel-footer">
                     Ikke registrert <a href="#">Regisrer bruker her</a>
