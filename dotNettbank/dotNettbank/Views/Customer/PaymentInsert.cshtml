@@ -8,11 +8,21 @@
 <div class="row">
     <div class="col-md-1">Fra</div>
 </div>
-<div class="row konto">
+<div class="row">
+    <div class="dropdown open konto">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Brukskonto
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    <!--<div>
     <div class=".col-md-1">Brukskonto</div>
     <div class="col-md-2">91122 3344566</div>
     <div class="col-md-4"></div>
-    <div class="col-md-2">10000,00 kr</div>
+    <div class="col-md-2">10000,00 kr</div>-->
 </div>
 
 @using (Html.BeginForm())
