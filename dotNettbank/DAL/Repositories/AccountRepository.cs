@@ -42,6 +42,30 @@ namespace dotNettbank.DAL.Repositories
 
         // INSERT / DELETE
 
+        // ADD / DELETE
+
+        /// <summary>
+        /// Add a customer to db from existing Customer object
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns>True if succesful, false otherwise</returns>
+        public bool addAccount(Account account)
+        {
+            try
+            {
+                db.Accounts.Add(account);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                //Debug.WriteLine("DEBUG: " + e.Message);
+                return false;
+            }
+
+        }
+
+
         // UPDATE
     }
 }

@@ -128,10 +128,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
-      <DependentUpon>Database1.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -278,6 +274,7 @@
     <Content Include="Views\Customer\PaymentReceipts.cshtml" />
     <Content Include="Views\Customer\Transfer.cshtml" />
     <Content Include="Views\Customer\TransactionsPartial.cshtml" />
+    <Content Include="Views\Customer\OpenAccount.cshtml" />
     <None Include="Views\Home\personalPassword.cshtml" />
     <Content Include="Views\Home\bankID.cshtml" />
     <None Include="Web.Debug.config">
@@ -298,6 +295,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\img\" />
   </ItemGroup>
   <PropertyGroup>
