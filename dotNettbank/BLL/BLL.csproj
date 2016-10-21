@@ -45,16 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{b417e17b-d316-4220-97b6-31cbdd05321e}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{585e1812-2d2c-403f-845f-234aeb4a8575}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -142,6 +132,16 @@
     <None Include="Content\bootstrap-datepicker3.standalone.css.map" />
     <None Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{b417e17b-d316-4220-97b6-31cbdd05321e}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{585e1812-2d2c-403f-845f-234aeb4a8575}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
