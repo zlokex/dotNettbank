@@ -71,7 +71,7 @@ namespace dotNettbank.Controllers
                     return View();
                 }
             }
-            return RedirectToAction("Login");
+            return RedirectToAction("LoginBirth", "Home", new { area = "" });
         }
 
         public ActionResult OpenAccount()
@@ -97,61 +97,101 @@ namespace dotNettbank.Controllers
 
         public ActionResult AccountStatement() // Kontoutskrift
         {
-            AccountViewModel a = new AccountViewModel()
+            if (Session["LoggedIn"] != null)
             {
-                Type = AccountType.Usage,
-                AccountNo = "12345",
-                Balance = 10000
-            };
 
-            var accounts = new List<AccountViewModel>();
-            accounts.Add(a);
-            accounts.Add(a);
 
-            TransactionViewModel t = new TransactionViewModel()
+                AccountViewModel a = new AccountViewModel()
+                {
+                    Type = AccountType.Usage,
+                    AccountNo = "12345",
+                    Balance = 10000
+                };
+
+                var accounts = new List<AccountViewModel>();
+                accounts.Add(a);
+                accounts.Add(a);
+
+                TransactionViewModel t = new TransactionViewModel()
+                {
+                    Date = new DateTime(2016, 1, 1),
+                    Message = "Beskrivelse",
+                    InAmount = 1000,
+                    //OutAmount = 0,
+                    FromName = "André Hovda",
+                    ToName = "Magnus Barnholt",
+                    FromAccountNo = "12345",
+                    ToAccountNo = "23456"
+                };
+
+                var transactions = new List<TransactionViewModel>();
+                transactions.Add(t);
+                transactions.Add(t);
+                transactions.Add(t);
+                transactions.Add(t);
+
+                var accountStatement = new AccountStatement();
+                //accountStatement.Accounts.Add(a);
+                accountStatement.Accounts = accounts;
+                accountStatement.Transactions = transactions;
+                return View(accountStatement);
+            }
+            else
             {
-                Date = new DateTime(2016, 1, 1),
-                Message = "Beskrivelse",
-                InAmount = 1000,
-                //OutAmount = 0,
-                FromName = "André Hovda",
-                ToName = "Magnus Barnholt",
-                FromAccountNo = "12345",
-                ToAccountNo = "23456"
-            };
-
-            var transactions = new List<TransactionViewModel>();
-            transactions.Add(t);
-            transactions.Add(t);
-            transactions.Add(t);
-            transactions.Add(t);
-
-            var accountStatement = new AccountStatement();
-            //accountStatement.Accounts.Add(a);
-            accountStatement.Accounts = accounts;
-            accountStatement.Transactions = transactions;
-            return View(accountStatement);
+                return RedirectToAction("LoginBirth", "Home", new { area = "" });
+            }
         }
 
         public ActionResult PaymentInsert() // Legg til betaling
         {
+            if (Session["LoggedIn"] != null)
+            {
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginBirth", "Home", new { area = "" });
+            }
         }
 
         public ActionResult Transfer() // Overføre (Mellom egne konti) // LAV PRIO
         {
-            return View();
+            if (Session["LoggedIn"] != null)
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginBirth", "Home", new { area = "" });
+            }
         }
 
         public ActionResult DueTransactions() // Forfallsoversikt
         {
-            return View();
+            if (Session["LoggedIn"] != null)
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginBirth", "Home", new { area = "" });
+            }
         }
 
         public ActionResult PaymentReceipts() // Utførte betalinger // LAV PRIO
         {
-            return View();
+            if (Session["LoggedIn"] != null)
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginBirth", "Home", new { area = "" });
+            }
         }
 
     }

@@ -12,6 +12,25 @@
 </head>
 <body>
 
+    <script>
+        $(function () {
+            $('#logout').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "Shared/Logout",
+                    data: param = "",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function() {
+                        
+                    },
+                    error: errorFunc
+                });
+            });
+        });
+
+    </script>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -42,7 +61,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="~/Home/LoginBirth"><span class="glyphicon glyphicon-log-in"></span> Logg ut</a></li>
+                    <li><a href="~/Home/LoginBirth" id="logout"><span class="glyphicon glyphicon-log-in"></span> Logg ut</a></li>
                 </ul>
             </div>  
         </div>
