@@ -13,13 +13,23 @@ namespace dotNettbank.DAL.Repositories
         BankContext db = new BankContext();
 
         // GET SINGLE MODEL
-
-        public PostalArea addPostalArea(string postcode)
+        public PostalArea getPostalAreaByCode(string postCode)
         {
-            return null;
+            // Default value for string is null (if no customer is found)
+            return db.PostalAreas.FirstOrDefault(p => p.PostCode == postCode);
         }
 
         // GET LIST OF MODELS
+
+        public List<PostalArea> getAll()
+        {
+            return db.PostalAreas.ToList();
+        }
+
+        public List<PostalArea> getListByArea(string area)
+        {
+            return db.PostalAreas.Where(p => p.Area == area).ToList();
+        }
 
         // INSERT / DELETE
 
