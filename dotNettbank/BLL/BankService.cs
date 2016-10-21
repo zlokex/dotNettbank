@@ -83,20 +83,25 @@ namespace dotNettbank.BLL
             return customerRepository.addCustomer(customer);
         }
 
-
-
-
-
-
-
-        // ------------- POSTAL AREA ------------------- //
-
         public bool addPostalArea(PostalArea postalArea)
         {
             return postalAreaRepository.addPostalArea(postalArea);
         }
 
+        public bool addAccount(Account account)
+        {
+            return accountRepository.addAccount(account);
+        }
 
+        public bool addPayment(Payment payment)
+        {
+            return paymentRepository.addPayment(payment);
+        }
+
+        public bool addTransaction(Transaction transaction)
+        {
+            return transactionRepository.addTransaction(transaction);
+        }
 
 
 

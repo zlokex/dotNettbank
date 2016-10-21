@@ -1,6 +1,7 @@
 ﻿using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -67,6 +68,22 @@ namespace dotNettbank.DAL.Repositories
         }
 
         // INSERT / DELETE
+        public bool addPayment(Payment payment)
+        {
+            try
+            {
+                db.Payments.Add(payment);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("DEBUG i addPayemnt DAL: " + e.Message);
+                return false;
+            }
+
+        }
+
 
         // UPDATE
     }
