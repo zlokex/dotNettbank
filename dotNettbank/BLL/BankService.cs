@@ -13,7 +13,6 @@ namespace dotNettbank.BLL
     public class BankService
     {
         AccountRepository accountRepository;
-        BankRepository bankRepository;
         CustomerRepository customerRepository;
         PaymentRepository paymentRepository;
         PostalAreaRepository postalAreaRepository;
@@ -22,7 +21,6 @@ namespace dotNettbank.BLL
         public BankService()
         {
             accountRepository = new AccountRepository();
-            bankRepository = new BankRepository();
             customerRepository = new CustomerRepository();
             paymentRepository = new PaymentRepository();
             postalAreaRepository = new PostalAreaRepository();
