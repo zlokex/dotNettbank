@@ -9,28 +9,23 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-</head>
-<body>
 
-    <script>
+    <script type="text/javascript">
         $(function () {
-            $('#logout').click(function () {
+            $('#logout_btn').click(function(event){
+                event.stopPropagation();
                 $.ajax({
                     type: "POST",
-                    url: "Shared/Logout",
-                    data: param = "",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
+                    url: '@Url.Action("Logout","Shared")',
                     success: function() {
-                        
                     },
-                    error: errorFunc
                 });
             });
         });
-
     </script>
 
+</head>
+<body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -43,7 +38,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="~/Customer/Overview">Totaloversikt</a></li>
+                    <li><a href="~/Customer/Overview">Totaloversikt</a></li>
                     
                     <li><a href="~/Customer/AccountStatement">Kontoutskrift</a></li>
                     
@@ -52,7 +47,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Betaling<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="~/Customer/PaymentInsert">Betale</a></li class="nav-item">
+                            <li><a href="~/Customer/PaymentInsert">Betale</a></li>
                             <li><a href="~/Customer/Transfer">Overføre</a></li>
                             <li><a href="~/Customer/DueTransactions">Forfallsoversikt</a></li>
                             <li><a href="~/Customer/PaymentReceipts">Utførte betalinger</a></li>
@@ -61,7 +56,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="~/Home/LoginBirth" id="logout"><span class="glyphicon glyphicon-log-in"></span> Logg ut</a></li>
+                    <li><a href="" id="logout_btn" class="logout_btn"><span class="glyphicon glyphicon-log-in"></span> Logg ut</a></li>
                 </ul>
             </div>  
         </div>

@@ -246,6 +246,7 @@
     </Compile>
     <Compile Include="Models\AccountStatement.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\Login\Login.cs" />
     <Compile Include="Models\PaymentInsertModel.cs" />
     <Compile Include="Models\RegisterCustomer.cs" />
     <Compile Include="Models\TransactionViewModel.cs" />
@@ -275,8 +276,6 @@
     <Content Include="Views\Customer\Transfer.cshtml" />
     <Content Include="Views\Customer\TransactionsPartial.cshtml" />
     <Content Include="Views\Customer\OpenAccount.cshtml" />
-    <None Include="Views\Home\personalPassword.cshtml" />
-    <Content Include="Views\Home\bankID.cshtml" />
     <Content Include="Views\Home\LoginBankId.cshtml" />
     <Content Include="Views\Home\LoginBirth.cshtml" />
     <Content Include="Views\Home\LoginPassword.cshtml" />

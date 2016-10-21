@@ -20,7 +20,7 @@ namespace dotNettbank.Controllers
             return View();
         }
 
-
+        
         public ActionResult Login()
         {
             // vis innlogging
@@ -64,14 +64,13 @@ namespace dotNettbank.Controllers
         {
             if (Session["LoggedIn"] != null)
             {
-                bool LoggedIn = (bool)Session["LoggedIn"];
-                if (LoggedIn)
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
                 {
-
-                    return View();
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
                 }
             }
-            return RedirectToAction("LoginBirth", "Home", new { area = "" });
+            return View();
         }
 
         public ActionResult OpenAccount()
@@ -99,6 +98,11 @@ namespace dotNettbank.Controllers
         {
             if (Session["LoggedIn"] != null)
             {
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
 
 
                 AccountViewModel a = new AccountViewModel()
@@ -146,6 +150,11 @@ namespace dotNettbank.Controllers
         {
             if (Session["LoggedIn"] != null)
             {
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
 
                 return View();
             }
@@ -159,6 +168,11 @@ namespace dotNettbank.Controllers
         {
             if (Session["LoggedIn"] != null)
             {
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
 
                 return View();
             }
@@ -172,6 +186,11 @@ namespace dotNettbank.Controllers
         {
             if (Session["LoggedIn"] != null)
             {
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
 
                 return View();
             }
@@ -185,6 +204,11 @@ namespace dotNettbank.Controllers
         {
             if (Session["LoggedIn"] != null)
             {
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
 
                 return View();
             }
