@@ -28,18 +28,43 @@ namespace dotNettbank.Controllers
         [HttpPost]
         public ActionResult RegisterCustomer(RegisterCustomer regCustomer)
         {
+            // If fields does not pass validation:
             if (!ModelState.IsValid)
             {
+                // reload view:
                 return View();
             }
-            // Add customer to DB through BLL:
-            string password = regCustomer.Password;
-            string birthNo = regCustomer.BirthNo;
-            string firstName = regCustomer.FirstName;
-            string lastName = regCustomer.LastName;
-            string address = regCustomer.Address;
-            string phoneNo = regCustomer.PhoneNo;
-            if (bankService.registerCustomer(password, birthNo, firstName, lastName, address, phoneNo))
+
+            // Generate salt and create hashed password from salt
+            string salt = BankService.generateSalt();
+            var passwordAndSalt = regCustomer.Password + salt;
+            byte[] passwordDB = BankService.createHash(passwordAndSalt);
+
+            // Create new PostalArea Domain model:
+            PostalArea postalArea = new PostalArea()
+            {
+                Area = regCustomer.PostalArea,
+                PostCode = regCustomer.PostCode
+            };
+            
+            // Add postal area to PostalAreas table in DB:
+            bankService.addPostalArea(postalArea);
+
+            // Create new customer domain model:
+            Customer customer = new Customer()
+            {
+                BirthNo = regCustomer.BirthNo,
+                FirstName = regCustomer.FirstName,
+                LastName = regCustomer.LastName,
+                Address = regCustomer.Address,
+                PhoneNo = regCustomer.PhoneNo,
+                PostCode = regCustomer.PostCode,
+                //PostalArea = postalArea,
+                Password = passwordDB,
+                Salt = salt
+            };
+
+            if (bankService.registerCustomer(customer))
             {
                 // If succesfull:
                 return RedirectToAction("Index");
