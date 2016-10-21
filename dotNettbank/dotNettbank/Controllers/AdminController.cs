@@ -50,5 +50,11 @@ namespace dotNettbank.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult OmOss()
+        {
+            return View();
+        }
     }
 }

@@ -81,7 +81,7 @@ namespace dotNettbank.Controllers
 
         [HttpPost]
         public ActionResult OpenAccount(Account innKonto)
-        {
+        {/*
             if (ModelState.IsValid)
             {
                 var kundeDb = new KundeLogikk();
@@ -90,7 +90,7 @@ namespace dotNettbank.Controllers
                 {
                     return RedirectToAction("Liste");
                 }
-            }
+            }*/
             return View();
         }
 
