@@ -21,6 +21,7 @@ namespace dotNettbank.Models
 
         [Required(ErrorMessage = "Vennligst velg forfallsdato")]
         [Display(Name = "")]
+        [DisplayFormat(DataFormatString ="{dd-mm-yyyy}")]
         [DataType(DataType.Date)]
         public DateTime forfallsdato { get; set; }
 

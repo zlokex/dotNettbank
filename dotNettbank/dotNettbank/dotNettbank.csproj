@@ -266,7 +266,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LayoutInnlogget.cshtml" />
-    <Content Include="Views\Home\birthID.cshtml" />
     <Content Include="Views\Customer\AccountStatement.cshtml" />
     <Content Include="Views\Customer\DueTransactions.cshtml" />
     <Content Include="Views\Customer\Overview.cshtml" />
@@ -274,9 +273,15 @@
     <Content Include="Views\Customer\PaymentReceipts.cshtml" />
     <Content Include="Views\Customer\Transfer.cshtml" />
     <Content Include="Views\Customer\TransactionsPartial.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Customer\OpenAccount.cshtml" />
     <None Include="Views\Home\personalPassword.cshtml" />
     <Content Include="Views\Home\bankID.cshtml" />
+=======
+    <Content Include="Views\Home\LoginBankId.cshtml" />
+    <Content Include="Views\Home\LoginBirth.cshtml" />
+    <Content Include="Views\Home\LoginPassword.cshtml" />
+>>>>>>> 3db2f24907cdfed3dfe88ad97b834da3ddc5daa8
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

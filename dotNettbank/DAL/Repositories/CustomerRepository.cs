@@ -16,6 +16,7 @@ namespace dotNettbank.DAL.Repositories
 
         public Customer getCustomerByBirthNo(string birthNo)
         {
+            // Default value for string is null (if no customer is found)
             return db.Customers.FirstOrDefault(c => c.BirthNo == birthNo);
         }
 

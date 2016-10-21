@@ -2,6 +2,7 @@
 using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -28,6 +29,31 @@ namespace dotNettbank.BLL
             transactionRepository = new TransactionRepository();
         }
 
+        public Customer getCustomerByBirthNo(string birthNo)
+        {
+            return customerRepository.getCustomerByBirthNo(birthNo);
+        }
+
+        // Validate BankID (Dummy) Returns true, as long as birthNo matches a customer.
+        public Boolean validateBankId(string birthNo, string bankID)
+        {
+            // Get customer belonging to birthNo:
+            Customer c = getCustomerByBirthNo(birthNo);
+            Debug.WriteLine("" + c);
+            // If birthNo is valid:
+            if (c != null)
+            {
+                // return true:
+                return true;
+            }
+            else
+            {
+                // Return false if birthNo does not match a customer:
+                return false;
+            }
+            
+        }
+
         public List<Account> getListByBirthNo(string birthNo)
         {
             return accountRepository.getListByBirthNo(birthNo);
@@ -35,8 +61,8 @@ namespace dotNettbank.BLL
 
         public bool checkValidLogin(string password, string birthNo)
         {
-            byte[] hashedPassword = createHash(password);
             Customer customer = customerRepository.getCustomerByBirthNo(birthNo);
+            //Debug.WriteLine("customer:" + customer);
             if (customer != null)
             {
                 byte[] passordForTest = createHash(password + customer.Salt);
