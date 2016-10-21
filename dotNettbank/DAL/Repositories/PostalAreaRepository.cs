@@ -46,7 +46,6 @@ namespace dotNettbank.DAL.Repositories
                 Debug.WriteLine("DEBUG: " + e.Message);
                 return false;
             }
-
         }
 
         // UPDATE
