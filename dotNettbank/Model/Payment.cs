@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -19,6 +20,7 @@ namespace dotNettbank.Model
     // 
     public class Payment
     {
+        [Key]
         public int PaymentID { get; set; }
         public DateTime DateAdded { get; set; } // Dato lagt til
         public DateTime DueDate { get; set; } // Forfallsdato

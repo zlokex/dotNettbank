@@ -3,31 +3,45 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace dotNettbank.Models
 {
     public class PaymentInsertModel
     {
-        public string konto { get; set; }
+        //public List<AccountViewModel> Accounts { get; set; }
         [Required(ErrorMessage = "Kontonr må oppgis")]
-        [Display(Name = "")]
-        public string tilKontonr { get; set; }
+        [Display(Name = "Fra konto")]
+        public string FromAccountNo { get; set; }
 
-        public int saldo { get; set; }
+        //public int SelectedFromAccount { get; set; }
+        //public AccountViewModel FromAccount { get; set; }
+
+        [Required(ErrorMessage = "Kontonr må oppgis")]
+        [Display(Name = "Kontonr")]
+        public string ToAccountNo { get; set; }
+
+        [Required(ErrorMessage = "Navn må oppgis")]
+        [Display(Name = "Navn")]
+        public string ToName { get; set; }
 
         [Required(ErrorMessage = "Vennligst skriv in KID eller melding")]
-        [Display(Name = "")]
-        public string meldingEllerKID { get; set; }
+        [Display(Name = "KID eller melding")]
+        public string Message { get; set; }
 
         [Required(ErrorMessage = "Vennligst velg forfallsdato")]
-        [Display(Name = "")]
+        [Display(Name = "Forfallsdato")]
         [DisplayFormat(DataFormatString ="{dd-mm-yyyy}")]
-        [DataType(DataType.Date)]
-        public DateTime forfallsdato { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime DueDate { get; set; }
 
-        [Required(ErrorMessage = "Vennligst skriv riktig beløp")]
-        [Display(Name = "")]
-        public string beløp { get; set; }
+        [Required(ErrorMessage = "Vennligst skriv inn et beløp (minimum kr 1)")]
+        [Display(Name = "Kroner")]
+        public int AmountKr { get; set; }
+
+        // Ikke required
+        [Display(Name = "Øre")]
+        public int AmountOre { get; set; }
     }
 }
 

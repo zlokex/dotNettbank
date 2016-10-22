@@ -35,6 +35,5 @@ namespace dotNettbank.Models
 
         [Display(Name = "Mottaker konto")]
         public string ToAccountNo { get; set; }
-
     }
 }

@@ -101,6 +101,11 @@ namespace dotNettbank.BLL
             return transactionRepository.addTransaction(transaction);
         }
 
+        public Account getByAccountNo(string accountNo)
+        {
+            return accountRepository.getByAccountNo(accountNo);
+        }
+
 
         public List<Account> getAccountsByBirthNo(string birthNo)
         {

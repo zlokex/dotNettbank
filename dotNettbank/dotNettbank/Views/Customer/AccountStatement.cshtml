@@ -16,13 +16,13 @@
 
     <div class="form-group input-group-sm">
         @Html.LabelFor(model => model.fromDate)
-        @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control datepicker", placeholder = "Enter Drop-off date here..." })
+        @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control datepicker", placeholder = "Velg fra-dato" })
         @Html.ValidationMessageFor(model => model.fromDate)
     </div>
 
     <div class="form-group input-group-sm">
         @Html.LabelFor(model => model.toDate)
-        @Html.TextBoxFor(model => model.toDate, new { @class = "form-control datepicker", placeholder = "Enter Drop-off date here..." })
+        @Html.TextBoxFor(model => model.toDate, new { @class = "form-control datepicker", placeholder = "Velg til-dato" })
         @Html.ValidationMessageFor(model => model.toDate)
     </div>
 
