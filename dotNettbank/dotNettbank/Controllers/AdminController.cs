@@ -76,7 +76,7 @@ namespace dotNettbank.Controllers
             if (bankService.registerCustomer(customer))
             {
                 // If succesfull:
-                return RedirectToAction("Index");
+                return RedirectToAction("LoginBirth", "Customer", new { area = "" });
             }
             else
             {
@@ -101,7 +101,7 @@ namespace dotNettbank.Controllers
                 ifBirthNoExists = IsBirthNoExists(BirthNo) ? true : false;
                 return Json(!ifBirthNoExists, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
