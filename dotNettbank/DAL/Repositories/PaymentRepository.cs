@@ -10,7 +10,13 @@ namespace dotNettbank.DAL.Repositories
     public class PaymentRepository
     {
         // Database Context
-        BankContext db = new BankContext();
+        BankContext db;
+        public PaymentRepository(BankContext bankContext)
+        {
+            db = bankContext;
+        }
+
+        
 
         // GET SINGLE MODEL
 
@@ -24,6 +30,29 @@ namespace dotNettbank.DAL.Repositories
         public List<Payment> getAll()
         {
             return db.Payments.ToList();
+        }
+
+        public List<Payment> getPaymentsPassedDueDate()
+        {
+            // Get current time:
+            DateTime currTime = DateTime.Now;
+            // Return all payments that has passed its due date:
+            return db.Payments.Where(p => p.DueDate < currTime).ToList();
+        }
+
+        public bool removePayments(List<Payment> paymentsToRemove)
+        {
+            try
+            {
+                db.Payments.RemoveRange(paymentsToRemove);
+                // db.SaveChanges(); Wait with saving until we have added them to Transactions.
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
         }
 
         public List<Payment> getListByName()

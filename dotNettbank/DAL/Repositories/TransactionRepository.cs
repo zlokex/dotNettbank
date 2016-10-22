@@ -10,11 +10,20 @@ namespace dotNettbank.DAL.Repositories
     public class TransactionRepository
     {
         // Database Context
-        BankContext db = new BankContext();
+        BankContext db;
+        public TransactionRepository(BankContext bankContext)
+        {
+            db = bankContext;
+        }
 
         // GET SINGLE MODEL
 
         // GET LIST OF MODELS
+        public List<Transaction> getAll()
+        {
+            return db.Transactions.ToList();
+        }
+
 
         // Get all sent and received transactions for one account of one person
         public List<Transaction> getTransactionsByAccountNo(string accountNo)
@@ -39,20 +48,35 @@ namespace dotNettbank.DAL.Repositories
 
         // INSERT / DELETE
 
-        public bool addTransaction(Transaction transactions)
+        public bool addTransaction(Transaction transaction)
         {
             try
             {
-                db.Transactions.Add(transactions);
+                db.Transactions.Add(transaction);
                 db.SaveChanges();
                 return true;
             }
             catch (Exception e)
             {
-                Debug.WriteLine("DEBUG i addTransactions DAL: " + e.Message);
+                Debug.WriteLine("DEBUG i addTransaction DAL: " + e.Message);
                 return false;
             }
+        }
 
+        public bool addRangeTransactions(List<Transaction> transactions)
+        {
+            try
+            {
+                db.Transactions.AddRange(transactions);
+                // Wait with saving changes until we know that payments has been removed.
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("DEBUG i addRaneTransactions DAL: " + e.Message);
+                return false;
+            }
+            
         }
 
         // UPDATE

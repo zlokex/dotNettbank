@@ -11,10 +11,10 @@ namespace dotNettbank.Models
     {
         [Display(Name = "Dato")]
         [DisplayFormat(DataFormatString = "{dd-mm-yyyy}")]
+        [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
 
         [Display(Name = "Beskrivelse")]
-        [DisplayFormat(DataFormatString = "{dd-mm-yyyy}")]
         public string Message { get; set; }
 
         [Display(Name = "Inn")]

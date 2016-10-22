@@ -9,8 +9,12 @@ namespace dotNettbank.DAL.Repositories
 {
     public class PostalAreaRepository
     {
-        // Database Context
-        BankContext db = new BankContext();
+        // DB context
+        BankContext db;
+        public PostalAreaRepository(BankContext bankContext)
+        {
+            db = bankContext;
+        }
 
         // GET SINGLE MODEL
         public PostalArea getPostalAreaByCode(string postCode)

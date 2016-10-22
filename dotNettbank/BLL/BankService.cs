@@ -1,4 +1,5 @@
-﻿using dotNettbank.DAL.Repositories;
+﻿using dotNettbank.DAL;
+using dotNettbank.DAL.Repositories;
 using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace dotNettbank.BLL
 {
     public class BankService
     {
+        BankContext db = new BankContext();
+
         AccountRepository accountRepository;
         CustomerRepository customerRepository;
         PaymentRepository paymentRepository;
@@ -20,11 +23,11 @@ namespace dotNettbank.BLL
 
         public BankService()
         {
-            accountRepository = new AccountRepository();
-            customerRepository = new CustomerRepository();
-            paymentRepository = new PaymentRepository();
-            postalAreaRepository = new PostalAreaRepository();
-            transactionRepository = new TransactionRepository();
+            accountRepository = new AccountRepository(db);
+            customerRepository = new CustomerRepository(db);
+            paymentRepository = new PaymentRepository(db);
+            postalAreaRepository = new PostalAreaRepository(db);
+            transactionRepository = new TransactionRepository(db);
         }
 
 
@@ -134,6 +137,68 @@ namespace dotNettbank.BLL
             randomString = Convert.ToBase64String(randomArray);
             return randomString;
         }
+
+        public void completePayments()
+        {
+            // Get list of paymnets that has passed due date:
+            List<Payment> payments = paymentRepository.getPaymentsPassedDueDate();
+
+            // From and To Accounts, used to update balance:
+            List<Account> fromAccounts = new List<Account>();
+            List<Account> toAccounts = new List<Account>();
+
+            // Import these payments to transactions:
+            List<Transaction> transactions = new List<Transaction>();
+            DateTime currDate = DateTime.Now;
+            foreach (var p in payments)
+            {
+                // Get from and to account:
+                Account fromAcc = p.FromAccount;
+                Account toAcc = p.ToAccount;
+                // verify that fromAccount has enough balance:
+                if (fromAcc.Balance < p.Amount)
+                {
+                    //Update balance to from and to account:
+                    fromAcc.Balance -= p.Amount;
+                    toAcc.Balance += p.Amount;
+                    // Add from and to account to lists:
+                    fromAccounts.Add(fromAcc);
+                    toAccounts.Add(toAcc);
+
+                    // Import to transactions:
+                    Transaction t = new Transaction()
+                    {
+                        DatePayed = p.DueDate,
+                        Date = currDate,
+                        Amount = p.Amount,
+                        Message = p.Message,
+                        FromAccountNo = p.FromAccountNo,
+                        ToAccountNo = p.ToAccountNo
+                    };
+                    transactions.Add(t);
+                }
+                else
+                {
+                    // If from acc does not have enough balance, remove the payment from our current list (So that it wont be deleted)
+                    payments.Remove(p);
+                }
+            }
+
+            // Attempt to complete payment:
+            try
+            {
+                // Remove payments:
+                paymentRepository.removePayments(payments);
+                // Add to transactions:
+                transactionRepository.addRangeTransactions(transactions);
+            }
+            catch (Exception e)
+            {
+                //
+                //db.Entry(entity).Reload();
+            }
+    }
+
 
         //TODO Lag en try catch for tilfellet hvor passord ikke er skrevet inn
         public static byte[] createHash(string innStreng)
