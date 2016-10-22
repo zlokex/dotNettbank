@@ -3,6 +3,7 @@ using dotNettbank.Model;
 using dotNettbank.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -88,6 +89,35 @@ namespace dotNettbank.Controllers
         public ActionResult OmOss()
         {
             return View();
+        }
+
+        [AllowAnonymous]
+        public JsonResult CheckExistingBirthNo(string BirthNo)
+        {
+            Debug.WriteLine("---------------------------DEBUG---------" + BirthNo);
+            bool ifBirthNoExists = false;
+            try
+            {
+                ifBirthNoExists = IsBirthNoExists(BirthNo) ? true : false;
+                return Json(!ifBirthNoExists, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+        private bool IsBirthNoExists(string birthNo)
+        {
+            var customer = bankService.getCustomerByBirthNo(birthNo);
+            Debug.WriteLine("---------------------------DEBUG---------" + customer);
+            if (customer == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
