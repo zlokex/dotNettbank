@@ -1,5 +1,7 @@
-﻿using System;
+﻿using dotNettbank.DAL;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -18,6 +20,7 @@ namespace dotNettbank
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //Database.SetInitializer<BankContext>(new BankInitializer());
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             try

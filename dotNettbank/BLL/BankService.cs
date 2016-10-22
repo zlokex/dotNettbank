@@ -126,18 +126,6 @@ namespace dotNettbank.BLL
         }
 
 
-
-        public static string generateSalt()
-        {
-            byte[] randomArray = new byte[10];
-            string randomString;
-
-            var rng = new RNGCryptoServiceProvider();
-            rng.GetBytes(randomArray);
-            randomString = Convert.ToBase64String(randomArray);
-            return randomString;
-        }
-
         public void completePayments()
         {
             // Get list of paymnets that has passed due date:
@@ -197,8 +185,18 @@ namespace dotNettbank.BLL
                 //
                 //db.Entry(entity).Reload();
             }
-    }
+        }
 
+        public static string generateSalt()
+        {
+            byte[] randomArray = new byte[10];
+            string randomString;
+
+            var rng = new RNGCryptoServiceProvider();
+            rng.GetBytes(randomArray);
+            randomString = Convert.ToBase64String(randomArray);
+            return randomString;
+        }
 
         //TODO Lag en try catch for tilfellet hvor passord ikke er skrevet inn
         public static byte[] createHash(string innStreng)
