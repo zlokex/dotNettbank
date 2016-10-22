@@ -242,7 +242,6 @@
     <Content Include="scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\Customer\Login.cshtml" />
     <Content Include="Views\Admin\RegisterCustomer.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
