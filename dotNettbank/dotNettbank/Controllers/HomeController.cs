@@ -1,6 +1,7 @@
 ﻿using dotNettbank.BLL;
 using dotNettbank.Model;
 using dotNettbank.Models;
+using dotNettbank.Models.Login;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,8 +35,13 @@ namespace dotNettbank.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginBirth(LoginViewModel model)
+        public ActionResult LoginBirth(BirthNoModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             //string password = model.Password;
             string birthNo = model.BirthNo;
 
@@ -68,8 +74,13 @@ namespace dotNettbank.Controllers
         
 
         [HttpPost]
-        public ActionResult LoginBankId(LoginViewModel model)
+        public ActionResult LoginBankId(BankIDModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             /*
             // If birthNo is empty, redirect to LoginBirth:
             if (model.BirthNo == null)
@@ -121,8 +132,12 @@ namespace dotNettbank.Controllers
         
 
         [HttpPost]
-        public ActionResult LoginPassword(LoginViewModel model)
+        public ActionResult LoginPassword(PasswordModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             
             
             /*

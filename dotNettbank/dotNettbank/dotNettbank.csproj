@@ -99,6 +99,10 @@
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -236,15 +240,18 @@
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountStatement.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\Login\Login.cs" />
     <Compile Include="Models\PaymentInsertModel.cs" />
     <Compile Include="Models\RegisterCustomer.cs" />
     <Compile Include="Models\TransactionViewModel.cs" />
@@ -274,8 +281,6 @@
     <Content Include="Views\Customer\Transfer.cshtml" />
     <Content Include="Views\Customer\TransactionsPartial.cshtml" />
     <Content Include="Views\Customer\OpenAccount.cshtml" />
-    <None Include="Views\Home\personalPassword.cshtml" />
-    <Content Include="Views\Home\bankID.cshtml" />
     <Content Include="Views\Home\LoginBankId.cshtml" />
     <Content Include="Views\Home\LoginBirth.cshtml" />
     <Content Include="Views\Home\LoginPassword.cshtml" />

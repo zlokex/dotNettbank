@@ -16,19 +16,24 @@ namespace dotNettbank.Model
         [Key]
         public string AccountNo { get; set; }
         public double Balance { get; set; }
-        public AccountType Type { get; set; } // Kontotype
+        public string Type { get; set; } // Kontotype
         public double InterestRate { get; set; } // Rentesats
         public virtual Customer Owner { get; set; } // Eier av konto
 
     }
 
+    /*
     public class CreditAccount : Account
     {
-        private CreditAccount() { Type = AccountType.Credit; }
+        //private CreditAccount() { Type = AccountType.Credit; }
+
+        private CreditAccount() { Type = "Kreditt"; }
 
         public double CreditBalance { get; set; }
     }
+    */
 
+    /*
     public class AccountType
     {
         private AccountType(string value) { Value = value; }
@@ -48,6 +53,7 @@ namespace dotNettbank.Model
 
         // Eksempel: Type = AccountType.Saving;
     }
+    */
 
     /*
     public enum AccountType

@@ -25,17 +25,17 @@ namespace dotNettbank.DAL.Repositories
             return db.Accounts.ToList();
         }
 
-        public List<Account> getListByType(AccountType type)
+        public List<Account> getListByType(string type)
         {
             return db.Accounts.Where(a => a.Type == type).ToList();
         }
 
         public List<Account> getListByBirthNo(string birthNo)
         {
-            return db.Accounts.Where(a => a.Owner.BirthNo == birthNo).OrderBy(a => a.Type).ToList();
+            return db.Accounts.Where(a => a.Owner.BirthNo == birthNo).ToList();
         }
 
-        public List<Account> getListByTypeAndBirthNo(AccountType type, string birthNo)
+        public List<Account> getListByTypeAndBirthNo(string type, string birthNo)
         {
             return db.Accounts.Where(a => a.Type == type && a.Owner.BirthNo == birthNo).ToList();
         }

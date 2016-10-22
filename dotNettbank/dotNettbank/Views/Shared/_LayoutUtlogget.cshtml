@@ -9,6 +9,8 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+
 </head>
 <body>
     
@@ -29,7 +31,7 @@
             
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="~/Admin/RegisterCustomer"><span class="glyphicon glyphicon-user"></span> Bli kunde</a></li>
-                <li class="active"><a href="~/Home/Index"><span class="glyphicon glyphicon-log-in"></span> Logg inn</a></li>
+                <li><a href="~/Home/Index"><span class="glyphicon glyphicon-log-in"></span> Logg inn</a></li>
             </ul>
             </div>
         </div>
@@ -38,7 +40,7 @@
     <div class="">
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="text-center">
             <p>&copy; @DateTime.Now.Year - dotNettbank</p>
         </footer>
     </div>

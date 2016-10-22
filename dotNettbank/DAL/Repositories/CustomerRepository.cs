@@ -51,7 +51,7 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
-                //Debug.WriteLine("DEBUG: " + e.Message);
+                Debug.WriteLine("DEBUG i addCustomer DAL: " + e.Message);
                 return false;
             }
             

@@ -13,7 +13,6 @@ namespace dotNettbank.BLL
     public class BankService
     {
         AccountRepository accountRepository;
-        BankRepository bankRepository;
         CustomerRepository customerRepository;
         PaymentRepository paymentRepository;
         PostalAreaRepository postalAreaRepository;
@@ -22,12 +21,12 @@ namespace dotNettbank.BLL
         public BankService()
         {
             accountRepository = new AccountRepository();
-            bankRepository = new BankRepository();
             customerRepository = new CustomerRepository();
             paymentRepository = new PaymentRepository();
             postalAreaRepository = new PostalAreaRepository();
             transactionRepository = new TransactionRepository();
         }
+
 
         public Customer getCustomerByBirthNo(string birthNo)
         {
@@ -76,30 +75,51 @@ namespace dotNettbank.BLL
             }
         }
 
-        public bool registerCustomer(string password, string birthNo, string firstName, string lastName, string address, string phoneNo)
+        public bool registerCustomer(Customer customer)
         {
-            // Generate salt and create hashed password from salt
-            string salt = generateSalt();
-            var passwordAndSalt = password + salt;
-            byte[] passwordDB = createHash(passwordAndSalt);
-
-            // Create new domain Customer
-            var customer = new Customer();
-            // Populate domain model from view model
-            customer.BirthNo = birthNo;
-            customer.FirstName = firstName;
-            customer.LastName = lastName;
-            customer.Address = address;
-            customer.PhoneNo = phoneNo;
-            //customer.PostCode = regCustomer.PostCode;
-            // customer.PostalArea = postalAreaRepository.addPostalArea(regCustomer.PostCode); TODO: update repository in DAL
-            customer.Password = passwordDB;
-            customer.Salt = salt;
             // Add customer to DB through repository:
             return customerRepository.addCustomer(customer);
         }
 
-        private static string generateSalt()
+        public bool addPostalArea(PostalArea postalArea)
+        {
+            return postalAreaRepository.addPostalArea(postalArea);
+        }
+
+        public bool addAccount(Account account)
+        {
+            return accountRepository.addAccount(account);
+        }
+
+        public bool addPayment(Payment payment)
+        {
+            return paymentRepository.addPayment(payment);
+        }
+
+        public bool addTransaction(Transaction transaction)
+        {
+            return transactionRepository.addTransaction(transaction);
+        }
+
+
+        public List<Account> getAccountsByBirthNo(string birthNo)
+        {
+            return accountRepository.getListByBirthNo(birthNo);
+        }
+
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            return transactionRepository.getTransactionsByAccountNo(accountNo);
+        }
+
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
+        {
+            return transactionRepository.getTransactionsByBirthNo(birthNo);
+        }
+
+
+
+        public static string generateSalt()
         {
             byte[] randomArray = new byte[10];
             string randomString;
@@ -111,7 +131,7 @@ namespace dotNettbank.BLL
         }
 
         //TODO Lag en try catch for tilfellet hvor passord ikke er skrevet inn
-        private static byte[] createHash(string innStreng)
+        public static byte[] createHash(string innStreng)
         {
             byte[] innData, utData;
             var algoritme = SHA256.Create();
