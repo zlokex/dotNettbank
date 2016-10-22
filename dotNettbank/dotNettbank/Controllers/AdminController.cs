@@ -35,6 +35,14 @@ namespace dotNettbank.Controllers
                 return View();
             }
 
+            /*
+            // Make sure that repeated password matches password:
+            if (regCustomer.Password != regCustomer.PasswordRepeat)
+            {
+                return View();
+            }
+            */
+
             // Generate salt and create hashed password from salt
             string salt = BankService.generateSalt();
             var passwordAndSalt = regCustomer.Password + salt;
