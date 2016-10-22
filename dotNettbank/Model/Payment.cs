@@ -5,6 +5,7 @@ using System.Web;
 
 namespace dotNettbank.Model
 {
+    /*
     public enum PaymentStatus
     {
         InProcess, // Under behandling
@@ -13,6 +14,7 @@ namespace dotNettbank.Model
         Rejected // Avvist av ulike årsaker
 
     }
+    */
 
     // 
     public class Payment
@@ -25,6 +27,6 @@ namespace dotNettbank.Model
         public virtual Account FromAccount { get; set; } //FraKonto
         public virtual Account ToAccount { get; set; } //TilKonto
 
-        public PaymentStatus PaymentStatus { get; set; }
+        //public PaymentStatus PaymentStatus { get; set; }
     }
 }

@@ -96,6 +96,7 @@ namespace dotNettbank.Controllers
 
         public ActionResult AccountStatement() // Kontoutskrift
         {
+            Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -104,13 +105,24 @@ namespace dotNettbank.Controllers
                     return RedirectToAction("LoginBirth", "Home", new { area = "" });
                 }
 
+                string userBirthNo = Session["UserId"] as string;
 
-                AccountViewModel a = new AccountViewModel()
+                List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
+                var accountViewModels = new List<AccountViewModel>();
+
+                foreach (var a in accounts)
                 {
-                    Type = AccountType.Usage,
-                    AccountNo = "12345",
-                    Balance = 10000
-                };
+                    AccountViewModel viewModel = new AccountViewModel()
+                    {
+                        Type = a.Type,
+                        AccountNo = a.AccountNo,
+                        Balance = a.Balance
+                    };
+                    accountViewModels.Add(viewModel);
+                }
+
+
+                /*
 
                 var accounts = new List<AccountViewModel>();
                 accounts.Add(a);
@@ -138,6 +150,10 @@ namespace dotNettbank.Controllers
                 //accountStatement.Accounts.Add(a);
                 accountStatement.Accounts = accounts;
                 accountStatement.Transactions = transactions;
+                */
+                var accountStatement = new AccountStatement();
+                accountStatement.Accounts = accountViewModels;
+
                 return View(accountStatement);
             }
             else
@@ -218,5 +234,38 @@ namespace dotNettbank.Controllers
             }
         }
 
+
+        public JsonResult GetTransactions(string accountNo)
+        {
+            string userBirthNo = Session["UserId"] as string;
+
+            List<Transaction> transactions = bankService.getTransactionsByAccountNo(accountNo);
+
+            List<TransactionViewModel> tViewModels = new List<TransactionViewModel>();
+
+            foreach (var t in transactions)
+            {
+                var viewModel = new TransactionViewModel()
+                {
+                    Date = t.Date,
+                    Message = t.Message,
+                    FromName = t.FromAccount.Owner.FirstName,
+                    FromAccountNo = t.FromAccount.AccountNo,
+                    ToName = t.ToAccount.Owner.FirstName,
+                    ToAccountNo = t.ToAccount.AccountNo,
+                };
+                if (t.ToAccount.Owner.BirthNo == userBirthNo)
+                {
+                    viewModel.InAmount = t.Amount;
+                } else
+                {
+                    viewModel.OutAmount = t.Amount;
+                }
+                tViewModels.Add(viewModel);
+            }
+
+            JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
+            return result;
+        }
     }
 }

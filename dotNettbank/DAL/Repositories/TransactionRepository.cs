@@ -16,6 +16,27 @@ namespace dotNettbank.DAL.Repositories
 
         // GET LIST OF MODELS
 
+        // Get all sent and received transactions for one account of one person
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            // Get all transactions matching from accountNo (Avsender)
+            List<Transaction> transactions = db.Transactions.Where(t => t.FromAccount.AccountNo == accountNo).ToList();
+            // Add all transactions matching to accountNo (Mottaker)
+            transactions.AddRange(db.Transactions.Where(t => t.ToAccount.AccountNo == accountNo).ToList());
+            return transactions;
+        }
+
+        // Get all sent and received transactions for one person
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
+        {
+            // Get all transactions matching from accountNo (Avsender)
+            List<Transaction> transactions = db.Transactions.Where(t => t.FromAccount.Owner.BirthNo == birthNo).ToList();
+            // Add all transactions matching to accountNo (Mottaker)
+            transactions.AddRange(db.Transactions.Where(t => t.ToAccount.Owner.BirthNo == birthNo).ToList());
+            return transactions;
+        }
+
+
         // INSERT / DELETE
 
         public bool addTransaction(Transaction transactions)
