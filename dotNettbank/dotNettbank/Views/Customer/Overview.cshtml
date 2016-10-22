@@ -1,11 +1,70 @@
-﻿@model dotNettbank.Models.AccountViewModel
+﻿@model dotNettbank.Model.Customer
 @{
     ViewBag.Title = "Overview";
     Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
 }
 
-<h2>Overview</h2>
-Kontoer:
-bla bla bla bla
-bla bla bla bla
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Totaloversikt</title>
+</head>
+<body>
+    <div>
+        <h4>Kunde</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostalArea)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostalArea)
+            </dd>
+
+        </dl>
+    </div>
+</body>
+</html>

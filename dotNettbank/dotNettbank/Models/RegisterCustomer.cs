@@ -11,26 +11,34 @@ namespace dotNettbank.Models
         [Required(ErrorMessage = "Fødselsnummer må oppgis")]
         [Display(Name = "Fødselsnummer")]
         public string BirthNo { get; set; } // Fødselsnummer
+
         [Required(ErrorMessage = "Fornavn må oppgis")]
         [Display(Name = "Fornavn")]
         public string FirstName { get; set; }
+
         [Required(ErrorMessage = "Etternavn må oppgis")]
         [Display(Name = "Etternavn")]
         public string LastName { get; set; }
+
         [Required(ErrorMessage = "Adresse må oppgis")]
         [Display(Name = "Adresse")]
         public string Address { get; set; }
+
         [Required(ErrorMessage = "Telefonnummer må oppgis")]
         [Display(Name = "Telefon")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNo { get; set; }
+
         [Required(ErrorMessage = "Postnr må oppgis")]
         [Display(Name = "Postnr")]
         [DataType(DataType.PostalCode)]
+        [RegularExpression(@"[0-9]{4}", ErrorMessage = "Postnr må være 4 siffer")]
         public string PostCode { get; set; } // Postnr
+
         [Required(ErrorMessage = "Poststed må oppgis")]
         [Display(Name = "Poststed")]
         public string PostalArea { get; set; } // Poststed
+
         [Required(ErrorMessage = "Passord må oppgis")]
         [Display(Name = "Passord")]
         [DataType(DataType.Password)]
