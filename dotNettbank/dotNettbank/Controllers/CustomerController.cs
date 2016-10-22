@@ -259,14 +259,14 @@ namespace dotNettbank.Controllers
                                         DueDate = model.DueDate,
                                         Amount = amount,
                                         Message = model.Message,
-                                        FromAccount = fromAccount,
-                                        ToAccount = toAccount
+                                        FromAccountNo = fromAccountNo,
+                                        ToAccountNo = toAccountNo
                                     };
 
                                     if (bankService.addPayment(payment))
                                     {
                                         // Success     
-                                        return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                                        return RedirectToAction("DueTransactions", "Customer", new { area = "" });
                                     }
                                     else
                                     {

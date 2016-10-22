@@ -76,7 +76,7 @@ namespace dotNettbank.Controllers
             if (bankService.registerCustomer(customer))
             {
                 // If succesfull:
-                return RedirectToAction("LoginBirth", "Customer", new { area = "" });
+                return RedirectToAction("LoginBirth", "Home", new { area = "" });
             }
             else
             {
