@@ -224,6 +224,8 @@ namespace dotNettbank.Controllers
         [HttpPost]
         public ActionResult PaymentInsert(PaymentInsertModel model) // Legg til betaling
         {
+            Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];

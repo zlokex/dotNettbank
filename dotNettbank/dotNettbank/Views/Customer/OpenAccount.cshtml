@@ -1,16 +1,8 @@
 ﻿@model dotNettbank.Models.regAccount
 @{
-    ViewBag.Title = "OpenAccount";
+    ViewBag.Title = "Opprett konto";
     Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
 }
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
 
 @using (Html.BeginForm())
 {
@@ -54,7 +46,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <input type="submit" value="Opprett Konto" class="btn btn-success" />
+                    <input type="submit" value="Opprett konto" class="btn btn-success" />
                 </div>
 
                 <div class="col-md-8" style="margin-top:5px;">

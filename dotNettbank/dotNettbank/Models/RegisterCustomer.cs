@@ -47,10 +47,11 @@ namespace dotNettbank.Models
         public string PostalArea { get; set; } // Poststed
 
         [Required(ErrorMessage = "Passord må oppgis")]
-        [StringLength(255, ErrorMessage = "Må være på mellom 5 og 255 karakterer", MinimumLength = 5)]
+        //[StringLength(255, ErrorMessage = "Må være på mellom 5 og 255 karakterer", MinimumLength = 5)]
         [Display(Name = "Passord")]
         [DataType(DataType.Password)]
         //[RegularExpression(@"^.*(?=.{7,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@'#.$;%^&+=!""()*,-/:<>?]).*$", ErrorMessage = "Feil passord, har du skrevet riktig?")]
+        [RegularExpression(@"^([A-Za-z0-9%&/()=?!]{7,20})$", ErrorMessage = "Passord ikke godkjent, godkjente tegn er små og store bokstaver, tall og noen spesialtegn(%&/()=?!) lengde minimum 7 og maksimum 20")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Gjenta passord må oppgis")]
