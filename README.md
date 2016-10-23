@@ -2,8 +2,10 @@
 
 2 parts group and 1 part individual assignment for the subject 'Webapplikasjoner' at HiOA.
 
-## Decision choices
-We have chosen to write both the code and comments of the aplication in English. This is by part done to make the code more accessible to others, and to ease the use of naming conventions, as well as avoiding the use of "æ, ø, å".
+## Language
+We have chosen to write both the code and comments of the aplication in English. This is by part done to make the code more accessible to others, and to ease the use of naming conventions, as well as avoiding the use of "æ, ø, å". 
+
+For a better understanding of some variables purpose and relation to the solution (particularly for Norwegians), some variables have a translated comment of the Norwegian word representing that variable.
 
 The user interface and text of the application however is in Norwegian.
 
