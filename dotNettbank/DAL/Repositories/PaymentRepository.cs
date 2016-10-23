@@ -1,6 +1,7 @@
 ﻿using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -144,5 +145,21 @@ namespace dotNettbank.DAL.Repositories
             }
         }
         // UPDATE
+
+        public bool updatePayment(Payment updatedPayment)
+        {
+            try
+            {
+                db.Payments.Attach(updatedPayment);
+
+                var entry = db.Entry(updatedPayment);
+                entry.State = EntityState.Modified;
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

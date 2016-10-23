@@ -8,6 +8,7 @@ using System.Web;
 
 namespace dotNettbank.DAL
 {
+
     public class BankContext : DbContext
     {
         public BankContext() : base("name=Bank")

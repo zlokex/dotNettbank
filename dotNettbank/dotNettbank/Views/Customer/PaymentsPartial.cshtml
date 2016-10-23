@@ -35,10 +35,16 @@
         </table>
     </div>
 </div>
+
+<div id="modal-container" class="modal fade">
+    <div class="modal-content" id="modal-content"></div>
+</div>
+
 <script type="text/javascript">
 
     $(function () {
 
+        // Delete button:
         $('#payments_table').on('click', '#remove_btn', function (events) {
             // Get payment id from tr td:
             var paymentId = $(this).closest('tr').find('td').eq(0).html(); // col1
@@ -56,6 +62,39 @@
                     rowToRemove.remove();
                 }
             });
+        });
+
+        // Edit button:
+        $('#payments_table').on('click', '#edit_btn', function (events) {
+            // Get payment id from tr td:
+            var paymentId = $(this).closest('tr').find('td').eq(0).html(); // col1
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("getPaymentInsertPartial", "Customer")',
+                data: { paymentId: paymentId },
+            }).done(function (result) {
+                $('#modal-content').html(result);
+                $('#modal-container').modal('show');
+            });
+        });
+
+        // Modal:
+        $('body').on('click', '.modal-link', function (e) {
+            e.preventDefault();
+            $(this).attr('data-target', '#modal-container');
+            $(this).attr('data-toggle', 'modal');
+        });
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+            $('#modal-container').modal('hide');
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#modal-container').on('hidden.bs.modal', function () {
+            $(this).removeData('bs.modal');
+        });
+        $('#CancelModal').on('click', function () {
+            return false;
         });
 
     });

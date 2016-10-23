@@ -145,6 +145,11 @@ namespace dotNettbank.BLL
             return paymentRepository.getById(id);
         }
 
+        public bool updatePayment(Payment updatedPayment)
+        {
+            return paymentRepository.updatePayment(updatedPayment);
+        }
+
 
         public void completePayments()
         {

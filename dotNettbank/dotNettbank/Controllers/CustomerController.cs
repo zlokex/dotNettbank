@@ -23,11 +23,32 @@ namespace dotNettbank.Controllers
 
         public ActionResult Overview() // Total oversikt
         {
-            
+
             if (Session["LoggedIn"] != null)
             {
                 string birthID = Session["UserId"] as string;
-                
+                List<Account> accounts = bankService.getAccountsByBirthNo(birthID);
+                var model = new AccountStatement();
+
+                var accountViewModels = new List<AccountViewModel>();
+                // Populate AccountViewModel list with accounts:
+                foreach (var a in accounts)
+                {
+                    AccountViewModel viewModel = new AccountViewModel()
+                    {
+                        Type = a.Type,
+                        AccountNo = a.AccountNo,
+                        Balance = a.Balance,
+                        Name = a.Name
+                    };
+                    accountViewModels.Add(viewModel);
+                }
+
+                var accountStatement = new AccountStatement()
+                {
+                    Accounts = accountViewModels,
+                };
+
                 bool loggedIn = (bool)Session["LoggedIn"];
                 if (!loggedIn)
                 {
@@ -37,10 +58,11 @@ namespace dotNettbank.Controllers
                 {
                     var kundeDb = new BankService();
                     Customer enKunde = kundeDb.getCustomerByBirthNo(birthID);
-                    return View(enKunde);
+                    List<Account> alleKonto = kundeDb.getAccountsByBirthNo(birthID);
+                    return View(accountStatement);
                 }
             }
-            return View();
+            return RedirectToAction("LoginBirth", "Home", new { area = "" });
         }
 
         public ActionResult KontoOpprettet()
@@ -57,7 +79,8 @@ namespace dotNettbank.Controllers
         public ActionResult OpenAccount(Account regAccount)
         {
             Random random = new Random();
-            int newAccNo = random.Next(100000001, 999999999);
+            int newAccNo1 = random.Next(10000, 99999);
+            int newAccNo2 = random.Next(000000, 999999);
             string user = Session["UserId"] as string;
             Customer customer = bankService.getCustomerByBirthNo(user);
             string AccountType = "Brukskonto";
@@ -71,7 +94,7 @@ namespace dotNettbank.Controllers
             Account account = new Account()
             {
 
-                AccountNo = "" + newAccNo,
+                AccountNo = "" + newAccNo1 + newAccNo2,
                 Name = regAccount.Name,
                 Balance = 5000,
                 Owner = customer,
@@ -312,6 +335,11 @@ namespace dotNettbank.Controllers
                     return RedirectToAction("LoginBirth", "Home", new { area = "" });
                 }
 
+                 if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+
                 string userBirthNo = Session["UserId"] as string;
 
                 // Get accounts to user:
@@ -369,62 +397,158 @@ namespace dotNettbank.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetTransactions(string accountNo, DateTime fromDate, DateTime toDate)
+        public ActionResult getPaymentInsertPartial(int paymentId)
         {
-            // List of transactions:
-            List<Transaction> transactions;
-
-            // Logged in customer birthNo:
-            string userBirthNo = Session["UserId"] as string;
-
-            // Check if All ccounts/Alle kontoer option was selected:
-            if (accountNo == "Alle kontoer")
+            if (Session["LoggedIn"] != null)
             {
-                // If all accounts are chosen
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
 
-                // Temp list of all transactions to user from db:
-                List<Transaction> transactions1 = bankService.getTransactionsByBirthNo(userBirthNo);
-                transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
+                TempData["paymentId"] = paymentId;
 
+                // Get payment 
+                Payment p = bankService.getPaymentById(paymentId);
+
+                int kr = (int)p.Amount;
+                double oreDouble = (p.Amount - kr) * 100;
+                int ore = (int)oreDouble;
+                PaymentInsertModel viewModel = new PaymentInsertModel()
+                {
+                    AmountKr = kr,
+                    AmountOre = ore,
+                    DueDate = p.DueDate,
+                    FromAccountNo = p.FromAccountNo,
+                    Message = p.Message,
+                    ToAccountNo = p.ToAccountNo
+                };
+
+                return PartialView("PaymentInsertPartial", viewModel);
             }
             else
             {
-                // If not, that means the user selected an account number, so get all transactions based on that accountNo:
-
-                // Temp list of all transactions to accountNo from db:
-                List<Transaction> transactions1 = bankService.getTransactionsByAccountNo(accountNo);
-                // Create a new list from our temp list where Date (Date added) is inbetween from and to date:
-                transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
+                return RedirectToAction("LoginBirth", "Home", new { area = "" });
             }
-
             
-            // View model:
-            List<TransactionViewModel> tViewModels = new List<TransactionViewModel>();
+        }
 
-            foreach (var t in transactions)
+        [HttpPost]
+        public ActionResult PaymentInsertPartial(PaymentInsertModel viewModel)
+        {
+            if (Session["LoggedIn"] != null)
             {
-                var viewModel = new TransactionViewModel()
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
                 {
-                    Date = t.Date,
-                    Message = t.Message,
-                    FromName = t.FromAccount.Owner.FirstName,
-                    FromAccountNo = t.FromAccount.AccountNo,
-                    ToName = t.ToAccount.Owner.FirstName,
-                    ToAccountNo = t.ToAccount.AccountNo,
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+
+                double amount = viewModel.AmountKr + (viewModel.AmountOre / 100);
+                int paymentId = (int)TempData["paymentId"];
+                Payment payment = new Payment()
+                {
+                    Amount = amount,
+                    DateAdded = DateTime.Now,
+                    DueDate = viewModel.DueDate,
+                    FromAccountNo = viewModel.FromAccountNo,
+                    ToAccountNo = viewModel.ToAccountNo,
+                    Message = viewModel.Message,
+                    PaymentID = paymentId
                 };
-                // Check if our customer is either receiver or sender of amount in  transaction, and update 
-                // either In or Out amount in ViewModel accordingly:
-                if (t.ToAccount.Owner.BirthNo == userBirthNo)
+
+                bool success = bankService.updatePayment(payment);
+
+                if (success)
                 {
-                    viewModel.InAmount = t.Amount;
+                    return PartialView("PaymentInsertPartial",viewModel);
                 } else
                 {
-                    viewModel.OutAmount = t.Amount;
+                    return PartialView("PaymentInsertPartial", viewModel);
                 }
-                tViewModels.Add(viewModel);
             }
+            return PartialView("PaymentInsertPartial", viewModel);
+        }
 
-            return PartialView("TransactionsPartial", tViewModels);
+        [HttpPost]
+        public ActionResult GetTransactions(string accountNo, DateTime fromDate, DateTime toDate)
+        {
+            if (Session["LoggedIn"] != null)
+            {
+                string birthID = Session["UserId"] as string;
+
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
+                else
+                {
+                    // List of transactions:
+                    List<Transaction> transactions;
+
+                    // Logged in customer birthNo:
+                    string userBirthNo = Session["UserId"] as string;
+
+                    // Check if All ccounts/Alle kontoer option was selected:
+                    if (accountNo == "Alle kontoer")
+                    {
+                        // If all accounts are chosen
+
+                        // Temp list of all transactions to user from db:
+                        List<Transaction> transactions1 = bankService.getTransactionsByBirthNo(userBirthNo);
+                        transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
+
+                    }
+                    else
+                    {
+                        // If not, that means the user selected an account number, so get all transactions based on that accountNo:
+
+                        // Temp list of all transactions to accountNo from db:
+                        List<Transaction> transactions1 = bankService.getTransactionsByAccountNo(accountNo);
+                        // Create a new list from our temp list where Date (Date added) is inbetween from and to date:
+                        transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
+                    }
+
+
+                    // View model:
+                    List<TransactionViewModel> tViewModels = new List<TransactionViewModel>();
+
+                    foreach (var t in transactions)
+                    {
+                        var viewModel = new TransactionViewModel()
+                        {
+                            Date = t.Date,
+                            Message = t.Message,
+                            FromName = t.FromAccount.Owner.FirstName,
+                            FromAccountNo = t.FromAccount.AccountNo,
+                            ToName = t.ToAccount.Owner.FirstName,
+                            ToAccountNo = t.ToAccount.AccountNo,
+                        };
+                        // Check if our customer is either receiver or sender of amount in  transaction, and update 
+                        // either In or Out amount in ViewModel accordingly:
+                        if (t.ToAccount.Owner.BirthNo == userBirthNo)
+                        {
+                            viewModel.InAmount = t.Amount;
+                        }
+                        else
+                        {
+                            viewModel.OutAmount = t.Amount;
+                        }
+                        tViewModels.Add(viewModel);
+                    }
+
+                    return PartialView("TransactionsPartial", tViewModels);
+                }
+            }
+            return RedirectToAction("LoginBirth", "Home", new { area = "" });
+            
         }
 
         [HttpPost]
