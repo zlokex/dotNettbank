@@ -42,13 +42,13 @@
         </div>
         <div class="row col-md-12">
             <div class="form-group col-md-3">
-                <button class="btn btn-success" id="transactions_btn">Vis transaksjoner</button>
+                <button class="btn btn-info btn-lg" id="transactions_btn">Vis transaksjoner</button>
             </div>
         </div>
     </div>
 </div>
 
-    <div id="account_no"></div>
+    <div id="accountInfo"></div>
 
 <div class="panel panel-default">
     <div id="transactionsList"></div>
@@ -56,15 +56,34 @@
 
     <script type="text/javascript">
         $(function () {
+            // When document is first loaded
+            var account = $('#selected_account').find(":selected").text();
+            fromDate = $('#from_date').datepicker("getDate"); // Convert from datepicker value to Date format
+            toDate = $('#to_date').datepicker("getDate"); // Convert to datepicker value to Date format
+            getAccountInfo();
+            getTransactions();
+            // When "Vis transaksjoner" button is pressed:
             $('#transactions_btn').click(function () {
-                var account = $('#selected_account').find(":selected").text();
+                account = $('#selected_account').find(":selected").text();
                 fromDate = $('#from_date').datepicker("getDate"); // Convert from datepicker value to Date format
                 toDate = $('#to_date').datepicker("getDate"); // Convert to datepicker value to Date format
-                $('#account_no').text(account);
+                getAccountInfo();
+                getTransactions();
 
-                //
+            });
+            // Get account info for selected account
+            function getAccountInfo() {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetAccountInfo","Customer")',
+                    data: { accountNo: account } // reconvert date formats to ISO String
+                }).done(function (result) {
+                    $('#accountInfo').html(result);
+                });
+            }
 
-                // Get Transactions to selected account, between dates:
+            // Get Transactions to selected account, between dates:
+            function getTransactions() {
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetTransactions","Customer")',
@@ -72,35 +91,9 @@
                 }).done(function (result) {
                     $('#transactionsList').html(result);
                 });
-
-            });
+            }
         });
 
-        function getTransactions() {
-            $.getJSON("/Customer/GetTransactions", {
-                accountNo: $('#selected_account').find(":selected").text(), function (transaction) {
-                    var output = "";
-                    for (var i in transaction) {
-                        output += '<tr data-toggle="collapse" data-target="#more_info_' + i + '" class="clickable">';
-                        output += "<td class='col-md-3'>" + transaction[i].Date + "</td>";
-                        output += "<td class='col-md-3'>" + transaction[i].Message + "</td>";
-                        output += "<td class='col-md-3 text-success'>" + transaction[i].InAmount + "</td>";
-                        output += "<td class='col-md-3'>" + transaction[i].OutAmount + "</td>";
-                        output += "</tr>";
-                        output += "<tr>";
-                        output += '<td class="hiddenRow col-md-12">';
-                        output += '<div id="more_info_' + i + '" class="collapse">';
-                        output += "Avsender navn: " + transaction[i].FromName;
-                        output += "Mottaker navn: " + transaction[i].ToName;
-                        output += "Avsender konto: " + transaction[i].FromAccountNo;
-                        output += "Mottaker konto: " + transaction[i].ToAccountNo;
-                        output += "</div> </td></tr>";
-
-                    }
-                    $("#show_transactions").html(output);
-                }
-            });
-        }
     </script>
 
     <script type="text/javascript">

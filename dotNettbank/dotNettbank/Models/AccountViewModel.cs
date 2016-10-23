@@ -14,6 +14,6 @@ namespace dotNettbank.Models
         [Display(Name = "Kontonummer")]
         public string AccountNo { get; set; }
         [Display(Name = "Balanse")]
-        public string Balance { get; set; }
+        public double Balance { get; set; }
     }
 }

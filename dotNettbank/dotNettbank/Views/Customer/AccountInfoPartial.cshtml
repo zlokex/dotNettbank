@@ -1,0 +1,25 @@
+﻿@model dotNettbank.Models.AccountViewModel
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Kontoinformasjon</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3 ">
+                    @Html.LabelFor(model => model.Type)
+                    @Html.DisplayFor(model => model.Type)
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.AccountNo)
+                    @Html.DisplayFor(model => model.AccountNo)
+                </div>
+                <div class="col-md-3 col-md-offset-3">
+                    @Html.LabelFor(model => model.Balance)
+                    @Html.DisplayFor(model => model.Balance)
+                </div>
+            </div>
+    </div>
+</div>

@@ -35,6 +35,7 @@ namespace dotNettbank.DAL.Repositories
             return transactions;
         }
 
+
         // Get all sent and received transactions for one person
         public List<Transaction> getTransactionsByBirthNo(string birthNo)
         {

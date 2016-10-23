@@ -57,8 +57,8 @@ namespace dotNettbank.Controllers
 
         public ActionResult AccountStatement() // Kontoutskrift
         {
-            Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
-            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -81,14 +81,21 @@ namespace dotNettbank.Controllers
                     {
                         Type = a.Type,
                         AccountNo = a.AccountNo,
-                        Balance = System.Convert.ToString(a.Balance)
+                        Balance = a.Balance
                     };
                     accountViewModels.Add(viewModel);
                 }
 
-                
-                var accountStatement = new AccountStatement();
-                accountStatement.Accounts = accountViewModels;
+                // Set initial dates for the datepickers:
+                DateTime currDatePlusOne = DateTime.Today.AddDays(1); // Current day plus one
+                DateTime oneMonthAgo = DateTime.Today.AddMonths(-1); // Date one month ago at 0:00am
+
+                var accountStatement = new AccountStatement()
+                {
+                    Accounts = accountViewModels,
+                    fromDate = oneMonthAgo,
+                    toDate = currDatePlusOne
+                };
 
                 return View(accountStatement);
             }
@@ -259,7 +266,7 @@ namespace dotNettbank.Controllers
             }
         }
 
-        public ActionResult PaymentReceipts() // Utførte betalinger
+        public ActionResult PaymentReceipts() // Utførte betalinger 
         {
             if (Session["LoggedIn"] != null)
             {
@@ -282,7 +289,10 @@ namespace dotNettbank.Controllers
         {
             string userBirthNo = Session["UserId"] as string;
 
-            List<Transaction> transactions = bankService.getTransactionsByAccountNo(accountNo);
+            // Temp list of transactions from db:
+            List<Transaction> transactions1 = bankService.getTransactionsByAccountNo(accountNo);
+            // Create a new list from our temp list where Date (Date added) is inbetween from and to date:
+            List<Transaction> transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
 
             List<TransactionViewModel> tViewModels = new List<TransactionViewModel>();
 
@@ -313,6 +323,24 @@ namespace dotNettbank.Controllers
 
             //JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
             //return result;
+        }
+
+        [HttpPost]
+        public ActionResult GetAccountInfo(string accountNo)
+        {
+            // Get account from db matching account number:
+            Account account = bankService.getByAccountNo(accountNo);
+
+            // Create view model for this account:
+            AccountViewModel viewModel = new AccountViewModel()
+            {
+                AccountNo = account.AccountNo,
+                Type = account.Type,
+                Balance = account.Balance
+            };
+
+            return PartialView("AccountInfoPartial", viewModel);
+
         }
     }
 }
