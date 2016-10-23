@@ -28,7 +28,7 @@
                                     </div>
 
                                     <div class="col-sm-9">
-                                        @Html.EditorFor(model => model.BankID, new { htmlAttributes = new { placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(n => n.BankID).ToHtmlString()), @class = "form-control", maxlength = "11" } })
+                                        @Html.EditorFor(model => model.BankID, new { htmlAttributes = new { placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(n => n.BankID).ToHtmlString()), @class = "form-control", maxlength = "6" } })
                                         @Html.ValidationMessageFor(model => model.BankID, "", new { @class = "text-danger" })
                                     </div>
 

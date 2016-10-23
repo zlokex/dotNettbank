@@ -16,15 +16,12 @@
     <hr />
     <table class="table table-hover">
         <tr>
-            <th>Kontotype</th>
-            <th>Kontonavn</th>
             <th>Kontonummer</th>
+            <th>Kontonavn</th>
             <th>Saldo</th>
         </tr>
-    </table>
 
 
-    <div class="panel panel-default">
         @foreach (var konto in Model.Accounts)
         {
             <tr>
@@ -37,12 +34,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => konto.Balance)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => konto.Name)
-                </td>
-                
             </tr>
         }
+    </table>
 
     <div id="accountInfo"></div>
 </body>
