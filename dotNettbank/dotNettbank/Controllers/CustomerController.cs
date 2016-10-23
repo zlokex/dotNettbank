@@ -23,14 +23,28 @@ namespace dotNettbank.Controllers
 
         public ActionResult Overview() // Total oversikt
         {
+            
             if (Session["LoggedIn"] != null)
             {
+                string birthID = Session["UserId"] as string;
+                
                 bool loggedIn = (bool)Session["LoggedIn"];
                 if (!loggedIn)
                 {
                     return RedirectToAction("LoginBirth", "Home", new { area = "" });
                 }
+                else
+                {
+                    var kundeDb = new BankService();
+                    Customer enKunde = kundeDb.getCustomerByBirthNo(birthID);
+                    return View(enKunde);
+                }
             }
+            return View();
+        }
+
+        public ActionResult KontoOpprettet()
+        {
             return View();
         }
 
@@ -40,19 +54,54 @@ namespace dotNettbank.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenAccount(Account innKonto)
-        {/*
-            if (ModelState.IsValid)
+        public ActionResult OpenAccount(Account regAccount)
+        {
+            Random random = new Random();
+            int newAccNo = random.Next(100000001, 999999999);
+            string user = Session["UserId"] as string;
+            Customer customer = bankService.getCustomerByBirthNo(user);
+            string AccountType = "Brukskonto";
+
+            if (!ModelState.IsValid)
             {
-                var kundeDb = new KundeLogikk();
-                bool insertOK = kundeDb.settInn(innKonto);
-                if (insertOK)
-                {
-                    return RedirectToAction("Liste");
-                }
-            }*/
-            return View();
+                return View();
+            }
+
+            //Create new Account domain model:
+            Account account = new Account()
+            {
+
+                AccountNo = "" + newAccNo,
+                Name = regAccount.Name,
+                Balance = 5000,
+                Owner = customer,
+                InterestRate = 1,
+                Type = regAccount.Name
+            };
+
+            if (bankService.addAccount(account))
+            {
+                //if succsesfull
+                ViewBag.OpenAccount = false;
+                //return RedirectToAction("KontoOpprettet");
+                return View();
+            }
+            else
+            {
+                ViewBag.OpenAccount = true;
+                return View();
+            }
         }
+
+
+        /// //////////////////////////////////////CUSTOMER-START/////////////////////////////////////////////////////////////
+
+        /// //////////////////////////////////////CUSTOMER-SLUTT/////////////////////////////////////////////////////////////
+
+
+
+
+
 
 
         public ActionResult AccountStatement() // Kontoutskrift
@@ -81,7 +130,8 @@ namespace dotNettbank.Controllers
                     {
                         Type = a.Type,
                         AccountNo = a.AccountNo,
-                        Balance = a.Balance
+                        Balance = a.Balance,
+                        Name = a.Name
                     };
                     accountViewModels.Add(viewModel);
                 }
