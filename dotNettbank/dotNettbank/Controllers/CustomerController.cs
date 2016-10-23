@@ -86,14 +86,15 @@ namespace dotNettbank.Controllers
                     accountViewModels.Add(viewModel);
                 }
 
-                DateTime currDate = DateTime.Today;
-                DateTime oneMonthAgo = currDate.AddMonths(-1);
+                // Set initial dates for the datepickers:
+                DateTime currDatePlusOne = DateTime.Today.AddDays(1); // Current day plus one
+                DateTime oneMonthAgo = DateTime.Today.AddMonths(-1); // Date one month ago at 0:00am
 
                 var accountStatement = new AccountStatement()
                 {
                     Accounts = accountViewModels,
                     fromDate = oneMonthAgo,
-                    toDate = currDate
+                    toDate = currDatePlusOne
                 };
 
                 return View(accountStatement);
@@ -288,7 +289,10 @@ namespace dotNettbank.Controllers
         {
             string userBirthNo = Session["UserId"] as string;
 
-            List<Transaction> transactions = bankService.getTransactionsByAccountNo(accountNo);
+            // Temp list of transactions from db:
+            List<Transaction> transactions1 = bankService.getTransactionsByAccountNo(accountNo);
+            // Create a new list from our temp list where Date (Date added) is inbetween from and to date:
+            List<Transaction> transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
 
             List<TransactionViewModel> tViewModels = new List<TransactionViewModel>();
 
