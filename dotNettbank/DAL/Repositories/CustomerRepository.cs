@@ -10,7 +10,12 @@ namespace dotNettbank.DAL.Repositories
 {
     public class CustomerRepository
     {
-        BankContext db = new BankContext();
+        // Database Context
+        BankContext db;
+        public CustomerRepository(BankContext bankContext)
+        {
+            db = bankContext;
+        }
 
         // GET SINGLE MODEL
 

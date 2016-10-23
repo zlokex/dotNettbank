@@ -4,85 +4,75 @@
     Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
 }
 
-<h2>Betaling</h2>
-<div class="row">
-    <div class="col-md-1">Fra</div>
-</div>
-<div class="row">
-    <div class="dropdown open konto">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Brukskonto
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-    <!--<div>
-    <div class=".col-md-1">Brukskonto</div>
-    <div class="col-md-2">91122 3344566</div>
-    <div class="col-md-4"></div>
-    <div class="col-md-2">10000,00 kr</div>-->
-</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    
     <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <h2>Betale</h2>
+        <div class=".col-md-1">Til</div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FromAccountNo, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FromAccountNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
             <div class=".col-md-1">Til</div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                 @Html.LabelFor(model => model.tilKontonr, htmlAttributes: new { @class = "control-label col-md-1" })
+                 @Html.LabelFor(model => model.ToAccountNo, htmlAttributes: new { @class = "control-label col-md-1" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.tilKontonr, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.tilKontonr, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ToAccountNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        <div class=".col-md-1">Til</div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToName, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ToName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ToName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+            <div class=".col-md-1"></div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-
-            <div class=".col-md-1">Melding eller KID nummer</div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class=".col-md-1"></div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DueDate)
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DueDate, new { @class = "form-control datepicker", placeholder = "Velg forfallsdato" })
+                @Html.ValidationMessageFor(model => model.DueDate)
+            </div>
+        </div>
+            <div class=".col-md-1"></div>
             <div class="form-group">
-                @Html.LabelFor(model => model.meldingEllerKID, htmlAttributes: new { @class = "control-label col-md-1" })
+                @Html.LabelFor(model => model.AmountKr, htmlAttributes: new { @class = "control-label col-md-1" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.meldingEllerKID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.meldingEllerKID, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.AmountKr, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AmountKr, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class=".col-md-1">Forfallsdato (dd:mm:åååå)</div>
+            <div class=".col-md-1"></div>
             <div class="form-group">
-                <div class="col-md-4">
-                    <div class="input-group date" id="datatimepicker1">
-                        <input type="text" class="form-control">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script type="text/javascript">
-                $(function () {
-                    $('#datetimepicker1').datetimepicker();
-                    //$getElementByID(datetimepicker1);
-                });
-            </script>
-            <div class=".col-md-1">Forfallsdato (dd:mm:åååå)</div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.forfallsdato, htmlAttributes: new { @class = "control-label col-md-1" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.forfallsdato, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.forfallsdato, "", new { @class = "text-danger" })
-                    </div>
-            </div>
-            <div class=".col-md-1">Beløp</div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.beløp, htmlAttributes: new { @class = "control-label col-md-1" })
+                @Html.LabelFor(model => model.AmountOre, htmlAttributes: new { @class = "control-label col-md-1" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.beløp, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.beløp, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.AmountOre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AmountOre, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
@@ -92,3 +82,7 @@
             </div>
       </div>
 }
+
+<script type="text/javascript">
+$('.datepicker').datepicker(); //Initialise date picker
+</script>

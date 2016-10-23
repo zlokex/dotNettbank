@@ -20,45 +20,6 @@ namespace dotNettbank.Controllers
             return View();
         }
 
-        
-        public ActionResult Login()
-        {
-            // vis innlogging
-            if (Session["LoggedIn"] == null)
-            {
-                Session["LoggedIn"] = false;
-                ViewBag.LoggedIn = false;
-            }
-            else
-            {
-                ViewBag.LoggedIn = (bool)Session["LoggedIn"];
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Login(LoginViewModel loginCredentials)
-        {
-            string password = loginCredentials.Password;
-            string birthNo = loginCredentials.BirthNo;
-
-            // sjekk om innlogging OK
-            if (bankService.checkValidLogin(password, birthNo))
-            {
-                // Ja brukernavn og passord er OK!
-                Session["LoggedIn"] = true;
-                ViewBag.LoggedIn = true;
-                return RedirectToAction("Overview");
-            }
-            else
-            {
-                // Nei brukernavn og passord er IKKE OK!
-                Session["LoggedIn"] = false;
-                ViewBag.LoggedIn = false;
-                return View();
-            }
-        }
-
 
         public ActionResult Overview() // Total oversikt
         {
@@ -136,7 +97,8 @@ namespace dotNettbank.Controllers
 
         public ActionResult AccountStatement() // Kontoutskrift
         {
-            Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -147,9 +109,12 @@ namespace dotNettbank.Controllers
 
                 string userBirthNo = Session["UserId"] as string;
 
+                // Get accounts to user:
                 List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
-                var accountViewModels = new List<AccountViewModel>();
+                var model = new AccountStatement();
 
+                var accountViewModels = new List<AccountViewModel>();
+                // Populate AccountViewModel list with accounts:
                 foreach (var a in accounts)
                 {
                     AccountViewModel viewModel = new AccountViewModel()
@@ -162,38 +127,16 @@ namespace dotNettbank.Controllers
                     accountViewModels.Add(viewModel);
                 }
 
+                // Set initial dates for the datepickers:
+                DateTime currDatePlusOne = DateTime.Today.AddDays(1); // Current day plus one
+                DateTime oneMonthAgo = DateTime.Today.AddMonths(-1); // Date one month ago at 0:00am
 
-                /*
-
-                var accounts = new List<AccountViewModel>();
-                accounts.Add(a);
-                accounts.Add(a);
-
-                TransactionViewModel t = new TransactionViewModel()
+                var accountStatement = new AccountStatement()
                 {
-                    Date = new DateTime(2016, 1, 1),
-                    Message = "Beskrivelse",
-                    InAmount = 1000,
-                    //OutAmount = 0,
-                    FromName = "André Hovda",
-                    ToName = "Magnus Barnholt",
-                    FromAccountNo = "12345",
-                    ToAccountNo = "23456"
+                    Accounts = accountViewModels,
+                    fromDate = oneMonthAgo,
+                    toDate = currDatePlusOne
                 };
-
-                var transactions = new List<TransactionViewModel>();
-                transactions.Add(t);
-                transactions.Add(t);
-                transactions.Add(t);
-                transactions.Add(t);
-
-                var accountStatement = new AccountStatement();
-                //accountStatement.Accounts.Add(a);
-                accountStatement.Accounts = accounts;
-                accountStatement.Transactions = transactions;
-                */
-                var accountStatement = new AccountStatement();
-                accountStatement.Accounts = accountViewModels;
 
                 return View(accountStatement);
             }
@@ -203,7 +146,51 @@ namespace dotNettbank.Controllers
             }
         }
 
+
         public ActionResult PaymentInsert() // Legg til betaling
+        {
+
+            Session["LoggedIn"] = true; // TODO: USED FOR TESTING ONLY, REMEMBER TO COMMENT OUT WHEN DONE TESTING
+            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            if (Session["LoggedIn"] != null)
+            {
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
+                // LOGIC STARTS HERE:
+
+                string userBirthNo = Session["UserId"] as string;
+                /*
+                List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
+                var accountViewModels = new List<AccountViewModel>();
+
+                foreach (var a in accounts)
+                {
+                    AccountViewModel viewModel = new AccountViewModel()
+                    {
+                        Type = a.Type,
+                        AccountNo = a.AccountNo,
+                        Balance = a.Balance
+                    };
+                    accountViewModels.Add(viewModel);
+                }
+                */
+                var model = new PaymentInsertModel();
+                // Add account view model list to view:
+                //model.Accounts = new SelectList(accountViewModels, "SelectedAccountId", "FromAccountNo", 1);
+
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("LoginBirth", "Home", new { area = "" });
+            }
+        }
+        
+        [HttpPost]
+        public ActionResult PaymentInsert(PaymentInsertModel model) // Legg til betaling
         {
             if (Session["LoggedIn"] != null)
             {
@@ -213,6 +200,68 @@ namespace dotNettbank.Controllers
                     return RedirectToAction("LoginBirth", "Home", new { area = "" });
                 }
 
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+                // LOGIC STARTS HERE:
+                //string userBirthNo = Session["UserId"] as string;
+                //List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
+                //AccountViewModel fromAccountV = model.Accounts.ElementAt(model.SelectedFromAccount);
+
+                // User birth no:
+                string userBirthNo = Session["UserId"] as string;
+
+                // User input of from/to accountNo:
+                string fromAccountNo = model.FromAccountNo;
+                string toAccountNo = model.ToAccountNo;
+
+                // Check that from and to account are not the same:
+                if (fromAccountNo != toAccountNo) {
+                    Account fromAccount = bankService.getByAccountNo(fromAccountNo);
+                    Account toAccount = bankService.getByAccountNo(fromAccountNo);
+
+                    // Check that from account exists:
+                    if (fromAccount != null)
+                    {
+                        // Check that the account belongs to logged in user:
+                        if (fromAccount.Owner.BirthNo == userBirthNo)
+                        {
+                            // Check that to account exists:
+                            if (toAccount != null)
+                            {
+                                
+                                double amount = model.AmountKr + (model.AmountOre / 100);
+
+                                // Check that amount being payed is below or equal to balance:
+                                if (amount <= fromAccount.Balance)
+                                {
+                                    // ALL IS GOOD: Attempt to go through with payment:
+                                    var payment = new Payment()
+                                    {
+                                        DateAdded = DateTime.Now,
+                                        DueDate = model.DueDate,
+                                        Amount = amount,
+                                        Message = model.Message,
+                                        FromAccountNo = fromAccountNo,
+                                        ToAccountNo = toAccountNo
+                                    };
+
+                                    if (bankService.addPayment(payment))
+                                    {
+                                        // Success     
+                                        return RedirectToAction("DueTransactions", "Customer", new { area = "" });
+                                    }
+                                    else
+                                    {
+                                        // Add to db failed
+                                        return View();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 return View();
             }
             else
@@ -220,6 +269,7 @@ namespace dotNettbank.Controllers
                 return RedirectToAction("LoginBirth", "Home", new { area = "" });
             }
         }
+
 
         public ActionResult Transfer() // Overføre (Mellom egne konti) // LAV PRIO
         {
@@ -257,7 +307,7 @@ namespace dotNettbank.Controllers
             }
         }
 
-        public ActionResult PaymentReceipts() // Utførte betalinger // LAV PRIO
+        public ActionResult PaymentReceipts() // Utførte betalinger 
         {
             if (Session["LoggedIn"] != null)
             {
@@ -275,12 +325,15 @@ namespace dotNettbank.Controllers
             }
         }
 
-
-        public JsonResult GetTransactions(string accountNo)
+        [HttpPost]
+        public ActionResult GetTransactions(string accountNo, DateTime fromDate, DateTime toDate)
         {
             string userBirthNo = Session["UserId"] as string;
 
-            List<Transaction> transactions = bankService.getTransactionsByAccountNo(accountNo);
+            // Temp list of transactions from db:
+            List<Transaction> transactions1 = bankService.getTransactionsByAccountNo(accountNo);
+            // Create a new list from our temp list where Date (Date added) is inbetween from and to date:
+            List<Transaction> transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
 
             List<TransactionViewModel> tViewModels = new List<TransactionViewModel>();
 
@@ -295,6 +348,8 @@ namespace dotNettbank.Controllers
                     ToName = t.ToAccount.Owner.FirstName,
                     ToAccountNo = t.ToAccount.AccountNo,
                 };
+                // Check if our customer is either receiver or sender of amount in  transaction, and update 
+                // either In or Out amount in ViewModel accordingly:
                 if (t.ToAccount.Owner.BirthNo == userBirthNo)
                 {
                     viewModel.InAmount = t.Amount;
@@ -305,8 +360,28 @@ namespace dotNettbank.Controllers
                 tViewModels.Add(viewModel);
             }
 
-            JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
-            return result;
+            return PartialView("TransactionsPartial", tViewModels);
+
+            //JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
+            //return result;
+        }
+
+        [HttpPost]
+        public ActionResult GetAccountInfo(string accountNo)
+        {
+            // Get account from db matching account number:
+            Account account = bankService.getByAccountNo(accountNo);
+
+            // Create view model for this account:
+            AccountViewModel viewModel = new AccountViewModel()
+            {
+                AccountNo = account.AccountNo,
+                Type = account.Type,
+                Balance = account.Balance
+            };
+
+            return PartialView("AccountInfoPartial", viewModel);
+
         }
     }
 }

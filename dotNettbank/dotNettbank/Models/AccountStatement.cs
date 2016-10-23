@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace dotNettbank.Models
 {
@@ -10,8 +11,11 @@ namespace dotNettbank.Models
 
     public class AccountStatement // Kontoutskrift
     {
+
         public List<AccountViewModel> Accounts { get; set; }
-        public AccountViewModel Account { get; set; }
+        public string AccountNo { get; set; }
+        public string AccountType { get; set; }
+        public double Balance { get; set; }
 
         [Required(ErrorMessage = "Velg en startdato")]
         [Display(Name = "Startdato")]

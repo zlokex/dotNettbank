@@ -16,29 +16,34 @@ namespace dotNettbank.Models
 
         [Required(ErrorMessage = "Fornavn må oppgis")]
         [Display(Name = "Fornavn")]
+        [RegularExpression(@"^([äÄöÖüÜéÉëËÆØÅæøåA-Za-z]{2,25})$", ErrorMessage = "Fornavn må være mellom 2 og 25 bokstaver lang")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Etternavn må oppgis")]
         [Display(Name = "Etternavn")]
+        [RegularExpression(@"^([äÄöÖüÜéÉëËÆØÅæøåA-Za-z]{2,25})$", ErrorMessage = "Etternavn må være mellom 2 og 25 bokstaver lang")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Adresse må oppgis")]
         [Display(Name = "Adresse")]
+        [RegularExpression(@"^([äÄöÖüÜëËÆØÅæøåA-Za-z0-9 _]{5,30})$", ErrorMessage = "Feil i adresse! Har du skrevet riktig?")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Telefonnummer må oppgis")]
         [Display(Name = "Telefon")]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^([(\d]{8})$", ErrorMessage = "Feil telefon nummer, kun 8 tall er tilatt")]
         public string PhoneNo { get; set; }
 
         [Required(ErrorMessage = "Postnr må oppgis")]
         [Display(Name = "Postnr")]
         [DataType(DataType.PostalCode)]
-        [RegularExpression(@"[0-9]{4}", ErrorMessage = "Postnr må være 4 siffer")]
+        [RegularExpression(@"^([(\d]{4})$", ErrorMessage = "Feil postnummer, kun 4 tall er tilatt")]
         public string PostCode { get; set; } // Postnr
 
         [Required(ErrorMessage = "Poststed må oppgis")]
         [Display(Name = "Poststed")]
+        [RegularExpression(@"^([äÄöÖüÜéÉëËÆØÅæøåA-Za-z]{2,15})$", ErrorMessage = "Feil poststed, har du skrevet riktig?")]
         public string PostalArea { get; set; } // Poststed
 
         [Required(ErrorMessage = "Passord må oppgis")]

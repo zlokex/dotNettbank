@@ -19,7 +19,24 @@ namespace dotNettbank.Model
         public string Type { get; set; } // Kontotype
         public string Name { get; set; } //KontoNavn sette ved opprettelse
         public double InterestRate { get; set; } // Rentesats
+
+        // Foreign key:
+        public string OwnerBirthNo { get; set; }
+
+        [ForeignKey("OwnerBirthNo")]
         public virtual Customer Owner { get; set; } // Eier av konto
+
+        [InverseProperty("FromAccount")]
+        public virtual IEnumerable<Transaction> SentTransactions { get; set; }
+        [InverseProperty("ToAccount")]
+        public virtual IEnumerable<Transaction> ReceivedTransactions { get; set; }
+
+        [InverseProperty("FromAccount")]
+        public virtual IEnumerable<Payment> SentPayments { get; set; }
+        [InverseProperty("ToAccount")]
+        public virtual IEnumerable<Payment> ReceivedPayments { get; set; }
+
+
 
     }
 

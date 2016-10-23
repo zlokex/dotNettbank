@@ -9,7 +9,11 @@ namespace dotNettbank.DAL.Repositories
     public class AccountRepository
     {
         // Database Context
-        BankContext db = new BankContext();
+        BankContext db;
+        public AccountRepository(BankContext bankContext)
+        {
+            db = bankContext;
+        }
 
         // GET SINGLE MODEL
 

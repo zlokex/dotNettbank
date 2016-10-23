@@ -15,11 +15,15 @@ namespace dotNettbank.Model
         public string LastName { get; set; }
         public string Address { get; set; }
         public string PhoneNo { get; set; }
-        public string PostCode { get; set; } // Postnr
-        public virtual PostalArea PostalArea { get; set; } // Poststed
         public byte[] Password { get; set; }
         public string Salt { get; set; }
 
+        //Foreign key:
+        public string PostCode { get; set; } // Postnr
+        [ForeignKey("PostCode")]
+        public virtual PostalArea PostalArea { get; set; } // Poststed
+
+        [InverseProperty("Owner")]
         public virtual IEnumerable<Account> Accounts { get; set; } // List of accounts belonging to Customer
     }
 }

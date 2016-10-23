@@ -140,6 +140,8 @@
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -149,6 +151,8 @@
     <Content Include="scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="scripts\bootstrap-datepicker.js" />
     <Content Include="scripts\bootstrap-datepicker.min.js" />
+    <Content Include="scripts\bootstrap-select.js" />
+    <Content Include="scripts\bootstrap-select.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
@@ -159,9 +163,80 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
+    <Content Include="scripts\bootstrap-select.js.map" />
+    <Content Include="Content\bootstrap-select.css.map" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\i18n\defaults-ar_AR.js" />
+    <Content Include="scripts\i18n\defaults-ar_AR.min.js" />
+    <Content Include="scripts\i18n\defaults-bg_BG.js" />
+    <Content Include="scripts\i18n\defaults-bg_BG.min.js" />
+    <Content Include="scripts\i18n\defaults-cro_CRO.js" />
+    <Content Include="scripts\i18n\defaults-cro_CRO.min.js" />
+    <Content Include="scripts\i18n\defaults-cs_CZ.js" />
+    <Content Include="scripts\i18n\defaults-cs_CZ.min.js" />
+    <Content Include="scripts\i18n\defaults-da_DK.js" />
+    <Content Include="scripts\i18n\defaults-da_DK.min.js" />
+    <Content Include="scripts\i18n\defaults-de_DE.js" />
+    <Content Include="scripts\i18n\defaults-de_DE.min.js" />
+    <Content Include="scripts\i18n\defaults-en_US.js" />
+    <Content Include="scripts\i18n\defaults-en_US.min.js" />
+    <Content Include="scripts\i18n\defaults-es_CL.js" />
+    <Content Include="scripts\i18n\defaults-es_CL.min.js" />
+    <Content Include="scripts\i18n\defaults-eu.js" />
+    <Content Include="scripts\i18n\defaults-eu.min.js" />
+    <Content Include="scripts\i18n\defaults-fa_IR.js" />
+    <Content Include="scripts\i18n\defaults-fa_IR.min.js" />
+    <Content Include="scripts\i18n\defaults-fi_FI.js" />
+    <Content Include="scripts\i18n\defaults-fi_FI.min.js" />
+    <Content Include="scripts\i18n\defaults-fr_FR.js" />
+    <Content Include="scripts\i18n\defaults-fr_FR.min.js" />
+    <Content Include="scripts\i18n\defaults-hu_HU.js" />
+    <Content Include="scripts\i18n\defaults-hu_HU.min.js" />
+    <Content Include="scripts\i18n\defaults-id_ID.js" />
+    <Content Include="scripts\i18n\defaults-id_ID.min.js" />
+    <Content Include="scripts\i18n\defaults-it_IT.js" />
+    <Content Include="scripts\i18n\defaults-it_IT.min.js" />
+    <Content Include="scripts\i18n\defaults-ko_KR.js" />
+    <Content Include="scripts\i18n\defaults-ko_KR.min.js" />
+    <Content Include="scripts\i18n\defaults-lt_LT.js" />
+    <Content Include="scripts\i18n\defaults-lt_LT.min.js" />
+    <Content Include="scripts\i18n\defaults-nb_NO.js" />
+    <Content Include="scripts\i18n\defaults-nb_NO.min.js" />
+    <Content Include="scripts\i18n\defaults-nl_NL.js" />
+    <Content Include="scripts\i18n\defaults-nl_NL.min.js" />
+    <Content Include="scripts\i18n\defaults-pl_PL.js" />
+    <Content Include="scripts\i18n\defaults-pl_PL.min.js" />
+    <Content Include="scripts\i18n\defaults-pt_BR.js" />
+    <Content Include="scripts\i18n\defaults-pt_BR.min.js" />
+    <Content Include="scripts\i18n\defaults-pt_PT.js" />
+    <Content Include="scripts\i18n\defaults-pt_PT.min.js" />
+    <Content Include="scripts\i18n\defaults-ro_RO.js" />
+    <Content Include="scripts\i18n\defaults-ro_RO.min.js" />
+    <Content Include="scripts\i18n\defaults-ru_RU.js" />
+    <Content Include="scripts\i18n\defaults-ru_RU.min.js" />
+    <Content Include="scripts\i18n\defaults-sk_SK.js" />
+    <Content Include="scripts\i18n\defaults-sk_SK.min.js" />
+    <Content Include="scripts\i18n\defaults-sl_SI.js" />
+    <Content Include="scripts\i18n\defaults-sl_SI.min.js" />
+    <Content Include="scripts\i18n\defaults-sv_SE.js" />
+    <Content Include="scripts\i18n\defaults-sv_SE.min.js" />
+    <Content Include="scripts\i18n\defaults-tr_TR.js" />
+    <Content Include="scripts\i18n\defaults-tr_TR.min.js" />
+    <Content Include="scripts\i18n\defaults-ua_UA.js" />
+    <Content Include="scripts\i18n\defaults-ua_UA.min.js" />
+    <Content Include="scripts\i18n\defaults-zh_CN.js" />
+    <Content Include="scripts\i18n\defaults-zh_CN.min.js" />
+    <Content Include="scripts\i18n\defaults-zh_TW.js" />
+    <Content Include="scripts\i18n\defaults-zh_TW.min.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
+    <None Include="scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="scripts\jquery-3.1.1.js" />
+    <Content Include="scripts\jquery-3.1.1.min.js" />
+    <Content Include="scripts\jquery-3.1.1.slim.js" />
+    <Content Include="scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="scripts\jquery-3.1.1.min.map" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
@@ -235,7 +310,6 @@
     <Content Include="scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\Customer\Login.cshtml" />
     <Content Include="Views\Admin\RegisterCustomer.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
@@ -286,6 +360,7 @@
     <Content Include="Views\Home\LoginBirth.cshtml" />
     <Content Include="Views\Home\LoginPassword.cshtml" />
     <Content Include="Views\Admin\OmOss.cshtml" />
+    <Content Include="Views\Customer\AccountInfoPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -301,6 +376,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{a5b85f04-897c-4139-a723-d67c10c2bef7}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{b417e17b-d316-4220-97b6-31cbdd05321e}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{585e1812-2d2c-403f-845f-234aeb4a8575}</Project>

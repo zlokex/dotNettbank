@@ -12,7 +12,9 @@ namespace dotNettbank.DAL
     {
         public BankContext() : base("name=Bank")
         {
-            Database.CreateIfNotExists();
+            //Database.CreateIfNotExists();
+            Database.SetInitializer<BankContext>(new BankInitializer());
+            //Database.SetInitializer<BankContext>(new CreateDatabaseIfNotExists<BankContext>());
         }
 
         public DbSet<Account> Accounts { get; set; }
