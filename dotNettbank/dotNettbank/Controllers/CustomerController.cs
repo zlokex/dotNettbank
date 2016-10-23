@@ -81,14 +81,20 @@ namespace dotNettbank.Controllers
                     {
                         Type = a.Type,
                         AccountNo = a.AccountNo,
-                        Balance = System.Convert.ToString(a.Balance)
+                        Balance = a.Balance
                     };
                     accountViewModels.Add(viewModel);
                 }
 
-                
-                var accountStatement = new AccountStatement();
-                accountStatement.Accounts = accountViewModels;
+                DateTime currDate = DateTime.Today;
+                DateTime oneMonthAgo = currDate.AddMonths(-1);
+
+                var accountStatement = new AccountStatement()
+                {
+                    Accounts = accountViewModels,
+                    fromDate = oneMonthAgo,
+                    toDate = currDate
+                };
 
                 return View(accountStatement);
             }
@@ -259,7 +265,7 @@ namespace dotNettbank.Controllers
             }
         }
 
-        public ActionResult PaymentReceipts() // Utførte betalinger
+        public ActionResult PaymentReceipts() // Utførte betalinger 
         {
             if (Session["LoggedIn"] != null)
             {
@@ -313,6 +319,24 @@ namespace dotNettbank.Controllers
 
             //JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
             //return result;
+        }
+
+        [HttpPost]
+        public ActionResult GetAccountInfo(string accountNo)
+        {
+            // Get account from db matching account number:
+            Account account = bankService.getByAccountNo(accountNo);
+
+            // Create view model for this account:
+            AccountViewModel viewModel = new AccountViewModel()
+            {
+                AccountNo = account.AccountNo,
+                Type = account.Type,
+                Balance = account.Balance
+            };
+
+            return PartialView("AccountInfoPartial", viewModel);
+
         }
     }
 }
