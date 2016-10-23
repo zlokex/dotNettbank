@@ -1,11 +1,36 @@
-﻿@model dotNettbank.Models.AccountViewModel
+﻿
 @{
     ViewBag.Title = "Overview";
     Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
 }
 
-<h2>Overview</h2>
-Kontoer:
-bla bla bla bla
-bla bla bla bla
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Totaloversikt</title>
+</head>
+<body>
+    
+
+    <hr />
+    <div id="transactionsList"></div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Kontotype</th>
+                <th>Kontonavn</th>
+                <th>Kontonummer</th>
+                <th>Saldo</th>
+            </tr>
+
+
+
+</thead>
+        <tbody id="show_transactions"></tbody>
+    </table>
+
+
+</body>
+</html>
