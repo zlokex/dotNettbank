@@ -19,6 +19,7 @@ namespace dotNettbank.Models.Login
     {
         [Required(ErrorMessage = "Engangskode må oppgis")]
         [Display(Name = "Engangskode (BankID)")]
+        [RegularExpression(@"^([(\d]{6})$", ErrorMessage = "Feil engangskode, prøv igjen (seks siffer)")]
         public string BankID { get; set; }
     }
 
