@@ -67,11 +67,27 @@ namespace dotNettbank.Controllers
 
         public ActionResult KontoOpprettet()
         {
+            if (Session["LoggedIn"] != null)
+            {
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
+            }
             return View();
         }
 
         public ActionResult OpenAccount()
         {
+            if (Session["LoggedIn"] != null)
+            {
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
+                {
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
+            }
             return View();
         }
 
@@ -115,16 +131,6 @@ namespace dotNettbank.Controllers
                 return View();
             }
         }
-
-
-        /// //////////////////////////////////////CUSTOMER-START/////////////////////////////////////////////////////////////
-
-        /// //////////////////////////////////////CUSTOMER-SLUTT/////////////////////////////////////////////////////////////
-
-
-
-
-
 
 
         public ActionResult AccountStatement() // Kontoutskrift

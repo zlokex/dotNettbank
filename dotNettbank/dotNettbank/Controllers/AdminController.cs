@@ -78,10 +78,7 @@ namespace dotNettbank.Controllers
         }
 
 
-        public ActionResult AboutUs()
-        {
-            return View();
-        }
+
 
         [AllowAnonymous]
         public JsonResult CheckExistingBirthNo(string BirthNo)
