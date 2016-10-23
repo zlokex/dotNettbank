@@ -1,6 +1,11 @@
 # dotNettbank
 
-2 parts grup and 1 part individual assignment for the subject 'Webapplikasjoner' at HiOA.
+2 parts group and 1 part individual assignment for the subject 'Webapplikasjoner' at HiOA.
+
+## Decision choices
+We have chosen to write both the code and comments of the aplication in English. This is by part done to make the code more accessible to others, and to ease the use of naming conventions, as well as avoiding the use of "æ, ø, å".
+
+The user interface and text of the application however is in Norwegian.
 
 ### Key functionality
 * Secure login with user sessions
