@@ -1,0 +1,88 @@
+﻿@model dotNettbank.Models.DuePayments
+
+@{
+    ViewBag.Title = "Forfallsoversikt";
+    Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Forfallsoversikt</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="form-group input-group-sm col-md-12">
+        </div>
+        <div class="form-group input-group-sm col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <select class="selectpicker form-control" id="selected_account">
+                            @foreach (var account in Model.Accounts)
+                            {
+                                <option>@(account.AccountNo)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="form-group col-md-3">
+                <button class="btn btn-info btn-lg" id="due_payments_btn">Vis</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="accountInfo"></div>
+
+<div id="duePaymentsList"></div>
+
+<script type="text/javascript">
+        $(function () {
+            // When document is first loaded
+            var account = $('#selected_account').find(":selected").text();
+            getAccountInfo();
+            getPayments();
+            // When "Vis transaksjoner" button is pressed:
+            $('#due_payments_btn').click(function () {
+                account = $('#selected_account').find(":selected").text();
+                getAccountInfo();
+                getPayments();
+
+            });
+            // Get account info for selected account
+            function getAccountInfo() {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetAccountInfo","Customer")',
+                    data: { accountNo: account } 
+                }).done(function (result) {
+                    $('#accountInfo').html(result);
+                });
+            }
+
+            // Get Transactions to selected account, between dates:
+            function getPayments() {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPayments","Customer")',
+                    data: { accountNo: account} 
+                }).done(function (result) {
+                    $('#duePaymentsList').html(result);
+                });
+            }
+        });
+
+</script>
+
+<script type="text/javascript">
+        $('.datepicker').datepicker(); //Initialise any date pickers
+</script>
+
+<script type="text/javascript">
+
+        $('.collapse').on('show.bs.collapse', function () {
+            $('.collapse.in').collapse('hide');
+        });
+</script>

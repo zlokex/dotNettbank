@@ -327,6 +327,8 @@
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\Login\Login.cs" />
     <Compile Include="Models\PaymentInsertModel.cs" />
+    <Compile Include="Models\DuePayments.cs" />
+    <Compile Include="Models\PaymentVM.cs" />
     <Compile Include="Models\RegisterCustomer.cs" />
     <Compile Include="Models\TransactionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -348,7 +350,7 @@
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LayoutInnlogget.cshtml" />
     <Content Include="Views\Customer\AccountStatement.cshtml" />
-    <Content Include="Views\Customer\DueTransactions.cshtml" />
+    <Content Include="Views\Customer\DuePayments.cshtml" />
     <Content Include="Views\Customer\Overview.cshtml" />
     <Content Include="Views\Customer\PaymentInsert.cshtml" />
     <Content Include="Views\Customer\PaymentReceipts.cshtml" />
@@ -360,6 +362,7 @@
     <Content Include="Views\Home\LoginPassword.cshtml" />
     <Content Include="Views\Admin\OmOss.cshtml" />
     <Content Include="Views\Customer\AccountInfoPartial.cshtml" />
+    <Content Include="Views\Customer\PaymentsPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

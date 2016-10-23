@@ -125,6 +125,21 @@ namespace dotNettbank.BLL
             return transactionRepository.getTransactionsByBirthNo(birthNo);
         }
 
+        public List<Payment> getDuePaymentsByAccountNo(string accountNo)
+        {
+            return paymentRepository.getDuePaymentsByAccountNo(accountNo);
+        }
+
+        public bool deletePayment(Payment payment)
+        {
+            return paymentRepository.deletePayment(payment);
+        }
+
+        public Payment getPaymentById(int id)
+        {
+            return paymentRepository.getById(id);
+        }
+
 
         public void completePayments()
         {

@@ -1,0 +1,62 @@
+﻿@model List<dotNettbank.Models.PaymentVM>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Regninger til forfall</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover" id="payments_table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PaymentID)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DateAdded)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DueDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Message)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Amount)</th>
+                    <th>Endre</th>
+                    <th>Slett</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr data-toggle="collapse" class="clickable">
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.PaymentID)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.DateAdded)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.DueDate)</td>
+                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.Message)</td>
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.Amount)</td>
+                        <td class="col-md-1"><button class="btn btn-info" id="edit_btn">Endre</button></td>
+                        <td class="col-md-1"><button class="btn btn-danger" id="remove_btn">Slett</button></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#payments_table').on('click', '#remove_btn', function (events) {
+            // Get payment id from tr td:
+            var paymentId = $(this).closest('tr').find('td').eq(0).html(); // col1
+            //var col2 = $(this).closest('tr').find('td').eq(1).html();
+            //var col2 = $(this).closest('tr').find('td').eq(1).html();
+            var rowToRemove = $(this).closest('tr');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteDuePayment","Customer")',
+                data: { paymentId: paymentId},
+            }).done(function (result) {
+                // If payment was succesful (true)
+                if (result) {
+                    // Remove row:
+                    rowToRemove.remove();
+                }
+            });
+        });
+
+    });
+</script>

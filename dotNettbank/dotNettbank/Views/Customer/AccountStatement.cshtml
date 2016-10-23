@@ -50,9 +50,9 @@
 
     <div id="accountInfo"></div>
 
-<div class="panel panel-default">
+
     <div id="transactionsList"></div>
-    </div>
+
 
     <script type="text/javascript">
         $(function () {
@@ -76,7 +76,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetAccountInfo","Customer")',
-                    data: { accountNo: account } // reconvert date formats to ISO String
+                    data: { accountNo: account }
                 }).done(function (result) {
                     $('#accountInfo').html(result);
                 });

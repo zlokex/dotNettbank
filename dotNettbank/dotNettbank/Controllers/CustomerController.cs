@@ -209,7 +209,7 @@ namespace dotNettbank.Controllers
                                     if (bankService.addPayment(payment))
                                     {
                                         // Success     
-                                        return RedirectToAction("DueTransactions", "Customer", new { area = "" });
+                                        return RedirectToAction("DuePayments", "Customer", new { area = "" });
                                     }
                                     else
                                     {
@@ -248,8 +248,10 @@ namespace dotNettbank.Controllers
             }
         }
 
-        public ActionResult DueTransactions() // Forfallsoversikt
+        public ActionResult DuePayments() // Forfallsoversikt
         {
+            Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -258,7 +260,37 @@ namespace dotNettbank.Controllers
                     return RedirectToAction("LoginBirth", "Home", new { area = "" });
                 }
 
-                return View();
+                string userBirthNo = Session["UserId"] as string;
+
+                // Get accounts to user:
+                List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
+                var model = new AccountStatement();
+
+                var accountViewModels = new List<AccountViewModel>();
+                // Populate AccountViewModel list with accounts:
+                foreach (var a in accounts)
+                {
+                    AccountViewModel viewModel = new AccountViewModel()
+                    {
+                        Type = a.Type,
+                        AccountNo = a.AccountNo,
+                        Balance = a.Balance
+                    };
+                    accountViewModels.Add(viewModel);
+                }
+
+                // Set initial dates for the datepickers:
+                DateTime currDatePlusOne = DateTime.Today.AddDays(1); // Current day plus one
+                DateTime oneMonthAgo = DateTime.Today.AddMonths(-1); // Date one month ago at 0:00am
+
+                var duePayments = new DuePayments()
+                {
+                    Accounts = accountViewModels,
+                    fromDate = oneMonthAgo,
+                    toDate = currDatePlusOne
+                };
+
+                return View(duePayments);
             }
             else
             {
@@ -323,6 +355,53 @@ namespace dotNettbank.Controllers
 
             //JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
             //return result;
+        }
+
+        [HttpPost]
+        public ActionResult GetPayments(string accountNo)
+        {
+            string userBirthNo = Session["UserId"] as string;
+
+            // List of due payments (payments made by this user (fromaccountno)
+            List<Payment> duePayments = bankService.getDuePaymentsByAccountNo(accountNo);
+
+            // List of Payment view model:
+            List<PaymentVM> viewModels = new List<PaymentVM>();
+
+            foreach (var t in duePayments)
+            {
+                var viewModel = new PaymentVM()
+                {
+                    PaymentID = t.PaymentID,
+                    DateAdded = t.DateAdded,
+                    DueDate = t.DueDate,
+                    Amount = t.Amount,
+                    Message = t.Message,
+                    FromName = t.FromAccount.Owner.FirstName,
+                    FromAccountNo = t.FromAccount.AccountNo,
+                    ToName = t.ToAccount.Owner.FirstName,
+                    ToAccountNo = t.ToAccount.AccountNo,
+                };
+                viewModels.Add(viewModel);
+            }
+
+            return PartialView("PaymentsPartial", viewModels);
+
+        }
+
+        
+        [HttpPost]
+        public bool DeleteDuePayment(int paymentID)
+        {
+            // Get Payment that is to be deleted from the paymentID:
+            Payment paymentToBeDeleted = bankService.getPaymentById(paymentID);
+
+            // Attempt to delete payment from db:
+            bool success = bankService.deletePayment(paymentToBeDeleted);
+
+            // Return success status:
+            return success;
+
         }
 
         [HttpPost]
