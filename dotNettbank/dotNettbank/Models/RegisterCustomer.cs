@@ -50,6 +50,7 @@ namespace dotNettbank.Models
         [StringLength(255, ErrorMessage = "Må være på mellom 5 og 255 karakterer", MinimumLength = 5)]
         [Display(Name = "Passord")]
         [DataType(DataType.Password)]
+        //[RegularExpression(@"^.*(?=.{7,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@'#.$;%^&+=!""()*,-/:<>?]).*$", ErrorMessage = "Feil passord, har du skrevet riktig?")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Gjenta passord må oppgis")]
