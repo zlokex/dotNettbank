@@ -23,11 +23,32 @@ namespace dotNettbank.Controllers
 
         public ActionResult Overview() // Total oversikt
         {
-            
+
             if (Session["LoggedIn"] != null)
             {
                 string birthID = Session["UserId"] as string;
-                
+                List<Account> accounts = bankService.getAccountsByBirthNo(birthID);
+                var model = new AccountStatement();
+
+                var accountViewModels = new List<AccountViewModel>();
+                // Populate AccountViewModel list with accounts:
+                foreach (var a in accounts)
+                {
+                    AccountViewModel viewModel = new AccountViewModel()
+                    {
+                        Type = a.Type,
+                        AccountNo = a.AccountNo,
+                        Balance = a.Balance,
+                        Name = a.Name
+                    };
+                    accountViewModels.Add(viewModel);
+                }
+
+                var accountStatement = new AccountStatement()
+                {
+                    Accounts = accountViewModels,
+                };
+
                 bool loggedIn = (bool)Session["LoggedIn"];
                 if (!loggedIn)
                 {
@@ -37,7 +58,8 @@ namespace dotNettbank.Controllers
                 {
                     var kundeDb = new BankService();
                     Customer enKunde = kundeDb.getCustomerByBirthNo(birthID);
-                    return View(enKunde);
+                    List<Account> alleKonto = kundeDb.getAccountsByBirthNo(birthID);
+                    return View(accountStatement);
                 }
             }
             return View();
@@ -57,7 +79,8 @@ namespace dotNettbank.Controllers
         public ActionResult OpenAccount(Account regAccount)
         {
             Random random = new Random();
-            int newAccNo = random.Next(100000001, 999999999);
+            int newAccNo1 = random.Next(10000, 99999);
+            int newAccNo2 = random.Next(000000, 999999);
             string user = Session["UserId"] as string;
             Customer customer = bankService.getCustomerByBirthNo(user);
             string AccountType = "Brukskonto";
@@ -71,7 +94,7 @@ namespace dotNettbank.Controllers
             Account account = new Account()
             {
 
-                AccountNo = "" + newAccNo,
+                AccountNo = "" + newAccNo1 + newAccNo2,
                 Name = regAccount.Name,
                 Balance = 5000,
                 Owner = customer,
