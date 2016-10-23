@@ -50,24 +50,12 @@
         
         <div id="transactionsList"></div>
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Dato</th>
-                    <th>Beskrivelse</th>
-                    <th>Inn</th>
-                    <th>Ut</th>
-                </tr>
-            </thead>
-            <tbody id="show_transactions"></tbody>
-        </table>
-
         <script type="text/javascript">
             $(function () {
                 $('#transactions_btn').click(function () {
                     var account = $('#selected_account').find(":selected").text();
-                    fromDate = $('#from_date').datepicker("getDate");
-                    toDate = $('#to_date').datepicker("getDate");
+                    fromDate = $('#from_date').datepicker("getDate"); // Convert from datepicker value to Date format
+                    toDate = $('#to_date').datepicker("getDate"); // Convert to datepicker value to Date format
                     $('#account_no').text(account);
 
                     //
@@ -76,7 +64,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("GetTransactions","Customer")',
-                        data: { accountNo: account, fromDate: fromDate.toISOString(), toDate: toDate.toISOString() }
+                        data: { accountNo: account, fromDate: fromDate.toISOString(), toDate: toDate.toISOString() } // reconvert date formats to ISO String
                     }).done(function(result) {
                         $('#transactionsList').html(result);
                     });
