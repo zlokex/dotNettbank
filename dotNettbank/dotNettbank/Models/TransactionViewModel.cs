@@ -10,7 +10,7 @@ namespace dotNettbank.Models
     public class TransactionViewModel
     {
         [Display(Name = "Dato")]
-        [DisplayFormat(DataFormatString = "{dd-mm-yyyy}")]
+        //[DisplayFormat(DataFormatString = "{dd-mm-yyyy}")]
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
 

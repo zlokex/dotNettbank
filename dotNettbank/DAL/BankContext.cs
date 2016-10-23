@@ -12,8 +12,8 @@ namespace dotNettbank.DAL
     {
         public BankContext() : base("name=Bank")
         {
-            Database.CreateIfNotExists();
-            //Database.SetInitializer<BankContext>(new BankInitializer());
+            //Database.CreateIfNotExists();
+            Database.SetInitializer<BankContext>(new BankInitializer());
             //Database.SetInitializer<BankContext>(new CreateDatabaseIfNotExists<BankContext>());
         }
 

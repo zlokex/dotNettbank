@@ -58,7 +58,7 @@ namespace dotNettbank.Controllers
         public ActionResult AccountStatement() // Kontoutskrift
         {
             Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
-            Session["UserId"] = "01018940740"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -69,50 +69,24 @@ namespace dotNettbank.Controllers
 
                 string userBirthNo = Session["UserId"] as string;
 
+                // Get accounts to user:
                 List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
-                var accountViewModels = new List<AccountViewModel>();
+                var model = new AccountStatement();
 
+                var accountViewModels = new List<AccountViewModel>();
+                // Populate AccountViewModel list with accounts:
                 foreach (var a in accounts)
                 {
                     AccountViewModel viewModel = new AccountViewModel()
                     {
                         Type = a.Type,
                         AccountNo = a.AccountNo,
-                        Balance = a.Balance
+                        Balance = System.Convert.ToString(a.Balance)
                     };
                     accountViewModels.Add(viewModel);
                 }
 
-
-                /*
-
-                var accounts = new List<AccountViewModel>();
-                accounts.Add(a);
-                accounts.Add(a);
-
-                TransactionViewModel t = new TransactionViewModel()
-                {
-                    Date = new DateTime(2016, 1, 1),
-                    Message = "Beskrivelse",
-                    InAmount = 1000,
-                    //OutAmount = 0,
-                    FromName = "André Hovda",
-                    ToName = "Magnus Barnholt",
-                    FromAccountNo = "12345",
-                    ToAccountNo = "23456"
-                };
-
-                var transactions = new List<TransactionViewModel>();
-                transactions.Add(t);
-                transactions.Add(t);
-                transactions.Add(t);
-                transactions.Add(t);
-
-                var accountStatement = new AccountStatement();
-                //accountStatement.Accounts.Add(a);
-                accountStatement.Accounts = accounts;
-                accountStatement.Transactions = transactions;
-                */
+                
                 var accountStatement = new AccountStatement();
                 accountStatement.Accounts = accountViewModels;
 
@@ -124,11 +98,12 @@ namespace dotNettbank.Controllers
             }
         }
 
+
         public ActionResult PaymentInsert() // Legg til betaling
         {
 
             Session["LoggedIn"] = true; // TODO: USED FOR TESTING ONLY, REMEMBER TO COMMENT OUT WHEN DONE TESTING
-            Session["UserId"] = "01018940740"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -302,8 +277,8 @@ namespace dotNettbank.Controllers
             }
         }
 
-
-        public JsonResult GetTransactions(string accountNo)
+        [HttpPost]
+        public ActionResult GetTransactions(string accountNo, DateTime fromDate, DateTime toDate)
         {
             string userBirthNo = Session["UserId"] as string;
 
@@ -332,8 +307,10 @@ namespace dotNettbank.Controllers
                 tViewModels.Add(viewModel);
             }
 
-            JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
-            return result;
+            return PartialView("TransactionsPartial", tViewModels);
+
+            //JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
+            //return result;
         }
     }
 }

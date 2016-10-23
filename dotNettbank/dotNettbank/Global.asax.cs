@@ -20,7 +20,10 @@ namespace dotNettbank
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //Database.SetInitializer<BankContext>(new BankInitializer());
+            using (var db = new BankContext())
+            {
+                new BankInitializer().InitializeDatabase(db);
+            }
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             try

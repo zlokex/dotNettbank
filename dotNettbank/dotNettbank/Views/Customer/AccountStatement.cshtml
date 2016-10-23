@@ -4,84 +4,120 @@
     ViewBag.Title = "AccountStatement";
     Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
 }
-<h2>Kontoutskrift</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-
-    @Html.DropDownListFor(model => model.Account, new SelectList(Model.Accounts, "AccountNo", "Type"))
-    <div id="account_no"></div>
-
-
-    <div class="form-group input-group-sm">
-        @Html.LabelFor(model => model.fromDate)
-        @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control datepicker", placeholder = "Velg fra-dato" })
-        @Html.ValidationMessageFor(model => model.fromDate)
-    </div>
-
-    <div class="form-group input-group-sm">
-        @Html.LabelFor(model => model.toDate)
-        @Html.TextBoxFor(model => model.toDate, new { @class = "form-control datepicker", placeholder = "Velg til-dato" })
-        @Html.ValidationMessageFor(model => model.toDate)
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-4 col-md-8">
-            <input type="submit" value="Registrer" class="btn btn-success" />
+        <div class="form-group input-group-sm col-md-12">
+                <h2>Kontoutskrift</h2>
         </div>
-    </div>
-}
+        <div class="form-group input-group-sm col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <select class="selectpicker form-control" id="selected_account">
+                            @foreach (var account in Model.Accounts)
+                            {
+                                <option>@(account.AccountNo)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div id="transactionsList"></div>
+        <div class="row col-md-12">
+        <div class="form-group input-group-sm col-md-3">
+            @Html.LabelFor(model => model.fromDate)
+            @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control datepicker", placeholder = "Velg fra-dato", id = "from_date" })
+            @Html.ValidationMessageFor(model => model.fromDate)
+        </div>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Dato</th>
-            <th>Beskrivelse</th>
-            <th>Inn</th>
-            <th>Ut</th>
-        </tr>
-    </thead>
-    <tbody id="show_transactions">
-    </tbody>
-</table>
+        <div class="form-group input-group-sm col-md-3">
+            @Html.LabelFor(model => model.toDate)
+            @Html.TextBoxFor(model => model.toDate, new { @class = "form-control datepicker", placeholder = "Velg til-dato", id = "to_date" })
+            @Html.ValidationMessageFor(model => model.toDate)
+        </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3">
+                <button class="btn btn-success" id="transactions_btn">Vis transaksjoner</button>
+            </div>
+        </div>
+        
+        <div class="form-group col-md-3" id="account_info">
+            <div id="account_no"></div>
+            <div id="account_type"></div>
+            <div id="account_balance"></div>
+        </div>
+        
+        <div id="transactionsList"></div>
 
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Dato</th>
+                    <th>Beskrivelse</th>
+                    <th>Inn</th>
+                    <th>Ut</th>
+                </tr>
+            </thead>
+            <tbody id="show_transactions"></tbody>
+        </table>
 
+        <script type="text/javascript">
+            $(function () {
+                $('#transactions_btn').click(function () {
+                    var account = $('#selected_account').find(":selected").text();
+                    fromDate = $('#from_date').datepicker("getDate");
+                    toDate = $('#to_date').datepicker("getDate");
+                    $('#account_no').text(account);
 
-<script type="text/javascript">
-$('.datepicker').datepicker(); //Initialise any date pickers
-</script>
+                    //
 
-<script type="text/javascript">
-    function getTransactions() {
-        $.getJSON("/Customer/GetTransactions", { account: $("#account_no").val() }, function (transaction) {
-            var output = "";
-            for (var i in transaction) {
-                output += '<tr data-toggle="collapse" data-target="#more_info_'+i+'" class="clickable">';
-                output += "<td class='col-md-3'>" + transaction[i].Date + "</td>";
-                output += "<td class='col-md-3'>" + transaction[i].Message + "</td>";
-                output += "<td class='col-md-3 text-success'>" + transaction[i].InAmount + "</td>";
-                output += "<td class='col-md-3'>" + transaction[i].OutAmount + "</td>";
-                output += "</tr>";
-                output += "<tr>";
-                output += '<td class="hiddenRow col-md-12">';
-                output += '<div id="more_info_'+i+'" class="collapse">';
-                output += "Avsender navn: " + transaction[i].FromName;
-                output += "Mottaker navn: " + transaction[i].ToName;
-                output += "Avsender konto: " + transaction[i].FromAccountNo;
-                output += "Mottaker konto: " + transaction[i].ToAccountNo;
-                output += "</div> </td></tr>";
+                    // Get Transactions to selected account, between dates:
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetTransactions","Customer")',
+                        data: { accountNo: account, fromDate: fromDate.toISOString(), toDate: toDate.toISOString() }
+                    }).done(function(result) {
+                        $('#transactionsList').html(result);
+                    });
 
+                });
+            });
+
+            function getTransactions() {
+                $.getJSON("/Customer/GetTransactions", {
+                    accountNo: $('#selected_account').find(":selected").text(), function (transaction) {
+                        var output = "";
+                        for (var i in transaction) {
+                            output += '<tr data-toggle="collapse" data-target="#more_info_' + i + '" class="clickable">';
+                            output += "<td class='col-md-3'>" + transaction[i].Date + "</td>";
+                            output += "<td class='col-md-3'>" + transaction[i].Message + "</td>";
+                            output += "<td class='col-md-3 text-success'>" + transaction[i].InAmount + "</td>";
+                            output += "<td class='col-md-3'>" + transaction[i].OutAmount + "</td>";
+                            output += "</tr>";
+                            output += "<tr>";
+                            output += '<td class="hiddenRow col-md-12">';
+                            output += '<div id="more_info_' + i + '" class="collapse">';
+                            output += "Avsender navn: " + transaction[i].FromName;
+                            output += "Mottaker navn: " + transaction[i].ToName;
+                            output += "Avsender konto: " + transaction[i].FromAccountNo;
+                            output += "Mottaker konto: " + transaction[i].ToAccountNo;
+                            output += "</div> </td></tr>";
+
+                        }
+                        $("#show_transactions").html(output);
+                    }
+                });
             }
-            $("#show_transactions").html(ut);
-        });
-    }
+        </script>
 
+        <script type="text/javascript">
+            $('.datepicker').datepicker(); //Initialise any date pickers
+        </script>
 
+        <script type="text/javascript">
 
-    $('.collapse').on('show.bs.collapse', function () {
-        $('.collapse.in').collapse('hide');
-    });
-</script>
+            $('.collapse').on('show.bs.collapse', function () {
+                $('.collapse.in').collapse('hide');
+            });
+        </script>
