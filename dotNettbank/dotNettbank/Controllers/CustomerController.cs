@@ -76,7 +76,7 @@ namespace dotNettbank.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenAccount(Account regAccount)
+        public ActionResult OpenAccount(regAccount regAccount)
         {
             Random random = new Random();
             int newAccNo1 = random.Next(10000, 99999);
@@ -182,8 +182,8 @@ namespace dotNettbank.Controllers
         public ActionResult PaymentInsert() // Legg til betaling
         {
 
-            Session["LoggedIn"] = true; // TODO: USED FOR TESTING ONLY, REMEMBER TO COMMENT OUT WHEN DONE TESTING
-            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["LoggedIn"] = true; // TODO: USED FOR TESTING ONLY, REMEMBER TO COMMENT OUT WHEN DONE TESTING
+            //Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -224,8 +224,8 @@ namespace dotNettbank.Controllers
         [HttpPost]
         public ActionResult PaymentInsert(PaymentInsertModel model) // Legg til betaling
         {
-            Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
-            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -325,8 +325,8 @@ namespace dotNettbank.Controllers
 
         public ActionResult DuePayments() // Forfallsoversikt
         {
-            Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
-            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            //Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -554,46 +554,60 @@ namespace dotNettbank.Controllers
         [HttpPost]
         public ActionResult GetPayments(string accountNo)
         {
-            // List of due payments 
-            List<Payment> duePayments;
-
-            // Check if All ccounts/Alle kontoer option was selected:
-            if (accountNo == "Alle kontoer")
+            if (Session["LoggedIn"] != null)
             {
-                // If all accounts are chosen
-                string userBirthNo = Session["UserId"] as string;
-                // Get all due payments to user:
-                duePayments = bankService.getDuePaymentsByBirthNo(userBirthNo);
+                string birthID = Session["UserId"] as string;
 
-            }
-            else
-            {
-                // If not, that means the user selected an account number, so get all due payments based on that accountNo:
-                duePayments = bankService.getDuePaymentsByAccountNo(accountNo);
-            }
-            
-            // List of Payment view model:
-            List<PaymentVM> viewModels = new List<PaymentVM>();
-
-            foreach (var t in duePayments)
-            {
-                var viewModel = new PaymentVM()
+                bool loggedIn = (bool)Session["LoggedIn"];
+                if (!loggedIn)
                 {
-                    PaymentID = t.PaymentID,
-                    DateAdded = t.DateAdded,
-                    DueDate = t.DueDate,
-                    Amount = t.Amount,
-                    Message = t.Message,
-                    FromName = t.FromAccount.Owner.FirstName,
-                    FromAccountNo = t.FromAccount.AccountNo,
-                    ToName = t.ToAccount.Owner.FirstName,
-                    ToAccountNo = t.ToAccount.AccountNo,
-                };
-                viewModels.Add(viewModel);
+                    return RedirectToAction("LoginBirth", "Home", new { area = "" });
+                }
+                else
+                {
+                    // List of due payments 
+                    List<Payment> duePayments;
+
+                    // Check if All ccounts/Alle kontoer option was selected:
+                    if (accountNo == "Alle kontoer")
+                    {
+                        // If all accounts are chosen
+                        string userBirthNo = Session["UserId"] as string;
+                        // Get all due payments to user:
+                        duePayments = bankService.getDuePaymentsByBirthNo(userBirthNo);
+
+                    }
+                    else
+                    {
+                        // If not, that means the user selected an account number, so get all due payments based on that accountNo:
+                        duePayments = bankService.getDuePaymentsByAccountNo(accountNo);
+                    }
+
+                    // List of Payment view model:
+                    List<PaymentVM> viewModels = new List<PaymentVM>();
+
+                    foreach (var t in duePayments)
+                    {
+                        var viewModel = new PaymentVM()
+                        {
+                            PaymentID = t.PaymentID,
+                            DateAdded = t.DateAdded,
+                            DueDate = t.DueDate,
+                            Amount = t.Amount,
+                            Message = t.Message,
+                            FromName = t.FromAccount.Owner.FirstName,
+                            FromAccountNo = t.FromAccount.AccountNo,
+                            ToName = t.ToAccount.Owner.FirstName,
+                            ToAccountNo = t.ToAccount.AccountNo,
+                        };
+                        viewModels.Add(viewModel);
+                    }
+
+                    return PartialView("PaymentsPartial", viewModels);
+                }
+
             }
-
-            return PartialView("PaymentsPartial", viewModels);
-
+            return RedirectToAction("LoginBirth", "Home", new { area = "" });
         }
 
         

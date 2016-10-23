@@ -363,7 +363,7 @@
     <Content Include="Views\Home\LoginBankId.cshtml" />
     <Content Include="Views\Home\LoginBirth.cshtml" />
     <Content Include="Views\Home\LoginPassword.cshtml" />
-    <Content Include="Views\Admin\OmOss.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\Customer\AccountInfoPartial.cshtml" />
     <Content Include="Views\Customer\PaymentsPartial.cshtml" />
     <Content Include="Views\Customer\KontoOpprettet.cshtml" />

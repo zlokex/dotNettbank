@@ -78,7 +78,7 @@ namespace dotNettbank.Controllers
         }
 
 
-        public ActionResult OmOss()
+        public ActionResult AboutUs()
         {
             return View();
         }
