@@ -11,5 +11,6 @@ namespace dotNettbank.Models
         public string Type { get; set; }
         public string AccountNo { get; set; }
         public double Balance { get; set; }
+        public string Name { get; set; }
     }
 }

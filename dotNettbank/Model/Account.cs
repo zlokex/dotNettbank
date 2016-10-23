@@ -14,9 +14,10 @@ namespace dotNettbank.Model
     public class Account
     {
         [Key]
-        public string AccountNo { get; set; }
-        public double Balance { get; set; }
+        public string AccountNo { get; set; } //kontonr
+        public double Balance { get; set; } //Saldo
         public string Type { get; set; } // Kontotype
+        public string Name { get; set; } //KontoNavn sette ved opprettelse
         public double InterestRate { get; set; } // Rentesats
         public virtual Customer Owner { get; set; } // Eier av konto
 
