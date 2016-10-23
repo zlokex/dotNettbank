@@ -20,6 +20,7 @@ namespace dotNettbank.Model
         public string Name { get; set; } //KontoNavn sette ved opprettelse
         public double InterestRate { get; set; } // Rentesats
 
+
         // Foreign key:
         public string OwnerBirthNo { get; set; }
 
