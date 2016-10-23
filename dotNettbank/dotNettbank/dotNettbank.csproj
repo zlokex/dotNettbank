@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
@@ -334,7 +334,6 @@
     <Compile Include="Models\TransactionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\LoginBankIDViewModel.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -351,7 +350,6 @@
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LayoutInnlogget.cshtml" />
     <Content Include="Views\Customer\AccountStatement.cshtml" />
-    <Content Include="Views\Customer\DueTransactions.cshtml" />
     <Content Include="Views\Customer\DuePayments.cshtml" />
     <Content Include="Views\Customer\Overview.cshtml" />
     <Content Include="Views\Customer\PaymentInsert.cshtml" />
@@ -366,6 +364,7 @@
     <Content Include="Views\Customer\AccountInfoPartial.cshtml" />
     <Content Include="Views\Customer\PaymentsPartial.cshtml" />
     <Content Include="Views\Customer\KontoOpprettet.cshtml" />
+    <Content Include="Views\Customer\PaymentInsertPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

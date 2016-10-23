@@ -47,6 +47,9 @@ namespace dotNettbank.Models
         [Display(Name = "Øre")]
         [RegularExpression(@"^([(\d]{0,2})$", ErrorMessage = "Feil i øre, kun 0, 1 eller 2 siffer tilatt")]
         public int AmountOre { get; set; }
+
+        // Ikke required
+        public int PaymentID;
     }
 }
 
