@@ -130,6 +130,11 @@ namespace dotNettbank.BLL
             return paymentRepository.getDuePaymentsByAccountNo(accountNo);
         }
 
+        public List<Payment> getDuePaymentsByBirthNo(string birthNo)
+        {
+            return paymentRepository.getDuePaymentsByBirthNo(birthNo);
+        }
+
         public bool deletePayment(Payment payment)
         {
             return paymentRepository.deletePayment(payment);
