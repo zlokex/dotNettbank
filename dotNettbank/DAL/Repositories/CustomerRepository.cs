@@ -84,7 +84,7 @@ namespace dotNettbank.DAL.Repositories
         }
 
         /// <summary>
-        /// Delete a customer from db fro existing Customer object
+        /// Delete a customer from db from existing Customer object
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>

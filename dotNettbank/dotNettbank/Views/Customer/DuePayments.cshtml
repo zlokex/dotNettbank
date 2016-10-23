@@ -1,12 +1,12 @@
-﻿@model dotNettbank.Models.AccountStatement
+﻿@model dotNettbank.Models.DuePayments
 
 @{
-    ViewBag.Title = "Kontoutskrift";
+    ViewBag.Title = "Forfallsoversikt";
     Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
 }
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3>Kontoutskrift</h3>
+        <h3>Forfallsoversikt</h3>
     </div>
 
     <div class="panel-body">
@@ -27,49 +27,29 @@
                 </div>
             </div>
         </div>
-
-        <div class="row col-md-12">
-            <div class="form-group input-group-sm col-md-3">
-                @Html.LabelFor(model => model.fromDate)
-                @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control datepicker", placeholder = "Velg fra-dato", id = "from_date" })
-                @Html.ValidationMessageFor(model => model.fromDate)
-            </div>
-
-            <div class="form-group input-group-sm col-md-3">
-                @Html.LabelFor(model => model.toDate)
-                @Html.TextBoxFor(model => model.toDate, new { @class = "form-control datepicker", placeholder = "Velg til-dato", id = "to_date" })
-                @Html.ValidationMessageFor(model => model.toDate)
-            </div>
-        </div>
         <div class="row col-md-12">
             <div class="form-group col-md-3">
-                <button class="btn btn-info btn-lg" id="transactions_btn">Vis transaksjoner</button>
+                <button class="btn btn-info btn-lg" id="due_payments_btn">Vis</button>
             </div>
         </div>
     </div>
 </div>
 
-    <div id="accountInfo"></div>
+<div id="accountInfo"></div>
 
+<div id="duePaymentsList"></div>
 
-    <div id="transactionsList"></div>
-
-
-    <script type="text/javascript">
+<script type="text/javascript">
         $(function () {
             // When document is first loaded
             var account = $('#selected_account').find(":selected").text();
-            fromDate = $('#from_date').datepicker("getDate"); // Convert from datepicker value to Date format
-            toDate = $('#to_date').datepicker("getDate"); // Convert to datepicker value to Date format
             getAccountInfo();
-            getTransactions();
+            getPayments();
             // When "Vis transaksjoner" button is pressed:
-            $('#transactions_btn').click(function () {
+            $('#due_payments_btn').click(function () {
                 account = $('#selected_account').find(":selected").text();
-                fromDate = $('#from_date').datepicker("getDate"); // Convert from datepicker value to Date format
-                toDate = $('#to_date').datepicker("getDate"); // Convert to datepicker value to Date format
                 getAccountInfo();
-                getTransactions();
+                getPayments();
 
             });
             // Get account info for selected account
@@ -77,33 +57,33 @@
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetAccountInfo","Customer")',
-                    data: { accountNo: account }
+                    data: { accountNo: account } 
                 }).done(function (result) {
                     $('#accountInfo').html(result);
                 });
             }
 
             // Get Transactions to selected account, between dates:
-            function getTransactions() {
+            function getPayments() {
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("GetTransactions","Customer")',
-                    data: { accountNo: account, fromDate: fromDate.toISOString(), toDate: toDate.toISOString() } // reconvert date formats to ISO String
+                    url: '@Url.Action("GetPayments","Customer")',
+                    data: { accountNo: account} 
                 }).done(function (result) {
-                    $('#transactionsList').html(result);
+                    $('#duePaymentsList').html(result);
                 });
             }
         });
 
-    </script>
+</script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
         $('.datepicker').datepicker(); //Initialise any date pickers
-    </script>
+</script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         $('.collapse').on('show.bs.collapse', function () {
             $('.collapse.in').collapse('hide');
         });
-    </script>
+</script>

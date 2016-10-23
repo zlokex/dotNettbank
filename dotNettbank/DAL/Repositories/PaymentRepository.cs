@@ -32,6 +32,22 @@ namespace dotNettbank.DAL.Repositories
             return db.Payments.ToList();
         }
 
+        public List<Payment> getDuePaymentsByAccountNo(string accountNo)
+        {
+            // Get all transactions matching from accountNo (Avsender)
+            List<Payment> payments = db.Payments.Where(t => t.FromAccount.AccountNo == accountNo).ToList();
+
+            return payments;
+        }
+
+        public List<Payment> getDuePaymentsByBirthNo(string birthNo)
+        {
+            // Get all transactions matching from accountNo (Avsender)
+            List<Payment> payments = db.Payments.Where(t => t.FromAccount.OwnerBirthNo == birthNo).ToList();
+
+            return payments;
+        }
+
         public List<Payment> getPaymentsPassedDueDate()
         {
             // Get current time:
@@ -113,7 +129,20 @@ namespace dotNettbank.DAL.Repositories
 
         }
 
-
+        public bool deletePayment(Payment payment)
+        {
+            try
+            {
+                db.Payments.Attach(payment);
+                db.Payments.Remove(payment);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         // UPDATE
     }
 }

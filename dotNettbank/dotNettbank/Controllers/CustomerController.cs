@@ -259,7 +259,7 @@ namespace dotNettbank.Controllers
                                     if (bankService.addPayment(payment))
                                     {
                                         // Success     
-                                        return RedirectToAction("DueTransactions", "Customer", new { area = "" });
+                                        return RedirectToAction("DuePayments", "Customer", new { area = "" });
                                     }
                                     else
                                     {
@@ -298,8 +298,10 @@ namespace dotNettbank.Controllers
             }
         }
 
-        public ActionResult DueTransactions() // Forfallsoversikt
+        public ActionResult DuePayments() // Forfallsoversikt
         {
+            Session["LoggedIn"] = true; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
+            Session["UserId"] = "01018912345"; // TODO: REMEMBER TO COMMENT OUT. ONLY USED DURING TESTING PHASE
             if (Session["LoggedIn"] != null)
             {
                 bool loggedIn = (bool)Session["LoggedIn"];
@@ -308,7 +310,37 @@ namespace dotNettbank.Controllers
                     return RedirectToAction("LoginBirth", "Home", new { area = "" });
                 }
 
-                return View();
+                string userBirthNo = Session["UserId"] as string;
+
+                // Get accounts to user:
+                List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
+                var model = new AccountStatement();
+
+                var accountViewModels = new List<AccountViewModel>();
+                // Populate AccountViewModel list with accounts:
+                foreach (var a in accounts)
+                {
+                    AccountViewModel viewModel = new AccountViewModel()
+                    {
+                        Type = a.Type,
+                        AccountNo = a.AccountNo,
+                        Balance = a.Balance
+                    };
+                    accountViewModels.Add(viewModel);
+                }
+
+                // Set initial dates for the datepickers:
+                DateTime currDatePlusOne = DateTime.Today.AddDays(1); // Current day plus one
+                DateTime oneMonthAgo = DateTime.Today.AddMonths(-1); // Date one month ago at 0:00am
+
+                var duePayments = new DuePayments()
+                {
+                    Accounts = accountViewModels,
+                    fromDate = oneMonthAgo,
+                    toDate = currDatePlusOne
+                };
+
+                return View(duePayments);
             }
             else
             {
@@ -337,13 +369,34 @@ namespace dotNettbank.Controllers
         [HttpPost]
         public ActionResult GetTransactions(string accountNo, DateTime fromDate, DateTime toDate)
         {
+            // List of transactions:
+            List<Transaction> transactions;
+
+            // Logged in customer birthNo:
             string userBirthNo = Session["UserId"] as string;
 
-            // Temp list of transactions from db:
-            List<Transaction> transactions1 = bankService.getTransactionsByAccountNo(accountNo);
-            // Create a new list from our temp list where Date (Date added) is inbetween from and to date:
-            List<Transaction> transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
+            // Check if All ccounts/Alle kontoer option was selected:
+            if (accountNo == "Alle kontoer")
+            {
+                // If all accounts are chosen
 
+                // Temp list of all transactions to user from db:
+                List<Transaction> transactions1 = bankService.getTransactionsByBirthNo(userBirthNo);
+                transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
+
+            }
+            else
+            {
+                // If not, that means the user selected an account number, so get all transactions based on that accountNo:
+
+                // Temp list of all transactions to accountNo from db:
+                List<Transaction> transactions1 = bankService.getTransactionsByAccountNo(accountNo);
+                // Create a new list from our temp list where Date (Date added) is inbetween from and to date:
+                transactions = transactions1.Where(t => t.Date <= toDate && t.Date >= fromDate).ToList();
+            }
+
+            
+            // View model:
             List<TransactionViewModel> tViewModels = new List<TransactionViewModel>();
 
             foreach (var t in transactions)
@@ -370,25 +423,105 @@ namespace dotNettbank.Controllers
             }
 
             return PartialView("TransactionsPartial", tViewModels);
+        }
 
-            //JsonResult result = Json(tViewModels, JsonRequestBehavior.AllowGet);
-            //return result;
+        [HttpPost]
+        public ActionResult GetPayments(string accountNo)
+        {
+            // List of due payments 
+            List<Payment> duePayments;
+
+            // Check if All ccounts/Alle kontoer option was selected:
+            if (accountNo == "Alle kontoer")
+            {
+                // If all accounts are chosen
+                string userBirthNo = Session["UserId"] as string;
+                // Get all due payments to user:
+                duePayments = bankService.getDuePaymentsByBirthNo(userBirthNo);
+
+            }
+            else
+            {
+                // If not, that means the user selected an account number, so get all due payments based on that accountNo:
+                duePayments = bankService.getDuePaymentsByAccountNo(accountNo);
+            }
+            
+            // List of Payment view model:
+            List<PaymentVM> viewModels = new List<PaymentVM>();
+
+            foreach (var t in duePayments)
+            {
+                var viewModel = new PaymentVM()
+                {
+                    PaymentID = t.PaymentID,
+                    DateAdded = t.DateAdded,
+                    DueDate = t.DueDate,
+                    Amount = t.Amount,
+                    Message = t.Message,
+                    FromName = t.FromAccount.Owner.FirstName,
+                    FromAccountNo = t.FromAccount.AccountNo,
+                    ToName = t.ToAccount.Owner.FirstName,
+                    ToAccountNo = t.ToAccount.AccountNo,
+                };
+                viewModels.Add(viewModel);
+            }
+
+            return PartialView("PaymentsPartial", viewModels);
+
+        }
+
+        
+        [HttpPost]
+        public bool DeleteDuePayment(int paymentID)
+        {
+            // Get Payment that is to be deleted from the paymentID:
+            Payment paymentToBeDeleted = bankService.getPaymentById(paymentID);
+
+            // Attempt to delete payment from db:
+            bool success = bankService.deletePayment(paymentToBeDeleted);
+
+            // Return success status:
+            return success;
+
         }
 
         [HttpPost]
         public ActionResult GetAccountInfo(string accountNo)
         {
-            // Get account from db matching account number:
-            Account account = bankService.getByAccountNo(accountNo);
+            // View model
+            AccountViewModel viewModel;
 
-            // Create view model for this account:
-            AccountViewModel viewModel = new AccountViewModel()
+            // Check if All ccounts/Alle kontoer option was selected:
+            if (accountNo == "Alle kontoer")
             {
-                AccountNo = account.AccountNo,
-                Type = account.Type,
-                Balance = account.Balance
-            };
+                string userBirthNo = Session["UserId"] as string;
+                List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
+                double totalBalance = 0;
+                accounts.ForEach(a => totalBalance += a.Balance);
 
+                // If all accounts are chosen
+                viewModel = new AccountViewModel()
+                {
+                    AccountNo = "Alle kontoer",
+                    Type = "Alle kontoer",
+                    Balance = totalBalance
+                };
+
+            }
+            else
+            {
+                // If not all accounts are selected, an accountNo is, get that account:
+                // Get account from db matching account number:
+                Account account = bankService.getByAccountNo(accountNo);
+
+                // Create view model for this account:
+                viewModel = new AccountViewModel()
+                {
+                    AccountNo = account.AccountNo,
+                    Type = account.Type,
+                    Balance = account.Balance
+                };
+            }
             return PartialView("AccountInfoPartial", viewModel);
 
         }
