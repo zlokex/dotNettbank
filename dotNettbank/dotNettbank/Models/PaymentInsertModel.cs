@@ -11,7 +11,7 @@ namespace dotNettbank.Models
     {
         //public List<AccountViewModel> Accounts { get; set; }
         [Required(ErrorMessage = "Kontonr må oppgis")]
-        [Display(Name = "Fra konto")]
+        [Display(Name = "Fra kontonummer")]
         [RegularExpression(@"^([(\d]{11})$", ErrorMessage = "Feil konto nummer, kun 11 tall er tilatt")]
         public string FromAccountNo { get; set; }
 
@@ -19,7 +19,7 @@ namespace dotNettbank.Models
         //public AccountViewModel FromAccount { get; set; }
 
         [Required(ErrorMessage = "Kontonr må oppgis")]
-        [Display(Name = "Kontonr")]
+        [Display(Name = "Til kontonummer")]
         [RegularExpression(@"^([(\d]{11})$", ErrorMessage = "Feil konto nummer, kun 11 tall er tilatt")]
         public string ToAccountNo { get; set; }
 

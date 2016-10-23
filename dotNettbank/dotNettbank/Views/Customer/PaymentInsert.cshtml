@@ -8,81 +8,81 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Regninger til forfall</h4>
+            </div>
+            <div class="panel-body">
 
-        <h2>Betale</h2>
-        <div class=".col-md-1">Til</div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.FromAccountNo, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FromAccountNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <div class="col-md-12"><label>Fra</label></div>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.FromAccountNo, new { htmlAttributes = new { placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(n => n.ToAccountNo).ToHtmlString()), @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <div class="col-md-12"><label>Til</label></div>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.ToAccountNo, new { htmlAttributes = new { placeholder = HttpUtility.HtmlDecode(Html.DisplayNameFor(n => n.ToAccountNo).ToHtmlString()), @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <div class="col-md-12 row">@Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-12" })</div>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <div class="col-md-12 row">
+                            @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                        </div>
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(model => model.DueDate, new { @class = "form-control datepicker", placeholder = "Velg forfallsdato" })
+                            @Html.ValidationMessageFor(model => model.DueDate)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <div class="col-md-12 row">
+                            @Html.LabelFor(model => model.AmountKr, htmlAttributes: new { @class = "control-label col-md-12" })
+                        </div>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.AmountKr, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AmountKr, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="col-md-12 row">
+                            @Html.LabelFor(model => model.AmountOre, htmlAttributes: new { @class = "control-label col-md-12" })
+                        </div>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.AmountOre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AmountOre, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-12">
+                            <input type="submit" value="Registrer betaling" class="btn btn-primary btn-lg" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        }
 
-
-            <div class=".col-md-1">Til</div>
-            <div class="form-group">
-                 @Html.LabelFor(model => model.ToAccountNo, htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ToAccountNo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        <!--<div class=".col-md-1">Til</div>
-        <div class="form-group">
-            Html.LabelFor(model => model.ToName, htmlAttributes: new { class = "control-label col-md-1" })
-            <div class="col-md-10">
-                Html.EditorFor(model => model.ToName, new { htmlAttributes = new { class = "form-control" } })
-                Html.ValidationMessageFor(model => model.ToName, "", new { class = "text-danger" })
-            </div>
-        </div>-->
-
-
-            <div class=".col-md-1"></div>
-            
-            <div class="form-group">
-                @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class=".col-md-1"></div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DueDate)
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.DueDate, new { @class = "form-control datepicker", placeholder = "Velg forfallsdato" })
-                    @Html.ValidationMessageFor(model => model.DueDate)
-                </div>
-            </div>
-            <div class=".col-md-1"></div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.AmountKr, htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.AmountKr, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AmountKr, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class=".col-md-1"></div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.AmountOre, htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.AmountOre, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.AmountOre, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Bekreft" class="btn btn-primary" />
-                </div>
-            </div>
-      </div>
-}
-
-<script type="text/javascript">
-$('.datepicker').datepicker(); //Initialise date picker
-</script>
+        <script type="text/javascript">
+            $('.datepicker').datepicker(); //Initialise date picker
+        </script>
