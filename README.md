@@ -2,7 +2,7 @@
 
 2 parts grup and 1 part individual assignment for the subject 'Webapplikasjoner' at HiOA.
 
-## Key functionality
+### Key functionality
 * Secure login with user sessions
 * Client and server validation of input fields
 * MVC architeture with seperated DAL and BLL layers
