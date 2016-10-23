@@ -43,6 +43,11 @@ namespace dotNettbank.Controllers
             return View();
         }
 
+        public ActionResult KontoOpprettet()
+        {
+            return View();
+        }
+
         public ActionResult OpenAccount()
         {
             return View();
@@ -65,25 +70,29 @@ namespace dotNettbank.Controllers
             //Create new Account domain model:
             Account account = new Account()
             {
-                
+
                 AccountNo = "" + newAccNo,
                 Name = regAccount.Name,
                 Balance = 5000,
                 Owner = customer,
                 InterestRate = 1,
-                Type = AccountType
+                Type = regAccount.Name
             };
-            
+
             if (bankService.addAccount(account))
             {
                 //if succsesfull
-                return RedirectToAction("Overview");
+                ViewBag.OpenAccount = false;
+                //return RedirectToAction("KontoOpprettet");
+                return View();
             }
             else
             {
+                ViewBag.OpenAccount = true;
                 return View();
             }
         }
+
 
         /// //////////////////////////////////////CUSTOMER-START/////////////////////////////////////////////////////////////
 

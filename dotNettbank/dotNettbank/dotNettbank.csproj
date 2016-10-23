@@ -361,6 +361,7 @@
     <Content Include="Views\Home\LoginPassword.cshtml" />
     <Content Include="Views\Admin\OmOss.cshtml" />
     <Content Include="Views\Customer\AccountInfoPartial.cshtml" />
+    <Content Include="Views\Customer\KontoOpprettet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
