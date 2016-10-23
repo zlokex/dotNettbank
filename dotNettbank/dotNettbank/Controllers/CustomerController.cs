@@ -259,7 +259,7 @@ namespace dotNettbank.Controllers
             }
         }
 
-        public ActionResult PaymentReceipts() // Utførte betalinger // LAV PRIO
+        public ActionResult PaymentReceipts() // Utførte betalinger
         {
             if (Session["LoggedIn"] != null)
             {
@@ -297,6 +297,8 @@ namespace dotNettbank.Controllers
                     ToName = t.ToAccount.Owner.FirstName,
                     ToAccountNo = t.ToAccount.AccountNo,
                 };
+                // Check if our customer is either receiver or sender of amount in  transaction, and update 
+                // either In or Out amount in ViewModel accordingly:
                 if (t.ToAccount.Owner.BirthNo == userBirthNo)
                 {
                     viewModel.InAmount = t.Amount;
