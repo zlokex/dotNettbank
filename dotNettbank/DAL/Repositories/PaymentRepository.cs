@@ -40,6 +40,14 @@ namespace dotNettbank.DAL.Repositories
             return payments;
         }
 
+        public List<Payment> getDuePaymentsByBirthNo(string birthNo)
+        {
+            // Get all transactions matching from accountNo (Avsender)
+            List<Payment> payments = db.Payments.Where(t => t.FromAccount.OwnerBirthNo == birthNo).ToList();
+
+            return payments;
+        }
+
         public List<Payment> getPaymentsPassedDueDate()
         {
             // Get current time:

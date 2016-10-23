@@ -17,6 +17,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <select class="selectpicker form-control" id="selected_account">
+                            <option>Alle kontoer</option>
                             @foreach (var account in Model.Accounts)
                             {
                                 <option>@(account.AccountNo)</option>
