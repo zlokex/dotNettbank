@@ -11,7 +11,7 @@ namespace dotNettbank.Models
     {
         [Required(ErrorMessage = "Kontonavn må oppgis")]
         [Display(Name = "Kontonavn")]
-        [RegularExpression(@"^([äÄöÖüÜéÉëËÆØÅæøåA-Za-z ]{1,20})$", ErrorMessage = "Vennligst fyll inn kontonavn")]
+        //[RegularExpression(@"^{1,20})$", ErrorMessage = "Vennligst fyll inn kontonavn")]
         public string Name { get; set; }
     }
 }
