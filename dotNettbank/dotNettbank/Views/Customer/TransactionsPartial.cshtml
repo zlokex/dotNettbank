@@ -1,54 +1,68 @@
 ﻿@model List<dotNettbank.Models.TransactionViewModel>
 
 @{
-    ViewBag.Title = "TransactionsPartial";
+    //ViewBag.Title = "TransactionsPartial";
+    
 }
-<script type="text/javascript">
-    $('.collapse').on('show.bs.collapse', function () {
-        $('.collapse.in').collapse('hide');
-    });
-</script>
-<h2>Transaksjoner</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Transaksjoner</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Date)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Message)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().InAmount)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().OutAmount)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 0;}
+                @foreach (var item in Model)
+            {
+                    <tr data-toggle="collapse" data-target="#accordion_@i" class="clickable">
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.Message)</td>
+                        <td class="col-md-1 col-md-offset-4">@Html.DisplayFor(modelItem => item.InAmount)</td>
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.OutAmount)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="hiddenRow">
+                            <div id="accordion_@i" class="collapse">
+                                <div class="row">
+                                    <div class="col-md-3 col-md-offset-1">
+                                        @Html.LabelFor(modelItem => item.FromName):
+                                        @Html.DisplayFor(modelItem => item.FromName)
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(modelItem => item.ToName):
+                                        @Html.DisplayFor(modelItem => item.ToName)
+                                    </div>
+                                </div>
 
-
-
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Date)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Message)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().InAmount)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().OutAmount)</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{int i=0;}
-        @foreach (var item in Model)
-        {
-            <tr data-toggle="collapse" data-target="#accordion_@i" class="clickable">
-                <td class="col-md-3">@Html.DisplayFor(modelItem => item.Date)</td>
-                <td class="col-md-3">@Html.DisplayFor(modelItem => item.Message)</td>
-                <td class="col-md-3">@Html.DisplayFor(modelItem => item.InAmount)</td>
-                <td class="col-md-3">@Html.DisplayFor(modelItem => item.OutAmount)</td>
-            </tr>
-            <tr>
-                <td class="hiddenRow col-md-12">
-                    <div id="accordion_@i" class="collapse">
-                        @Html.LabelFor(modelItem => item.FromName)
-                        @Html.DisplayFor(modelItem => item.FromName)
-
-                        @Html.LabelFor(modelItem => item.ToName)
-                        @Html.DisplayFor(modelItem => item.ToName)
-
-                        @Html.LabelFor(modelItem => item.FromAccountNo)
-                        @Html.DisplayFor(modelItem => item.FromAccountNo)
-
-                        @Html.LabelFor(modelItem => item.ToAccountNo)
-                        @Html.DisplayFor(modelItem => item.ToAccountNo)
-                    </div>
-                </td>
-            </tr>
-        i++;
-        }
-    </tbody>
-</table>
+                                <div class="row">
+                                    <div class="col-md-3 col-md-offset-1">
+                                        @Html.LabelFor(modelItem => item.FromAccountNo):
+                                        @Html.DisplayFor(modelItem => item.FromAccountNo)
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(modelItem => item.ToAccountNo):
+                                        @Html.DisplayFor(modelItem => item.ToAccountNo)
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+    <script type="text/javascript">
+        $('.collapse').on('show.bs.collapse', function () {
+            $('.collapse.in').collapse('hide');
+        });
+    </script>
