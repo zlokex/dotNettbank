@@ -40,7 +40,7 @@ namespace dotNettbank.Models
 
         [Required(ErrorMessage = "Vennligst skriv inn et beløp (minimum kr 1)")]
         [Display(Name = "Kroner")]
-        [RegularExpression(@"^([(\d]{1,9})$", ErrorMessage = "Feil i beløp, minimum overføring er 1 kr og maksimum er 1 milliard kr")]
+        [RegularExpression(@"^([1-9]{1}[(\d]{0,8})$", ErrorMessage = "Feil i beløp, minimum overføring er 1 kr og antall siffer er 9")]
         public int AmountKr { get; set; }
 
         // Ikke required
