@@ -40,6 +40,11 @@ namespace dotNettbankAdmin.Controllers
             }
         }
 
+        public ActionResult AdminPage()
+        {
+            return View();
+        }
+
         [WebMethod]
         public bool Login(string username, string password)
         {
@@ -58,7 +63,14 @@ namespace dotNettbankAdmin.Controllers
             return RedirectToAction("Index", "Index");
         }
 
-        public ActionResult GetPartial()
+        public ActionResult Accounts()
+        {
+            List<Account> accounts = _adminService.getAllAccounts();
+
+            return PartialView("_Accounts", accounts);
+        }
+
+        public ActionResult RegBetalingsPartial()
         {
             return PartialView("_RegBetalingPartial");
         }

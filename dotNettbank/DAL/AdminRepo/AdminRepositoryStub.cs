@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.AdminRepo
 {
-    public class AdminRepositoryStub
+    public class AdminRepositoryStub : IAdminRepository
     {
         public Admin getAdmin(string username)
         {
@@ -31,6 +31,11 @@ namespace DAL.AdminRepo
             {
                 return false;
             }
+        }
+
+        public List<Account> getAllAccounts()
+        {
+            return null; // TODO !!!!!
         }
 
         public List<Payment> getAllPayments()

@@ -38,6 +38,14 @@ namespace DAL.AdminRepo
             }
         }
 
+        public List<Account> getAllAccounts()
+        {
+            using (var db = new BankContext())
+            {
+                return db.Accounts.ToList();
+            }
+        }
+
         public List<Payment> getAllPayments()
         {
             using (var db = new BankContext())

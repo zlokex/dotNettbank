@@ -15,6 +15,24 @@
 <div >
     <div id="mySidenav" class="sidenav" style="width: 250px;">
         <a><img class="img-circle img-responsive img-center" style="height:150px; width:150px;" src="~/Content/img/adminIMG.png" alt=""></a>
+        <ul class="nav nav-list>">
+            <!-- Kunder -->
+            <li class="nav-header">Kunder</li>
+            <li><a href="#">Finn kunde</a></li>
+            <li><a href="#">Endre kunde</a></li>
+            <!-- Kontoer -->
+            <li class="nav-header">Kontoer</li>
+            <li><a href="javascript:void(0);" id="accounts_link">Finn konto</a></li>
+            <!--<li><a href="#">Endre konto</a></li>-->
+            <!-- Betalinger -->
+            <li class="nav-header">Betalinger</li>
+            <li><a href="#">Finn betaling</a></li>
+            <!--<li><a href="#">Endre betaling</a></li>-->
+            <!-- Transaksjoner -->
+            <li class="nav-header">Transaksjoner</li>
+            <li><a href="#">Finn transaksjon</a></li>
+            <!--<li><a href="#">Endre transaksjon</a></li>-->
+        </ul>
         <a href="#">Admin</a>
         <a href="javascript:void(0);" class="getProducts" id="trans">Transaksjoner</a>
         <a href="#">Betalt</a>
@@ -48,12 +66,25 @@
 
 
 <script type="text/javascript">
+    document.getElementById("accounts_link").onclick = function () { showAccounts() };
+
+    function showAccounts() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Accounts","Admin")'
+        }).done(function (result) {
+            $('#productsPlace').html(result);
+        })
+    }
+
+
+
     document.getElementById("trans").onclick = function() {trans()};
 
     function trans() {
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("GetPartial","Admin")'}).done(function(result) {
+            url: '@Url.Action("RegBetalingsPartial","Admin")'}).done(function(result) {
                 $('#productsPlace').html(result);
             })
     }
