@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="AdminService\AdminService.cs" />
     <Compile Include="AdminService\IAdminService.cs" />
-    <Compile Include="Bank\BankService.cs" />
+    <Compile Include="BankService\BankService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

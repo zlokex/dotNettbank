@@ -13,6 +13,7 @@ namespace DAL.AdminRepo
         bool adminExists(string username);
         List<Payment> getAllPayments();
         List<Payment> getPaymentsByFromAccountNo(string fromAccountNo);
+        bool completePayment(Payment payment);
 
     }
 }

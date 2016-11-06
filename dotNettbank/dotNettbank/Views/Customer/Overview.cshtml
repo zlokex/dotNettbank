@@ -1,19 +1,13 @@
 ﻿@model dotNettbank.Models.AccountStatement
 
 @{
-    ViewBag.Title = "Kontoutskrift";
+    ViewBag.Title = "Totaloversikt";
     Layout = "~/Views/Shared/_LayoutInnlogget.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Totaloversikt</title>
-</head>
-<body>
-    <h4>Totaloversikt</h4>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Totaloversikt</h3>
+    </div>
     <table class="table table-hover">
         <tr>
             <th>Kontonummer</th>
@@ -39,5 +33,4 @@
     </table>
 
     <div id="accountInfo"></div>
-</body>
-</html>
+</div>

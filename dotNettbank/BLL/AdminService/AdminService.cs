@@ -60,6 +60,11 @@ namespace BLL.AdminService
             return _repository.getPaymentsByFromAccountNo(fromAccountNo);
         }
 
+        public bool completePayment(Payment payment)
+        {
+            return _repository.completePayment(payment);
+        }
+
         private static byte[] lagHash(string innPassord)
         {
             byte[] innData, utData;

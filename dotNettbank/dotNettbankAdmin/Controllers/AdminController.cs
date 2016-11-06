@@ -52,8 +52,6 @@ namespace dotNettbankAdmin.Controllers
             return false;
         }
 
-
-
         public ActionResult Logout()
         {
             Session["LoggedIn"] = null;

@@ -27,8 +27,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="row col-md-12">
+        <div class="row col-md-12 ">
             <div class="form-group input-group-sm col-md-3">
                 @Html.LabelFor(model => model.fromDate)
                 @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control datepicker", placeholder = "Velg fra-dato", id = "from_date" })
@@ -46,7 +45,7 @@
                 <button class="btn btn-info btn-lg" id="transactions_btn">Vis transaksjoner</button>
             </div>
         </div>
-    </div>
+        </div>
 </div>
 
     <div id="accountInfo"></div>
@@ -98,7 +97,10 @@
     </script>
 
     <script type="text/javascript">
-        $('.datepicker').datepicker(); //Initialise any date pickers
+        $('.datepicker').datepicker({
+            orientation: 'bottom',
+            format: 'dd/mm/yyyy'
+        }); //Initialise any date pickers
     </script>
 
     <script type="text/javascript">

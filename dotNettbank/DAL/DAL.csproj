@@ -55,11 +55,11 @@
     <Compile Include="BankContext.cs" />
     <Compile Include="BankInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Bank\Repositories\AccountRepository.cs" />
-    <Compile Include="Bank\Repositories\CustomerRepository.cs" />
-    <Compile Include="Bank\Repositories\PaymentRepository.cs" />
-    <Compile Include="Bank\Repositories\PostalAreaRepository.cs" />
-    <Compile Include="Bank\Repositories\TransactionRepository.cs" />
+    <Compile Include="BankRepo\Repositories\AccountRepository.cs" />
+    <Compile Include="BankRepo\Repositories\CustomerRepository.cs" />
+    <Compile Include="BankRepo\Repositories\PaymentRepository.cs" />
+    <Compile Include="BankRepo\Repositories\PostalAreaRepository.cs" />
+    <Compile Include="BankRepo\Repositories\TransactionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
