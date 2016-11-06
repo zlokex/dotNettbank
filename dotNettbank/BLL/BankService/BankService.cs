@@ -78,6 +78,11 @@ namespace dotNettbank.BLL
             }
         }
 
+        public List<Account> getAllAccounts()
+        {
+            return accountRepository.getAll();
+        }
+
         public bool registerCustomer(Customer customer)
         {
             // Add customer to DB through repository:

@@ -1,4 +1,9 @@
-﻿.top-buffer { margin-top:20px; }
+﻿
+
+.top-buffer { 
+    margin-top:20px; 
+
+}
 
 .hiddenRow {
     padding: 0 !important;
@@ -14,23 +19,39 @@ body {
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 0;
     padding-right: 0;
 }
 
+.centered{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
 
+    text-align:center;
+}
 
-
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
 }
 
-.konto{
+.navbar-brand {
+    margin: 0;
+    padding: 0;
 
+}
+
+.navbar-brand img {
+    width:2.6em;
+    height:2.3em;
+    margin-top:-0.5em;
+}
+
+.mypageheader{
+    margin-top:-3em;
 }
 

@@ -30,13 +30,13 @@
         <div class="row col-md-12 ">
             <div class="form-group input-group-sm col-md-3">
                 @Html.LabelFor(model => model.fromDate)
-                @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control datepicker", placeholder = "Velg fra-dato", id = "from_date" })
+                @Html.TextBoxFor(model => model.fromDate, "{0:d}", new { @class = "form-control datepicker", placeholder = "Velg fra-dato", id = "from_date" })
                 @Html.ValidationMessageFor(model => model.fromDate)
             </div>
 
             <div class="form-group input-group-sm col-md-3">
                 @Html.LabelFor(model => model.toDate)
-                @Html.TextBoxFor(model => model.toDate, new { @class = "form-control datepicker", placeholder = "Velg til-dato", id = "to_date" })
+                @Html.TextBoxFor(model => model.toDate, "{0:d}", new { @class = "form-control datepicker", placeholder = "Velg til-dato", id = "to_date" })
                 @Html.ValidationMessageFor(model => model.toDate)
             </div>
         </div>

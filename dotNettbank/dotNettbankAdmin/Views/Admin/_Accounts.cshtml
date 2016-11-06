@@ -19,7 +19,7 @@
     <div class="panel-body">
         <!-- TABLE -->
         <table class="table table-hover" id="accounts_table">
-            <thead>
+            <thead class="thead-inverse">
                 <tr>
                     <th>Fødselsnummer</th>
                     <th>Kontonummer</th>
@@ -33,10 +33,10 @@
                 @foreach (var item in Model)
             {
                     <tr data-toggle="collapse" class="clickable">
-                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.OwnerBirthNo)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.OwnerBirthNo)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.AccountNo)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Type)</td>
-                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.Balance)</td>
+                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.Type)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
                         <td class="col-md-1"><button class="btn btn-info" id="show_payments_btn">Betalinger</button></td>
                         <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn">Transaksjoner</button></td>
                     </tr>
