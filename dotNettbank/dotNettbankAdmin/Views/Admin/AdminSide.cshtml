@@ -14,30 +14,41 @@
 
 <div >
     <div id="mySidenav" class="sidenav" style="width: 250px;">
-        <a><img class="img-circle img-responsive img-center" style="height:150px; width:150px;" src="~/Content/img/adminIMG.png" alt=""></a>
-        <ul class="nav nav-list>">
+        
+            <a><img class="img-circle img-responsive img-center" style="height:150px; width:150px;" src="~/Content/img/adminIMG.png" alt=""></a>
             <!-- Kunder -->
-            <li class="nav-header">Kunder</li>
-            <li><a href="#">Finn kunde</a></li>
-            <li><a href="#">Endre kunde</a></li>
+            <h5><small><b>KUNDER</b></small></h5>
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="#">Finn kunde</a></li>
+                <li><a href="#">Endre kunde</a></li>
+            </ul>
+
             <!-- Kontoer -->
-            <li class="nav-header">Kontoer</li>
-            <li><a href="javascript:void(0);" id="accounts_link">Finn konto</a></li>
-            <!--<li><a href="#">Endre konto</a></li>-->
+            <h5><small><b>KONTOER</b></small></h5>
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="javascript:void(0);" id="accounts_link">Finn konto</a></li>
+                <!--<li><a href="#">Endre konto</a></li>-->
+            </ul>
+
             <!-- Betalinger -->
-            <li class="nav-header">Betalinger</li>
-            <li><a href="#">Finn betaling</a></li>
-            <!--<li><a href="#">Endre betaling</a></li>-->
+            <h5><small><b>BETALINGER</b></small></h5>
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="#">Finn betaling</a></li>
+                <!--<li><a href="#">Endre betaling</a></li>-->
+            </ul>
+
             <!-- Transaksjoner -->
-            <li class="nav-header">Transaksjoner</li>
-            <li><a href="#">Finn transaksjon</a></li>
-            <!--<li><a href="#">Endre transaksjon</a></li>-->
-        </ul>
-        <a href="#">Admin</a>
-        <a href="javascript:void(0);" class="getProducts" id="trans">Transaksjoner</a>
-        <a href="#">Betalt</a>
-        <a href="#">Noe annet</a>
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Skjul</a>
+            <h5><small><b>TRANSAKSJONER</b></small></h5>
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="#">Finn transaksjon</a></li>
+                <!--<li><a href="#">Endre transaksjon</a></li>-->
+            </ul>
+                          
+            <a href="#">Admin</a>
+            <a href="javascript:void(0);" class="getProducts" id="trans">Transaksjoner</a>
+            <a href="#">Betalt</a>
+            <a href="#">Noe annet</a>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Skjul</a>
     </div>
     <div style="margin-top:20px;">
         <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; Meny</span>
