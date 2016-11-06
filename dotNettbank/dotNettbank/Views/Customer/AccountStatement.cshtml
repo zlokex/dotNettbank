@@ -77,7 +77,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetAccountInfo","Customer")',
-                    data: { accountNo: account }
+                    data: { accountNo: account}
                 }).done(function (result) {
                     $('#accountInfo').html(result);
                 });

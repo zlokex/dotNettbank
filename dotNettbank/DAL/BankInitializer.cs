@@ -121,7 +121,31 @@ namespace dotNettbank.DAL
             transactions.ForEach(s => context.Transactions.Add(s));
             context.SaveChanges();
 
+            generateDefaultAdmin();
+
         }
+
+        public static void generateDefaultAdmin()
+        {
+
+            string username = "admin";
+            string password = "admin";
+            string email = "defaultAdmin@gmail.com";
+
+            byte[] hashedpassword = createHash(password);
+
+            using (var db = new BankContext())
+            {
+                var nyadmin = new Admin();
+                nyadmin.Username = username;
+                nyadmin.Password = hashedpassword;
+                nyadmin.Email = email;
+
+                db.Admins.Add(nyadmin);
+                db.SaveChanges();
+            }
+        }
+
 
         private static string generateSalt()
         {

@@ -34,7 +34,7 @@ namespace dotNettbank.Models
 
         [Required(ErrorMessage = "Vennligst velg forfallsdato")]
         [Display(Name = "Forfallsdato")]
-        [DisplayFormat(DataFormatString ="{dd-mm-yyyy}")]
+        //[DisplayFormat(DataFormatString ="{dd-mm-yyyy}")]
         [DataType(DataType.DateTime)]
         public DateTime DueDate { get; set; }
 

@@ -19,6 +19,7 @@ namespace dotNettbank.DAL
         }
 
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PostalArea> PostalAreas { get; set; }
