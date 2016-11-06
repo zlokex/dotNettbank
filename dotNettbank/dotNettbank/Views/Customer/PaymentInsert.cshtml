@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Regninger til forfall</h4>
+                <h3>Regninger til forfall</h3>
             </div>
             <div class="panel-body">
 
@@ -85,6 +85,7 @@
         <script type="text/javascript">
             $(function () {
                 $('.datepicker').datepicker({
+                    orientation: 'bottom',
                     format: 'dd/mm/yyyy'
                 }); //Initialise date picker
             });
