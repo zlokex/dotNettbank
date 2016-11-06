@@ -154,6 +154,7 @@ namespace dotNettbank.DAL.Repositories
 
                 var entry = db.Entry(updatedPayment);
                 entry.State = EntityState.Modified;
+                db.SaveChanges();
                 return true;
             }
             catch (Exception e)

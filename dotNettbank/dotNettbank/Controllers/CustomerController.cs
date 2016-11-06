@@ -402,7 +402,7 @@ namespace dotNettbank.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult getPaymentInsertPartial(int paymentId)
         {
             if (Session["LoggedIn"] != null)
@@ -441,7 +441,7 @@ namespace dotNettbank.Controllers
         }
 
         [HttpPost]
-        public ActionResult PaymentInsertPartial(PaymentInsertModel viewModel)
+        public ActionResult getPaymentInsertPartial(PaymentInsertModel viewModel)
         {
             if (Session["LoggedIn"] != null)
             {
@@ -453,7 +453,8 @@ namespace dotNettbank.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    return View();
+                    //return View();
+                    return RedirectToAction("DuePayments");
                 }
 
                 double amount = viewModel.AmountKr + (viewModel.AmountOre / 100);
@@ -473,13 +474,16 @@ namespace dotNettbank.Controllers
 
                 if (success)
                 {
-                    return PartialView("PaymentInsertPartial",viewModel);
+                    //return PartialView("PaymentInsertPartial",viewModel);
+                    return RedirectToAction("DuePayments");
                 } else
                 {
-                    return PartialView("PaymentInsertPartial", viewModel);
+                    //return PartialView("PaymentInsertPartial", viewModel);
+                    return RedirectToAction("DuePayments");
                 }
             }
-            return PartialView("PaymentInsertPartial", viewModel);
+            //return PartialView("PaymentInsertPartial", viewModel);
+            return RedirectToAction("DuePayments");
         }
 
         [HttpPost]

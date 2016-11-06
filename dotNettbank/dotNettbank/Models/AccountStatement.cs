@@ -20,7 +20,7 @@ namespace dotNettbank.Models
         [Required(ErrorMessage = "Velg en startdato")]
         [Display(Name = "Startdato")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{dd-mm-yyyy}")]
+        //[DisplayFormat(DataFormatString = "{dd-mm-yyyy}")]
         public DateTime fromDate { get; set; }
 
         [Required(ErrorMessage = "Velg en sluttdato")]

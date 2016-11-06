@@ -1,7 +1,7 @@
 ﻿@model dotNettbank.Models.PaymentInsertModel
 
 <div class="modal-body">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "updateForm" }))
     {
         @Html.AntiForgeryToken()
         <div class="panel panel-default">
@@ -91,5 +91,13 @@
             $('#modal-container').modal('hide');
         });
     });
-    $('.datepicker').datepicker(); //Initialise date picker
+    $('.datepicker').datepicker({ format: 'dd/mm/yyyy' }); //Initialise date picker
+
+    $(document).ready(function () {
+        $('#update_payment_btn').click(function (e) {
+            e.preventDefault();
+            $('#modal-container').modal('hide');
+            $('#updateForm').submit();
+        });
+    });
 </script>
