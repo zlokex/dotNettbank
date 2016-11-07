@@ -97,3 +97,19 @@
   font-weight: bold;
 }
 
+/* MODAL */
+/* MODAL SIZE */
+#editor-container .modal-dialog  {width:30%;}
+
+/* MODAL BACKGROUND COLOR */
+
+/*
+#editor-container .modal-content {
+  background-color: #222D32;
+  color: #fff;
+}
+#editor-container .modal-body {
+  background-color: #fff;
+  color: #000;
+}
+    */

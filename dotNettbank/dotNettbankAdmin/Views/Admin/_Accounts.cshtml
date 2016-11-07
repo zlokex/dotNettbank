@@ -28,6 +28,7 @@
                     <th>Kontonavn</th>
                     <th>Saldo</th>
                     <th>Endre</th>
+                    <th>Slett</th>
                     <th>Vis betalinger</th>
                     <th>Vis transaksjoner</th>
                 </tr>
@@ -40,9 +41,10 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.AccountNo)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.Type)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
-                        <td class="col-md-1"><button class="btn btn-info" id="edit_btn" data-id="@item.AccountNo">Endre</button></td>
-                        <td class="col-md-1"><button class="btn btn-info" id="show_payments_btn" data-id="@item.AccountNo">Betalinger</button></td>
-                        <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn" data-id="@item.AccountNo">Transaksjoner</button></td>
+                        <td class="col-md-1"><button class="btn btn-default" id="edit_btn" data-id="@item.AccountNo">Endre</button></td>
+                        <td class="col-md-1"><button class="btn btn-danger" id="delete_btn" data-id="@item.AccountNo">Slett</button></td>
+                        <td class="col-md-1"><button class="btn btn-primary" id="show_payments_btn" data-id="@item.AccountNo">Betalinger</button></td>
+                        <td class="col-md-1"><button class="btn btn-primary" id="show_transactions_btn" data-id="@item.AccountNo">Transaksjoner</button></td>
                     </tr>
 
                 }
@@ -58,44 +60,49 @@
     </div>
 </div> 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(document).on('click', '#edit_btn', function () {
-                var accountNo = $(this).attr('data-id');
-                $.ajax({
-                    url: '/Admin/GetEditAccountPartial',
-                    type: 'GET',
-                    data: { accountNo: accountNo },
-                    success: function(data){
-                        $('#editor-content-container').html(data);
-                        $('#editor-container').modal('show');
-                    }
-                });
-            });
-
-            // Handle submitting of new information for Person.
-            // This will attempt to save new info
-            // If save was successful, it will close the Modal and reload page to see updated info
-            // Otherwise it will only reload contents of the Modal
-            $(document).on('click', '#update_btn', function () {
-                alert("HEI")
-                var self = $(this);
-                $.ajax({
-                    url: '/Admin/UpdatePersonInfo',
-                    type: 'POST',
-                    data: self.closest('form').serialize(),
-                    success: function(data) {
-                        if(data.success == true) {
-                            $('#editor-container').modal('hide');
-                            $('#editor-content-container').html("");
-                            location.reload(false)
-                        } else {
-                            $('#editor-content-container').html(data);
-                        }
-                    }
-                });
+<script type="text/javascript">
+    // DOCUMENT READY:
+    $(document).ready(function () {
+        // ENDRE KONTO LISTENER:
+        $(document).on('click', '#edit_btn', function () {
+            var accountNo = $(this).attr('data-id');
+            $.ajax({
+                url: '/Admin/GetEditAccountPartial',
+                type: 'GET',
+                data: { accountNo: accountNo },
+                success: function(data){
+                    $('#editor-content-container').html(data);
+                    $('#editor-container').modal('show');
+                }
             });
         });
-    </script>
+
+        // ENDRE KNAPP I MODAL LISTENER:
+        $(document).on('click', '#update_btn', function () {
+            var self = $(this);
+            $.ajax({
+                url: '/Admin/UpdateAccount',
+                type: 'POST',
+                data: self.closest('form').serialize(),
+                success: function(data) {
+                    if (data.success == true) {
+                        $('#editor-container').modal('hide');
+                        $('#editor-content-container').html("");
+                        // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
+                        $('#editor-container').on('hidden.bs.modal', function (e) {
+                            showAccounts();
+                        })
+                    } else {
+                        // If not succesful, reload modal with the partial/model from controller
+                        $('#editor-content-container').html(data);
+                    }
+                }
+            });
+        });
+
+            
+    });
+</script>
 
 <script src="~/Scripts/AdminPartials.js"></script>
+
