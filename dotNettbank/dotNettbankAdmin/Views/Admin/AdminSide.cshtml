@@ -13,16 +13,16 @@
             <!-- Logo -->
             <a href="#" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>DN</b>A</span>
+                <span class="logo-mini"><b>HB</b>A</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>DotNet</b>Admin</span>
+                <span class="logo-lg"><b>HardBank</b>Admin</span>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
-                </a>    
+                </a>
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
@@ -75,6 +75,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">Meny</li>
                     <!-- Optionally, you can add icons to the links -->
+                    
                     <!-- Kunder -->
                     <li class="treeview">
                         <a href="#">
@@ -85,37 +86,15 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="#">Finn Kunder</a></li>
-                            <li><a href="#" id="find_customers">Endre Kunde</a></li>
+                            <li><a href="#">Endre Kunde</a></li>
                         </ul>
                     </li>
                     <!-- Kontoer -->
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-list"></i> <span>Kontoer</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#" id="accounts_link">Finn Kontoer</a></li>
-                            <li><a href="#">Endre Konto</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>
                     <!-- Betalinger -->
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-files-o"></i> <span>Betalinger</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#">Finn Betalinger</a></li>
-                            <li><a href="#">Endre Betaligner</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#" id="payments_link"><i class="fa fa-files-o"></i> <span>Betalinger</span></a></li>
                     <!-- Transaksjoner -->
-                    <li><a href="#" id="trans"><i class="fa fa-credit-card"></i> <span>Transaksjoner</span></a></li>
+                    <li><a href="#" id="transactions_link"><i class="fa fa-credit-card"></i> <span>Transaksjoner</span></a></li>
 
                     <!--<li><a href="#"><i class="fa fa-user"></i> <span>Kunder</span></a></li>-->
                     <!--<li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>-->
@@ -179,8 +158,6 @@
     }
     document.getElementById("accounts_link").onclick = function () { showAccounts() };
     
-    
-
     function showAccounts() {
         $.ajax({
             type: 'POST',
@@ -195,15 +172,28 @@
 
         })
     }
-
-
-
-    document.getElementById("trans").onclick = function() {trans()};
+    document.getElementById("transactions_link").onclick = function () { trans() };
 
     function trans() {
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("RegBetalingsPartial","Admin")',
+            url: '@Url.Action("Transactions","Admin")',
+            beforeSend: function () {
+                $('#productsPlace').css('display', 'block');
+                $('#productsPlace').animate({ opacity: 0 }, 0);
+                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+            },
+        }).done(function (result) {
+            $('#productsPlace').html(result);
+        })
+    }
+
+    document.getElementById("users_link").onclick = function () { users() };
+
+    function users() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("FindCustomers","Admin")',
             beforeSend: function () {
                 $('#productsPlace').css('display', 'block');
                 $('#productsPlace').animate({ opacity: 0 }, 0);
@@ -214,4 +204,5 @@
             })
     }
     
+
 </script>

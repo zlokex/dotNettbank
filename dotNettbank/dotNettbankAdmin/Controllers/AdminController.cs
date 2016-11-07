@@ -81,5 +81,11 @@ namespace dotNettbankAdmin.Controllers
         {
             return PartialView("_RegBetalingPartial");
         }
+
+        public ActionResult Transactions()
+        {
+            List<Transaction> transactions = _adminService.getAllTransactions();
+            return PartialView("_Transactions", transactions);
+        }
     }
 }

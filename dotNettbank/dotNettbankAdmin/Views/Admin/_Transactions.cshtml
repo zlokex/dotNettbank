@@ -1,0 +1,59 @@
+﻿@model List<dotNettbank.Model.Transaction>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Transaksjoner</h4>
+    </div>
+    <!-- SØKE FELT-->
+    <div id="custom-search-input">
+        <div class="input-group col-md-12">
+            <input type="text" id="search" class="form-control input-lg" placeholder="Søk blant transaksjoner..." />
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <!-- TABLE -->
+        <table class="table table-hover search-table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>ID</th>
+                    <th>Dato Betalt</th>
+                    <th>Dato Registrert</th>
+                    <th>Beløp</th>
+                    <th>KID</th>
+                    <th>Fra</th>
+                    <th>Til</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+
+                @foreach (var item in Model)
+            {
+                    <tr data-toggle="collapse" class="clickable">
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.TransactionID)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.DatePayed)</td>
+                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Message)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="~/Scripts/AdminPartials.js"></script>
+
+

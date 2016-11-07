@@ -9,6 +9,8 @@ namespace dotNettbankAdmin.Models
     public class AdminSideModel
     {
         public List<Payment> payments { get; set; }
+        
+        
 
         public AdminSideModel(List<Payment> betalingListen)
         {
