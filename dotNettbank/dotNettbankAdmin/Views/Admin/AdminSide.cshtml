@@ -5,96 +5,184 @@
     ViewBag.Title = "AdminSide";
 }
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="~/Content/AdminSide.css">
-    <script type="text/javascript" src="~/Scripts/AdminSide.js"></script>
-</head>
+
+<body class="hold-transition skin-black sidebar-mini">
+    <div class="wrapper">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>DN</b>A</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>DotNet</b>Admin</span>
+            </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                       
+                        <!-- User Account Menu -->
+                        <li class="dropdown user user-menu">
+                            <!-- Menu Toggle Button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!-- The user image in the navbar-->
+                                <img  src="/Content/img/adminIMG.png" class="user-image" alt="User Image">
+                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                <span class="hidden-xs">Fredrik Kloster</span>
+                            </a>
+                           
+                        </li>
+                        <!-- Logg Ut Toggle Button -->
+                        <li>
+                            @Html.ActionLink("Logg Ut", "Logout", "Admin", new { @class = "a" })
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="/Content/img/adminIMG.png" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>Fredrik Kloster</p>
+                    </div>
+                </div>
+                <!-- search form (Optional) -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
+                    <li class="header">Meny</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <!-- Kunder -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-user"></i> <span>Kunder</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#">Finn Kunder</a></li>
+                            <li><a href="#">Endre Kunde</a></li>
+                        </ul>
+                    </li>
+                    <!-- Kontoer -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-list"></i> <span>Kontoer</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#" id="accounts_link">Finn Kontoer</a></li>
+                            <li><a href="#">Endre Konto</a></li>
+                        </ul>
+                    </li>
+                    <!-- Betalinger -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-files-o"></i> <span>Betalinger</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#">Finn Betalinger</a></li>
+                            <li><a href="#">Endre Betaligner</a></li>
+                        </ul>
+                    </li>
+                    <!-- Transaksjoner -->
+                    <li><a href="#" id="trans"><i class="fa fa-credit-card"></i> <span>Transaksjoner</span></a></li>
+
+                    <!--<li><a href="#"><i class="fa fa-user"></i> <span>Kunder</span></a></li>-->
+                    <!--<li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>-->
+                    
+                </ul>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
 
 
-<div >
-    <div id="mySidenav" class="sidenav" style="width: 250px;">
-        
-            <a><img class="img-circle img-responsive img-center" style="height:150px; width:150px;" src="~/Content/img/adminIMG.png" alt=""></a>
-            <!-- Kunder -->
-            <h5><small><b>KUNDER</b></small></h5>
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="javascript:void(0);" id="find_customers">Finn kunde</a></li>
-                <li><a href="#">Endre kunde</a></li>
-            </ul>
 
-            <!-- Kontoer -->
-            <h5><small><b>KONTOER</b></small></h5>
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="javascript:void(0);" id="accounts_link">Finn konto</a></li>
-                <!--<li><a href="#">Endre konto</a></li>-->
-            </ul>
 
-            <!-- Betalinger -->
-            <h5><small><b>BETALINGER</b></small></h5>
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">Finn betaling</a></li>
-                <!--<li><a href="#">Endre betaling</a></li>-->
-            </ul>
-
-            <!-- Transaksjoner -->
-            <h5><small><b>TRANSAKSJONER</b></small></h5>
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">Finn transaksjon</a></li>
-                <!--<li><a href="#">Endre transaksjon</a></li>-->
-            </ul>
-                          
-            <a href="#">Admin</a>
-            <a href="javascript:void(0);" class="getProducts" id="trans">Transaksjoner</a>
-            <a href="#">Betalt</a>
-            <a href="#">Noe annet</a>
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Skjul</a>
-    </div>
-    <div style="margin-top:20px;">
-        <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; Meny</span>
-    </div>
-    <div id="main" style="margin-left:250px;">
-        
-        <h2>AdminSide</h2>
-        Dette er admin siden nå som du har logget inn.
-
-        <div id="productsPlace">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+           
+            <!-- Main content -->
+            <section id="productsPlace" class="content">
+                <!-- Your Page Content Here -->
+            </section>
+            <!-- /.content -->
         </div>
-
+        <!-- /.content-wrapper -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+             
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2016 <a href="#">Kro Prouctions</a>.</strong> All rights reserved.
+        </footer>
+       
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
         
-
-        <div>
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - Kro Production</p>
-            </footer>
-        </div>
-
     </div>
+
+
+  
     
-</div>
+ 
+</body>
 
+<script src="~/Scripts/app.min.js"></script>
+<script src="~/Scripts/AdminSide.js"></script>
 
 
 <script type="text/javascript">
-    document.getElementById("find_customers").onclick = function () { findCustomers() };
-
-    function findCustomers() {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("FindCustomers","Admin")'
-        }).done(function (result) {
-            $('#productsPlace').html(result);
-        })
-    }
     document.getElementById("accounts_link").onclick = function () { showAccounts() };
+    
+    
 
     function showAccounts() {
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("Accounts","Admin")'
+            url: '@Url.Action("Accounts","Admin")',
+            beforeSend: function () {
+                $('#productsPlace').css('display', 'block');
+                $('#productsPlace').animate({ opacity: 0 }, 0);
+                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+            },
         }).done(function (result) {
             $('#productsPlace').html(result);
+
         })
     }
 
@@ -105,9 +193,15 @@
     function trans() {
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("RegBetalingsPartial","Admin")'}).done(function(result) {
+            url: '@Url.Action("RegBetalingsPartial","Admin")',
+            beforeSend: function () {
+                $('#productsPlace').css('display', 'block');
+                $('#productsPlace').animate({ opacity: 0 }, 0);
+                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+            },
+            }).done(function (result) {
                 $('#productsPlace').html(result);
             })
     }
-
+    
 </script>

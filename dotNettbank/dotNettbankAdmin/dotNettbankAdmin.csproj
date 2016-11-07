@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLTE.css" />
+    <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\AdminSide.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -254,6 +255,32 @@
     <Content Include="Content\img\adminIMG.png" />
     <Content Include="Content\simple-sidebar.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\skins\skin-black-light.css" />
+    <Content Include="Content\skins\skin-black-light.min.css" />
+    <Content Include="Content\skins\skin-black.css" />
+    <Content Include="Content\skins\skin-black.min.css" />
+    <Content Include="Content\skins\skin-blue-light.css" />
+    <Content Include="Content\skins\skin-blue-light.min.css" />
+    <Content Include="Content\skins\skin-blue.css" />
+    <Content Include="Content\skins\skin-blue.min.css" />
+    <Content Include="Content\skins\skin-green-light.css" />
+    <Content Include="Content\skins\skin-green-light.min.css" />
+    <Content Include="Content\skins\skin-green.css" />
+    <Content Include="Content\skins\skin-green.min.css" />
+    <Content Include="Content\skins\skin-purple-light.css" />
+    <Content Include="Content\skins\skin-purple-light.min.css" />
+    <Content Include="Content\skins\skin-purple.css" />
+    <Content Include="Content\skins\skin-purple.min.css" />
+    <Content Include="Content\skins\skin-red-light.css" />
+    <Content Include="Content\skins\skin-red-light.min.css" />
+    <Content Include="Content\skins\skin-red.css" />
+    <Content Include="Content\skins\skin-red.min.css" />
+    <Content Include="Content\skins\skin-yellow-light.css" />
+    <Content Include="Content\skins\skin-yellow-light.min.css" />
+    <Content Include="Content\skins\skin-yellow.css" />
+    <Content Include="Content\skins\skin-yellow.min.css" />
+    <Content Include="Content\skins\_all-skins.css" />
+    <Content Include="Content\skins\_all-skins.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -296,7 +323,9 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\_all-skins.css" />
+    <Content Include="Files\gears.gif" />
     <Content Include="Files\logo.png" />
+    <Content Include="Files\spin.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -313,6 +342,7 @@
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\AdminSide.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
@@ -389,6 +419,7 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\Gruntfile.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -399,6 +430,7 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\loginadmin.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\paging.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.min.js" />

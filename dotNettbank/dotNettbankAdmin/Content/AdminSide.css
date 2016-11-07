@@ -12,7 +12,7 @@
     background-color: #111;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 1em;
 }
 
 .sidenav a {
@@ -31,17 +31,20 @@
 .sidenav .closebtn {
     position: absolute;
     top: 80%;
-
     font-size: 12px;
-
 }
 
 #main {
     transition: margin-left .5s;
     padding: 16px;
+    
 }
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+.navbar-margin{
+    margin-left:11em;
 }
