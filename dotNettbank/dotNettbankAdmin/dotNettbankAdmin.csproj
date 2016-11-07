@@ -340,6 +340,7 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\AdminPartials.js" />
     <Content Include="Scripts\AdminSide.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\app.min.js" />
@@ -438,7 +439,6 @@
     <Content Include="Views\Admin\AdminSide.cshtml" />
     <Content Include="Views\Admin\_RegBetalingPartial.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Admin\AdminPage.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\_Accounts.cshtml" />
   </ItemGroup>
@@ -461,6 +461,7 @@
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Admin\_Transactions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

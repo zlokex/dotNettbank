@@ -33,10 +33,7 @@ namespace DAL.AdminRepo
             }
         }
 
-        public List<Account> getAllAccounts()
-        {
-            return null; // TODO !!!!!
-        }
+    
 
         public List<Payment> getAllPayments()
         {
@@ -93,7 +90,14 @@ namespace DAL.AdminRepo
 
         }
 
+        public List<Transaction> getAllTransactions()
+        {
+            throw new NotImplementedException();
+        }
 
-
+        public List<Account> getAllAccounts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

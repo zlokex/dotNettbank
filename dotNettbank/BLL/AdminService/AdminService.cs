@@ -65,6 +65,8 @@ namespace BLL.AdminService
             return _repository.getPaymentsByFromAccountNo(fromAccountNo);
         }
 
+      
+
         public bool completePayment(Payment payment)
         {
             return _repository.completePayment(payment);
@@ -77,6 +79,11 @@ namespace BLL.AdminService
             innData = System.Text.Encoding.ASCII.GetBytes(innPassord);
             utData = algoritme.ComputeHash(innData);
             return utData;
+        }
+
+        public List<Transaction> getAllTransactions()
+        {
+            return _repository.getAllTransactions();
         }
     }
 }

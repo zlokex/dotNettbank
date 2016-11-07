@@ -63,7 +63,15 @@ namespace DAL.AdminRepo
             }
         }
 
-        
+        public List<Transaction> getAllTransactions()
+        {
+            using (var db = new BankContext())
+            {
+                return db.Transactions.ToList();
+            }
+        }
+
+
         public bool completePayment(Payment payment)
         {
             using (var db = new BankContext())

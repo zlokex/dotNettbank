@@ -13,9 +13,9 @@
             <!-- Logo -->
             <a href="#" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>DN</b>A</span>
+                <span class="logo-mini"><b>HB</b>A</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>DotNet</b>Admin</span>
+                <span class="logo-lg"><b>HardBank</b>Admin</span>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -142,8 +142,6 @@
 
 <script type="text/javascript">
     document.getElementById("accounts_link").onclick = function () { showAccounts() };
-    
-    
 
     function showAccounts() {
         $.ajax({
@@ -159,23 +157,21 @@
 
         })
     }
-
-
-
-    document.getElementById("trans").onclick = function() {trans()};
+    document.getElementById("trans").onclick = function () { trans() };
 
     function trans() {
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("RegBetalingsPartial","Admin")',
+            url: '@Url.Action("Transactions","Admin")',
             beforeSend: function () {
                 $('#productsPlace').css('display', 'block');
                 $('#productsPlace').animate({ opacity: 0 }, 0);
                 $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
             },
-            }).done(function (result) {
-                $('#productsPlace').html(result);
-            })
+        }).done(function (result) {
+            $('#productsPlace').html(result);
+        })
     }
-    
+
+
 </script>

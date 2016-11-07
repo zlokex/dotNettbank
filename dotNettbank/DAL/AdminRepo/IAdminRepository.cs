@@ -14,6 +14,7 @@ namespace DAL.AdminRepo
         List<Payment> getAllPayments();
         List<Payment> getPaymentsByFromAccountNo(string fromAccountNo);
         bool completePayment(Payment payment);
+        List<Transaction> getAllTransactions();
         List<Account> getAllAccounts();
 
     }
