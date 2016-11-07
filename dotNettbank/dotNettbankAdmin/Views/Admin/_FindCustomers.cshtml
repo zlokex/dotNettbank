@@ -17,8 +17,8 @@
     </div>
 
     <div class="panel-body">
-        <!-- TABLE -->
-        <table class="table table-hover" id="accounts_table2">
+        <!-- TABLE --> 
+        <table class="table table-hover search-table">
             <thead class="thead-inverse">
                 <tr>
                     <th>Fødselsnummer</th>
@@ -49,27 +49,6 @@
     </div>
 </div>
 
+<script src="~/Scripts/AdminPartials.js"></script>
 
-
-<script type="text/javascript">
-    $(function () {
-
-        $('#accounts_table2').paging({ limit: 10 });
-
-
-        var $rows = $('#accounts_table2 tbody tr');
-        $('#search2').keyup(function() {
-
-            var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-                reg = RegExp(val, 'i'),
-                text;
-
-            $rows.show().filter(function() {
-                text = $(this).text().replace(/\s+/g, ' ');
-                return !reg.test(text);
-            }).hide();
-        });
-
-    });
-</script>
 
