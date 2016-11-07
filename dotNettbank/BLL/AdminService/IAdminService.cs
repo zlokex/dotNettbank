@@ -18,5 +18,7 @@ namespace BLL.AdminService
         List<Account> getAllAccounts();
         List<Transaction> getAllTransactions();
         List<Customer> getAllCustomers();
+        Account getAccountByAccountNo(string accountNo);
+        bool updateAccount(Account updatedAccount);
     }
 }

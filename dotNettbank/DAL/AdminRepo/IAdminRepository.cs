@@ -17,5 +17,7 @@ namespace DAL.AdminRepo
         List<Transaction> getAllTransactions();
         List<Account> getAllAccounts();
         List<Customer> getAllCustomers();
+        Account getAccountByAccountNo(string accountNo);
+        bool updateAccount(Account updatedAccount);
     }
 }

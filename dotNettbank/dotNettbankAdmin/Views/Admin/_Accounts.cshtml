@@ -27,6 +27,7 @@
                     <th>Kontonummer</th>
                     <th>Kontonavn</th>
                     <th>Saldo</th>
+                    <th>Endre</th>
                     <th>Vis betalinger</th>
                     <th>Vis transaksjoner</th>
                 </tr>
@@ -39,8 +40,9 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.AccountNo)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.Type)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
-                        <td class="col-md-1"><button class="btn btn-info" id="show_payments_btn">Betalinger</button></td>
-                        <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn">Transaksjoner</button></td>
+                        <td class="col-md-1"><button class="btn btn-info" id="edit_btn" data-id="@item.AccountNo">Endre</button></td>
+                        <td class="col-md-1"><button class="btn btn-info" id="show_payments_btn" data-id="@item.AccountNo">Betalinger</button></td>
+                        <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn" data-id="@item.AccountNo">Transaksjoner</button></td>
                     </tr>
 
                 }
@@ -49,5 +51,51 @@
     </div>
 </div>
 
+<div class="modal fade" id="editor-container" tabindex="-1"
+     role="dialog" aria-labelledby="editor-title">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="editor-content-container"></div>
+    </div>
+</div> 
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on('click', '#edit_btn', function () {
+                var accountNo = $(this).attr('data-id');
+                $.ajax({
+                    url: '/Admin/GetEditAccountPartial',
+                    type: 'GET',
+                    data: { accountNo: accountNo },
+                    success: function(data){
+                        $('#editor-content-container').html(data);
+                        $('#editor-container').modal('show');
+                    }
+                });
+            });
+
+            // Handle submitting of new information for Person.
+            // This will attempt to save new info
+            // If save was successful, it will close the Modal and reload page to see updated info
+            // Otherwise it will only reload contents of the Modal
+            $(document).on('click', '#update_btn', function () {
+                alert("HEI")
+                var self = $(this);
+                $.ajax({
+                    url: '/Admin/UpdatePersonInfo',
+                    type: 'POST',
+                    data: self.closest('form').serialize(),
+                    success: function(data) {
+                        if(data.success == true) {
+                            $('#editor-container').modal('hide');
+                            $('#editor-content-container').html("");
+                            location.reload(false)
+                        } else {
+                            $('#editor-content-container').html(data);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 
 <script src="~/Scripts/AdminPartials.js"></script>

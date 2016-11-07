@@ -104,5 +104,15 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public Account getAccountByAccountNo(string accountNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool updateAccount(Account updatedAccount)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

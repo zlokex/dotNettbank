@@ -12,6 +12,8 @@ namespace DAL.AdminRepo
 {
     public class AdminRepository : IAdminRepository
     {
+        //--- GET ONE ---
+
         public Admin getAdmin(string username)
         {
             using (var db = new BankContext())
@@ -21,22 +23,15 @@ namespace DAL.AdminRepo
             }
         }
 
-        public bool adminExists(string username)
+        public Account getAccountByAccountNo(string accountNo)
         {
             using (var db = new BankContext())
             {
-                Admin foundAdmin = db.Admins.FirstOrDefault
-                (a => a.Username == username);
-                if (foundAdmin == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                return db.Accounts.FirstOrDefault(a => a.AccountNo == accountNo);
             }
         }
+
+        //--- GET LIST ---
 
         public List<Account> getAllAccounts()
         {
@@ -79,6 +74,48 @@ namespace DAL.AdminRepo
             }
         }
 
+        //--- UPDATE ---
+
+        public bool updateAccount(Account updatedAccount)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Accounts.Attach(updatedAccount);
+
+                    var entry = db.Entry(updatedAccount);
+                    entry.State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            }
+        }
+
+        //--- DELETE ---
+
+        //--- MISC ---
+
+        public bool adminExists(string username)
+        {
+            using (var db = new BankContext())
+            {
+                Admin foundAdmin = db.Admins.FirstOrDefault
+                (a => a.Username == username);
+                if (foundAdmin == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
 
         public bool completePayment(Payment payment)
         {

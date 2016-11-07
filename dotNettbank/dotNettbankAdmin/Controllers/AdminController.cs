@@ -41,10 +41,6 @@ namespace dotNettbankAdmin.Controllers
             }
         }
 
-        public ActionResult AdminPage()
-        {
-            return View();
-        }
 
         [WebMethod]
         public bool Login(string username, string password)
@@ -86,6 +82,39 @@ namespace dotNettbankAdmin.Controllers
         {
             List<Transaction> transactions = _adminService.getAllTransactions();
             return PartialView("_Transactions", transactions);
+        }
+
+        [HttpGet]
+        public ActionResult GetEditAccountPartial(string accountNo)
+        {
+            var account = _adminService.getAccountByAccountNo(accountNo);
+            AccountVM model = new AccountVM()
+            {
+                AccountNo = account.AccountNo,
+                Balance = account.Balance,
+                OwnerBirthNo = account.OwnerBirthNo,
+                Type = account.Type
+            };
+            return PartialView("_EditAccountsPartial", model);
+        }
+
+        public ActionResult UpdateAccount(AccountVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                Account account = new Account()
+                {
+                    AccountNo = model.AccountNo,
+                    Balance = model.Balance,
+                    OwnerBirthNo = model.OwnerBirthNo,
+                    Type = model.Type
+                };
+
+                _adminService.updateAccount(account);
+                return Json(new { success = true });
+            }
+            // else
+            return PartialView("_EditAccountsPartial", model);
         }
     }
 }

@@ -90,6 +90,16 @@ namespace BLL.AdminService
         {
             return _repository.getAllTransactions();
         }
+
+        public Account getAccountByAccountNo(string accountNo)
+        {
+            return _repository.getAccountByAccountNo(accountNo);
+        }
+
+        public bool updateAccount(Account updatedAccount)
+        {
+            return _repository.updateAccount(updatedAccount);
+        }
     }
 }
 
