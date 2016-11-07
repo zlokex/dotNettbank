@@ -77,6 +77,7 @@
                     <!-- Optionally, you can add icons to the links -->
                     
                     <!-- Kunder -->
+<<<<<<< HEAD
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-user"></i> <span>Kunder</span>
@@ -89,6 +90,9 @@
                             <li><a href="#" id="find_customers">Endre Kunde</a></li>
                         </ul>
                     </li>
+=======
+                    <li><a href="#" id="users_link"><i class="fa fa-user"></i> <span>Kontoer</span></a></li>
+>>>>>>> f355147415817e93365fbae4bff94be963c05c83
                     <!-- Kontoer -->
                     <li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>
                     <!-- Betalinger -->
@@ -115,6 +119,8 @@
             <!-- Main content -->
             <section id="productsPlace" class="content">
                 <!-- Your Page Content Here -->
+                <h2 style="text-align:center">Velkommen til HardBank sin Admin side</h2>
+                <p style="text-align:center">Velg et av panelene i menyen for å begynne</p>
             </section>
             <!-- /.content -->
         </div>
@@ -146,16 +152,7 @@
 
 
 <script type="text/javascript">
-    document.getElementById("find_customers").onclick = function () { findCustomers() };
     
-    function findCustomers() {
-            $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("FindCustomers","Admin")'
-                }).done(function (result) {
-                        $('#productsPlace').html(result);
-                    })
-    }
     document.getElementById("accounts_link").onclick = function () { showAccounts() };
     
     function showAccounts() {
