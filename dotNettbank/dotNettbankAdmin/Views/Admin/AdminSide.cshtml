@@ -75,22 +75,18 @@
                 <ul class="sidebar-menu">
                     <li class="header">Meny</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-files-o"></i> <span>Betalinger</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#">Endre Betaligner</a></li>
-                            <li><a href="#">Finn Betalinger</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#" id="trans"><i class="fa fa-credit-card"></i> <span>Transaksjoner</span></a></li>
-
-                    <li><a href="#" ><i class="fa fa-user"></i> <span>Kunder</span></a></li>
+                    
+                    <!-- Kunder -->
+                    <li><a href="#" id="users_link"><i class="fa fa-user"></i> <span>Kunder</span></a></li>
+                    <!-- Kontoer -->
                     <li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>
+                    <!-- Betalinger -->
+                    <li><a href="#" id="payments_link"><i class="fa fa-files-o"></i> <span>Betalinger</span></a></li>
+                    <!-- Transaksjoner -->
+                    <li><a href="#" id="transactions_link"><i class="fa fa-credit-card"></i> <span>Transaksjoner</span></a></li>
+
+                    <!--<li><a href="#"><i class="fa fa-user"></i> <span>Kunder</span></a></li>-->
+                    <!--<li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>-->
                     
                 </ul>
                 <!-- /.sidebar-menu -->
@@ -130,14 +126,12 @@
 
 
   
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/app.min.js"></script>
-
-    <script src="~/Scripts/AdminSide.js"></script>
+    
  
 </body>
 
+<script src="~/Scripts/app.min.js"></script>
+<script src="~/Scripts/AdminSide.js"></script>
 
 
 <script type="text/javascript">
@@ -157,12 +151,28 @@
 
         })
     }
-    document.getElementById("trans").onclick = function () { trans() };
+    document.getElementById("transactions_link").onclick = function () { trans() };
 
     function trans() {
         $.ajax({
             type: 'POST',
             url: '@Url.Action("Transactions","Admin")',
+            beforeSend: function () {
+                $('#productsPlace').css('display', 'block');
+                $('#productsPlace').animate({ opacity: 0 }, 0);
+                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+            },
+        }).done(function (result) {
+            $('#productsPlace').html(result);
+        })
+    }
+
+    document.getElementById("users_link").onclick = function () { users() };
+
+    function users() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("FindCustomers","Admin")',
             beforeSend: function () {
                 $('#productsPlace').css('display', 'block');
                 $('#productsPlace').animate({ opacity: 0 }, 0);

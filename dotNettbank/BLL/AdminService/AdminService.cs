@@ -55,6 +55,11 @@ namespace BLL.AdminService
             return _repository.getAllAccounts();
         }
 
+        public List<Customer> getAllCustomers()
+        {
+            return _repository.getAllCustomers();
+        }
+
         public List<Payment> getAllPayments()
         {
             return _repository.getAllPayments();

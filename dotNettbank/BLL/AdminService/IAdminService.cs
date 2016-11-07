@@ -17,5 +17,6 @@ namespace BLL.AdminService
         bool completePayment(Payment payment);
         List<Account> getAllAccounts();
         List<Transaction> getAllTransactions();
+        List<Customer> getAllCustomers();
     }
 }

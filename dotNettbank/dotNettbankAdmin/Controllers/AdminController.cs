@@ -1,6 +1,7 @@
 ﻿using BLL.AdminService;
 using dotNettbank.Model;
 using dotNettbankAdmin.Models;
+using dotNettbank.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +64,12 @@ namespace dotNettbankAdmin.Controllers
             return RedirectToAction("Index", "Index");
         }
 
+        public ActionResult FindCustomers()
+        {
+            List<Customer> customers = _adminService.getAllCustomers();
+
+            return PartialView("_FindCustomers", customers);
+        }
         public ActionResult Accounts()
         {
             List<Account> accounts = _adminService.getAllAccounts();

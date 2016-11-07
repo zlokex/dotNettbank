@@ -1,0 +1,75 @@
+﻿@model List<dotNettbank.Model.Customer>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Kunder</h4>
+    </div>
+    <!-- SØKE FELT-->
+    <div id="custom-search-input">
+        <div class="input-group col-md-12">
+            <input type="text" id="search2" class="form-control input-lg" placeholder="Søk blant kunder..." />
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <!-- TABLE -->
+        <table class="table table-hover" id="accounts_table2">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Fødselsnummer</th>
+                    <th>Fornavn</th>
+                    <th>Etternavn</th>
+                    <th>Adresse</th>
+                    <th>Telefonnummer</th>
+                    <th>Postnummer</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+            {
+                    <tr data-toggle="collapse" class="clickable">
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => c.BirthNo)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => c.FirstName)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => c.LastName)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => c.Address)</td>
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => c.PhoneNo)</td>
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => c.PostCode)</td>
+                        <!--<td class="col-md-1"><button class="btn btn-info" id="show_payments_btn">Betalinger</button></td>
+                        <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn">Transaksjoner</button></td>-->
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+
+        $('#accounts_table2').paging({ limit: 10 });
+
+
+        var $rows = $('#accounts_table2 tbody tr');
+        $('#search2').keyup(function() {
+
+            var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+                reg = RegExp(val, 'i'),
+                text;
+
+            $rows.show().filter(function() {
+                text = $(this).text().replace(/\s+/g, ' ');
+                return !reg.test(text);
+            }).hide();
+        });
+
+    });
+</script>
+
