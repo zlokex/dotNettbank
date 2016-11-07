@@ -140,11 +140,18 @@
 
 <script type="text/javascript">
     document.getElementById("accounts_link").onclick = function () { showAccounts() };
+    
+    
 
     function showAccounts() {
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("Accounts","Admin")'
+            url: '@Url.Action("Accounts","Admin")',
+            beforeSend: function () {
+                $('#productsPlace').css('display', 'block');
+                $('#productsPlace').animate({ opacity: 0 }, 0);
+                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+            },
         }).done(function (result) {
             $('#productsPlace').html(result);
 
@@ -158,7 +165,13 @@
     function trans() {
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("RegBetalingsPartial","Admin")'}).done(function(result) {
+            url: '@Url.Action("RegBetalingsPartial","Admin")',
+            beforeSend: function () {
+                $('#productsPlace').css('display', 'block');
+                $('#productsPlace').animate({ opacity: 0 }, 0);
+                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+            },
+            }).done(function (result) {
                 $('#productsPlace').html(result);
             })
     }
