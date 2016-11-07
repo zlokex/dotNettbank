@@ -26,7 +26,8 @@
                     <th>Etternavn</th>
                     <th>Adresse</th>
                     <th>Telefonnummer</th>
-                    <th>Postnummer</th>
+                    <th>Endre</th>
+                    <th>Slett</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +39,9 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.LastName)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.Address)</td>
                         <td class="col-md-1">@Html.DisplayFor(modelItem => c.PhoneNo)</td>
-                        <td class="col-md-1">@Html.DisplayFor(modelItem => c.PostCode)</td>
+                        <td class="col-md-1"><button class="btn btn-info">Endre</button></td>
+                        <td class="col-md-1"><button class="btn btn-danger">Slett</button></td>
+
                         <!--<td class="col-md-1"><button class="btn btn-info" id="show_payments_btn">Betalinger</button></td>
                         <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn">Transaksjoner</button></td>-->
                     </tr>

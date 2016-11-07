@@ -77,7 +77,18 @@
                     <!-- Optionally, you can add icons to the links -->
                     
                     <!-- Kunder -->
-                    <li><a href="#" id="users_link"><i class="fa fa-user"></i> <span>Kunder</span></a></li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-user"></i> <span>Kunder</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#">Finn Kunder</a></li>
+                            <li><a href="#">Endre Kunde</a></li>
+                        </ul>
+                    </li>
                     <!-- Kontoer -->
                     <li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>
                     <!-- Betalinger -->
@@ -137,8 +148,18 @@
 
 
 <script type="text/javascript">
+    document.getElementById("find_customers").onclick = function () { findCustomers() };
+    
+    function findCustomers() {
+            $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("FindCustomers","Admin")'
+                }).done(function (result) {
+                        $('#productsPlace').html(result);
+                    })
+    }
     document.getElementById("accounts_link").onclick = function () { showAccounts() };
-
+    
     function showAccounts() {
         $.ajax({
             type: 'POST',
@@ -180,10 +201,10 @@
                 $('#productsPlace').animate({ opacity: 0 }, 0);
                 $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
             },
-        }).done(function (result) {
-            $('#productsPlace').html(result);
-        })
+            }).done(function (result) {
+                $('#productsPlace').html(result);
+            })
     }
-
+    
 
 </script>
