@@ -23,7 +23,7 @@
                 @foreach (var item in Model)
             {
                     <tr data-toggle="collapse" data-target="#accordion_@i" class="clickable">
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Date, "{0:d}")</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.Message)</td>
                         <td class="col-md-1 col-md-offset-4">@Html.DisplayFor(modelItem => item.InAmount)</td>
                         <td class="col-md-1">@Html.DisplayFor(modelItem => item.OutAmount)</td>

@@ -10,17 +10,17 @@ namespace dotNettbank.Models
     public class PaymentInsertModel
     {
         //public List<AccountViewModel> Accounts { get; set; }
-        [Required(ErrorMessage = "Kontonr må oppgis")]
+        //[Required(ErrorMessage = "Kontonr må oppgis")]
         [Display(Name = "Fra kontonummer")]
-        [RegularExpression(@"^([(\d]{11})$", ErrorMessage = "Feil konto nummer, kun 11 tall er tilatt")]
+        //[RegularExpression(@"^([(\d]{11})$", ErrorMessage = "Feil konto nummer, kun 11 tall er tilatt")]
         public string FromAccountNo { get; set; }
 
         //public int SelectedFromAccount { get; set; }
         //public AccountViewModel FromAccount { get; set; }
 
-        [Required(ErrorMessage = "Kontonr må oppgis")]
+        //[Required(ErrorMessage = "Kontonr må oppgis")]
         [Display(Name = "Til kontonummer")]
-        [RegularExpression(@"^([(\d]{11})$", ErrorMessage = "Feil konto nummer, kun 11 tall er tilatt")]
+        //[RegularExpression(@"^([(\d]{11})$", ErrorMessage = "Feil konto nummer, kun 11 tall er tilatt")]
         public string ToAccountNo { get; set; }
 
         /*[Required(ErrorMessage = "Navn må oppgis")]
@@ -50,6 +50,17 @@ namespace dotNettbank.Models
 
         // Ikke required
         public int PaymentID;
+
+        // Selectable drop down list:
+        [Required(ErrorMessage = "Kontonr må oppgis")]
+        [Display(Name = "Til kontonummer")]
+        public string SelectedFromAccountNo { get; set; }
+        public IEnumerable<SelectListItem> FromAccounts { get; set; }
+
+        [Required(ErrorMessage = "Kontonr må oppgis")]
+        [Display(Name = "Fra kontonummer")]
+        public string SelectedToAccountNo { get; set; }
+        public IEnumerable<SelectListItem> ToAccounts { get; set; }
     }
 }
 

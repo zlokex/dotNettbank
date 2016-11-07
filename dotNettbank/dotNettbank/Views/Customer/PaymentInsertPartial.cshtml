@@ -43,7 +43,7 @@
                             @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-12" })
                         </div>
                         <div class="col-md-12">
-                            @Html.TextBoxFor(model => model.DueDate, new { @class = "form-control datepicker", placeholder = "Velg forfallsdato" })
+                            @Html.TextBoxFor(model => model.DueDate, "{0:d}", new { @class = "form-control datepicker", placeholder = "Velg forfallsdato" })
                             @Html.ValidationMessageFor(model => model.DueDate)
                         </div>
                     </div>

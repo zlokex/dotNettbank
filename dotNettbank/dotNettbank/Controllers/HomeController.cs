@@ -20,8 +20,8 @@ namespace dotNettbank.Controllers
         // GET: Customer
         public ActionResult Index()
         {
-            //return View();
-            return RedirectToAction("LoginBirth");
+            return View();
+            //return RedirectToAction("LoginBirth");
         }
 
         public ActionResult LoginBirth()

@@ -200,24 +200,23 @@ namespace dotNettbank.Controllers
                 // LOGIC STARTS HERE:
 
                 string userBirthNo = Session["UserId"] as string;
-                /*
-                List<Account> accounts = bankService.getAccountsByBirthNo(userBirthNo);
-                var accountViewModels = new List<AccountViewModel>();
+                
+                List<Account> fromAccounts = bankService.getAccountsByBirthNo(userBirthNo);
+                List<Account> toAccounts = bankService.getAllAccounts();
 
-                foreach (var a in accounts)
+                // Set initial dates for the datepicker:
+                DateTime currDate = DateTime.Today;
+                var model = new PaymentInsertModel()
                 {
-                    AccountViewModel viewModel = new AccountViewModel()
-                    {
-                        Type = a.Type,
-                        AccountNo = a.AccountNo,
-                        Balance = a.Balance
-                    };
-                    accountViewModels.Add(viewModel);
-                }
-                */
-                var model = new PaymentInsertModel();
-                // Add account view model list to view:
-                //model.Accounts = new SelectList(accountViewModels, "SelectedAccountId", "FromAccountNo", 1);
+                    FromAccounts = new SelectList(fromAccounts, "AccountNo", "AccountNo"),
+                    ToAccounts = new SelectList(toAccounts, "AccountNo", "AccountNo"),
+                    DueDate = currDate
+                };
+
+                model.SelectedFromAccountNo = fromAccounts.FirstOrDefault().AccountNo;
+                //model.SelectedFromAccountNo = "10000000001";
+                model.SelectedToAccountNo = toAccounts.FirstOrDefault().AccountNo;
+                //model.SelectedFromAccountNo = "10000000009";
 
                 return View(model);
             }
@@ -253,8 +252,8 @@ namespace dotNettbank.Controllers
                 string userBirthNo = Session["UserId"] as string;
 
                 // User input of from/to accountNo:
-                string fromAccountNo = model.FromAccountNo;
-                string toAccountNo = model.ToAccountNo;
+                string fromAccountNo = model.SelectedFromAccountNo;
+                string toAccountNo = model.SelectedToAccountNo;
 
                 // Check that from and to account are not the same:
                 if (fromAccountNo != toAccountNo) {
@@ -271,7 +270,7 @@ namespace dotNettbank.Controllers
                             if (toAccount != null)
                             {
                                 
-                                double amount = model.AmountKr + (model.AmountOre / 100);
+                                double amount = model.AmountKr +  ((double) model.AmountOre / 100);
 
                                 // Check that amount being payed is below or equal to balance:
                                 if (amount <= fromAccount.Balance)
@@ -457,7 +456,7 @@ namespace dotNettbank.Controllers
                     return RedirectToAction("DuePayments");
                 }
 
-                double amount = viewModel.AmountKr + (viewModel.AmountOre / 100);
+                double amount = viewModel.AmountKr + ((double) viewModel.AmountOre / 100);
                 int paymentId = (int)TempData["paymentId"];
                 Payment payment = new Payment()
                 {
