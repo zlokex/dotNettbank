@@ -19,7 +19,7 @@
             <!-- Kunder -->
             <h5><small><b>KUNDER</b></small></h5>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">Finn kunde</a></li>
+                <li><a href="javascript:void(0);" id="find_customers">Finn kunde</a></li>
                 <li><a href="#">Endre kunde</a></li>
             </ul>
 
@@ -77,6 +77,16 @@
 
 
 <script type="text/javascript">
+    document.getElementById("find_customers").onclick = function () { findCustomers() };
+
+    function findCustomers() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("FindCustomers","Admin")'
+        }).done(function (result) {
+            $('#productsPlace').html(result);
+        })
+    }
     document.getElementById("accounts_link").onclick = function () { showAccounts() };
 
     function showAccounts() {
@@ -99,5 +109,5 @@
                 $('#productsPlace').html(result);
             })
     }
-    
+
 </script>

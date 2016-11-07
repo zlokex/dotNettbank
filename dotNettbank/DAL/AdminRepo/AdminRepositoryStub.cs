@@ -38,6 +38,11 @@ namespace DAL.AdminRepo
             return null; // TODO !!!!!
         }
 
+        public List<Customer> getAllCustomers()
+        {
+            return null; //TODO!!!!!!!!!!
+        }
+
         public List<Payment> getAllPayments()
         {
             var currDate = DateTime.Now;
