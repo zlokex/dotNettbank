@@ -114,5 +114,10 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public Customer getCustomerByBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

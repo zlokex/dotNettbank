@@ -31,6 +31,15 @@ namespace DAL.AdminRepo
             }
         }
 
+        public Customer getCustomerByBirthNo(string birthNo)
+        {
+            using (var db = new BankContext())
+            {
+                // Default value is null (if no customer is found)
+                return db.Customers.FirstOrDefault(c => c.BirthNo == birthNo);
+            }
+        }
+
         //--- GET LIST ---
 
         public List<Account> getAllAccounts()

@@ -20,5 +20,6 @@ namespace BLL.AdminService
         List<Customer> getAllCustomers();
         Account getAccountByAccountNo(string accountNo);
         bool updateAccount(Account updatedAccount);
+        Customer getCustomerByBirthNo(string birthNo);
     }
 }

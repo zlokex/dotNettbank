@@ -100,6 +100,11 @@ namespace BLL.AdminService
         {
             return _repository.updateAccount(updatedAccount);
         }
+
+        public Customer getCustomerByBirthNo(string birthNo)
+        {
+            return _repository.getCustomerByBirthNo(birthNo);
+        }
     }
 }
 
