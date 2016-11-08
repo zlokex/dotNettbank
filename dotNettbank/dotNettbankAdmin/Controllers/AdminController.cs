@@ -80,10 +80,10 @@ namespace dotNettbankAdmin.Controllers
         }
 
         [HttpPost]
-        public bool Betal(int paymentId)
+        public bool Betal(int paymentID)
         {
             List<Payment> paymentList = _adminService.getAllPayments();
-            return _adminService.completePayment(paymentId);
+            return _adminService.completePayment(paymentID);
         }
 
         public ActionResult Transactions()
