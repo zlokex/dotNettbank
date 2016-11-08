@@ -51,7 +51,7 @@
 <!-- BEKREFT KONTO MODAL -->
 <div class="modal fade" id="bekreft-container" tabindex="-1"
      role="dialog" aria-labelledby="editor-title">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog">
         <div class="modal-content" id="bekreft-content-container">
             <!-- MODAL HEADER -->
             <div class="modal-header ">
@@ -72,79 +72,47 @@
 <script type="text/javascript">
     // DOCUMENT READY:
     $(document).ready(function () {
-
-        // ENDRE KONTO LISTENER:
-        $(document).on('click', '#edit_btn', function () {
-            var accountNo = $(this).attr('data-id');
-            $.ajax({
-                url: '/Admin/GetEditAccountPartial',
-                type: 'GET',
-                data: { accountNo: accountNo },
-                success: function(data){
-                    $('#editor-content-container').html(data);
-                    $('#editor-container').modal('show');
-                }
-            });
-        });
-
-        // ENDRE KNAPP I MODAL LISTENER:
-        $(document).on('click', '#update_btn', function () {
-            var self = $(this);
-            $.ajax({
-                url: '/Admin/Betal',
-                type: 'POST',
-                data: self.closest('form').serialize(),
-                success: function(data) {
-                    if (data.success == true) {
-                        $('#editor-container').modal('hide');
-                        $('#editor-content-container').html("");
-                        // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
-                        $('#editor-container').on('hidden.bs.modal', function (e) {
-                            showAccounts();
-                        })
-                    } else {
-                        // If not succesful, reload modal with the partial/model from controller
-                        alert("Noe gikk galt, har du dekkning på konto?")
-                    }
-                }
-            });
-        });
-
         
-        // NEI KNAPP LISTENER:
+        // ÅPNER MODEL BEKREFT:
         $(document).on('click', '#betal_btn', function () {
             var paymentID = $(this).attr('data-id');
             $('#bekreft-container').modal('show');
 
             // JA KNAPP I MODAL LISTENER:
             $(document).on('click', '#betal_modal_btn', function () {
-                var self = $(this);
+                $('#betal_modal_btn').attr('disabled', 'disabled');
                 $.ajax({
                     url: '/Admin/Betal',
                     type: 'POST',
                     data: { paymentID: paymentID },
                     success: function (data) {
-                        if (data == true) {
+                        if (data) {
+                            alert(data);
                             $('#bekreft-container').modal('hide');
-                            $('#bekreft-content-container').html("");
                             // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
                             $('#bekreft-container').on('hidden.bs.modal', function (e) {
                                 betaling();
+                                
                             })
                         } else {
                             // If not succesful, reload modal with the partial/model from controller
                             // $('#editor-content-container').html(data);
-                            alert("Dette gikk ikke!")
+                            //alert("Dette gikk ikke!")
                         }
+                        $('#betal_modal_btn').removeAttr('disabled');
                     }
-                });
+                }); //End of Ajax
+                e.stopImediatePropagation();
             });
         });
 
-        
 
-            
-    });
+   
+    }); //End of Document ready
+
+    
+
 </script>
+
 
 
