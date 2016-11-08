@@ -176,7 +176,7 @@ namespace DAL.AdminRepo
                 Account toAcc = payment.ToAccount;
 
                 // Sjekk at fraKonto har høy nok saldo:
-                if (fromAcc.Balance <= payment.Amount)
+                if (fromAcc.Balance >= payment.Amount)
                 {
                     //Update balance to from and to account:
                     fromAcc.Balance -= payment.Amount;

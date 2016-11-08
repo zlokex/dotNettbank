@@ -32,7 +32,7 @@
             <tbody>
 
                 @foreach (var item in Model)
-            {
+                {
                     <tr data-toggle="collapse" class="clickable">
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.PaymentID)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.DueDate)</td>
@@ -40,7 +40,7 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Message)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
-                        <td class="col-md-2">@Html.ActionLink("Betal", "Betal", "Admin", new { id = item.PaymentID }, new { @class = "btn btn-success" })</td>
+                        <td class="col-md-2"><button class="btn btn-default" id="betal_btn" data-id="@item.PaymentID">Betal</button></td>
                     </tr>
                 }
             </tbody>
@@ -48,6 +48,80 @@
     </div>
 </div>
 
+<!-- BEKREFT KONTO MODAL -->
+<div class="modal fade" id="bekreft-container" tabindex="-1"
+     role="dialog" aria-labelledby="editor-title">
+    <div class="modal-dialog">
+        <div class="modal-content" id="bekreft-content-container">
+            <!-- MODAL HEADER -->
+            <div class="modal-header ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Er du sikker på at du vil betale?</h3>
+            </div>
+            <!-- MODAL BODY -->
+            <div class="modal-body">
+                <button class="btn btn-default" type="button" data-dismiss="modal" style="font-size:1.4em; width:5em;">Nei</button>
+                <button class="btn btn-primary" type="button" id="betal_modal_btn" style="margin-left:50px; font-size: 1.4em; width: 5em;">Ja</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
 <script src="~/Scripts/AdminPartials.js"></script>
+
+<script type="text/javascript">
+    // DOCUMENT READY:
+    $(document).ready(function () {
+        
+        // ÅPNER MODEL BEKREFT:
+        $(document).on('click', '#betal_btn', function () {
+            var paymentID = $(this).attr('data-id');
+            $('#bekreft-container').modal('show');
+
+            // JA KNAPP I MODAL LISTENER:
+            $(document).on('click', '#betal_modal_btn', function () {
+                //$('#betal_modal_btn').attr('disabled', 'disabled');
+                $.ajax({
+                    url: '/Admin/Betal',
+                    type: 'POST',
+                    data: { paymentID: paymentID },
+                    success: function (data) {
+                        if (data) {
+                            $('#bekreft-container').modal('hide');
+                            // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
+                            $('#bekreft-container').on('hidden.bs.modal', function (e) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "RegBetaling",
+                                    beforeSend: function () {
+                                        $('#productsPlace').css('display', 'block');
+                                        $('#productsPlace').animate({ opacity: 0 }, 0);
+                                        $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+                                    },
+                                }).done(function (result) {
+                                    $('#productsPlace').html(result);
+                                })
+                                
+                            })
+                        } else {
+                            // If not succesful, reload modal with the partial/model from controller
+                            // $('#editor-content-container').html(data);
+                            //alert("Dette gikk ikke!")
+                        }
+                        //$('#betal_modal_btn').removeAttr('disabled');
+                    }
+                }); //End of Ajax
+                //e.stopImediatePropagation();
+            });
+        });
+
+
+   
+    }); //End of Document ready
+
+    
+
+</script>
+
 
 
