@@ -29,8 +29,7 @@
                     <th>Saldo</th>
                     <th>Endre</th>
                     <th>Slett</th>
-                    <th>Vis betalinger</th>
-                    <th>Vis transaksjoner</th>
+                    <th>Tag</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,8 +42,7 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
                         <td class="col-md-1"><button class="btn btn-default" id="edit_btn" data-id="@item.AccountNo">Endre</button></td>
                         <td class="col-md-1"><button class="btn btn-danger" id="delete_btn" data-id="@item.AccountNo">Slett</button></td>
-                        <td class="col-md-1"><button class="btn btn-primary" id="show_payments_btn" data-id="@item.AccountNo">Betalinger</button></td>
-                        <td class="col-md-1"><button class="btn btn-primary" id="show_transactions_btn" data-id="@item.AccountNo">Transaksjoner</button></td>
+                        <td class="col-md-1"><button data-name="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-primary useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Tag</button></td>
                     </tr>
 
                 }
