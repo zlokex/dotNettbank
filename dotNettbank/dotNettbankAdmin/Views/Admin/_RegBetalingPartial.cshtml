@@ -1,26 +1,53 @@
-﻿<section class="content-header">
-    <h1>
-        Transaksjoner
-        <small>Liste over alle utførte betalinger</small>
-    </h1>
-</section>
+﻿@model List<dotNettbank.Model.Payment>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Betalinger</h4>
+    </div>
+    <!-- SØKE FELT-->
+    <div id="custom-search-input">
+        <div class="input-group col-md-12">
+            <input type="text" id="search" class="form-control input-lg" placeholder="Søk blant betalinger..." />
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <!-- TABLE -->
+        <table class="table table-hover search-table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>ID</th>
+                    <th>Dato Registrert</th>
+                    <th>Beløp</th>
+                    <th>KID</th>
+                    <th>Fra</th>
+                    <th>Til</th>
+                    <th>Bekreft</th>
+                </tr>
+            </thead>
+            <tbody>
 
-<div class="table ">
-    <!--endre og sletteknapper her-->
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Dato</th>
-                <th>Betal fra</th>
-                <th>Betale til</th>
-                <th>Beløp</th>
-                <th>Kid</th>
-                <th>Endre</th>
-            </tr>
-        </thead>
-    </table>
-
-
-   
+                @foreach (var item in Model)
+            {
+                    <tr data-toggle="collapse" class="clickable">
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.PaymentID)</td>
+                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.DueDate)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Message)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
+                        <td class="col-md-2">@Html.ActionLink("Betal", "Betal", "Admin", new { id = item.PaymentID }, new { @class = "btn btn-success" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<script src="~/Scripts/AdminPartials.js"></script>
+
+

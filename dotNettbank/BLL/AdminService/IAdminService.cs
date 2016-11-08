@@ -14,12 +14,13 @@ namespace BLL.AdminService
         bool validateLogin(string username, string password);
         List<Payment> getAllPayments();
         List<Payment> getPaymentsByFromAccountNo(string fromAccountNo);
-        bool completePayment(Payment payment);
+        bool completePayment(int paymentId);
         List<Account> getAllAccounts();
         List<Transaction> getAllTransactions();
         List<Customer> getAllCustomers();
         Account getAccountByAccountNo(string accountNo);
         bool updateAccount(Account updatedAccount);
         Customer getCustomerByBirthNo(string birthNo);
+        bool deleteAccount(Account account);
     }
 }

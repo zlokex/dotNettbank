@@ -73,9 +73,21 @@ namespace dotNettbankAdmin.Controllers
             return PartialView("_Accounts", accounts);
         }
 
-        public ActionResult RegBetalingsPartial()
+        public ActionResult RegBetaling()
         {
-            return PartialView("_RegBetalingPartial");
+            List<Payment> payment = _adminService.getAllPayments();
+            return PartialView("_RegBetalingPartial", payment);
+        }
+
+        [HttpGet]
+        public ActionResult Betal(int paymentId)
+        {
+            List<Payment> paymentList = _adminService.getAllPayments();
+            if (ModelState.IsValid)
+            {
+                _adminService.completePayment(paymentId);
+            }
+            return PartialView("_RegBetalingPartial", paymentList);
         }
 
         public ActionResult Transactions()
@@ -115,6 +127,12 @@ namespace dotNettbankAdmin.Controllers
             }
             // else
             return PartialView("_EditAccountsPartial", model);
+        }
+
+        public bool DeleteAccount(string accountNo)
+        {
+            Account accountToDelete = new Account() { AccountNo = accountNo };
+            return _adminService.deleteAccount(accountToDelete);
         }
     }
 }

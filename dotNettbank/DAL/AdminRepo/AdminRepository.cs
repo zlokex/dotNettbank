@@ -107,6 +107,24 @@ namespace DAL.AdminRepo
 
         //--- DELETE ---
 
+        public bool deleteAccount(Account account)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Accounts.Attach(account);
+                    db.Accounts.Remove(account);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            }
+        }
+
         //--- MISC ---
 
         public bool adminExists(string username)
@@ -126,10 +144,13 @@ namespace DAL.AdminRepo
             }
         }
 
-        public bool completePayment(Payment payment)
+        public bool completePayment(int paymentId)
         {
+
             using (var db = new BankContext())
             {
+
+                Payment payment = db.Payments.FirstOrDefault(p => p.PaymentID == paymentId);
                 // Hent fra konto og til konto for betaling (for å oppdatere balanse):
                 Account fromAcc = payment.FromAccount;
                 Account toAcc = payment.ToAccount;
