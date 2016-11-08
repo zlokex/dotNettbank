@@ -128,5 +128,11 @@ namespace dotNettbankAdmin.Controllers
             // else
             return PartialView("_EditAccountsPartial", model);
         }
+
+        public bool DeleteAccount(string accountNo)
+        {
+            Account accountToDelete = new Account() { AccountNo = accountNo };
+            return _adminService.deleteAccount(accountToDelete);
+        }
     }
 }

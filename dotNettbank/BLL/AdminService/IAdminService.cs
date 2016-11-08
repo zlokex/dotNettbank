@@ -21,5 +21,6 @@ namespace BLL.AdminService
         Account getAccountByAccountNo(string accountNo);
         bool updateAccount(Account updatedAccount);
         Customer getCustomerByBirthNo(string birthNo);
+        bool deleteAccount(Account account);
     }
 }

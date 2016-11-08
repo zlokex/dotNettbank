@@ -11,6 +11,14 @@
 
         $rows.show().filter(function () {
             text = $(this).text().replace(/\s+/g, ' ');
+            $('#search').on('beforeItemAdd', function (event) {
+                if (true) {
+                    event.cancel = false;
+                }
+                else {
+                    event.cancel = true;
+                }
+            });
             return !reg.test(text);
         }).hide();
     });

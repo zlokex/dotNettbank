@@ -44,6 +44,14 @@
     margin-bottom:-3em;
 }
 
+/* OVERRIDE CUSTOM */
+
+.container {
+    padding-right:0;
+    padding-left:0;
+    width:100%!important;
+}
+
 /* SEARCH FIELD */
 #custom-search-input{
     padding: 3px;

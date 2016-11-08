@@ -119,5 +119,10 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public bool deleteAccount(Account account)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
