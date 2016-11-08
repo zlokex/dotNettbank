@@ -20,6 +20,20 @@ namespace dotNettbank.Model
         public string Name { get; set; } //KontoNavn sette ved opprettelse
         public double InterestRate { get; set; } // Rentesats
 
+        private bool activeVal = true;
+        [DefaultValue(true)]
+        public bool Active // Konto Aktiv/Deaktivert
+        {
+            get
+            {
+                return activeVal;
+            }
+            set
+            {
+                activeVal = value;
+            }
+        }
+
 
         // Foreign key:
         public string OwnerBirthNo { get; set; }

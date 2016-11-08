@@ -9,7 +9,7 @@ using System.Text;
 
 namespace dotNettbank.DAL
 {
-    public class BankInitializer : CreateDatabaseIfNotExists<BankContext>
+    public class BankInitializer : DropCreateDatabaseIfModelChanges<BankContext>
     {
         protected override void Seed(BankContext context)
         {

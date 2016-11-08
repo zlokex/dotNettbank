@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -17,6 +18,20 @@ namespace dotNettbank.Model
         public string PhoneNo { get; set; }
         public byte[] Password { get; set; }
         public string Salt { get; set; }
+
+        private bool activeVal = true;
+        [DefaultValue(true)]
+        public bool Active // Kunde Aktiv/Deaktivert
+        {
+            get
+            {
+                return activeVal;
+            }
+            set
+            {
+                activeVal = value;
+            }
+        }
 
         //Foreign key:
         public string PostCode { get; set; } // Postnr
