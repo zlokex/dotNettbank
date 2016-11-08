@@ -53,10 +53,31 @@
     </div>
 </div>
 
+<!-- ENDRE KONTO MODAL -->
 <div class="modal fade" id="editor-container" tabindex="-1"
      role="dialog" aria-labelledby="editor-title">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" id="editor-content-container"></div>
+    </div>
+</div> 
+
+<!-- SLETT KONTO MODAL -->
+<div class="modal fade" id="delete-container" tabindex="-1"
+     role="dialog" aria-labelledby="editor-title">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="delete-content-container">
+            <!-- MODAL HEADER -->
+            <div class="modal-header ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Endre konto</h3>
+            </div>
+            <!-- MODAL BODY -->
+            <div class="modal-body">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Avbryt</button>
+                <button class="btn btn-danger" type="button" id="delete_modal_btn">Slett</button>
+            </div>
+
+        </div>
     </div>
 </div> 
 
@@ -99,6 +120,38 @@
                 }
             });
         });
+
+        
+        // SLETT KONTO LISTENER:
+        $(document).on('click', '#delete_btn', function () {
+            var accountNoToDelete = $(this).attr('data-id');
+            $('#delete-container').modal('show');
+
+            // SLETT KNAPP I MODAL LISTENER:
+            $(document).on('click', '#delete_modal_btn', function () {
+                var self = $(this);
+                $.ajax({
+                    url: '/Admin/DeleteAccount',
+                    type: 'POST',
+                    data: { accountNo: accountNoToDelete },
+                    success: function (data) {
+                        if (data == true) {
+                            $('#delete-container').modal('hide');
+                            $('#delete-content-container').html("");
+                            // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
+                            $('#delete-container').on('hidden.bs.modal', function (e) {
+                                showAccounts();
+                            })
+                        } else {
+                            // If not succesful, reload modal with the partial/model from controller
+                            // $('#editor-content-container').html(data);
+                        }
+                    }
+                });
+            });
+        });
+
+        
 
             
     });

@@ -105,6 +105,11 @@ namespace BLL.AdminService
         {
             return _repository.getCustomerByBirthNo(birthNo);
         }
+
+        public bool deleteAccount(Account account)
+        {
+            return _repository.deleteAccount(account);
+        }
     }
 }
 

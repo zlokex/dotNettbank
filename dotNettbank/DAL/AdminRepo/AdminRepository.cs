@@ -107,6 +107,24 @@ namespace DAL.AdminRepo
 
         //--- DELETE ---
 
+        public bool deleteAccount(Account account)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Accounts.Attach(account);
+                    db.Accounts.Remove(account);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            }
+        }
+
         //--- MISC ---
 
         public bool adminExists(string username)
