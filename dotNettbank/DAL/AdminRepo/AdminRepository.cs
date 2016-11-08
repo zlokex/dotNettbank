@@ -105,6 +105,26 @@ namespace DAL.AdminRepo
             }
         }
 
+        public bool updateCustomer(Customer updatedCustomer)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Customers.Attach(updatedCustomer);
+
+                    var entry = db.Entry(updatedCustomer);
+                    entry.State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            }
+        }
+
         //--- DELETE ---
 
         //--- MISC ---

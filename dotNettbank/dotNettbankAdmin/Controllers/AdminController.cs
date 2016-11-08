@@ -85,6 +85,21 @@ namespace dotNettbankAdmin.Controllers
         }
 
         [HttpGet]
+        public ActionResult editCustomerPartial(string customerBirthNo)
+        {
+            var customer = _adminService.getCustomerByBirthNo(customerBirthNo);
+            CustomerVM model = new CustomerVM()
+            {
+                BirthNo = customer.BirthNo,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Address = customer.Address,
+                PhoneNo = customer.PhoneNo
+            };
+            return PartialView("EditCustomerPartial", model);
+        }
+
+        [HttpGet]
         public ActionResult GetEditAccountPartial(string accountNo)
         {
             var account = _adminService.getAccountByAccountNo(accountNo);
@@ -95,6 +110,26 @@ namespace dotNettbankAdmin.Controllers
                 OwnerBirthNo = account.OwnerBirthNo,
                 Type = account.Type
             };
+            return PartialView("_EditAccountsPartial", model);
+        }
+
+        public ActionResult UpdateCustomer(CustomerVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                Customer customer = new Customer()
+                {
+                    BirthNo = model.BirthNo,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Address = model.Address,
+                    PhoneNo = model.PhoneNo
+                };
+
+                _adminService.updateCustomer(customer);
+                return Json(new { success = true });
+            }
+            // else
             return PartialView("_EditAccountsPartial", model);
         }
 

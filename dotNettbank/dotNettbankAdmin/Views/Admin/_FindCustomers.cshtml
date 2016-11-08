@@ -27,7 +27,8 @@
                     <th>Adresse</th>
                     <th>Telefonnummer</th>
                     <th>Endre</th>
-                    <th>Slett</th>
+                    <th>Deaktiver</th>
+                    <th>Konto</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,8 +40,9 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.LastName)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.Address)</td>
                         <td class="col-md-1">@Html.DisplayFor(modelItem => c.PhoneNo)</td>
-                        <td class="col-md-1"><button class="btn btn-info">Endre</button></td>
-                        <td class="col-md-1"><button class="btn btn-danger">Slett</button></td>
+                        <td class="col-md-1"><button class="btn btn-info" id="edit_btn2" data-id="@c.BirthNo">Endre</button></td>
+                        <td class="col-md-1"><button class="btn btn-danger" id="delete_btn" data-id="@c.BirthNo">Deaktiver</button></td>
+                        <td class="col-md-1"><button class="btn btn-primary" id="show_accounts_btn" data-id="@c.BirthNo">Vis kontoer</button></td>
 
                         <!--<td class="col-md-1"><button class="btn btn-info" id="show_payments_btn">Betalinger</button></td>
                         <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn">Transaksjoner</button></td>-->
@@ -51,6 +53,57 @@
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="editor-container2" tabindex="-1"
+     role="dialog" aria-labelledby="editor-title">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="editor-content-container2"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // DOCUMENT READY:
+    $(document).ready(function () {
+        // ENDRE BRUKER LISTENER:
+        $(document).on('click', '#edit_btn2', function () {
+            var birthNo = $(this).attr('data-id');
+            $.ajax({
+                url: '/Admin/GetEditCustomerPartial',
+                type: 'GET',
+                data: { birthNo: birthNo },
+                success: function(data){
+                    $('#editor-content-container2').html(data);
+                    $('#editor-container2').modal('show');
+                }
+            });
+        });
+
+        // ENDRE KNAPP I MODAL LISTENER:
+        $(document).on('click', '#update_btn', function () {
+            var self = $(this);
+            $.ajax({
+                url: '/Admin/UpdateCustomer',
+                type: 'POST',
+                data: self.closest('form').serialize(),
+                success: function(data) {
+                    if (data.success == true) {
+                        $('#editor-container').modal('hide');
+                        $('#editor-content-container').html("");
+                        // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
+                        $('#editor-container').on('hidden.bs.modal', function (e) {
+                            showAccounts();
+                        })
+                    } else {
+                        // If not succesful, reload modal with the partial/model from controller
+                        $('#editor-content-container').html(data);
+                    }
+                }
+            });
+        });
+
+
+    });
+</script>
 
 <script src="~/Scripts/AdminPartials.js"></script>
 

@@ -19,6 +19,7 @@ namespace DAL.AdminRepo
         List<Customer> getAllCustomers();
         Account getAccountByAccountNo(string accountNo);
         bool updateAccount(Account updatedAccount);
+        bool updateCustomer(Customer updatedCustomer);
         Customer getCustomerByBirthNo(string birthNo);
     }
 }

@@ -1,0 +1,68 @@
+﻿
+@model dotNettbankAdmin.Models.CustomerVM
+
+<!-- MODAL HEADER -->
+<div class="modal-header ">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Endre kunde</h3>
+</div>
+@using (Html.BeginForm())
+{
+        <!-- @Html.ValidationSummary() -->
+    @Html.AntiForgeryToken()
+        <!-- MODAL BODY -->
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <!-- Personnummer -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.BirthNo, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DisplayFor(model => model.BirthNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.HiddenFor(model => model.BirthNo)
+                    @Html.ValidationMessageFor(model => model.BirthNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <!-- Fornavn -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Lastname -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Adresse -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <!-- Telefonnumer -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.PhoneNo, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- MODAL FOOTER -->
+        <div class="modal-footer">
+            <button class="btn btn-danger" type="button" data-dismiss="modal">Avbryt</button>
+            <button class="btn btn-primary" type="button" id="update_btn">Endre</button>
+        </div>
+}
+
+
