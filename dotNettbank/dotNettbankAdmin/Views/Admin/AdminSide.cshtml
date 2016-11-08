@@ -200,6 +200,24 @@
                 $('#productsPlace').html(result);
             })
     }
+
+    
+
+    document.getElementById("payments_link").onclick = function () { betaling() };
+
+    function betaling() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("RegBetaling","Admin")',
+            beforeSend: function () {
+                $('#productsPlace').css('display', 'block');
+                $('#productsPlace').animate({ opacity: 0 }, 0);
+                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+            },
+        }).done(function (result) {
+            $('#productsPlace').html(result);
+        })
+    }
     
 
 </script>
