@@ -78,6 +78,7 @@
         var payment_id;
         $(document).on('click', '#betal_btn', function () {
             payment_id = $(this).attr('data-id');
+            $('#bekreft-container').off('hidden.bs.modal'); // Turn off hidden bs modal
             $('#bekreft-container').modal('show');
         });
         $('#betal_modal_btn').click(function () {
@@ -88,20 +89,9 @@
                 success: function (data) {
                     if (data) {
                         $('#bekreft-container').modal('hide');
-                        // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
+                        // Turn on hidden bs modal with refresh of partial
                         $('#bekreft-container').on('hidden.bs.modal', function (e) {
-                            $.ajax({
-                                type: 'POST',
-                                url: "RegBetaling",
-                                beforeSend: function () {
-                                    $('#productsPlace').css('display', 'block');
-                                    $('#productsPlace').animate({ opacity: 0 }, 0);
-                                    $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
-                                },
-                            }).done(function (result) {
-                                $('#productsPlace').html(result);
-                            })
-
+                            getPartial("RegBetaling");
                         })
                     } else {
                         //alert("Dette gikk ikke!")

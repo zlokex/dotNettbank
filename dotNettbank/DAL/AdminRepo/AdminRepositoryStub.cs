@@ -120,7 +120,7 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
-        public bool deleteAccount(Account account)
+        public string deactivateAccount(string accountNo)
         {
             throw new NotImplementedException();
         }
