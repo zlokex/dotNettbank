@@ -79,15 +79,11 @@ namespace dotNettbankAdmin.Controllers
             return PartialView("_RegBetalingPartial", payment);
         }
 
-        [HttpGet]
-        public ActionResult Betal(int paymentId)
+        [HttpPost]
+        public bool Betal(int paymentId)
         {
             List<Payment> paymentList = _adminService.getAllPayments();
-            if (ModelState.IsValid)
-            {
-                _adminService.completePayment(paymentId);
-            }
-            return PartialView("_RegBetalingPartial", paymentList);
+            return _adminService.completePayment(paymentId);
         }
 
         public ActionResult Transactions()
