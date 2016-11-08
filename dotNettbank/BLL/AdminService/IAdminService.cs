@@ -14,7 +14,7 @@ namespace BLL.AdminService
         bool validateLogin(string username, string password);
         List<Payment> getAllPayments();
         List<Payment> getPaymentsByFromAccountNo(string fromAccountNo);
-        bool completePayment(Payment payment);
+        bool completePayment(int paymentId);
         List<Account> getAllAccounts();
         List<Transaction> getAllTransactions();
         List<Customer> getAllCustomers();
@@ -22,5 +22,6 @@ namespace BLL.AdminService
         bool updateAccount(Account updatedAccount);
         bool updateCustomer(Customer updatedCustomer);
         Customer getCustomerByBirthNo(string birthNo);
+        bool deleteAccount(Account account);
     }
 }

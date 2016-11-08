@@ -44,6 +44,14 @@
     margin-bottom:-3em;
 }
 
+/* OVERRIDE CUSTOM */
+
+.container {
+    padding-right:0;
+    padding-left:0;
+    width:100%!important;
+}
+
 /* SEARCH FIELD */
 #custom-search-input{
     padding: 3px;
@@ -173,4 +181,21 @@
     -moz-border-radius-topright: 5px;
      border-top-left-radius: 5px;
      border-top-right-radius: 5px;
+}
+
+/*
+    Tag
+*/
+
+.tag{
+    color: #b8c7ce;
+    background: #1e282c;
+    background-color:transparent;
+    padding: 12px 5px 12px 15px;
+    
+}
+
+.tag:hover{
+    opacity:0.5;
+    cursor:pointer;
 }

@@ -82,9 +82,9 @@ namespace DAL.AdminRepo
             return payments;
         }
 
-        public bool completePayment(Payment payment)
+        public bool completePayment(int paymentId)
         {
-            if (payment != null)
+            if (paymentId != -1)
             {
                 return true;
             }
@@ -121,6 +121,11 @@ namespace DAL.AdminRepo
         }
 
         public Customer getCustomerByBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool deleteAccount(Account account)
         {
             throw new NotImplementedException();
         }
