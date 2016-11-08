@@ -80,18 +80,27 @@
 
             // JA KNAPP I MODAL LISTENER:
             $(document).on('click', '#betal_modal_btn', function () {
-                $('#betal_modal_btn').attr('disabled', 'disabled');
+                //$('#betal_modal_btn').attr('disabled', 'disabled');
                 $.ajax({
                     url: '/Admin/Betal',
                     type: 'POST',
                     data: { paymentID: paymentID },
                     success: function (data) {
                         if (data) {
-                            alert(data);
                             $('#bekreft-container').modal('hide');
                             // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
                             $('#bekreft-container').on('hidden.bs.modal', function (e) {
-                                betaling();
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "RegBetaling",
+                                    beforeSend: function () {
+                                        $('#productsPlace').css('display', 'block');
+                                        $('#productsPlace').animate({ opacity: 0 }, 0);
+                                        $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+                                    },
+                                }).done(function (result) {
+                                    $('#productsPlace').html(result);
+                                })
                                 
                             })
                         } else {
@@ -99,10 +108,10 @@
                             // $('#editor-content-container').html(data);
                             //alert("Dette gikk ikke!")
                         }
-                        $('#betal_modal_btn').removeAttr('disabled');
+                        //$('#betal_modal_btn').removeAttr('disabled');
                     }
                 }); //End of Ajax
-                e.stopImediatePropagation();
+                //e.stopImediatePropagation();
             });
         });
 
