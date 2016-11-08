@@ -28,6 +28,7 @@
                     <th>Telefonnummer</th>
                     <th>Endre</th>
                     <th>Slett</th>
+                    <th>Tag</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                         <td class="col-md-1">@Html.DisplayFor(modelItem => c.PhoneNo)</td>
                         <td class="col-md-1"><button class="btn btn-info">Endre</button></td>
                         <td class="col-md-1"><button class="btn btn-danger">Slett</button></td>
+                        <td class="col-md-1"><button data-name="@Html.DisplayFor(modelItem => c.FirstName)" data-id="@Html.DisplayFor(modelItem => c.BirthNo)" class="btn btn-primary useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Tag</button></td>
 
                         <!--<td class="col-md-1"><button class="btn btn-info" id="show_payments_btn">Betalinger</button></td>
                         <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn">Transaksjoner</button></td>-->

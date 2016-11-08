@@ -82,9 +82,9 @@ namespace DAL.AdminRepo
             return payments;
         }
 
-        public bool completePayment(Payment payment)
+        public bool completePayment(int paymentId)
         {
-            if (payment != null)
+            if (paymentId != -1)
             {
                 return true;
             }

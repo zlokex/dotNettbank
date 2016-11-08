@@ -72,9 +72,9 @@ namespace BLL.AdminService
 
       
 
-        public bool completePayment(Payment payment)
+        public bool completePayment(int paymentId)
         {
-            return _repository.completePayment(payment);
+            return _repository.completePayment(paymentId);
         }
 
         private static byte[] lagHash(string innPassord)
