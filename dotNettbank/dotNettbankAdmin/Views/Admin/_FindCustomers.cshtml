@@ -100,9 +100,9 @@
             $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
             var accountNo = $(this).attr('data-id');
             $.ajax({
-                url: '/Admin/GetEditAccountPartial',
+                url: '/Admin/',
                 type: 'GET',
-                data: { accountNo: accountNo },
+                data: { asd: asd },
                 success: function(data){
                     $('#editor-content-container').html(data);
                     $('#editor-container').modal('show');
@@ -114,7 +114,7 @@
         $(document).on('click', '#update_btn', function () {
             var self = $(this);
             $.ajax({
-                url: '/Admin/UpdateAccount',
+                url: '/Admin/',
                 type: 'POST',
                 data: self.closest('form').serialize(),
                 success: function(data) {
