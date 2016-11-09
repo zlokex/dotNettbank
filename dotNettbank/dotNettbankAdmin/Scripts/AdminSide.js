@@ -16,9 +16,13 @@
 
 $(".getPartial").click(function () {
     var arg = $(this).data("id");
+    getPartial(arg);
+});
+
+function getPartial(viewName) {
     $.ajax({
         type: 'POST',
-        url: arg ,
+        url: viewName,
         beforeSend: function () {
             $('#productsPlace').css('display', 'block');
             $('#productsPlace').animate({ opacity: 0 }, 0);
@@ -27,9 +31,7 @@ $(".getPartial").click(function () {
     }).done(function (result) {
         $('#productsPlace').html(result);
     })
-});
-
-
+}
 
 
 

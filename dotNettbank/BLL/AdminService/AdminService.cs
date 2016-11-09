@@ -50,14 +50,14 @@ namespace BLL.AdminService
             return false;
         }
 
-        public List<Account> getAllAccounts()
-        {
-            return _repository.getAllAccounts();
-        }
-
         public List<Customer> getAllCustomers()
         {
             return _repository.getAllCustomers();
+        }
+
+        public List<Account> getAllAccounts()
+        {
+            return _repository.getAllAccounts();
         }
 
         public List<Payment> getAllPayments()
@@ -106,9 +106,10 @@ namespace BLL.AdminService
             return _repository.getCustomerByBirthNo(birthNo);
         }
 
-        public bool deleteAccount(Account account)
+        public string deactivateAccount(string accountNo)
         {
-            return _repository.deleteAccount(account);
+            
+            return _repository.deactivateAccount(accountNo);
         }
     }
 }

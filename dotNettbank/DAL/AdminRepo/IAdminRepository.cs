@@ -20,6 +20,6 @@ namespace DAL.AdminRepo
         Account getAccountByAccountNo(string accountNo);
         bool updateAccount(Account updatedAccount);
         Customer getCustomerByBirthNo(string birthNo);
-        bool deleteAccount(Account account);
+        string deactivateAccount(string accountNo);
     }
 }

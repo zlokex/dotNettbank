@@ -42,19 +42,19 @@ namespace DAL.AdminRepo
 
         //--- GET LIST ---
 
-        public List<Account> getAllAccounts()
-        {
-            using (var db = new BankContext())
-            {
-                return db.Accounts.ToList();
-            }
-        }
-
         public List<Customer> getAllCustomers()
         {
             using (var db = new BankContext())
             {
-                return db.Customers.ToList();
+                return db.Customers.Where(x => x.Active == true).ToList(); // Filter customer by only showing active customers
+            }
+        }
+
+        public List<Account> getAllAccounts()
+        {
+            using (var db = new BankContext())
+            {
+                return db.Accounts.Where(x => x.Owner.Active == true && x.Active == true).ToList(); // Filter accounts by only showing active accs from active customers
             }
         }
 
@@ -62,7 +62,7 @@ namespace DAL.AdminRepo
         {
             using (var db = new BankContext())
             {
-                return db.Payments.ToList();
+                return db.Payments.Where(x => x.FromAccount.Active == true).ToList(); // Filter payments by only showing payments sent from active accounts
             }
         }
 
@@ -105,23 +105,36 @@ namespace DAL.AdminRepo
             }
         }
 
-        //--- DELETE ---
+        //--- DEACTIVATE ---
 
-        public bool deleteAccount(Account account)
+        public string deactivateAccount(string accountNo)
         {
             using (var db = new BankContext())
             {
+                Account account = getAccountByAccountNo(accountNo);
+                if (account == null) { return "Konto eksisterer ikke"; }
+                if (account.Balance > 0)
+                {
+                    return "Kan ikke deaktivere konto med saldo over 0";
+                }
                 try
                 {
+                    // Set active for account to false:
+                    account.Active = false;
+
+                    // Update record:
                     db.Accounts.Attach(account);
-                    db.Accounts.Remove(account);
+                    db.Entry(account).Property(x => x.Active).IsModified = true; // Update only Active property
+                    
+                    // Save changes:
                     db.SaveChanges();
-                    return true;
+                    return "Suksess";
                 }
                 catch (Exception e)
                 {
-                    return false;
+                    return "Klarte ikke å deaktivere konto";
                 }
+
             }
         }
 

@@ -28,7 +28,7 @@
                     <th>Kontonavn</th>
                     <th>Saldo</th>
                     <th>Endre</th>
-                    <th>Slett</th>
+                    <th>Deaktiver</th>
                     <th>Tag</th>
                 </tr>
             </thead>
@@ -41,7 +41,7 @@
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.Type)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
                         <td class="col-md-1"><button class="btn btn-default" id="edit_btn" data-id="@item.AccountNo">Endre</button></td>
-                        <td class="col-md-1"><button class="btn btn-danger" id="delete_btn" data-id="@item.AccountNo">Slett</button></td>
+                        <td class="col-md-1"><button class="btn btn-danger" id="delete_btn" data-id="@item.AccountNo">Deaktiver</button></td>
                         <td class="col-md-1"><button data-name="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-primary useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Tag</button></td>
                     </tr>
 
@@ -67,12 +67,22 @@
             <!-- MODAL HEADER -->
             <div class="modal-header ">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Endre konto</h3>
+                <h3 id="myModalLabel">Deaktiver konto</h3>
             </div>
             <!-- MODAL BODY -->
             <div class="modal-body">
+                <div id="intial_message">
+                    Er du sikker på at du ønsker å deaktivere denne kontoen?
+                </div>
+                <div id="error_message" class="text-danger">
+
+                </div>
+            </div>
+
+            <!-- MODAL FOOTER -->
+            <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">Avbryt</button>
-                <button class="btn btn-danger" type="button" id="delete_modal_btn">Slett</button>
+                <button class="btn btn-danger" type="button" id="delete_modal_btn">Deaktiver</button>
             </div>
 
         </div>
@@ -84,6 +94,7 @@
     $(document).ready(function () {
         // ENDRE KONTO LISTENER:
         $(document).on('click', '#edit_btn', function () {
+            $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
             var accountNo = $(this).attr('data-id');
             $.ajax({
                 url: '/Admin/GetEditAccountPartial',
@@ -105,13 +116,15 @@
                 data: self.closest('form').serialize(),
                 success: function(data) {
                     if (data.success == true) {
+                        // Turn on hidden bs modal with refresh of partial
+                        $('#editor-container').one('hidden.bs.modal', function (e) {
+                            getPartial("Accounts");
+                        })
                         $('#editor-container').modal('hide');
                         $('#editor-content-container').html("");
-                        // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
-                        $('#editor-container').on('hidden.bs.modal', function (e) {
-                            showAccounts();
-                        })
+                        
                     } else {
+                        
                         // If not succesful, reload modal with the partial/model from controller
                         $('#editor-content-container').html(data);
                     }
@@ -119,40 +132,39 @@
             });
         });
 
-        
-        // SLETT KONTO LISTENER:
+        var accountNoToDelete;
+        // DEAKTIVER KONTO LISTENER:
         $(document).on('click', '#delete_btn', function () {
-            var accountNoToDelete = $(this).attr('data-id');
-            $('#delete-container').modal('show');
-
+            accountNoToDelete = $(this).attr('data-id');
+            $('#delete-container').off('hidden.bs.modal'); // Turn off hidden bs modal
+            $('#delete-container').modal('show'); // show modal
             // SLETT KNAPP I MODAL LISTENER:
-            $(document).on('click', '#delete_modal_btn', function () {
-                var self = $(this);
-                $.ajax({
-                    url: '/Admin/DeleteAccount',
-                    type: 'POST',
-                    data: { accountNo: accountNoToDelete },
-                    success: function (data) {
-                        if (data == true) {
-                            $('#delete-container').modal('hide');
-                            $('#delete-content-container').html("");
-                            // "Refresh _Accounts partial after modal is closed (inside here so that accounts is not refreshed on close)
-                            $('#delete-container').on('hidden.bs.modal', function (e) {
-                                showAccounts();
-                            })
-                        } else {
-                            // If not succesful, reload modal with the partial/model from controller
-                            // $('#editor-content-container').html(data);
-                        }
+            
+        }); // End of deaktiver konto
+
+        $('#delete_modal_btn').click(function () {
+            var self = $(this);
+            $.ajax({
+                url: '/Admin/DeactivateAccount',
+                type: 'POST',
+                data: { accountNo: accountNoToDelete },
+                success: function (data) {
+                    if (data === "Suksess") {
+                        // Turn on hidden bs modal with refresh of partial
+                        $('#delete-container').on('hidden.bs.modal', function (e) {
+                            getPartial("Accounts");
+                        })
+                        $('#delete-container').modal('hide');
+                        $('#delete-content-container').html("");
+                    } else {
+
+                        $('#intial_message').html("");
+                        $('#error_message').html(data);
                     }
-                });
+                }
             });
         });
-
-        
-
-            
-    });
+    }); // end of Document ready
 </script>
 
 <script src="~/Scripts/AdminPartials.js"></script>
