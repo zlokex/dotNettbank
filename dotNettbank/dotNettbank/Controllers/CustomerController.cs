@@ -96,8 +96,8 @@ namespace dotNettbank.Controllers
         {
             Random random = new Random();
             int newAccNo1 = random.Next(1000, 9999);
-            int newAccNo2 = random.Next(00, 99);
-            int newAccNo3 = random.Next(00000, 99999);
+            int newAccNo2 = random.Next(10, 99);
+            int newAccNo3 = random.Next(10000, 99999);
             string user = Session["UserId"] as string;
             Customer customer = bankService.getCustomerByBirthNo(user);
             string AccountType = "Brukskonto";
@@ -310,7 +310,6 @@ namespace dotNettbank.Controllers
             }
         }
 
-
         public ActionResult Transfer() // Overføre (Mellom egne konti) // LAV PRIO
         {
             if (Session["LoggedIn"] != null)
@@ -328,6 +327,7 @@ namespace dotNettbank.Controllers
                 return RedirectToAction("LoginBirth", "Home", new { area = "" });
             }
         }
+
 
         public ActionResult DuePayments() // Forfallsoversikt
         {
