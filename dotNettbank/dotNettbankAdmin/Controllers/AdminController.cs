@@ -68,13 +68,13 @@ namespace dotNettbankAdmin.Controllers
 
         //--- GetPartials() PARTIALS LINKED FROM SIDEBAR MENU: ---
 
-        public ActionResult FindCustomers(string birthNo, string accountNo)
+        public ActionResult FindCustomers(string[] birthNo, string[] accountNo)
         {
             List<Customer> customers = _adminService.getAllCustomers();
 
             return PartialView("_FindCustomers", customers);
         }
-        public ActionResult Accounts(string birthNo, string accountNo)
+        public ActionResult Accounts(string[] birthNo, string[] accountNo)
         {
             List<Account> accounts;
 
@@ -82,13 +82,13 @@ namespace dotNettbankAdmin.Controllers
                 accounts = _adminService.getAllAccounts();
             } else
             {
-                accounts = _adminService.getAllAccountsByBirthNo(birthNo);
+                accounts = _adminService.getAccountsByBirthNoArray(birthNo);
             }
 
             return PartialView("_Accounts", accounts);
         }
 
-        public ActionResult RegBetaling(string birthNo, string accountNo)
+        public ActionResult RegBetaling(string[] birthNo, string[] accountNo)
         {
             List<Payment> payments = new List<Payment>();
             if (birthNo == null && accountNo == null)
@@ -99,12 +99,12 @@ namespace dotNettbankAdmin.Controllers
             {
                 if (birthNo != null)
                 {
-                    List<Payment>  paymentsBirth = _adminService.getPaymentsByFromBirthNo(birthNo);
+                    List<Payment>  paymentsBirth = _adminService.getPaymentsByFromBirthNoArray(birthNo);
                     payments.AddRange(paymentsBirth);
                 }
                 if (accountNo != null)
                 {
-                    List<Payment>  paymentsAccount = _adminService.getPaymentsByFromAccountNo(accountNo);
+                    List<Payment>  paymentsAccount = _adminService.getPaymentsByFromAccountNoArray(accountNo);
                     payments.AddRange(paymentsAccount);
                 }
                 //payment = payment.DistinctBy(i => i.FromAccountNo).ToList();
@@ -114,22 +114,7 @@ namespace dotNettbankAdmin.Controllers
             return PartialView("_RegBetalingPartial", payments);
         }
 
-        [HttpPost]
-        public bool Betal(int paymentID)
-        {
-            List<Payment> paymentList = _adminService.getAllPayments();
-            if(paymentID == -1) //Utfører alle betalinger 
-            {
-                foreach(Payment i in paymentList){
-                    _adminService.completePayment(i.PaymentID);
-                }
-                return true;
-            }
-            return _adminService.completePayment(paymentID);
-        }
-
-
-        public ActionResult Transactions(string birthNo, string accountNo)
+        public ActionResult Transactions(string[] birthNo, string[] accountNo)
         {
             List<Transaction> transactions = new List<Transaction>();
             if (birthNo == null && accountNo == null)
@@ -140,12 +125,12 @@ namespace dotNettbankAdmin.Controllers
             {
                 if (birthNo != null)
                 {
-                    List<Transaction> transactionsBirth = _adminService.getTransactionsByBirthNo(birthNo);
+                    List<Transaction> transactionsBirth = _adminService.getTransactionsByBirthNoArray(birthNo);
                     transactions.AddRange(transactionsBirth);
                 }
                 if (accountNo != null)
                 {
-                    List<Transaction> transactionsAccount = _adminService.getTransactionsByAccountNo(accountNo);
+                    List<Transaction> transactionsAccount = _adminService.getTransactionsByAccountNoArray(accountNo);
                     transactions.AddRange(transactionsAccount);
                 }
                 //payment = payment.DistinctBy(i => i.FromAccountNo).ToList();
@@ -155,6 +140,21 @@ namespace dotNettbankAdmin.Controllers
         }
 
         // --- GET MODAL PARTIALS ---
+        [HttpPost]
+        public bool Betal(int paymentID)
+        {
+            List<Payment> paymentList = _adminService.getAllPayments();
+            if (paymentID == -1) //Utfører alle betalinger 
+            {
+                foreach (Payment i in paymentList)
+                {
+                    _adminService.completePayment(i.PaymentID);
+                }
+                return true;
+            }
+            return _adminService.completePayment(paymentID);
+        }
+
 
         [HttpGet]
         public ActionResult EditCustomerPartial(string birthNo)

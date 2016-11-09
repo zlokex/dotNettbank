@@ -154,5 +154,30 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public List<Transaction> getTransactionsByBirthNoArray(string[] birthNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByAccountNoArray(string[] accountNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Account> getAccountsByBirthNoArray(string[] birthNos)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

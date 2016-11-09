@@ -28,5 +28,10 @@ namespace BLL.AdminService
         List<Payment> getPaymentsByFromBirthNo(string birthNo);
         List<Transaction> getTransactionsByAccountNo(string accountNo);
         List<Transaction> getTransactionsByBirthNo(string birthNo);
+        List<Transaction> getTransactionsByBirthNoArray(string[] birthNos);
+        List<Transaction> getTransactionsByAccountNoArray(string[] accountNos);
+        List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos);
+        List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos);
+        List<Account> getAccountsByBirthNoArray(string[] birthNos);
     }
 }

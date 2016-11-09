@@ -3,20 +3,6 @@
 $(document).ready(function () {
     $('.search-table').paging({ limit: 10 });
 
-    /*
-    var counter = 0;
-    var tagString = "";
-    var listItems = $("#tabsmenu li");
-    listItems.each(function (idx, li) {
-        var tag = $(li);
-        if(counter >0){
-            var tagValue = tag.children().data("id")
-            tagString += tagValue + " ";
-        }
-        counter++;
-    });
-    */
-
     $rows = $('.search-table tbody tr');
     $('#search').keyup(function () {
         var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
@@ -30,12 +16,6 @@ $(document).ready(function () {
 
     });
 
-    /*
-    if (counter > 1) {
-        $('#search').val(tagString);
-        $('#search').keyup();
-    }
-    */
 });
 
 
@@ -48,16 +28,12 @@ $('.useraddtab').click(function () {
     var firstname = $(this).data('firstname');
     var lastname = $(this).data('lastname');
 
-
-    //output = "<li data-type='" + type + "' data-id='" + userID + "' class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
-    //        + " " + name + ", " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
-
     //KundeTag
     if (lastname != null) {
-        output = "<li data-type='" + type + "' data-id='" + userID + "' class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+        output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
                 + " " + firstname + " " + lastname + " " + userID + " <i class='fa fa-times tag_close'></i></p></div></li>";
     } else { //Kontotag
-        output = "<li data-type='" + type + "' data-id='" + userID + "' class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+        output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
             + " " + firstname + ": " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
     }
 
@@ -73,7 +49,7 @@ $('.useraddtab').click(function () {
 $("#tabsmenu").on('click', '.tag_close', function () {
     // .remove(), only removes the element from the DOM, not from Javascript memory
     // therefore we first set data-type to blank:
-    $(this).find("div").data('type', "disabled");
+    //$(this).find("div").data('type', "disabled");
     $(this).closest("li").remove();
     
 });

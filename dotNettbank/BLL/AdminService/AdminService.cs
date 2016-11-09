@@ -141,6 +141,31 @@ namespace BLL.AdminService
         {
             return _repository.getTransactionsByBirthNo(birthNo);
         }
+
+        public List<Transaction> getTransactionsByBirthNoArray(string[] birthNos)
+        {
+            return _repository.getTransactionsByBirthNoArray(birthNos);
+        }
+
+        public List<Transaction> getTransactionsByAccountNoArray(string[] accountNos)
+        {
+            return _repository.getTransactionsByAccountNoArray(accountNos);
+        }
+
+        public List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos)
+        {
+            return _repository.getPaymentsByFromAccountNoArray(fromAccountNos);
+        }
+
+        public List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos)
+        {
+            return _repository.getPaymentsByFromBirthNoArray(birthNos);
+        }
+
+        public List<Account> getAccountsByBirthNoArray(string[] birthNos)
+        {
+            return _repository.getAccountsByBirthNoArray(birthNos);
+        }
     }
 }
 

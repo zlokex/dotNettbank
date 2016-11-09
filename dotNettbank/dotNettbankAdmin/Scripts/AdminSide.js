@@ -30,15 +30,23 @@ $(".getPartial").click(function () {
 });
 
 function getPartial(viewName) {
-    var birthTag = $("#tabsmenu").find("[data-type='customer']");
-    var birthNo = birthTag.data('id');
+    birthTag = $("#tabsmenu").find("[data-type='customer']");
+    //var birthNo = birthTag.data('id');
+    // Get array of birth numbers from tags:
+    var birthNoArray = birthTag.map(function () {
+        return this.getAttribute("data-id");
+    }).get();
 
     var accountTag = $("#tabsmenu").find("[data-type='account']");
-    var accountNo = accountTag.data('id');
+    //var accountNo = accountTag.data('id');
+    var accountNoArray = accountTag.map(function () {
+        return this.getAttribute("data-id");
+    }).get();
+
     $.ajax({
         type: 'POST',
         url: viewName,
-        data: {birthNo: birthNo, accountNo: accountNo},
+        data: { birthNo: birthNoArray, accountNo: accountNoArray },
         beforeSend: function () {
             $('#productsPlace').css('display', 'block');
             $('#productsPlace').animate({ opacity: 0 }, 0);
