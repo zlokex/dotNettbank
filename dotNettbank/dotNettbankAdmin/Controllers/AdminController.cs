@@ -32,6 +32,10 @@ namespace dotNettbankAdmin.Controllers
             {
                 List<Payment> bl = _adminService.getAllPayments();
                 AdminSideModel model = new AdminSideModel(bl);
+                
+                Admin u = _adminService.getAdmin("" + Session["LoggedIn"]);
+                ViewBag.UserName = u.Username;
+                ViewBag.Email = u.Email;
 
                 return View(model);
             }
@@ -83,6 +87,13 @@ namespace dotNettbankAdmin.Controllers
         public bool Betal(int paymentID)
         {
             List<Payment> paymentList = _adminService.getAllPayments();
+            if(paymentID == -1) //Utfører alle betalinger 
+            {
+                foreach(Payment i in paymentList){
+                    _adminService.completePayment(i.PaymentID);
+                }
+                return true;
+            }
             return _adminService.completePayment(paymentID);
         }
 
