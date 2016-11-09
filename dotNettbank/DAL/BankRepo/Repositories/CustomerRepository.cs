@@ -1,4 +1,5 @@
-﻿using dotNettbank.Model;
+﻿using DAL.Log;
+using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -28,8 +29,10 @@ namespace dotNettbank.DAL.Repositories
 
         public Customer getCustomerByLoginFields(byte[] hashedPassword, string birthNo)
         {
-            return db.Customers.FirstOrDefault(
+            
+                return db.Customers.FirstOrDefault(
                 c => c.Password == hashedPassword && c.BirthNo == birthNo);
+
         }
 
         // GET LIST OF MODELS
@@ -56,7 +59,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
-                Debug.WriteLine("DEBUG i addCustomer DAL: " + e.Message);
+                string log = "Failed to add customer.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
             
@@ -69,7 +74,7 @@ namespace dotNettbank.DAL.Repositories
         /// <returns>True if succesful, false otherwise</returns>
         public bool deleteCustomerByBirthNo(string birthNo)
         {
-            var customerToRemove = db.Customers.SingleOrDefault(c => c.BirthNo == birthNo); // Find customer to remove
+                var customerToRemove = db.Customers.SingleOrDefault(c => c.BirthNo == birthNo); // Find customer to remove
 
             if (customerToRemove != null) // If customer with chosen birthNo exists:
             {
@@ -79,6 +84,7 @@ namespace dotNettbank.DAL.Repositories
             }
             else // If customer with selected birthNo does not exist:
             {
+              
                 return false;
             }
         }
@@ -99,6 +105,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
+                string log = "Failed to delete customer.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
         }
@@ -123,6 +132,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
+                string log = "Failed to update data.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
         }
@@ -145,6 +157,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
+                string log = "Failed to authenticate user.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
         }

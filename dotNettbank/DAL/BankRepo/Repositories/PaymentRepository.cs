@@ -1,4 +1,5 @@
-﻿using dotNettbank.Model;
+﻿using DAL.Log;
+using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -67,7 +68,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                string log = "Failed to remove payments.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
         }
@@ -124,7 +127,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
-                Debug.WriteLine("DEBUG i addPayemnt DAL: " + e.Message);
+                string log = "Failed to add payment.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
 
@@ -141,6 +146,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
+                string log = "Failed to to delete payment.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
         }
@@ -159,6 +167,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
+                string log = "Failed to update payment.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
         }
