@@ -9,12 +9,43 @@ using System.Text;
 
 namespace dotNettbank.DAL
 {
-    public class BankInitializer : CreateDatabaseIfNotExists<BankContext>
+    public class BankInitializer : DropCreateDatabaseIfModelChanges<BankContext>
     {
         protected override void Seed(BankContext context)
         {
-            // ---------- POSTAL AREAS ---------
+            generateDefaultAdmin();
+            generatePostalAreas(context);
+            generateCustomers(context);
+            generateAccounts(context);
+            generatePayments(context);
+            generateTransactions(context);
+        }
 
+        // ---------- ADMINS ---------
+        public static void generateDefaultAdmin()
+        {
+
+            string username = "admin";
+            string password = "admin";
+            string email = "defaultAdmin@gmail.com";
+
+            byte[] hashedpassword = createHash(password);
+
+            using (var db = new BankContext())
+            {
+                var nyadmin = new Admin();
+                nyadmin.Username = username;
+                nyadmin.Password = hashedpassword;
+                nyadmin.Email = email;
+
+                db.Admins.Add(nyadmin);
+                db.SaveChanges();
+            }
+        }
+
+        // ---------- POSTAL AREAS ---------
+        public static void generatePostalAreas(BankContext context)
+        {
             var postalAreas = new List<PostalArea>
             {
                 new PostalArea {PostCode="0182",Area="Oslo"},
@@ -23,9 +54,11 @@ namespace dotNettbank.DAL
             };
             postalAreas.ForEach(s => context.PostalAreas.Add(s));
             context.SaveChanges();
+        }
 
-            // ---------- CUSTOMERS ---------
-
+        // ---------- CUSTOMERS ---------
+        public static void generateCustomers(BankContext context)
+        {
             string password = "Test123";
             string salt = generateSalt();
             byte[] hashedPassword = createHash(password + salt);
@@ -52,12 +85,26 @@ namespace dotNettbank.DAL
                     PostCode = "0182",
                     Password = hashedPassword,
                     Salt = salt
+                },
+                new Customer
+                {
+                    BirthNo = "031276105610",
+                    FirstName = "Jens",
+                    LastName = "Jensen",
+                    Address = "Storgata 71",
+                    PhoneNo = "90678345",
+                    PostCode = "0182",
+                    Password = hashedPassword,
+                    Salt = salt
                 }
             };
             customers.ForEach(s => context.Customers.Add(s));
             context.SaveChanges();
+        }
 
-            // ---------- ACCOUNTS ---------
+        // ---------- ACCOUNTS ---------
+        public static void generateAccounts(BankContext context)
+        {
             var accounts = new List<Account>
             {
                 new Account {AccountNo="10000000000",Balance=10000,Type="Spare",InterestRate=1.2,OwnerBirthNo="01018912345"},
@@ -75,10 +122,11 @@ namespace dotNettbank.DAL
             };
             accounts.ForEach(s => context.Accounts.Add(s));
             context.SaveChanges();
+        }
 
-
-            // ---------- PAYMENTS ---------
-
+        // ---------- PAYMENTS ---------
+        public static void generatePayments(BankContext context)
+        {
             DateTime dateNow = DateTime.Now;
             DateTime datePast = new DateTime(2016, 10, 20);
             DateTime dateFuture = new DateTime(2017, 10, 20);
@@ -98,11 +146,17 @@ namespace dotNettbank.DAL
                 new Payment {PaymentID=10,DateAdded=datePast,DueDate=datePast,Amount=100,Message="Beskrivelse",FromAccountNo="10000000010",ToAccountNo="10000000000"},
                 new Payment {PaymentID=11,DateAdded=dateFuture,DueDate=dateFuture,Amount=100,Message="Beskrivelse",FromAccountNo="10000000010",ToAccountNo="10000000000"},
             };
+
             payments.ForEach(s => context.Payments.Add(s));
             context.SaveChanges();
+        }
 
-
-            // ---------- TRANSACTIONS ---------
+        // ---------- TRANSACTIONS ---------
+        public static void generateTransactions(BankContext context)
+        {
+            DateTime dateNow = DateTime.Now;
+            DateTime datePast = new DateTime(2016, 10, 20);
+            DateTime dateFuture = new DateTime(2017, 10, 20);
             var transactions = new List<Transaction>
             {
                 new Transaction {TransactionID=1,DatePayed=dateNow,Date=dateNow,Amount=100.12,Message="Beskrivelse",FromAccountNo="10000000000",ToAccountNo="10000000010"},
@@ -120,32 +174,10 @@ namespace dotNettbank.DAL
             };
             transactions.ForEach(s => context.Transactions.Add(s));
             context.SaveChanges();
-
-            generateDefaultAdmin();
-
         }
 
-        public static void generateDefaultAdmin()
-        {
 
-            string username = "admin";
-            string password = "admin";
-            string email = "defaultAdmin@gmail.com";
-
-            byte[] hashedpassword = createHash(password);
-
-            using (var db = new BankContext())
-            {
-                var nyadmin = new Admin();
-                nyadmin.Username = username;
-                nyadmin.Password = hashedpassword;
-                nyadmin.Email = email;
-
-                db.Admins.Add(nyadmin);
-                db.SaveChanges();
-            }
-        }
-
+        //--- PRIVATE METHODS ---
 
         private static string generateSalt()
         {

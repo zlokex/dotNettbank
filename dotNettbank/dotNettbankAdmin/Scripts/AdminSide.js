@@ -5,10 +5,20 @@
         $(this).addClass('active');
     });
 
-
+    /*
     $(".tag").click(function () {
         alert("Remove");
         $(this).remove();
+    });
+*/
+    // When Sidebar toggle button is clicked: check if body has sidebar-collapse (same as sidebar being collapsed
+    // If so, show the tabs menu, and then hide when closing
+    $(".sidebar-toggle").click(function () {
+        if ($('body').hasClass('sidebar-collapse')) {
+            $("#tabsmenu").show();
+        } else {
+            $("#tabsmenu").hide();
+        }
     });
 
 });
@@ -16,9 +26,13 @@
 
 $(".getPartial").click(function () {
     var arg = $(this).data("id");
+    getPartial(arg);
+});
+
+function getPartial(viewName) {
     $.ajax({
         type: 'POST',
-        url: arg ,
+        url: viewName,
         beforeSend: function () {
             $('#productsPlace').css('display', 'block');
             $('#productsPlace').animate({ opacity: 0 }, 0);
@@ -27,7 +41,8 @@ $(".getPartial").click(function () {
     }).done(function (result) {
         $('#productsPlace').html(result);
     })
-});
+}
+
 
 
 

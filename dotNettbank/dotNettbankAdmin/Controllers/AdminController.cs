@@ -80,10 +80,10 @@ namespace dotNettbankAdmin.Controllers
         }
 
         [HttpPost]
-        public bool Betal(int paymentId)
+        public bool Betal(int paymentID)
         {
             List<Payment> paymentList = _adminService.getAllPayments();
-            return _adminService.completePayment(paymentId);
+            return _adminService.completePayment(paymentID);
         }
 
         public ActionResult Transactions()
@@ -160,10 +160,16 @@ namespace dotNettbankAdmin.Controllers
             return PartialView("_EditAccountsPartial", model);
         }
 
-        public bool DeleteAccount(string accountNo)
+        public string DeactivateAccount(string accountNo)
         {
-            Account accountToDelete = new Account() { AccountNo = accountNo };
-            return _adminService.deleteAccount(accountToDelete);
+            
+            return _adminService.deactivateAccount(accountNo);
+        }
+
+        public string DeactivateCustomer(string birthNo)
+        {
+
+            return _adminService.deactivateCustomer(birthNo);
         }
     }
 }
