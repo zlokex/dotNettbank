@@ -46,13 +46,18 @@ $('.useraddtab').click(function () {
     
 });
 
-$("#tabsmenu").on('click', '.tag_close', function () {
-    // .remove(), only removes the element from the DOM, not from Javascript memory
-    // therefore we first set data-type to blank:
-    //$(this).find("div").data('type', "disabled");
+/*
+$(".tag_close").unbind('click').click(function () {
     $(this).closest("li").remove();
-    
+    //Next we want to reload the partial:
+
+    // First we find data-id of panel (which equals controller view name)
+    var view = $(".panel").data("id");
+    getPartial(view);
 });
+*/
+
+
 
 
 
