@@ -81,7 +81,7 @@
 
             <!-- MODAL FOOTER -->
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">Avbryt</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal" id="cancel_modal_btn">Avbryt</button>
                 <button class="btn btn-danger" type="button" id="delete_modal_btn">Deaktiver</button>
             </div>
 
@@ -138,6 +138,8 @@
             accountNoToDelete = $(this).attr('data-id');
             $('#delete-container').off('hidden.bs.modal'); // Turn off hidden bs modal
             $('#delete-container').modal('show'); // show modal
+            $('#intial_message').show();
+            $('#error_message').hide();
             // SLETT KNAPP I MODAL LISTENER:
             
         }); // End of deaktiver konto
@@ -158,11 +160,16 @@
                         $('#delete-content-container').html("");
                     } else {
 
-                        $('#intial_message').html("");
+                        $('#intial_message').hide();
+                        $('#error_message').show();
                         $('#error_message').html(data);
                     }
                 }
             });
+        });
+
+        $("#cancel_modal_btn").click(function () {
+            
         });
     }); // end of Document ready
 </script>

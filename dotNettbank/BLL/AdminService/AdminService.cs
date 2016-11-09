@@ -111,6 +111,11 @@ namespace BLL.AdminService
             
             return _repository.deactivateAccount(accountNo);
         }
+
+        public string deactivateCustomer(string birthNo)
+        {
+            return _repository.deactivateCustomer(birthNo);
+        }
     }
 }
 

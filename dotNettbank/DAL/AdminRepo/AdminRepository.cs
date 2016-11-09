@@ -138,6 +138,45 @@ namespace DAL.AdminRepo
             }
         }
 
+        public string deactivateCustomer(string birthNo)
+        {
+            using (var db = new BankContext())
+            {
+                Customer customer = getCustomerByBirthNo(birthNo);
+                if (customer == null) { return "Kunde eksisterer ikke"; }
+                // Get accounts to customer:
+                List<Account> accounts = db.Accounts.Where(x => x.Owner.BirthNo == birthNo).ToList();
+                foreach (Account account in accounts)
+                {
+                    // Check if any of the accounts has any balance:
+                    if (account.Balance > 0)
+                    {
+                        return "Kan ikke deaktivere kunde. Kunden har kontoer med saldo over 0.";
+                    }
+                }
+                
+
+                try
+                {
+                    // Set active for account to false:
+                    customer.Active = false;
+
+                    // Update record:
+                    db.Customers.Attach(customer);
+                    db.Entry(customer).Property(x => x.Active).IsModified = true; // Update only Active property
+
+                    // Save changes:
+                    db.SaveChanges();
+                    return "Suksess";
+                }
+                catch (Exception e)
+                {
+                    return "Klarte ikke å deaktivere kunde";
+                }
+
+            }
+        }
+
         //--- MISC ---
 
         public bool adminExists(string username)

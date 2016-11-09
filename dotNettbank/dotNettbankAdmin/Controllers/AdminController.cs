@@ -130,5 +130,11 @@ namespace dotNettbankAdmin.Controllers
             
             return _adminService.deactivateAccount(accountNo);
         }
+
+        public string DeactivateCustomer(string birthNo)
+        {
+
+            return _adminService.deactivateCustomer(birthNo);
+        }
     }
 }

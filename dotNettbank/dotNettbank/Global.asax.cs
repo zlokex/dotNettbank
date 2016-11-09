@@ -20,9 +20,12 @@ namespace dotNettbank
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            System.Data.Entity.Database.SetInitializer(new BankInitializer());
             using (var db = new BankContext())
             {
-                new BankInitializer().InitializeDatabase(db);
+                //db.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, "ALTER DATABASE [" + db.Database.Connection.Database + "] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
+                db.Database.Initialize(true);
+                //new BankInitializer().InitializeDatabase(db);
             }
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
 

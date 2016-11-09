@@ -124,5 +124,10 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public string deactivateCustomer(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

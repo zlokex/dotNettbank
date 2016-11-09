@@ -1,6 +1,7 @@
 ﻿using dotNettbank.DAL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,9 +16,12 @@ namespace dotNettbankAdmin
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+            System.Data.Entity.Database.SetInitializer(new BankInitializer());
             using (var db = new BankContext())
             {
-                new BankInitializer().InitializeDatabase(db);
+                //db.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, "ALTER DATABASE [" + db.Database.Connection.Database + "] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
+                db.Database.Initialize(true);
+                //new BankInitializer().InitializeDatabase(db);
             }
         }
     }
