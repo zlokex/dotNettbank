@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
+using System.Diagnostics;
 
 namespace dotNettbankAdmin.Controllers
 {
@@ -104,9 +105,12 @@ namespace dotNettbankAdmin.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditCustomerPartial(string customerBirthNo)
+        public ActionResult EditCustomerPartial(string birthNo)
         {
-            var customer = _adminService.getCustomerByBirthNo(customerBirthNo);
+            /*Debug.Indent();
+            Debug.WriteLine("Ditt personummer er: " + birthNo);*/
+            var customer = _adminService.getCustomerByBirthNo(birthNo);
+            
             CustomerVM model = new CustomerVM()
             {
                 BirthNo = customer.BirthNo,
