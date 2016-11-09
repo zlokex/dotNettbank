@@ -39,16 +39,23 @@ $(document).ready(function () {
 
 $('.useraddtab').click(function () {
     var userID = $(this).data('id');
-    var name = $(this).data('name')
+    var name = $(this).data('name');
 
-    output = "<li class='tag'><div data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
-            + " " + name + ", " + userID + " " + " <i class='fa fa-times'></i></p></div></li>"
-    $("#tabsmenu").append(output);
+    output = "<li class='tags'><div data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+            + " " + name + ", " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+
+    //alert($('#tabsmenu').has("li[data-id=" + userID + "]").length);
+    // Check if tag with this id allready exists (count > 0 or count ===0)
+    if ($('#tabsmenu').has("div.tag[data-id=" + userID + "]").length === 0) {
+        $("#tabsmenu").append(output);
+    }
+    
 });
 
-$("#tabsmenu").on('click', '.tag', function () {
-    $(this).remove();
+$("#tabsmenu").on('click', '.tag_close', function () {
+    $(this).closest("li").remove();
 });
+
 
 
 

@@ -185,6 +185,7 @@
     Tag
 */
 
+/*
 .tag{
     color: #b8c7ce;
     background: #1e282c;
@@ -194,6 +195,37 @@
 }
 
 .tag:hover{
+    opacity:0.5;
+    cursor:pointer;
+}
+    */
+
+#tabsmenu {
+    padding-left:10px;
+}
+
+.tags {
+  overflow: hidden; 
+  margin-top: 4px;
+  background:transparent;
+  float:left;
+}
+
+.tag{
+  font-size: 12px;
+  border-radius: 5px 5px 5px 5px;
+  color: #1E282C;
+  background: #eee;
+  display:block;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 8px 0 8px;
+  position: relative;
+  text-decoration: none;
+  -webkit-transition: color 0.2s;
+}
+
+.tag_close:hover{
     opacity:0.5;
     cursor:pointer;
 }
