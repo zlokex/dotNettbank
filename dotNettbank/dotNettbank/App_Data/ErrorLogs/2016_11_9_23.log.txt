@@ -1,1 +1,0 @@
-09/11/2016 23:21:12 ---> Failed to add account.	Exception of type 'System.Exception' was thrown.	   at dotNettbank.DAL.Repositories.AccountRepository.addAccount(Account account) in C:\Users\Ullvar\Documents\Skole HIOA\3 høst\Webapplikasjoner\Visual studio\Oblig 2 ny\dotNettbank\DAL\BankRepo\Repositories\AccountRepository.cs:line 62
