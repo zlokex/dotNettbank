@@ -39,11 +39,18 @@ $(document).ready(function () {
 
 $('.useraddtab').click(function () {
     var userID = $(this).data('id');
-    var name = $(this).data('name');
+    var firstname = $(this).data('firstname');
+    var lastname = $(this).data('lastname');
 
+    //KundeTag
+    if (lastname != null){
     output = "<li class='tags'><div data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
-            + " " + name + ", " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+            + " " + firstname + " " + lastname + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+    } else { //Kontotag
+        output = "<li class='tags'><div data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+            + " " + firstname + " " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
 
+    }
     //alert($('#tabsmenu').has("li[data-id=" + userID + "]").length);
     // Check if tag with this id allready exists (count > 0 or count ===0)
     if ($('#tabsmenu').has("div.tag[data-id=" + userID + "]").length === 0) {
