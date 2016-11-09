@@ -58,6 +58,14 @@ namespace DAL.AdminRepo
             }
         }
 
+        public List<Account> getAllAccountsByBirthNo(string birthNo)
+        {
+            using (var db = new BankContext())
+            {
+                return db.Accounts.Where(x => x.Owner.BirthNo == birthNo && x.Owner.Active == true && x.Active == true).ToList(); // Filter accounts by only showing active accs from active customers
+            }
+        }
+
         public List<Payment> getAllPayments()
         {
             using (var db = new BankContext())
@@ -75,11 +83,119 @@ namespace DAL.AdminRepo
             }
         }
 
+        public List<Payment> getPaymentsByFromBirthNo(string birthNo)
+        {
+            using (var db = new BankContext())
+            {
+                List<Payment> payments = db.Payments.Where(t => t.FromAccount.OwnerBirthNo == birthNo && t.FromAccount.Active == true).ToList(); // Filter to only show payments from active accounts
+                return payments;
+            }
+        }
+
         public List<Transaction> getAllTransactions()
         {
             using (var db = new BankContext())
             {
                 return db.Transactions.ToList();
+            }
+        }
+
+        // Get all sent and received transactions for one account of one person
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            using (var db = new BankContext())
+            {
+                // Get all transactions matching from accountNo (Avsender)
+                List<Transaction> transactions = db.Transactions.Where(t => t.FromAccount.AccountNo == accountNo).ToList();
+                // Add all transactions matching to accountNo (Mottaker)
+                transactions.AddRange(db.Transactions.Where(t => t.ToAccount.AccountNo == accountNo).ToList());
+                return transactions;
+            }
+        }
+
+
+        // Get all sent and received transactions for one person
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
+        {
+            using (var db = new BankContext())
+            {
+                // Get all transactions matching from accountNo (Avsender)
+                List<Transaction> transactions = db.Transactions.Where(t => t.FromAccount.Owner.BirthNo == birthNo).ToList();
+                // Add all transactions matching to accountNo (Mottaker)
+                transactions.AddRange(db.Transactions.Where(t => t.ToAccount.Owner.BirthNo == birthNo).ToList());
+                return transactions;
+            }
+        }
+
+        //--- GET LIST FROM ARRAYS ---
+
+        public List<Account> getAccountsByBirthNoArray(string[] birthNos)
+        {
+            using (var db = new BankContext())
+            {
+                List<Account> accounts = new List<Account>();
+                foreach (string birthNo in birthNos)
+                {
+                    List<Account> accountsTemp = db.Accounts.Where(x => x.Owner.BirthNo == birthNo && x.Owner.Active == true && x.Active == true).ToList(); // Filter accounts by only showing active accs from active customers
+                    accounts.AddRange(accountsTemp);
+                }
+                return accounts;
+            }
+        }
+
+        public List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos)
+        {
+            using (var db = new BankContext())
+            {
+                List<Payment> payments = new List<Payment>();
+                foreach (string fromAccountNo in fromAccountNos)
+                {
+                    List<Payment> paymentsTemp = db.Payments.Where(b => b.FromAccountNo == fromAccountNo).ToList();
+                    payments.AddRange(paymentsTemp);
+                }
+                return payments;
+            }
+        }
+
+        public List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos)
+        {
+            using (var db = new BankContext())
+            {
+                List<Payment> payments = new List<Payment>();
+                foreach (string birthNo in birthNos)
+                {
+                    List<Payment> paymentsTemp = db.Payments.Where(t => t.FromAccount.OwnerBirthNo == birthNo && t.FromAccount.Active == true).ToList(); // Filter to only show payments from active accounts
+                    payments.AddRange(paymentsTemp);
+                }
+                return payments;
+            }
+        }
+
+        public List<Transaction> getTransactionsByBirthNoArray(string[] birthNos)
+        {
+            using (var db = new BankContext())
+            {
+                List<Transaction> transactions = new List<Transaction>();
+                foreach (string birthNo in birthNos)
+                {
+                    List<Transaction> transactionsTemp = db.Transactions.Where(t => t.FromAccount.Owner.BirthNo == birthNo).ToList();
+                    transactions.AddRange(transactionsTemp);
+                }
+                return transactions;
+            }
+        }
+
+        public List<Transaction> getTransactionsByAccountNoArray(string[] accountNos)
+        {
+            using (var db = new BankContext())
+            {
+                List<Transaction> transactions = new List<Transaction>();
+                foreach (string accountNo in accountNos)
+                {
+                    List<Transaction> transactionsTemp = db.Transactions.Where(t => t.FromAccount.AccountNo == accountNo).ToList();
+                    transactions.AddRange(transactionsTemp);
+                }
+                return transactions;
             }
         }
 
@@ -105,7 +221,27 @@ namespace DAL.AdminRepo
             }
         }
 
-        //--- DEACTIVATE ---
+        public bool updateCustomer(Customer updatedCustomer)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Customers.Attach(updatedCustomer);
+
+                    var entry = db.Entry(updatedCustomer);
+                    entry.State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            }
+        }
+
+        //--- DELETE ---
 
         public string deactivateAccount(string accountNo)
         {

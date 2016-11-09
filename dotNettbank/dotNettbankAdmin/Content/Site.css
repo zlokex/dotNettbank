@@ -206,7 +206,7 @@
     padding-left:10px;
 }
 
-.tags {
+.tagli {
   overflow: hidden; 
   margin-top: 4px;
   background:transparent;
@@ -251,3 +251,6 @@
   text-decoration: none;
   color: #ffffff!important;
 }
+
+
+        

@@ -29,10 +29,34 @@ $(".getPartial").click(function () {
     getPartial(arg);
 });
 
+$("#tabsmenu").on('click', '.tag_close', function () {
+    $(this).closest("li").remove();
+    //Next we want to reload the partial:
+
+    // First we find data-id of panel (which equals controller view name)
+    //alert("HEI");
+    var view = $(".panel").data("id");
+    getPartial(view);
+});
+
 function getPartial(viewName) {
+    birthTag = $("#tabsmenu").find("[data-type='customer']");
+    //var birthNo = birthTag.data('id');
+    // Get array of birth numbers from tags:
+    var birthNoArray = birthTag.map(function () {
+        return this.getAttribute("data-id");
+    }).get();
+
+    var accountTag = $("#tabsmenu").find("[data-type='account']");
+    //var accountNo = accountTag.data('id');
+    var accountNoArray = accountTag.map(function () {
+        return this.getAttribute("data-id");
+    }).get();
+
     $.ajax({
         type: 'POST',
         url: viewName,
+        data: { birthNo: birthNoArray, accountNo: accountNoArray },
         beforeSend: function () {
             $('#productsPlace').css('display', 'block');
             $('#productsPlace').animate({ opacity: 0 }, 0);

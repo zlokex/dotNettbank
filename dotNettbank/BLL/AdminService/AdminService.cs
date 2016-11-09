@@ -101,6 +101,11 @@ namespace BLL.AdminService
             return _repository.updateAccount(updatedAccount);
         }
 
+        public bool updateCustomer(Customer updatedCustomer)
+        {
+            return _repository.updateCustomer(updatedCustomer);
+        }
+
         public Customer getCustomerByBirthNo(string birthNo)
         {
             return _repository.getCustomerByBirthNo(birthNo);
@@ -115,6 +120,51 @@ namespace BLL.AdminService
         public string deactivateCustomer(string birthNo)
         {
             return _repository.deactivateCustomer(birthNo);
+        }
+
+        public List<Account> getAllAccountsByBirthNo(string birthNo)
+        {
+            return _repository.getAllAccountsByBirthNo(birthNo);
+        }
+
+        public List<Payment> getPaymentsByFromBirthNo(string birthNo)
+        {
+            return _repository.getPaymentsByFromBirthNo(birthNo);
+        }
+
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            return _repository.getTransactionsByAccountNo(accountNo);
+        }
+
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
+        {
+            return _repository.getTransactionsByBirthNo(birthNo);
+        }
+
+        public List<Transaction> getTransactionsByBirthNoArray(string[] birthNos)
+        {
+            return _repository.getTransactionsByBirthNoArray(birthNos);
+        }
+
+        public List<Transaction> getTransactionsByAccountNoArray(string[] accountNos)
+        {
+            return _repository.getTransactionsByAccountNoArray(accountNos);
+        }
+
+        public List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos)
+        {
+            return _repository.getPaymentsByFromAccountNoArray(fromAccountNos);
+        }
+
+        public List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos)
+        {
+            return _repository.getPaymentsByFromBirthNoArray(birthNos);
+        }
+
+        public List<Account> getAccountsByBirthNoArray(string[] birthNos)
+        {
+            return _repository.getAccountsByBirthNoArray(birthNos);
         }
     }
 }

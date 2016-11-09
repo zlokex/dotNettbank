@@ -2,7 +2,7 @@
 
 
 
-<div class="panel panel-default">
+<div class="panel panel-default" data-id="Accounts">
     <div class="panel-heading">
         <h4>Kontoer</h4>
     </div>
@@ -42,7 +42,7 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn" data-id="@item.AccountNo"><i class="fa fa-pencil"></i> Endre</button></td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="delete_btn" data-id="@item.AccountNo"><i class="fa fa-close"></i> Deaktiver</button></td>
-                        <td class="col-md-1"><button data-name="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Tag</button></td>
+                        <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => item.Type)" data-type="account" data-name="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Tag</button></td>
                     </tr>
 
                 }
@@ -173,6 +173,6 @@
         });
     }); // end of Document ready
 </script>
-
 <script src="~/Scripts/AdminPartials.js"></script>
+
 

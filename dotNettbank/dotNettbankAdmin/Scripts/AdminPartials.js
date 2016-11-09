@@ -3,18 +3,6 @@
 $(document).ready(function () {
     $('.search-table').paging({ limit: 10 });
 
-    var counter = 0;
-    var tagString = "";
-    var listItems = $("#tabsmenu li");
-    listItems.each(function (idx, li) {
-        var tag = $(li);
-        if(counter >0){
-            var tagValue = tag.children().data("id")
-            tagString += tagValue + " ";
-        }
-        counter++;
-    });
-
     $rows = $('.search-table tbody tr');
     $('#search').keyup(function () {
         var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
@@ -28,10 +16,6 @@ $(document).ready(function () {
 
     });
 
-    if (counter > 1) {
-        $('#search').val(tagString);
-        $('#search').keyup();
-    }
 });
 
 
@@ -40,10 +24,20 @@ $(document).ready(function () {
 $('.useraddtab').click(function () {
     var userID = $(this).data('id');
     var name = $(this).data('name');
+    var type = $(this).data('type');
+    var firstname = $(this).data('firstname');
+    var lastname = $(this).data('lastname');
 
-    output = "<li class='tags'><div data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
-            + " " + name + ", " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+    //KundeTag
+    if (lastname != null) {
+        output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+                + " " + firstname + " " + lastname + " " + userID + " <i class='fa fa-times tag_close'></i></p></div></li>";
+    } else { //Kontotag
+        output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+            + " " + firstname + ": " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+    }
 
+   
     //alert($('#tabsmenu').has("li[data-id=" + userID + "]").length);
     // Check if tag with this id allready exists (count > 0 or count ===0)
     if ($('#tabsmenu').has("div.tag[data-id=" + userID + "]").length === 0) {
@@ -52,9 +46,18 @@ $('.useraddtab').click(function () {
     
 });
 
-$("#tabsmenu").on('click', '.tag_close', function () {
+/*
+$(".tag_close").unbind('click').click(function () {
     $(this).closest("li").remove();
+    //Next we want to reload the partial:
+
+    // First we find data-id of panel (which equals controller view name)
+    var view = $(".panel").data("id");
+    getPartial(view);
 });
+*/
+
+
 
 
 
