@@ -45,10 +45,23 @@ $('.useraddtab').click(function () {
     var userID = $(this).data('id');
     var name = $(this).data('name');
     var type = $(this).data('type');
+    var firstname = $(this).data('firstname');
+    var lastname = $(this).data('lastname');
 
-    output = "<li data-type='" + type + "' data-id='" + userID + "' class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
-            + " " + name + ", " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
 
+    //output = "<li data-type='" + type + "' data-id='" + userID + "' class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+    //        + " " + name + ", " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+
+    //KundeTag
+    if (lastname != null) {
+        output = "<li data-type='" + type + "' data-id='" + userID + "' class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+                + " " + firstname + " " + lastname + " " + userID + " <i class='fa fa-times tag_close'></i></p></div></li>";
+    } else { //Kontotag
+        output = "<li data-type='" + type + "' data-id='" + userID + "' class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+            + " " + firstname + ": " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+    }
+
+   
     //alert($('#tabsmenu').has("li[data-id=" + userID + "]").length);
     // Check if tag with this id allready exists (count > 0 or count ===0)
     if ($('#tabsmenu').has("div.tag[data-id=" + userID + "]").length === 0) {

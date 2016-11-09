@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
+using System.Diagnostics;
 using MoreLinq;
 
 namespace dotNettbankAdmin.Controllers
@@ -33,6 +34,10 @@ namespace dotNettbankAdmin.Controllers
             {
                 List<Payment> bl = _adminService.getAllPayments();
                 AdminSideModel model = new AdminSideModel(bl);
+                
+                Admin u = _adminService.getAdmin("" + Session["LoggedIn"]);
+                ViewBag.UserName = u.Username;
+                ViewBag.Email = u.Email;
 
                 return View(model);
             }
@@ -109,6 +114,21 @@ namespace dotNettbankAdmin.Controllers
             return PartialView("_RegBetalingPartial", payments);
         }
 
+        [HttpPost]
+        public bool Betal(int paymentID)
+        {
+            List<Payment> paymentList = _adminService.getAllPayments();
+            if(paymentID == -1) //Utfører alle betalinger 
+            {
+                foreach(Payment i in paymentList){
+                    _adminService.completePayment(i.PaymentID);
+                }
+                return true;
+            }
+            return _adminService.completePayment(paymentID);
+        }
+
+
         public ActionResult Transactions(string birthNo, string accountNo)
         {
             List<Transaction> transactions = new List<Transaction>();
@@ -137,6 +157,24 @@ namespace dotNettbankAdmin.Controllers
         // --- GET MODAL PARTIALS ---
 
         [HttpGet]
+        public ActionResult EditCustomerPartial(string birthNo)
+        {
+            /*Debug.Indent();
+            Debug.WriteLine("Ditt personummer er: " + birthNo);*/
+            var customer = _adminService.getCustomerByBirthNo(birthNo);
+            
+            CustomerVM model = new CustomerVM()
+            {
+                BirthNo = customer.BirthNo,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Address = customer.Address,
+                PhoneNo = customer.PhoneNo
+            };
+            return PartialView("_EditCustomersPartial", model);
+        }
+
+        [HttpGet]
         public ActionResult GetEditAccountPartial(string accountNo)
         {
             var account = _adminService.getAccountByAccountNo(accountNo);
@@ -150,13 +188,24 @@ namespace dotNettbankAdmin.Controllers
             return PartialView("_EditAccountsPartial", model);
         }
 
-        //--- UPDATE DB METODS ---
-
-        [HttpPost]
-        public bool Betal(int paymentID)
+        public ActionResult UpdateCustomer(CustomerVM model)
         {
-            List<Payment> paymentList = _adminService.getAllPayments();
-            return _adminService.completePayment(paymentID);
+            if (ModelState.IsValid)
+            {
+                Customer customer = new Customer()
+                {
+                    BirthNo = model.BirthNo,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Address = model.Address,
+                    PhoneNo = model.PhoneNo
+                };
+
+                _adminService.updateCustomer(customer);
+                return Json(new { success = true });
+            }
+            // else
+            return PartialView("_EditAccountsPartial", model);
         }
 
         public ActionResult UpdateAccount(AccountVM model)

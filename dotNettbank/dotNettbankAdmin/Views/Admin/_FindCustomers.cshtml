@@ -23,6 +23,7 @@
                 <tr>
                     <th>Fødselsnummer</th>
                     <th>Fornavn</th>
+
                     <th>Etternavn</th>
                     <th>Adresse</th>
                     <th>Telefonnummer</th>
@@ -40,9 +41,9 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.LastName)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.Address)</td>
                         <td class="col-md-1">@Html.DisplayFor(modelItem => c.PhoneNo)</td>
-                        <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn" data-id="@c.BirthNo"><i class="fa fa-pencil" aria-hidden="true"></i> Endre</button></td>
+                        <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn2" data-id="@c.BirthNo"><i class="fa fa-pencil" aria-hidden="true"></i> Endre</button></td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="delete_btn" data-id="@c.BirthNo"><i class="fa fa-user-times" aria-hidden="true"></i> Deaktiver</button></td>
-                        <td class="col-md-1"><button data-type="customer" data-name="@Html.DisplayFor(modelItem => c.FirstName)" data-id="@Html.DisplayFor(modelItem => c.BirthNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Tag</button></td>
+                        <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => c.FirstName)" data-lastname="@Html.DisplayFor(modelItem => c.LastName)" data-type="customer" data-name="@Html.DisplayFor(modelItem => c.FirstName)" data-id="@Html.DisplayFor(modelItem => c.BirthNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Tag</button></td>
 
                         <!--<td class="col-md-1"><button class="btn btn-info" id="show_payments_btn">Betalinger</button></td>
                         <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn">Transaksjoner</button></td>-->
@@ -55,10 +56,10 @@
 </div>
 
 <!-- ENDRE KONTO MODAL -->
-<div class="modal fade" id="editor-container" tabindex="-1"
+<div class="modal fade" id="editor-container2" tabindex="-1"
      role="dialog" aria-labelledby="editor-title">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" id="editor-content-container"></div>
+        <div class="modal-content" id="editor-content-container2"></div>
     </div>
 </div>
 
@@ -96,16 +97,17 @@
     // DOCUMENT READY:
     $(document).ready(function () {
         // ENDRE KONTO LISTENER:
-        $(document).on('click', '#edit_btn', function () {
-            $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
-            var accountNo = $(this).attr('data-id');
+        $(document).on('click', '#edit_btn2', function () {
+            $('#editor-container2').off('hidden.bs.modal'); // Turn of hidden bs modal
+            var birthNo = $(this).attr('data-id');
+            //console.log(birthNo); Fødselsnummer kommer hit
             $.ajax({
-                url: '/Admin/',
+                url: '/Admin/EditCustomerPartial',
                 type: 'GET',
-                data: { asd: asd },
+                data: { birthNo: birthNo },
                 success: function(data){
-                    $('#editor-content-container').html(data);
-                    $('#editor-container').modal('show');
+                    $('#editor-content-container2').html(data);
+                    $('#editor-container2').modal('show');
                 }
             });
         });
@@ -114,22 +116,22 @@
         $(document).on('click', '#update_btn', function () {
             var self = $(this);
             $.ajax({
-                url: '/Admin/',
+                url: '/Admin/UpdateCustomer',
                 type: 'POST',
                 data: self.closest('form').serialize(),
                 success: function(data) {
                     if (data.success == true) {
                         // Turn on hidden bs modal with refresh of partial
-                        $('#editor-container').one('hidden.bs.modal', function (e) {
+                        $('#editor-container2').one('hidden.bs.modal', function (e) {
                             getPartial("FindCustomers");
                         })
-                        $('#editor-container').modal('hide');
-                        $('#editor-content-container').html("");
+                        $('#editor-container2').modal('hide');
+                        $('#editor-content-container2').html("");
 
                     } else {
 
                         // If not succesful, reload modal with the partial/model from controller
-                        $('#editor-content-container').html(data);
+                        $('#editor-content-container2').html(data);
                     }
                 }
             });
