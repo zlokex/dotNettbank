@@ -23,6 +23,7 @@
                 <tr>
                     <th>Fødselsnummer</th>
                     <th>Fornavn</th>
+
                     <th>Etternavn</th>
                     <th>Adresse</th>
                     <th>Telefonnummer</th>
@@ -98,11 +99,11 @@
         // ENDRE KONTO LISTENER:
         $(document).on('click', '#edit_btn', function () {
             $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
-            var accountNo = $(this).attr('data-id');
+            var birthNo = $(this).attr('data-id');
             $.ajax({
-                url: '/Admin/',
+                url: '/Admin/EditCustomerPartial',
                 type: 'GET',
-                data: { asd: asd },
+                data: { birthNo: birthNo },
                 success: function(data){
                     $('#editor-content-container').html(data);
                     $('#editor-container').modal('show');

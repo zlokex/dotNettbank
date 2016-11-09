@@ -93,7 +93,7 @@ namespace dotNettbankAdmin.Controllers
         }
 
         [HttpGet]
-        public ActionResult editCustomerPartial(string customerBirthNo)
+        public ActionResult EditCustomerPartial(string customerBirthNo)
         {
             var customer = _adminService.getCustomerByBirthNo(customerBirthNo);
             CustomerVM model = new CustomerVM()
@@ -104,7 +104,7 @@ namespace dotNettbankAdmin.Controllers
                 Address = customer.Address,
                 PhoneNo = customer.PhoneNo
             };
-            return PartialView("EditCustomerPartial", model);
+            return PartialView("_EditCustomersPartial", model);
         }
 
         [HttpGet]
