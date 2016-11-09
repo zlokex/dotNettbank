@@ -3,6 +3,7 @@
 $(document).ready(function () {
     $('.search-table').paging({ limit: 10 });
 
+    /*
     var counter = 0;
     var tagString = "";
     var listItems = $("#tabsmenu li");
@@ -14,6 +15,7 @@ $(document).ready(function () {
         }
         counter++;
     });
+    */
 
     $rows = $('.search-table tbody tr');
     $('#search').keyup(function () {
@@ -28,10 +30,12 @@ $(document).ready(function () {
 
     });
 
+    /*
     if (counter > 1) {
         $('#search').val(tagString);
         $('#search').keyup();
     }
+    */
 });
 
 
@@ -40,8 +44,9 @@ $(document).ready(function () {
 $('.useraddtab').click(function () {
     var userID = $(this).data('id');
     var name = $(this).data('name');
+    var type = $(this).data('type');
 
-    output = "<li class='tags'><div data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+    output = "<li data-type='" + type + "' data-id='" + userID + "' class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
             + " " + name + ", " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
 
     //alert($('#tabsmenu').has("li[data-id=" + userID + "]").length);
@@ -53,7 +58,11 @@ $('.useraddtab').click(function () {
 });
 
 $("#tabsmenu").on('click', '.tag_close', function () {
+    // .remove(), only removes the element from the DOM, not from Javascript memory
+    // therefore we first set data-type to blank:
+    $(this).find("div").data('type', "disabled");
     $(this).closest("li").remove();
+    
 });
 
 

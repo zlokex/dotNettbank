@@ -116,6 +116,26 @@ namespace BLL.AdminService
         {
             return _repository.deactivateCustomer(birthNo);
         }
+
+        public List<Account> getAllAccountsByBirthNo(string birthNo)
+        {
+            return _repository.getAllAccountsByBirthNo(birthNo);
+        }
+
+        public List<Payment> getPaymentsByFromBirthNo(string birthNo)
+        {
+            return _repository.getPaymentsByFromBirthNo(birthNo);
+        }
+
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            return _repository.getTransactionsByAccountNo(accountNo);
+        }
+
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
+        {
+            return _repository.getTransactionsByBirthNo(birthNo);
+        }
     }
 }
 

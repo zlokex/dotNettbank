@@ -30,9 +30,15 @@ $(".getPartial").click(function () {
 });
 
 function getPartial(viewName) {
+    var birthTag = $("#tabsmenu").find("[data-type='customer']");
+    var birthNo = birthTag.data('id');
+
+    var accountTag = $("#tabsmenu").find("[data-type='account']");
+    var accountNo = accountTag.data('id');
     $.ajax({
         type: 'POST',
         url: viewName,
+        data: {birthNo: birthNo, accountNo: accountNo},
         beforeSend: function () {
             $('#productsPlace').css('display', 'block');
             $('#productsPlace').animate({ opacity: 0 }, 0);

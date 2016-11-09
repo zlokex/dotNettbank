@@ -129,5 +129,25 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public List<Account> getAllAccountsByBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Payment> getPaymentsByFromBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -58,6 +58,14 @@ namespace DAL.AdminRepo
             }
         }
 
+        public List<Account> getAllAccountsByBirthNo(string birthNo)
+        {
+            using (var db = new BankContext())
+            {
+                return db.Accounts.Where(x => x.Owner.BirthNo == birthNo && x.Owner.Active == true && x.Active == true).ToList(); // Filter accounts by only showing active accs from active customers
+            }
+        }
+
         public List<Payment> getAllPayments()
         {
             using (var db = new BankContext())
@@ -75,11 +83,47 @@ namespace DAL.AdminRepo
             }
         }
 
+        public List<Payment> getPaymentsByFromBirthNo(string birthNo)
+        {
+            using (var db = new BankContext())
+            {
+                List<Payment> payments = db.Payments.Where(t => t.FromAccount.OwnerBirthNo == birthNo && t.FromAccount.Active == true).ToList(); // Filter to only show payments from active accounts
+                return payments;
+            }
+        }
+
         public List<Transaction> getAllTransactions()
         {
             using (var db = new BankContext())
             {
                 return db.Transactions.ToList();
+            }
+        }
+
+        // Get all sent and received transactions for one account of one person
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            using (var db = new BankContext())
+            {
+                // Get all transactions matching from accountNo (Avsender)
+                List<Transaction> transactions = db.Transactions.Where(t => t.FromAccount.AccountNo == accountNo).ToList();
+                // Add all transactions matching to accountNo (Mottaker)
+                transactions.AddRange(db.Transactions.Where(t => t.ToAccount.AccountNo == accountNo).ToList());
+                return transactions;
+            }
+        }
+
+
+        // Get all sent and received transactions for one person
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
+        {
+            using (var db = new BankContext())
+            {
+                // Get all transactions matching from accountNo (Avsender)
+                List<Transaction> transactions = db.Transactions.Where(t => t.FromAccount.Owner.BirthNo == birthNo).ToList();
+                // Add all transactions matching to accountNo (Mottaker)
+                transactions.AddRange(db.Transactions.Where(t => t.ToAccount.Owner.BirthNo == birthNo).ToList());
+                return transactions;
             }
         }
 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
+using MoreLinq;
 
 namespace dotNettbankAdmin.Controllers
 {
@@ -60,37 +61,80 @@ namespace dotNettbankAdmin.Controllers
             return RedirectToAction("Index", "Index");
         }
 
-        public ActionResult FindCustomers()
+        //--- GetPartials() PARTIALS LINKED FROM SIDEBAR MENU: ---
+
+        public ActionResult FindCustomers(string birthNo, string accountNo)
         {
             List<Customer> customers = _adminService.getAllCustomers();
 
             return PartialView("_FindCustomers", customers);
         }
-        public ActionResult Accounts()
+        public ActionResult Accounts(string birthNo, string accountNo)
         {
-            List<Account> accounts = _adminService.getAllAccounts();
+            List<Account> accounts;
+
+            if (birthNo == null) { 
+                accounts = _adminService.getAllAccounts();
+            } else
+            {
+                accounts = _adminService.getAllAccountsByBirthNo(birthNo);
+            }
 
             return PartialView("_Accounts", accounts);
         }
 
-        public ActionResult RegBetaling()
+        public ActionResult RegBetaling(string birthNo, string accountNo)
         {
-            List<Payment> payment = _adminService.getAllPayments();
-            return PartialView("_RegBetalingPartial", payment);
+            List<Payment> payments = new List<Payment>();
+            if (birthNo == null && accountNo == null)
+            {
+                payments = _adminService.getAllPayments();
+            }
+            else
+            {
+                if (birthNo != null)
+                {
+                    List<Payment>  paymentsBirth = _adminService.getPaymentsByFromBirthNo(birthNo);
+                    payments.AddRange(paymentsBirth);
+                }
+                if (accountNo != null)
+                {
+                    List<Payment>  paymentsAccount = _adminService.getPaymentsByFromAccountNo(accountNo);
+                    payments.AddRange(paymentsAccount);
+                }
+                //payment = payment.DistinctBy(i => i.FromAccountNo).ToList();
+                payments = payments.GroupBy(x => x.PaymentID).Select(x => x.First()).ToList();
+            }
+
+            return PartialView("_RegBetalingPartial", payments);
         }
 
-        [HttpPost]
-        public bool Betal(int paymentID)
+        public ActionResult Transactions(string birthNo, string accountNo)
         {
-            List<Payment> paymentList = _adminService.getAllPayments();
-            return _adminService.completePayment(paymentID);
-        }
-
-        public ActionResult Transactions()
-        {
-            List<Transaction> transactions = _adminService.getAllTransactions();
+            List<Transaction> transactions = new List<Transaction>();
+            if (birthNo == null && accountNo == null)
+            {
+                transactions = _adminService.getAllTransactions();
+            }
+            else
+            {
+                if (birthNo != null)
+                {
+                    List<Transaction> transactionsBirth = _adminService.getTransactionsByBirthNo(birthNo);
+                    transactions.AddRange(transactionsBirth);
+                }
+                if (accountNo != null)
+                {
+                    List<Transaction> transactionsAccount = _adminService.getTransactionsByAccountNo(accountNo);
+                    transactions.AddRange(transactionsAccount);
+                }
+                //payment = payment.DistinctBy(i => i.FromAccountNo).ToList();
+                transactions = transactions.GroupBy(x => x.TransactionID).Select(x => x.First()).ToList();
+            }
             return PartialView("_Transactions", transactions);
         }
+
+        // --- GET MODAL PARTIALS ---
 
         [HttpGet]
         public ActionResult GetEditAccountPartial(string accountNo)
@@ -104,6 +148,15 @@ namespace dotNettbankAdmin.Controllers
                 Type = account.Type
             };
             return PartialView("_EditAccountsPartial", model);
+        }
+
+        //--- UPDATE DB METODS ---
+
+        [HttpPost]
+        public bool Betal(int paymentID)
+        {
+            List<Payment> paymentList = _adminService.getAllPayments();
+            return _adminService.completePayment(paymentID);
         }
 
         public ActionResult UpdateAccount(AccountVM model)
