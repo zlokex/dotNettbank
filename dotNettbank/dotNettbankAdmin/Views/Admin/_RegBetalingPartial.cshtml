@@ -61,7 +61,7 @@
 </div>
 
 <!-- BEKREFT BETALING MODAL -->
-<div class="modal fade" id="bekreft-container" tabindex="-1"
+<div class="modal fade bekreft-container" id="bekreft-container" tabindex="-1"
      role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" id="bekreft-content-container">
@@ -84,7 +84,7 @@
 </div> 
 
 <!-- BEKREFT ALLE BETALINGER MODAL -->
-<div class="modal fade" id="bekreft-alle-container" tabindex="-1"
+<div class="modal fade bekreft-container" id="bekreft-alle-container" tabindex="-1"
      role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" id="bekreft-content-container">
@@ -108,16 +108,16 @@
 
 <script type="text/javascript">
 
-        var payment_id;
+    var payment_id;
+    $('.bekreft-container').off('hidden.bs.modal');
         $(document).on('click', '#betal_btn', function () {
             payment_id = $(this).attr('data-id');
-            $('#bekreft-container').off('hidden.bs.modal'); // Turn off hidden bs modal
             $('#bekreft-container').modal('show');
         });
 
-        $(document).on('click', '#betal-alle-btn', function () {
+        $('#betal-alle-btn').click(function () {
             payment_id = -1;
-            $('#bekreft-alle-container').off('hidden.bs.modal');
+            
             $('#bekreft-alle-container').modal('show');
         });
 
@@ -128,9 +128,9 @@
                 data: { paymentID: payment_id },
                 success: function (data) {
                     if (data) {
-                        $('#bekreft-alle-container').modal('hide');
+                        $('.bekreft-container').modal('hide');
                         // Turn on hidden bs modal with refresh of partial
-                        $('#bekreft-alle-container').on('hidden.bs.modal', function (e) {
+                        $('.bekreft-container').on('hidden.bs.modal', function (e) {
                             getPartial("RegBetaling");
                         })
                     } else {

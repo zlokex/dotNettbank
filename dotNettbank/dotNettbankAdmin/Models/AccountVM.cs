@@ -19,6 +19,7 @@ namespace dotNettbankAdmin.Models
         
         public string OwnerBirthNo { get; set; }
 
+
         [Required(ErrorMessage = "Kontonummer kan ikke være blankt")]
         [Display(Name = "Kontonummer")]
         public string AccountNo { get; set; } //kontonr
