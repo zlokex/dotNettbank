@@ -40,7 +40,7 @@
                         </li>
                         <!-- Logg Ut Toggle Button -->
                         <li>
-                            @Html.ActionLink("Logg Ut", "Logout", "Admin", new { @class = "a" })
+                            <a href="#" data-toggle="modal" data-target="#logOutModal">Logg ut</a>                      
                         </li>
                     </ul>
                 </div>
@@ -139,4 +139,23 @@
 
 <script src="~/Scripts/app.min.js"></script>
 <script src="~/Scripts/AdminSide.js"></script>
+
+<div id="logOutModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Logg ut</h4>
+            </div>
+            <div class="modal-body">
+                <p>Er du sikker på at du vil logge ut?</p>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("Ja", "Logout", "Admin", null, new { @class = "btn btn-dark-theme useraddtab" })
+                <button type="button" class="btn btn-dark-theme useraddtab" data-dismiss="modal">Nei</button>
+            </div>
+        </div>
+    </div>
+</div>
 
