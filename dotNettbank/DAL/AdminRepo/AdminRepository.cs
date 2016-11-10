@@ -7,22 +7,25 @@ using dotNettbank.Model;
 using dotNettbank.DAL;
 using System.Data.Entity;
 using System.Diagnostics;
+using DAL.Log;
 
 namespace DAL.AdminRepo
 {
     public class AdminRepository : IAdminRepository
     {
         //--- GET ONE ---
-
+        
         public Admin getAdmin(string username)
         {
             using (var db = new BankContext())
             {
+
                 var admin = db.Admins.Where(a => a.Username == username).First();
                 return admin;
             }
         }
 
+     
         public Account getAccountByAccountNo(string accountNo)
         {
             using (var db = new BankContext())
@@ -212,10 +215,14 @@ namespace DAL.AdminRepo
                     var entry = db.Entry(updatedAccount);
                     entry.State = EntityState.Modified;
                     db.SaveChanges();
+
                     return true;
                 }
                 catch (Exception e)
                 {
+                    string log = "Failed to update account.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
                     return false;
                 }
             }
@@ -236,6 +243,9 @@ namespace DAL.AdminRepo
                 }
                 catch (Exception e)
                 {
+                    string log = "Failed to update customer.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
                     return false;
                 }
             }
@@ -268,6 +278,9 @@ namespace DAL.AdminRepo
                 }
                 catch (Exception e)
                 {
+                    string log = "Failed to deactivate account.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
                     return "Klarte ikke å deaktivere konto";
                 }
 
@@ -307,6 +320,9 @@ namespace DAL.AdminRepo
                 }
                 catch (Exception e)
                 {
+                    string log = "Failed to deactivate customer.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
                     return "Klarte ikke å deaktivere kunde";
                 }
 
@@ -391,19 +407,26 @@ namespace DAL.AdminRepo
 
                         // Save changes:
                         db.SaveChanges();
+                        
                         // Succesful, return true:
                         return true;
 
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("DEBUG: " + e.Message);
-                        return false;
+                        string log = "Failed to complete payment.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                        Debug.Write(log);
+                        new LogErrors().errorLog(log);
                     }
                 }
                 return false;
             }
         }
+
+
+
+
+
         
     }
 }

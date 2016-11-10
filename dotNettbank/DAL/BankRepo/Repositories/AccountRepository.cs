@@ -1,6 +1,8 @@
-﻿using dotNettbank.Model;
+﻿using DAL.Log;
+using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -63,7 +65,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
-                //Debug.WriteLine("DEBUG: " + e.Message);
+                string log = "Failed to add account.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
 

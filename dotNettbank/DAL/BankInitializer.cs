@@ -7,6 +7,7 @@ using dotNettbank.Model;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace dotNettbank.DAL
 {
     public class BankInitializer : DropCreateDatabaseIfModelChanges<BankContext>
