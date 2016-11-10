@@ -243,6 +243,9 @@ namespace DAL.AdminRepo
                 }
                 catch (Exception e)
                 {
+                    string log = "Failed to update customer.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
                     return false;
                 }
             }
@@ -275,6 +278,9 @@ namespace DAL.AdminRepo
                 }
                 catch (Exception e)
                 {
+                    string log = "Failed to deactivate account.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
                     return "Klarte ikke å deaktivere konto";
                 }
 
@@ -314,6 +320,9 @@ namespace DAL.AdminRepo
                 }
                 catch (Exception e)
                 {
+                    string log = "Failed to deactivate customer.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
                     return "Klarte ikke å deaktivere kunde";
                 }
 
