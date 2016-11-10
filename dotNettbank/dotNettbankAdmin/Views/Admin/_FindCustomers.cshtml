@@ -113,7 +113,7 @@
         });
 
         // ENDRE KNAPP I MODAL LISTENER:
-        $(document).on('click', '#update_btn', function () {
+        $(document).one('click', '#update_btn', function () {
             var self = $(this);
             $.ajax({
                 url: '/Admin/UpdateCustomer',

@@ -35,14 +35,15 @@ $("#tagsdiv").on('click', '.tag_close', function () {
 
 
 function getPartial(viewName) {
-    birthTag = $("#tabsmenu").find("[data-type='customer']");
+    birthTag = $("#customer-tags").find("[data-type='customer']");
+    
     //var birthNo = birthTag.data('id');
     // Get array of birth numbers from tags:
     var birthNoArray = birthTag.map(function () {
         return this.getAttribute("data-id");
     }).get();
 
-    var accountTag = $("#tabsmenu").find("[data-type='account']");
+    var accountTag = $("#account-tags").find("[data-type='account']");
     //var accountNo = accountTag.data('id');
     var accountNoArray = accountTag.map(function () {
         return this.getAttribute("data-id");
