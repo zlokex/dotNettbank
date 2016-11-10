@@ -254,7 +254,18 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\img\adminIMG.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\simple-sidebar.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\skins\skin-black-light.css" />
@@ -328,6 +339,7 @@
     <Content Include="Files\gears.gif" />
     <Content Include="Files\logo.png" />
     <Content Include="Files\spin.svg" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -435,6 +447,8 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -466,6 +480,7 @@
     </Compile>
     <Compile Include="Models\AccountVM.cs" />
     <Compile Include="Models\AdminSideModel.cs" />
+    <Compile Include="Models\PaymentVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -481,6 +496,7 @@
     <Content Include="Views\Admin\_Transactions.cshtml" />
     <Content Include="Views\Admin\_FindCustomers.cshtml" />
     <Content Include="Views\Admin\_EditAccountsPartial.cshtml" />
+    <Content Include="Views\Admin\_CreatePaymentPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -22,5 +22,6 @@ namespace DAL.AdminRepo
         Customer getCustomerByBirthNo(string birthNo);
         string deactivateAccount(string accountNo);
         string deactivateCustomer(string birthNo);
+        bool createPayment(Payment newPayment);
     }
 }

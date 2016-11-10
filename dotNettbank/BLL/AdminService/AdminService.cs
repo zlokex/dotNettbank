@@ -116,6 +116,11 @@ namespace BLL.AdminService
         {
             return _repository.deactivateCustomer(birthNo);
         }
+
+        public bool createPayment(Payment newPayment)
+        {
+            return _repository.createPayment(newPayment);
+        }
     }
 }
 

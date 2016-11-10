@@ -253,5 +253,11 @@
 }
 
 
-}     
+#datepicker-target{
+    background-color:white;
+} 
+
+#datepicker-target:hover{
+    cursor:pointer;
+}
         

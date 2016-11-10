@@ -103,6 +103,39 @@ namespace dotNettbankAdmin.Controllers
             return PartialView("_Transactions", transactions);
         }
 
+        [HttpPost]
+        public ActionResult CreatePayment (PaymentVM form)
+        {
+
+            if (ModelState.IsValid)
+            {
+                DateTime today = DateTime.Now;
+                Payment p = new Payment()
+                {
+                    DateAdded = today,
+                    DueDate = today,
+                    Amount = form.Amount,
+                    Message = form.Message,
+                    FromAccountNo = form.FromAccountNo,
+                    ToAccountNo = form.ToAccountNo,
+
+                };
+
+                if (_adminService.createPayment(p))
+                    return Json(new { success = true });
+            }
+
+            return PartialView("_CreatePaymentPartial", form);
+        }
+
+      
+        
+        public ActionResult GetPartial(string path)
+        {
+           
+            return PartialView(path);
+        }
+
         [HttpGet]
         public ActionResult GetEditAccountPartial(string accountNo)
         {

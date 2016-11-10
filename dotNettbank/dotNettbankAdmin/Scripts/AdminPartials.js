@@ -32,6 +32,8 @@ $(document).ready(function () {
         $('#search').val(tagString);
         $('#search').keyup();
     }
+
+  
 });
 
 
@@ -62,6 +64,9 @@ $('.useraddtab').click(function () {
 $("#tabsmenu").on('click', '.tag_close', function () {
     $(this).closest("li").remove();
 });
+
+
+
 
 
 

@@ -8,10 +8,13 @@
             </h4>
         </div>
         <div class="panel-title fa-pull-right">
-
             <button id="betal-alle-btn" class="btn btn-dark-theme pull-right" type="button">
                 <i class="fa fa-handshake-o" aria-hidden="true"></i>
                 Utfør alle betalinger
+            </button>
+            <button id="create-payment-btn" class="btn btn-dark-theme pull-right" type="button" style="margin-right:1em;">
+                <i class="fa fa-files-o" aria-hidden="true"></i>
+                Opprett Betaling
             </button>
             </div>
             <div class="clearfix"></div>
@@ -106,10 +109,46 @@
     </div>
 </div> 
 
+<!-- LAG BETALING MODAL -->
+<div class="modal fade" id="create-payment-modal" tabindex="-1"
+     role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" id="create-payment-modal-container">
+            
+        </div>
+    </div>
+</div> 
+
 <script src="~/Scripts/AdminPartials.js"></script>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        //Lage ny betaling knapp + henting av modalen
+        $(document).on('click', '#create-payment-btn', function () {
 
+            $.ajax({
+                url: 'GetPartial',
+                dataType: "html",
+                data: {path:"_CreatePaymentPartial"},
+                beforeSend: function () {
+                    $('#create-payment-modal-container').css('display', 'block');
+                    $('#create-payment-modal-container').animate({ opacity: 0 }, 0);
+                    $('#create-payment-modal-container').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+                }
+            }).done(function (data) {
+                $("#create-payment-modal-container").html(data);
+            })
+            $('#create-payment-modal').modal('show');
+
+        });
+
+        
+
+       
+
+
+          
+    });
         var payment_id;
         $(document).on('click', '#betal_btn', function () {
             payment_id = $(this).attr('data-id');
@@ -122,6 +161,13 @@
             $('#bekreft-alle-container').off('hidden.bs.modal');
             $('#bekreft-alle-container').modal('show');
         });
+
+       
+
+
+      
+
+
 
         $('.betal_modal_btn').click(function () {
             $.ajax({
@@ -141,7 +187,10 @@
                 }
             }); //End of Ajax
         });
-   
+
+
+
+    
 </script>
 
 

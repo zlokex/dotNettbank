@@ -1,0 +1,117 @@
+﻿@model dotNettbankAdmin.Models.PaymentVM
+
+<!-- MODAL HEADER -->
+<div class="modal-header ">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Opprett ny betaling</h3>
+</div>
+@using (Html.BeginForm())
+{
+<!-- @Html.ValidationSummary() -->
+     @Html.AntiForgeryToken()
+        <!-- MODAL BODY -->
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <!-- Fra Konto -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.FromAccountNo, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.FromAccountNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <!-- Til konto -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.ToAccountNo, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.ToAccountNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Beløp -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- KID/Melding -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Dato -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @id="date-value", @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @id = "datepicker-target", @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" data-dismiss="modal" id="cancel_modal_btn">Avbryt</button>
+    <button class="btn btn-success" type="button" id="create-payment-submit">Lag Betaling</button>
+</div>
+}
+
+<script type="text/javascript">
+
+        
+
+        $(document).ready(function () {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            var today = dd + '/' + mm + '/' + yyyy;
+            $("#datepicker-target").val(today);
+
+            $("#datepicker-target").datepicker({
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                minDate: 0
+            }).attr('readonly', true);
+
+        });
+        //Submit funksonen til ny betaling
+        $("#create-payment-submit").click(function (e) {
+            var self = $(this);
+
+            $.ajax({
+                type: "POST",
+                url: 'CreatePayment',
+                data: self.closest('form').serialize(),
+                success: function (data) {
+                    if (data.success == true) {
+                        $('#productsPlace').one('hidden.bs.modal', function (e) {
+                            getPartial("RegBetaling");
+                        })
+                        $('#create-payment-modal').modal('hide');
+                        $('#create-payment-modal-container').html("");
+                    } else {
+                        $('#create-payment-modal-container').html(data);
+                    }
+                }
+            });
+        });
+
+
+</script>

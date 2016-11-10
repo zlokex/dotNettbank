@@ -129,5 +129,10 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public bool createPayment(Payment newPayment)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

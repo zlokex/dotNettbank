@@ -268,7 +268,25 @@ namespace DAL.AdminRepo
                 return false;
             }
         }
-        
+
+        public bool createPayment(Payment newPayment)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Payments.Add(newPayment);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine("DEBUG: " + e.Message);
+                    return false;
+
+                }
+            }
+        }
     }
 }
 
