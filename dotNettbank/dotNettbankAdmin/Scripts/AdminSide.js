@@ -5,12 +5,6 @@
         $(this).addClass('active');
     });
 
-    /*
-    $(".tag").click(function () {
-        alert("Remove");
-        $(this).remove();
-    });
-*/
     // When Sidebar toggle button is clicked: check if body has sidebar-collapse (same as sidebar being collapsed
     // If so, show the tabs menu, and then hide when closing
     $(".sidebar-toggle").click(function () {
@@ -29,7 +23,7 @@ $(".getPartial").click(function () {
     getPartial(arg);
 });
 
-$("#tabsmenu").on('click', '.tag_close', function () {
+$("#tagsdiv").on('click', '.tag_close', function () {
     $(this).closest("li").remove();
     //Next we want to reload the partial:
 
@@ -38,6 +32,7 @@ $("#tabsmenu").on('click', '.tag_close', function () {
     var view = $(".panel").data("id");
     getPartial(view);
 });
+
 
 function getPartial(viewName) {
     birthTag = $("#tabsmenu").find("[data-type='customer']");

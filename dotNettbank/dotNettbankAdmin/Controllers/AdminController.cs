@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
 using System.Diagnostics;
+using DAL.Log;
+using System.Diagnostics;
 using MoreLinq;
 
 namespace dotNettbankAdmin.Controllers
@@ -50,14 +52,13 @@ namespace dotNettbankAdmin.Controllers
 
         [WebMethod]
         public bool Login(string username, string password)
-        {
-            if (_adminService.validateLogin(username, password))
-            {
-                Session["LoggedIn"] = username;
-                return true;
-            }
-
-            return false;
+        {          
+                if (_adminService.validateLogin(username, password))
+                {
+                  Session["LoggedIn"] = username;
+                  return true;
+                }       
+            return false;       
         }
 
         public ActionResult Logout()

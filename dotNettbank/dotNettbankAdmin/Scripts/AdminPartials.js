@@ -28,34 +28,23 @@ $('.useraddtab').click(function () {
     var firstname = $(this).data('firstname');
     var lastname = $(this).data('lastname');
 
-    //KundeTag
-    if (lastname != null) {
-        output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
-                + " " + firstname + " " + lastname + " " + userID + " <i class='fa fa-times tag_close'></i></p></div></li>";
-    } else { //Kontotag
-        output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
-            + " " + firstname + ": " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
-    }
-
-   
-    //alert($('#tabsmenu').has("li[data-id=" + userID + "]").length);
-    // Check if tag with this id allready exists (count > 0 or count ===0)
-    if ($('#tabsmenu').has("div.tag[data-id=" + userID + "]").length === 0) {
-        $("#tabsmenu").append(output);
-    }
     
+        //KundeTag
+        if (lastname != null) {
+            output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+                    + " " + firstname + " " + lastname + " " + userID + " <i class='fa fa-times tag_close'></i></p></div></li>";
+            // Check if tag with this id allready exists (count > 0 or count ===0)
+            if ($('#customer-tags').has("div.tag[data-id=" + userID + "]").length === 0) {
+                $("#customer-tags").append(output);
+            }
+        } else { //Kontotag
+            output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
+            + " " + firstname + ": " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+            if ($('#account-tags').has("div.tag[data-id=" + userID + "]").length === 0) {
+                $("#account-tags").append(output);
+            }
+        }
 });
-
-/*
-$(".tag_close").unbind('click').click(function () {
-    $(this).closest("li").remove();
-    //Next we want to reload the partial:
-
-    // First we find data-id of panel (which equals controller view name)
-    var view = $(".panel").data("id");
-    getPartial(view);
-});
-*/
 
 
 

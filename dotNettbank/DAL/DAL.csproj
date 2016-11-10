@@ -54,6 +54,7 @@
     <Compile Include="AdminRepo\IAdminRepository.cs" />
     <Compile Include="BankContext.cs" />
     <Compile Include="BankInitializer.cs" />
+    <Compile Include="Log\LogErrors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BankRepo\Repositories\AccountRepository.cs" />
     <Compile Include="BankRepo\Repositories\CustomerRepository.cs" />

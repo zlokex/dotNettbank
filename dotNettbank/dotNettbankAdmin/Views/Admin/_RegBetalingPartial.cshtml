@@ -36,8 +36,8 @@
                     <th>Dato Registrert</th>
                     <th>Beløp</th>
                     <th>KID</th>
-                    <th>Fra</th>
-                    <th>Til</th>
+                    <th>Fra Konto</th>
+                    <th>Til Konto</th>
                     <th>Bekreft</th>
                 </tr>
             </thead>
@@ -45,9 +45,9 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr data-toggle="collapse" class="clickable">
+                    <tr>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.PaymentID)</td>
-                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.DueDate)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.DueDate)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Message)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
