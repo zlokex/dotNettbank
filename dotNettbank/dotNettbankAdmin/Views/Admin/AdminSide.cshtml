@@ -34,7 +34,7 @@
                                 <!-- The user image in the navbar-->
                                 <img  src="/Content/img/adminIMG.png" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Fredrik Kloster</span>
+                                <span class="hidden-xs">@ViewBag.Email</span>
                             </a>
                            
                         </li>
@@ -46,8 +46,9 @@
                 </div>
             </nav>
         </header>
+        
         <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
+        <aside class="main-sidebar scroll-wrapper">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -56,55 +57,49 @@
                         <img src="/Content/img/adminIMG.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Fredrik Kloster</p>
+                        <p>@ViewBag.UserName</p>
                     </div>
                 </div>
-                <!-- search form (Optional) -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
+                
                 <!-- /.search form -->
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
-                    <li class="header">Meny</li>
+                    <li class="header">Bank oversikt</li>
                     <!-- Optionally, you can add icons to the links -->
-                    
-                    <!-- DROPDOWN EKSEMPEL:
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-user"></i> <span>Kunder</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#">Finn Kunder</a></li>
-                            <li><a href="#" id="find_customers">Endre Kunde</a></li>
-                        </ul>
-                    </li>
-                    -->
+                   
 
                     <!-- Kunder -->
-                    <li><a href="#" id="users_link"><i class="fa fa-user"></i> <span>Kunder</span></a></li>
+                    <li><a href="#" data-id="FindCustomers" class="getPartial"><i class="fa fa-user"></i> <span>Kunder</span></a></li>
                     <!-- Kontoer -->
-                    <li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>
+                    <li><a href="#" data-id="Accounts" class="getPartial"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>
                     <!-- Betalinger -->
-                    <li><a href="#" id="payments_link"><i class="fa fa-files-o"></i> <span>Betalinger</span></a></li>
+                    <li><a href="#" data-id="RegBetaling" class="getPartial"><i class="fa fa-files-o"></i> <span>Betalinger</span></a></li>
                     <!-- Transaksjoner -->
-                    <li><a href="#" id="transactions_link"><i class="fa fa-credit-card"></i> <span>Transaksjoner</span></a></li>
+                    <li><a href="#" data-id="Transactions"  class="getPartial"><i class="fa fa-credit-card"></i> <span>Transaksjoner</span></a></li>
 
                     <!--<li><a href="#"><i class="fa fa-user"></i> <span>Kunder</span></a></li>-->
                     <!--<li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>-->
                     
+                    <li class="header">Logg</li>
+                    <li><a href="#" data-id="FindCustomers" class="getPartial"><i class="fa fa-database"></i> <span>Database endringer</span></a></li>
                 </ul>
-                <!-- /.sidebar-menu -->
+
+                <div id="tagsdiv">
+                    <!-- /.sidebar-menu -->
+                    <!-- Tab meny-->
+                    <ul class="sidebar-menu">
+                        <li class="header"><i class="fa fa-user"></i>  <span>Valgte kunder</span></li>
+                    </ul>
+                    <ul class="tagsmenu" id="customer-tags">
+                        <!-- <li class="tag"><div class="tag"><p><i class="fa fa-times"></i> Bruks 929291928</p> </div></li>-->
+                    </ul>
+                    <ul class="sidebar-menu">
+                        <li class="header"><i class="fa fa-list"></i>  <span>Valgte kontoer</span></li>
+                    </ul>
+                    <ul class="tagsmenu" id="account-tags">
+                        <!-- <li class="tag"><div class="tag"><p><i class="fa fa-times"></i> Bruks 929291928</p> </div></li>-->
+                    </ul>
+                </div>
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -140,66 +135,8 @@
              immediately after the control sidebar -->
         
     </div>
-
-
-  
-    
- 
 </body>
 
 <script src="~/Scripts/app.min.js"></script>
 <script src="~/Scripts/AdminSide.js"></script>
 
-
-<script type="text/javascript">
-    
-    document.getElementById("accounts_link").onclick = function () { showAccounts() };
-    
-    function showAccounts() {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("Accounts","Admin")',
-            beforeSend: function () {
-                $('#productsPlace').css('display', 'block');
-                $('#productsPlace').animate({ opacity: 0 }, 0);
-                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
-            },
-        }).done(function (result) {
-            $('#productsPlace').html(result);
-
-        })
-    }
-    document.getElementById("transactions_link").onclick = function () { trans() };
-
-    function trans() {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("Transactions","Admin")',
-            beforeSend: function () {
-                $('#productsPlace').css('display', 'block');
-                $('#productsPlace').animate({ opacity: 0 }, 0);
-                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
-            },
-        }).done(function (result) {
-            $('#productsPlace').html(result);
-        })
-    }
-
-    document.getElementById("users_link").onclick = function () { users() };
-
-    function users() {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("FindCustomers","Admin")',
-            beforeSend: function () {
-                $('#productsPlace').css('display', 'block');
-                $('#productsPlace').animate({ opacity: 0 }, 0);
-                $('#productsPlace').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
-            },
-            }).done(function (result) {
-                $('#productsPlace').html(result);
-            })
-    }
-    
-
-</script>

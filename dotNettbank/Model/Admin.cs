@@ -14,5 +14,7 @@ namespace dotNettbank.Model
         public byte[] Password { get; set; }
         public string Salt { get; set; }
         public string Email { get; set; }
+
+        
     }
 }

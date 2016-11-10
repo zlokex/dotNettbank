@@ -95,8 +95,9 @@ namespace dotNettbank.Controllers
         public ActionResult OpenAccount(regAccount regAccount)
         {
             Random random = new Random();
-            int newAccNo1 = random.Next(10000, 99999);
-            int newAccNo2 = random.Next(000000, 999999);
+            int newAccNo1 = random.Next(1000, 9999);
+            int newAccNo2 = random.Next(10, 99);
+            int newAccNo3 = random.Next(10000, 99999);
             string user = Session["UserId"] as string;
             Customer customer = bankService.getCustomerByBirthNo(user);
             string AccountType = "Brukskonto";
@@ -110,7 +111,7 @@ namespace dotNettbank.Controllers
             Account account = new Account()
             {
 
-                AccountNo = "" + newAccNo1 + newAccNo2,
+                AccountNo = "" + newAccNo1+"." + newAccNo2 + "." + newAccNo3,
                 Name = regAccount.Name,
                 Balance = 5000,
                 Owner = customer,
@@ -309,7 +310,6 @@ namespace dotNettbank.Controllers
             }
         }
 
-
         public ActionResult Transfer() // Overføre (Mellom egne konti) // LAV PRIO
         {
             if (Session["LoggedIn"] != null)
@@ -327,6 +327,7 @@ namespace dotNettbank.Controllers
                 return RedirectToAction("LoginBirth", "Home", new { area = "" });
             }
         }
+
 
         public ActionResult DuePayments() // Forfallsoversikt
         {

@@ -1,26 +1,146 @@
-﻿<section class="content-header">
-    <h1>
-        Transaksjoner
-        <small>Liste over alle utførte betalinger</small>
-    </h1>
-</section>
+﻿@model List<dotNettbank.Model.Payment>
 
+<div class="panel panel-default" data-id="RegBetaling">
+    <div class="panel-heading">
+        <div class="panel-title fa-pull-left">
+            <h4>
+                Betalinger
+            </h4>
+        </div>
+        <div class="panel-title fa-pull-right">
 
-<div class="table ">
-    <!--endre og sletteknapper her-->
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Dato</th>
-                <th>Betal fra</th>
-                <th>Betale til</th>
-                <th>Beløp</th>
-                <th>Kid</th>
-                <th>Endre</th>
-            </tr>
-        </thead>
-    </table>
+            <button id="betal-alle-btn" class="btn btn-dark-theme pull-right" type="button">
+                <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                Utfør alle betalinger
+            </button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    <!-- SØKE FELT-->
+    <div id="custom-search-input">
+        <div class="input-group col-md-12">
+            <input type="text" id="search" class="form-control input-lg" placeholder="Søk blant betalinger..." />
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <!-- TABLE -->
+        <table class="table table-hover search-table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>ID</th>
+                    <th>Dato Registrert</th>
+                    <th>Beløp</th>
+                    <th>KID</th>
+                    <th>Fra Konto</th>
+                    <th>Til Konto</th>
+                    <th>Bekreft</th>
+                </tr>
+            </thead>
+            <tbody>
 
-
-   
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.PaymentID)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.DueDate)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Message)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
+                        <td class="col-md-2"><button class="btn btn-dark-theme" id="betal_btn" data-id="@item.PaymentID"><i class="fa fa-handshake-o" aria-hidden="true"></i></button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<!-- BEKREFT BETALING MODAL -->
+<div class="modal fade" id="bekreft-container" tabindex="-1"
+     role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" id="bekreft-content-container">
+            <!-- MODAL HEADER -->
+            <div class="modal-header ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Gjennomfør betaling</h3>
+            </div>
+            <!-- MODAL BODY -->
+            <div class="modal-body">
+                Er du sikker på at du vil gjennomføre betaling?
+            </div>
+            <!-- MODAL FOOTER -->
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal" style="font-size:1.4em; width:5em;">Nei</button>
+                <button class="btn btn-primary betal_modal_btn" type="button" style="margin-left:50px; font-size: 1.4em; width: 5em;">Ja</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<!-- BEKREFT ALLE BETALINGER MODAL -->
+<div class="modal fade" id="bekreft-alle-container" tabindex="-1"
+     role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" id="bekreft-content-container">
+            <!-- MODAL HEADER -->
+            <div class="modal-header ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Gjennomfør alle betaling</h3>
+            </div>
+            <!-- MODAL BODY -->
+            <div class="modal-body">
+                Er du sikker på at du vil gjennomføre ALLE betalinger?
+            </div>
+            <!-- MODAL FOOTER -->
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal" style="font-size:1.4em; width:5em;">Nei</button>
+                <button class="btn btn-primary betal_modal_btn" type="button"style="margin-left:50px; font-size: 1.4em; width: 5em;">Ja</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<script type="text/javascript">
+
+        var payment_id;
+        $(document).on('click', '#betal_btn', function () {
+            payment_id = $(this).attr('data-id');
+            $('#bekreft-container').off('hidden.bs.modal'); // Turn off hidden bs modal
+            $('#bekreft-container').modal('show');
+        });
+
+        $(document).on('click', '#betal-alle-btn', function () {
+            payment_id = -1;
+            $('#bekreft-alle-container').off('hidden.bs.modal');
+            $('#bekreft-alle-container').modal('show');
+        });
+
+        $('.betal_modal_btn').click(function () {
+            $.ajax({
+                url: '/Admin/Betal',
+                type: 'POST',
+                data: { paymentID: payment_id },
+                success: function (data) {
+                    if (data) {
+                        $('#bekreft-alle-container').modal('hide');
+                        // Turn on hidden bs modal with refresh of partial
+                        $('#bekreft-alle-container').on('hidden.bs.modal', function (e) {
+                            getPartial("RegBetaling");
+                        })
+                    } else {
+                        alert("Noe gikk galt");
+                    }
+                }
+            }); //End of Ajax
+        });
+   
+</script>
+<script src="~/Scripts/AdminPartials.js"></script>
+
+

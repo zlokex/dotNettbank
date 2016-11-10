@@ -1,6 +1,4 @@
 ﻿body {
-  
-  padding-bottom: 40px;
   background-color: #eee;
 }
 
@@ -44,6 +42,14 @@
     margin-bottom:-3em;
 }
 
+/* OVERRIDE CUSTOM */
+
+.container {
+    padding-right:0;
+    padding-left:0;
+    width:100%!important;
+}
+
 /* SEARCH FIELD */
 #custom-search-input{
     padding: 3px;
@@ -77,6 +83,8 @@
     font-size: 23px;
 }
 
+/* PAGING */
+
 .paging-nav {
   text-align: right;
   padding-top: 2px;
@@ -87,13 +95,13 @@
   text-decoration: none;
   display: inline-block;
   padding: 1px 7px;
-  background: #91b9e6;
+  background: #303f45;
   color: white;
   border-radius: 3px;
 }
 
 .paging-nav .selected-page {
-  background: #187ed5;
+  background: #222D32;
   font-weight: bold;
 }
 
@@ -173,4 +181,88 @@
     -moz-border-radius-topright: 5px;
      border-top-left-radius: 5px;
      border-top-right-radius: 5px;
+}
+
+/*
+    TAG
+*/
+
+/*
+.tag{
+    color: #b8c7ce;
+    background: #1e282c;
+    background-color:transparent;
+    padding: 12px 5px 12px 15px;
+    
+}
+
+.tag:hover{
+    opacity:0.5;
+    cursor:pointer;
+}
+    */
+
+.tagsmenu {
+    padding-left:10px;
+}
+
+.tagli {
+  overflow: hidden; 
+  margin-top: 4px;
+  background:transparent;
+  
+}
+
+.tag{
+  float:left;
+  font-size: 12px;
+  border-radius: 5px 5px 5px 5px;
+  color: #1E282C;
+  background: #eee;
+  display:block;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 8px 0 8px;
+  position: relative;
+  text-decoration: none;
+  -webkit-transition: color 0.2s;
+}
+
+.tag_close:hover{
+    opacity:0.5;
+    cursor:pointer;
+}
+
+/* CUSTOM BUTTONS THEME */
+
+.btn-dark-theme {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #303f45;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn-dark-theme:hover {
+  background: #222D32;
+  text-decoration: none;
+  color: #ffffff!important;
+}
+
+
+        
+/* MISC */
+
+.transparent-hack {
+    opacity: 0;
+    filter: alpha(opacity=0); /* For IE8 and earlier */
+}
+
+.scroll-wrapper {
+    height: 100%;
+    overflow: auto;
 }

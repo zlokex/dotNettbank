@@ -82,9 +82,9 @@ namespace DAL.AdminRepo
             return payments;
         }
 
-        public bool completePayment(Payment payment)
+        public bool completePayment(int paymentId)
         {
-            if (payment != null)
+            if (paymentId != -1)
             {
                 return true;
             }
@@ -115,7 +115,67 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
+        public bool updateCustomer(Customer updatedCustomer)
+        {
+            throw new NotImplementedException();
+        }
+
         public Customer getCustomerByBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string deactivateAccount(string accountNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string deactivateCustomer(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Account> getAllAccountsByBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Payment> getPaymentsByFromBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByBirthNoArray(string[] birthNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByAccountNoArray(string[] accountNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Account> getAccountsByBirthNoArray(string[] birthNos)
         {
             throw new NotImplementedException();
         }

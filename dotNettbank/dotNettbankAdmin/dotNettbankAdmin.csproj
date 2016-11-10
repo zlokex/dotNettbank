@@ -56,6 +56,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MoreLinq, Version=1.4.18916.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.1.4.0\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -252,6 +256,8 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\img\adminIMG.png" />
     <Content Include="Content\simple-sidebar.css" />
     <Content Include="Content\Site.css" />
@@ -326,6 +332,7 @@
     <Content Include="Files\gears.gif" />
     <Content Include="Files\logo.png" />
     <Content Include="Files\spin.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -339,6 +346,11 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\AdminPartials.js" />
     <Content Include="Scripts\AdminSide.js" />
@@ -446,7 +458,6 @@
     <Content Include="Views\Admin\AdminSide.cshtml" />
     <Content Include="Views\Admin\_RegBetalingPartial.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\_Accounts.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -459,6 +470,7 @@
     </Compile>
     <Compile Include="Models\AccountVM.cs" />
     <Compile Include="Models\AdminSideModel.cs" />
+    <Compile Include="Models\CustomerVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -474,6 +486,7 @@
     <Content Include="Views\Admin\_Transactions.cshtml" />
     <Content Include="Views\Admin\_FindCustomers.cshtml" />
     <Content Include="Views\Admin\_EditAccountsPartial.cshtml" />
+    <Content Include="Views\Admin\_EditCustomersPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
