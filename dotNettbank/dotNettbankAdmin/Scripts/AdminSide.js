@@ -5,12 +5,6 @@
         $(this).addClass('active');
     });
 
-    /*
-    $(".tag").click(function () {
-        alert("Remove");
-        $(this).remove();
-    });
-*/
     // When Sidebar toggle button is clicked: check if body has sidebar-collapse (same as sidebar being collapsed
     // If so, show the tabs menu, and then hide when closing
     $(".sidebar-toggle").click(function () {

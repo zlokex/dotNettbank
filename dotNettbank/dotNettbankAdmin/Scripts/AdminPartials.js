@@ -44,21 +44,7 @@ $('.useraddtab').click(function () {
                 $("#account-tags").append(output);
             }
         }
-
-    
-    
 });
-
-/*
-$(".tag_close").unbind('click').click(function () {
-    $(this).closest("li").remove();
-    //Next we want to reload the partial:
-
-    // First we find data-id of panel (which equals controller view name)
-    var view = $(".panel").data("id");
-    getPartial(view);
-});
-*/
 
 
 
