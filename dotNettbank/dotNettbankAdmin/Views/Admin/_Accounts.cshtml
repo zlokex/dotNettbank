@@ -2,7 +2,7 @@
 
 
 
-<div class="panel panel-default">
+<div class="panel panel-default" data-id="Accounts">
     <div class="panel-heading">
         <h4>Kontoer</h4>
     </div>
@@ -20,7 +20,7 @@
 
     <div class="panel-body">
         <!-- TABLE -->
-        <table class="table table-hover search-table">
+        <table class="table table-hover search-table" id="accounts-table">
             <thead class="thead-inverse">
                 <tr>
                     <th>Fødselsnummer</th>
@@ -29,20 +29,20 @@
                     <th>Saldo</th>
                     <th>Endre</th>
                     <th>Deaktiver</th>
-                    <th>Tag</th>
+                    <th>Velg</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
             {
-                    <tr data-toggle="collapse" class="clickable">
+                    <tr>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.OwnerBirthNo)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.AccountNo)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.Type)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn" data-id="@item.AccountNo"><i class="fa fa-pencil"></i> Endre</button></td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="delete_btn" data-id="@item.AccountNo"><i class="fa fa-close"></i> Deaktiver</button></td>
-                        <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Tag</button></td>
+                        <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => item.Type)" data-type="account" data-name="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Velg</button></td>
                     </tr>
 
                 }
@@ -81,8 +81,8 @@
 
             <!-- MODAL FOOTER -->
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal" id="cancel_modal_btn">Avbryt</button>
-                <button class="btn btn-danger" type="button" id="delete_modal_btn">Deaktiver</button>
+                <button class="btn btn-dark-theme" type="button" data-dismiss="modal" id="cancel_modal_btn">Avbryt</button>
+                <button class="btn btn-dark-theme" type="button" id="delete_modal_btn">Deaktiver</button>
             </div>
 
         </div>
@@ -93,7 +93,7 @@
     // DOCUMENT READY:
     $(document).ready(function () {
         // ENDRE KONTO LISTENER:
-        $(document).on('click', '#edit_btn', function () {
+        $("#accounts-table").on('click', '#edit_btn', function () {
             $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
             var accountNo = $(this).attr('data-id');
             $.ajax({
@@ -108,7 +108,7 @@
         });
 
         // ENDRE KNAPP I MODAL LISTENER:
-        $(document).on('click', '#update_btn', function () {
+        $(document).one('click', '#update_btn', function () {
             var self = $(this);
             $.ajax({
                 url: '/Admin/UpdateAccount',
@@ -134,7 +134,7 @@
 
         var accountNoToDelete;
         // DEAKTIVER KONTO LISTENER:
-        $(document).on('click', '#delete_btn', function () {
+        $("#accounts-table").on('click', '#delete_btn', function () {
             accountNoToDelete = $(this).attr('data-id');
             $('#delete-container').off('hidden.bs.modal'); // Turn off hidden bs modal
             $('#delete-container').modal('show'); // show modal
@@ -173,6 +173,6 @@
         });
     }); // end of Document ready
 </script>
-
 <script src="~/Scripts/AdminPartials.js"></script>
+
 

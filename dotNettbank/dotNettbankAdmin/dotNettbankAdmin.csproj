@@ -56,6 +56,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MoreLinq, Version=1.4.18916.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.1.4.0\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -481,6 +485,7 @@
     <Compile Include="Models\AccountVM.cs" />
     <Compile Include="Models\AdminSideModel.cs" />
     <Compile Include="Models\PaymentVM.cs" />
+    <Compile Include="Models\CustomerVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -497,6 +502,7 @@
     <Content Include="Views\Admin\_FindCustomers.cshtml" />
     <Content Include="Views\Admin\_EditAccountsPartial.cshtml" />
     <Content Include="Views\Admin\_CreatePaymentPartial.cshtml" />
+    <Content Include="Views\Admin\_EditCustomersPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

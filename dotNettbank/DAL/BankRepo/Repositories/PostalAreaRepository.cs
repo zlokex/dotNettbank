@@ -1,4 +1,5 @@
-﻿using dotNettbank.Model;
+﻿using DAL.Log;
+using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -47,7 +48,9 @@ namespace dotNettbank.DAL.Repositories
             }
             catch (Exception e)
             {
-                Debug.WriteLine("DEBUG: " + e.Message);
+                string log = "Failed to add postal area.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return false;
             }
         }

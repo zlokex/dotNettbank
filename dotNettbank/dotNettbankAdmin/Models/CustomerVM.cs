@@ -10,28 +10,28 @@ using BLL.AdminService;
 
 namespace dotNettbankAdmin.Models
 {
-    public class AccountVM
+    public class CustomerVM
     {
-        //[System.Web.Mvc.Remote("IsBirthNoExisting", "Validation", ErrorMessage = "Kunde med dette personnummer eksisterer ikke i nettbanken")]
         [CustomValidation(typeof(AccountVM), "IsBirthNoExisting")]
         [Required(ErrorMessage = "Eier kan ikke være blankt")]
-        [Display(Name = "Eier")]
-        
-        public string OwnerBirthNo { get; set; }
+        [Display(Name ="Eier")]
+        public string BirthNo { get; set; }
 
+        [Required(ErrorMessage = "Fornavn kan ikke være blankt")]
+        [Display(Name = "Fornavn")]
+        public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Kontonummer kan ikke være blankt")]
-        [Display(Name = "Kontonummer")]
-        public string AccountNo { get; set; } //kontonr
+        [Required(ErrorMessage = "Etternavn kan ikke være blankt")]
+        [Display(Name = "Etternavn")]
+        public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Balanse kan ikke være blankt")]
-        [Display(Name = "Balanse")]
-        public double Balance { get; set; } //Saldo
+        [Required(ErrorMessage = "Adresse kan ikke være blankt")]
+        [Display(Name = "Adresse")]
+        public string Address { get; set; }
 
-        [Required(ErrorMessage = "Kontonavn kan ikke være blankt")]
-        [Display(Name = "Kontonavn")]
-        public string Type { get; set; } // Kontotype
-
+        [Required(ErrorMessage = "Telefonnummer kan ikke være blankt")]
+        [Display(Name = "Telefonnummer")]
+        public string PhoneNo { get; set; }
 
         public static ValidationResult IsBirthNoExisting(string OwnerBirthNo)
         {
@@ -43,7 +43,8 @@ namespace dotNettbankAdmin.Models
             if (customer == null)
             {
                 isValid = false;
-            } else
+            }
+            else
             {
                 isValid = true;
             }

@@ -5,12 +5,6 @@
         $(this).addClass('active');
     });
 
-    /*
-    $(".tag").click(function () {
-        alert("Remove");
-        $(this).remove();
-    });
-*/
     // When Sidebar toggle button is clicked: check if body has sidebar-collapse (same as sidebar being collapsed
     // If so, show the tabs menu, and then hide when closing
     $(".sidebar-toggle").click(function () {
@@ -29,10 +23,36 @@ $(".getPartial").click(function () {
     getPartial(arg);
 });
 
+$("#tagsdiv").on('click', '.tag_close', function () {
+    $(this).closest("li").remove();
+    //Next we want to reload the partial:
+
+    // First we find data-id of panel (which equals controller view name)
+    //alert("HEI");
+    var view = $(".panel").data("id");
+    getPartial(view);
+});
+
+
 function getPartial(viewName) {
+    birthTag = $("#customer-tags").find("[data-type='customer']");
+    
+    //var birthNo = birthTag.data('id');
+    // Get array of birth numbers from tags:
+    var birthNoArray = birthTag.map(function () {
+        return this.getAttribute("data-id");
+    }).get();
+
+    var accountTag = $("#account-tags").find("[data-type='account']");
+    //var accountNo = accountTag.data('id');
+    var accountNoArray = accountTag.map(function () {
+        return this.getAttribute("data-id");
+    }).get();
+
     $.ajax({
         type: 'POST',
         url: viewName,
+        data: { birthNo: birthNoArray, accountNo: accountNoArray },
         beforeSend: function () {
             $('#productsPlace').css('display', 'block');
             $('#productsPlace').animate({ opacity: 0 }, 0);

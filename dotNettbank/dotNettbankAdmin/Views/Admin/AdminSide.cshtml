@@ -40,14 +40,15 @@
                         </li>
                         <!-- Logg Ut Toggle Button -->
                         <li>
-                            @Html.ActionLink("Logg Ut", "Logout", "Admin", new { @class = "a" })
+                            <a href="#" data-toggle="modal" data-target="#logOutModal">Logg ut</a>                      
                         </li>
                     </ul>
                 </div>
             </nav>
         </header>
+        
         <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
+        <aside class="main-sidebar scroll-wrapper">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -63,7 +64,7 @@
                 <!-- /.search form -->
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
-                    <li class="header">Meny</li>
+                    <li class="header">Bank oversikt</li>
                     <!-- Optionally, you can add icons to the links -->
                    
 
@@ -79,15 +80,26 @@
                     <!--<li><a href="#"><i class="fa fa-user"></i> <span>Kunder</span></a></li>-->
                     <!--<li><a href="#" id="accounts_link"><i class="fa fa-list"></i> <span>Kontoer</span></a></li>-->
                     
+                    <li class="header">Logg</li>
+                    <li><a href="#" data-id="FindCustomers" class="getPartial"><i class="fa fa-database"></i> <span>Database endringer</span></a></li>
                 </ul>
-                <!-- /.sidebar-menu -->
-                <!-- Tab meny-->
-                <ul class="sidebar-menu">
-                    <li class="header">Tags</li>
-               </ul>
-                <ul id="tabsmenu">
-                    <!-- <li class="tag"><div class="tag"><p><i class="fa fa-times"></i> Bruks 929291928</p> </div></li>-->
-                </ul>
+
+                <div id="tagsdiv">
+                    <!-- /.sidebar-menu -->
+                    <!-- Tab meny-->
+                    <ul class="sidebar-menu">
+                        <li class="header"><i class="fa fa-user"></i>  <span>Valgte kunder</span></li>
+                    </ul>
+                    <ul class="tagsmenu" id="customer-tags">
+                        <!-- <li class="tag"><div class="tag"><p><i class="fa fa-times"></i> Bruks 929291928</p> </div></li>-->
+                    </ul>
+                    <ul class="sidebar-menu">
+                        <li class="header"><i class="fa fa-list"></i>  <span>Valgte kontoer</span></li>
+                    </ul>
+                    <ul class="tagsmenu" id="account-tags">
+                        <!-- <li class="tag"><div class="tag"><p><i class="fa fa-times"></i> Bruks 929291928</p> </div></li>-->
+                    </ul>
+                </div>
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -127,3 +139,23 @@
 
 <script src="~/Scripts/app.min.js"></script>
 <script src="~/Scripts/AdminSide.js"></script>
+
+<div id="logOutModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Logg ut</h4>
+            </div>
+            <div class="modal-body">
+                <p>Er du sikker på at du vil logge ut?</p>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("Ja", "Logout", "Admin", null, new { @class = "btn btn-dark-theme" })
+                <button type="button" class="btn btn-dark-theme useraddtab" data-dismiss="modal">Nei</button>
+            </div>
+        </div>
+    </div>
+</div>
+
