@@ -40,7 +40,7 @@ $('.useraddtab').click(function () {
         } else { //Kontotag
             output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
             + " " + firstname + ": " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
-            if ($('#customer-tags').has("div.tag[data-id=" + userID + "]").length === 0) {
+            if ($('#account-tags').has("div.tag[data-id=" + userID + "]").length === 0) {
                 $("#account-tags").append(output);
             }
         }
