@@ -261,3 +261,8 @@
     opacity: 0;
     filter: alpha(opacity=0); /* For IE8 and earlier */
 }
+
+.scroll-wrapper {
+    height: 100%;
+    overflow: auto;
+}
