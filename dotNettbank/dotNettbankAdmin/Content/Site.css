@@ -202,7 +202,7 @@
 }
     */
 
-#tabsmenu {
+.tagsmenu {
     padding-left:10px;
 }
 
@@ -210,10 +210,11 @@
   overflow: hidden; 
   margin-top: 4px;
   background:transparent;
-  float:left;
+  
 }
 
 .tag{
+  float:left;
   font-size: 12px;
   border-radius: 5px 5px 5px 5px;
   color: #1E282C;
@@ -254,3 +255,9 @@
 
 
         
+/* MISC */
+
+.transparent-hack {
+    opacity: 0;
+    filter: alpha(opacity=0); /* For IE8 and earlier */
+}

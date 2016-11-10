@@ -29,7 +29,7 @@ $(".getPartial").click(function () {
     getPartial(arg);
 });
 
-$("#tabsmenu").on('click', '.tag_close', function () {
+$("#tagsdiv").on('click', '.tag_close', function () {
     $(this).closest("li").remove();
     //Next we want to reload the partial:
 
@@ -38,6 +38,7 @@ $("#tabsmenu").on('click', '.tag_close', function () {
     var view = $(".panel").data("id");
     getPartial(view);
 });
+
 
 function getPartial(viewName) {
     birthTag = $("#tabsmenu").find("[data-type='customer']");
