@@ -73,7 +73,7 @@
     box-shadow: none;
     border: 0;
     color: #666666;
-    padding: 0 8px 0 10px;
+    padding: 0 8px 0 10px !important;
     border-left: solid 1px #ccc;
 }
 
@@ -197,8 +197,14 @@
   color: #ffffff;
   font-size: 20px;
   background: #303f45;
-  padding: 2px 20px 2px 20px;
   text-decoration: none;
+}
+
+td .btn-dark-theme {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  margin-top: -2px !important;
+  margin-bottom: -2px !important;
 }
 
 .btn-dark-theme:hover {

@@ -49,7 +49,7 @@ function calculateTableRowsByAvailableHeight() {
     var availableHeigth = windowHeight - navHeight - searchHeight - panelHeadingHeight - mainFooterHeight - theadHeight;
 
     var rows = availableHeigth / trHeight;
-    rows = rows * 0.5;
+    rows = rows * 0.65;
     var rowsInt = parseInt(rows);
 
     //alert(windowHeight);
