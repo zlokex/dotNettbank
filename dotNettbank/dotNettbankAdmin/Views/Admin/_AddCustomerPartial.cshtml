@@ -1,0 +1,122 @@
+﻿
+@model dotNettbankAdmin.Models.AddCustomer
+
+<!-- MODAL HEADER -->
+<div class="modal-header ">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Opprett kunde</h3>
+</div>
+
+@using (Html.BeginForm())
+{
+    <!-- @Html.ValidationSummary() -->
+    @Html.AntiForgeryToken()
+        <!-- MODAL BODY -->
+    <div class="modal-body">
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BirthNo, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BirthNo, new { htmlAttributes = new { @class = "form-control", maxlength = "11" } })
+                    @Html.ValidationMessageFor(model => model.BirthNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PhoneNo, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control", maxlength = "8" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PostCode, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.PostCode, new { htmlAttributes = new { @class = "form-control", maxlength = "4" } })
+                    @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PostalArea, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.PostalArea, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PostalArea, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PasswordRepeat, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.PasswordRepeat, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PasswordRepeat, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    <input type="submit" value="Registrer" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- MODAL FOOTER -->
+    <div class="modal-footer">
+        <button class="btn btn-dark-theme" type="button" data-dismiss="modal">Avbryt</button>
+        <button class="btn btn-dark-theme" type="button" id="create-customer-submit">Opprett</button>
+    </div>
+
+}
+<script type="text/javascript">
+    $("#create-customer-submit").click(function (e) {
+            var self = $(this);
+
+            $.ajax({
+                type: "POST",
+                url: 'AddCustomer',
+                data: self.closest('form').serialize(),
+                success: function (data) {
+                    if (data.success == true) {
+                        $('#productsPlace').one('hidden.bs.modal', function (e) {
+                            getPartial("RegBetaling");
+                        })
+                        $('#create-customer-modal').modal('hide');
+                        $('#create-customer-modal-container').html("");
+                    } else {
+                        $('#create-customer-modal-container').html(data);
+                    }
+                }
+            });
+        });
+</script>
+
+
+
+

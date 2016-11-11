@@ -12,12 +12,14 @@ using System.Diagnostics;
 using DAL.Log;
 using System.Diagnostics;
 using MoreLinq;
+using dotNettbank.BLL;
 using Z.EntityFramework.Plus;
 
 namespace dotNettbankAdmin.Controllers
 {
     public class AdminController : Controller
     {
+        
         private IAdminService _adminService;
 
         public AdminController()
@@ -80,6 +82,23 @@ namespace dotNettbankAdmin.Controllers
         }
 
         //--- GetPartials() PARTIALS LINKED FROM SIDEBAR MENU: ---
+        public ActionResult RegCustomer(string[] birthNo)
+        {
+            List<Customer> customers = new List<Customer>();
+            if (birthNo == null)
+            {
+                customers = _adminService.getAllCustomers();
+            }
+            else
+            {
+                if (birthNo != null)
+                {
+                    
+                }    
+            }
+            return PartialView("_AddCustomerPartial", customers);
+        }
+
 
         public ActionResult FindCustomers(string[] birthNo, string[] accountNo)
         {
@@ -186,6 +205,44 @@ namespace dotNettbankAdmin.Controllers
             };
             return PartialView("_EditCustomersPartial", model);
         }
+
+
+        [HttpPost]
+        public ActionResult AddCustomer(AddCustomer regCustomer)
+        {
+            BankService bankService = new BankService();      
+            string salt = BankService.generateSalt();
+            var passwordAndSalt = regCustomer.Password + salt;
+            byte[] passwordDB = BankService.createHash(passwordAndSalt);
+            PostalArea postalArea = new PostalArea()
+            {
+                Area = regCustomer.PostalArea,
+                PostCode = regCustomer.PostCode
+            };
+            bankService.addPostalArea(postalArea);
+            Customer customer = new Customer()
+            {
+                BirthNo = regCustomer.BirthNo,
+                FirstName = regCustomer.FirstName,
+                LastName = regCustomer.LastName,
+                Address = regCustomer.Address,
+                PhoneNo = regCustomer.PhoneNo,
+                PostCode = regCustomer.PostCode,
+                Password = passwordDB,
+                Salt = salt
+            };
+            if (bankService.registerCustomer(customer))
+            {
+                // If succesfull:
+                return Json(new { success = true });
+            }
+            else
+            {
+                // If not successfull:
+                return PartialView("_AddCustomerPartial", regCustomer);
+            }
+        }
+        
 
         [HttpPost]
         public ActionResult CreatePayment (PaymentVM form)
@@ -317,6 +374,12 @@ namespace dotNettbankAdmin.Controllers
 
             return _adminService.deactivateCustomer(birthNo);
         }
+
+
+
+
+        
+    
 
         public ActionResult Audit()
         {
