@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
     var rowsInt = calculateTableRowsByAvailableHeight();
-    $('.search-table').paging({ limit: rowsInt });
+    $('.paging-table').paging({ limit: rowsInt });
 
     // Set rows for audit-table at twice the amount (because of the hidden tr)
     var rowsAudit = rowsInt * 2;
@@ -10,7 +10,7 @@ $(document).ready(function () {
     if (rowsAudit % 2 != 0) {
         rowsAudit -= 1;
     }
-    $('.audit-table').paging({ limit: rowsAudit });
+    $('#audit-table').paging({ limit: rowsAudit });
 
     $rows = $('.search-table tbody tr');
     $('#search').keyup(function () {
