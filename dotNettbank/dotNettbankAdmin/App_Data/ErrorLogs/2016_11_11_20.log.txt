@@ -1,0 +1,20 @@
+11/11/2016 20:18:40 ---> Failed to add postal area.	Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.	   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at dotNettbank.DAL.BankContext.SaveChanges() in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankContext.cs:line 52
+   at dotNettbank.DAL.Repositories.PostalAreaRepository.addPostalArea(PostalArea postalArea) in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankRepo\Repositories\PostalAreaRepository.cs:line 46
+11/11/2016 20:18:40 ---> Failed to add customer.	Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.	   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at dotNettbank.DAL.BankContext.SaveChanges() in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankContext.cs:line 52
+   at dotNettbank.DAL.Repositories.CustomerRepository.addCustomer(Customer customer) in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankRepo\Repositories\CustomerRepository.cs:line 57
+11/11/2016 20:18:47 ---> Failed to add postal area.	Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.	   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at dotNettbank.DAL.BankContext.SaveChanges() in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankContext.cs:line 52
+   at dotNettbank.DAL.Repositories.PostalAreaRepository.addPostalArea(PostalArea postalArea) in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankRepo\Repositories\PostalAreaRepository.cs:line 46
+11/11/2016 20:18:47 ---> Failed to add customer.	Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.	   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at dotNettbank.DAL.BankContext.SaveChanges() in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankContext.cs:line 52
+   at dotNettbank.DAL.Repositories.CustomerRepository.addCustomer(Customer customer) in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankRepo\Repositories\CustomerRepository.cs:line 57
