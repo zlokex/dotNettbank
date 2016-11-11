@@ -122,7 +122,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //Lage ny betaling knapp + henting av modalen
-        $(document).on('click', '#create-payment-btn', function () {
+        $('#create-payment-btn').click( function () {
 
             $.ajax({
                 url: 'GetPartial',
