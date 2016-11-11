@@ -4,7 +4,7 @@
 
 <div class="panel panel-default" data-id="Transactions">
     <div class="panel-heading">
-        <h4>Transaksjoner</h4>
+        <h3>Transaksjoner</h3>
     </div>
     <!-- SØKE FELT-->
     <div id="custom-search-input">
@@ -20,7 +20,7 @@
 
     <div class="panel-body">
         <!-- TABLE -->
-        <table class="table table-hover search-table">
+        <table class="table table-hover search-table paging-table">
             <thead class="thead-inverse">
                 <tr>
                     <th>ID</th>
@@ -37,7 +37,7 @@
 
                 @foreach (var item in Model)
             {
-                    <tr data-toggle="collapse" class="clickable">
+                    <tr id="search-row" class="row-padding">
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.TransactionID)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.DatePayed)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.Date)</td>

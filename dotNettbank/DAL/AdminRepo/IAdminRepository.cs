@@ -32,5 +32,9 @@ namespace DAL.AdminRepo
         List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos);
         List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos);
         List<Account> getAccountsByBirthNoArray(string[] birthNos);
+        bool createPayment(Payment newPayment);
+        List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries();
+        List<Z.EntityFramework.Plus.AuditEntryProperty> getAllAuditEntryProperties();
+        List<Z.EntityFramework.Plus.AuditEntryProperty> getAuditEntryPropertiesByEntryId(int auditEntryId);
     }
 }

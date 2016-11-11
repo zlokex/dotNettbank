@@ -2,6 +2,8 @@
   background-color: #eee;
 }
 
+/* SIGN IN */
+
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -36,6 +38,8 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+/* INDEX */
 
 #index-logo{
     zoom:75%;
@@ -100,6 +104,12 @@
   border-radius: 3px;
 }
 
+.paging-nav a:hover, a:active, a:focus {
+    outline: none;
+    text-decoration: none;
+    color: #b8c7ce;
+}
+
 .paging-nav .selected-page {
   background: #222D32;
   font-weight: bold;
@@ -110,6 +120,25 @@
 #editor-container .modal-dialog  {width:30%;}
 
 /* MODAL BACKGROUND COLOR */
+
+.modal-header {
+    color: white;
+    background: #303f45;
+}
+
+.modal-footer {
+    /*background: #b8c7ce;*/
+}
+
+.close {
+    color: white !important;
+    opacity: 0.7 !important;
+}
+
+.close:hover {
+    color: white !important;
+    opacity: 0.9 !important;
+}
 
 /*
 #editor-container .modal-content {
@@ -122,85 +151,10 @@
 }
     */
 
-.modal-header-success {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
-    background-color: #5cb85c;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
-}
-.modal-header-warning {
-	color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
-    background-color: #f0ad4e;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
-}
-.modal-header-danger {
-	color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
-    background-color: #d9534f;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
-}
-.modal-header-info {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
-    background-color: #5bc0de;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
-}
-.modal-header-primary {
-	color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
-    background-color: #428bca;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-     border-top-left-radius: 5px;
-     border-top-right-radius: 5px;
-}
 
-/*
-    TAG
-*/
 
-/*
-.tag{
-    color: #b8c7ce;
-    background: #1e282c;
-    background-color:transparent;
-    padding: 12px 5px 12px 15px;
-    
-}
+/* TAG */
 
-.tag:hover{
-    opacity:0.5;
-    cursor:pointer;
-}
-    */
 
 .tagsmenu {
     padding-left:10px;
@@ -236,14 +190,14 @@
 /* CUSTOM BUTTONS THEME */
 
 .btn-dark-theme {
-  -webkit-border-radius: 10;
-  -moz-border-radius: 10;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   border-radius: 10px;
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
   background: #303f45;
-  padding: 10px 20px 10px 20px;
+  padding: 2px 20px 2px 20px;
   text-decoration: none;
 }
 
@@ -253,8 +207,68 @@
   color: #ffffff!important;
 }
 
+.btn:focus {
+  color: #ffffff!important;
+}
 
-        
+/* Datepicker */
+
+
+#datepicker-target{
+    background-color:white;
+} 
+
+#datepicker-target:hover{
+    cursor:pointer;
+}
+      
+
+/* TABLE */
+
+
+div.row { 
+  /*border: 1px solid;*/
+}
+
+.row + .row {
+/*border-top:0;*/
+}
+
+.row-padding {
+    padding-top: 10px !important;
+    padding-bottom:10px! important;
+}
+
+.table-audit-properties {
+    margin-right: 40px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #222D32;
+}
+
+.property-header {
+  color: #ffffff;
+  background: #303f45;
+}
+
+.property-row-0 {
+    background: #b8c7ce;
+}
+
+.property-row-1 {
+
+}
+
+.property-col {
+    /*border: 1px solid;*/
+}
+
+.hiddenRow {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 /* MISC */
 
 .transparent-hack {
@@ -262,6 +276,7 @@
     filter: alpha(opacity=0); /* For IE8 and earlier */
 }
 
+/* Scroll wrapper for sidebar menu*/
 .scroll-wrapper {
     height: 100%;
     overflow: auto;

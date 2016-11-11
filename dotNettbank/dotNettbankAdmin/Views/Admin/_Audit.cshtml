@@ -1,0 +1,86 @@
+﻿@model List<dotNettbankAdmin.Models.AuditEntryVM>
+
+<div class="panel panel-default" data-id="Accounts">
+    <div class="panel-heading">
+        <h3>Database revisjon</h3>
+    </div>
+    <!-- SØKE FELT-->
+    <div id="custom-search-input">
+        <div class="input-group col-md-12">
+            <input type="text" id="search" class="form-control input-lg" placeholder="Søk blant database revisjon...  Eksempel: Update Cusomer 10/11/2016" />
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <!-- TABLE -->
+        <table class="table table-hover search-table" id="audit-table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Dato</th>
+                    <th>Entitet</th>
+                    <th>Operasjon</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.EntityName)</td>
+                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.State)</td>
+                        <td class="col-md-1"><button class="btn btn-dark-theme" id="details_btn" data-toggle="collapse" data-target="#@item.AuditEntryID" data-value="showing"><i class="fa fa-eye"></i> Vis detaljer</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="hiddenRow">
+                            <div id="@item.AuditEntryID" class="collapse table-audit-properties">
+                                <div class="row property-header">
+                                    <div class="col-lg-4 col-md-4 col-sm-4"><b>Felt</b></div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4"><b>Gammel verdi</b></div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4"><b>Ny Verdi</b></div>
+                                </div>
+                                @{int i = 0;}
+                                @foreach (var property in item.EntryProperties)
+                                {
+                                    if (i == 2) { i = 0; }
+                                    <div class="row property-row-@i">
+                                        <div style="display:none;">@Html.DisplayFor(modelItem => item.Date)</div>
+                                        <div style="display:none;">@Html.DisplayFor(modelItem => item.EntityName)</div>
+                                        <div style="display:none;">@Html.DisplayFor(modelItem => item.State)</div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 property-col">@Html.DisplayFor(modelItem => property.PropertyName)</div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 property-col">@Html.DisplayFor(modelItem => property.OldValue)</div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 property-col">@Html.DisplayFor(modelItem => property.NewValue)</div>
+                                    </div>
+                                    i++;
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).on("click", "#details_btn", function () {
+        var closedHtml ="<i class=\"fa fa-eye\"></i> Vis detaljer";
+        var openHtml = "<i class=\"fa fa-eye-slash\"></i> Skjul detaljer";
+        if ($(this).attr("data-value") === "showing") {
+            $(this).attr("data-value", "hiding");
+            $(this).html(openHtml);
+        } else {
+            $(this).attr("data-value", "showing");
+            $(this).html(closedHtml);
+        }
+    });
+</script>
+
+
+<script src="~/Scripts/AdminPartials.js"></script>

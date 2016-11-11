@@ -1,10 +1,12 @@
-﻿var $rows;
+﻿
 
 $(document).ready(function () {
-    $('.search-table').paging({ limit: 10 });
+    setPagingCount();
 
+    var $rows;
     $rows = $('.search-table tbody tr');
     $('#search').keyup(function () {
+        
         var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
           reg = RegExp(val, 'i'),
           text;
@@ -13,12 +15,48 @@ $(document).ready(function () {
             text = $(this).text().replace(/\s+/g, ' ');
             return !reg.test(text);
         }).hide();
+        
 
     });
 
 });
 
+function setPagingCount() {
+    var rowsInt = calculateTableRowsByAvailableHeight();
+    $('.paging-table').paging({ limit: rowsInt });
 
+    // Set rows for audit-table at twice the amount (because of the hidden tr)
+    var rowsAudit = rowsInt * 2;
+    // Make sure that number of rows is even (so that hidden tr of last row won't be displayed on the next page)
+    if (rowsAudit % 2 != 0) {
+        rowsAudit -= 1;
+    }
+    $('#audit-table').paging({ limit: rowsAudit });
+}
+
+function calculateTableRowsByAvailableHeight() {
+    //var documentHeight = $(document).height();
+    var windowHeight = $(window).height();
+
+    var navHeight = $("nav").height();
+    var searchHeight = $("#search").height();
+    var theadHeight = $("thead").height();
+    var panelHeadingHeight = $(".panel-heading").height();
+    var mainFooterHeight = $(".main-footer").height();
+
+    var trHeight = $("tr").height();
+
+    var availableHeigth = windowHeight - navHeight - searchHeight - panelHeadingHeight - mainFooterHeight - theadHeight;
+
+    var rows = availableHeigth / trHeight;
+    rows = rows * 0.5;
+    var rowsInt = parseInt(rows);
+
+    //alert(windowHeight);
+    //alert(avaliableHeigth);
+    //alert(rowsInt);
+    return rowsInt;
+}
 
 
 $('.useraddtab').click(function () {

@@ -9,9 +9,9 @@
     // If so, show the tabs menu, and then hide when closing
     $(".sidebar-toggle").click(function () {
         if ($('body').hasClass('sidebar-collapse')) {
-            $("#tabsmenu").show();
+            $("#tagsdiv").show();
         } else {
-            $("#tabsmenu").hide();
+            $("#tagsdiv").hide();
         }
     });
 
@@ -28,21 +28,22 @@ $("#tagsdiv").on('click', '.tag_close', function () {
     //Next we want to reload the partial:
 
     // First we find data-id of panel (which equals controller view name)
-    //alert("HEI");
     var view = $(".panel").data("id");
     getPartial(view);
 });
 
 
 function getPartial(viewName) {
-    birthTag = $("#tabsmenu").find("[data-type='customer']");
+    
+    birthTag = $("#customer-tags").find("[data-type='customer']");
+    
     //var birthNo = birthTag.data('id');
     // Get array of birth numbers from tags:
     var birthNoArray = birthTag.map(function () {
         return this.getAttribute("data-id");
     }).get();
 
-    var accountTag = $("#tabsmenu").find("[data-type='account']");
+    var accountTag = $("#account-tags").find("[data-type='account']");
     //var accountNo = accountTag.data('id');
     var accountNoArray = accountTag.map(function () {
         return this.getAttribute("data-id");
@@ -61,6 +62,8 @@ function getPartial(viewName) {
         $('#productsPlace').html(result);
     })
 }
+
+
 
 
 

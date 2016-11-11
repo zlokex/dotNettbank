@@ -3,15 +3,18 @@
 <div class="panel panel-default" data-id="RegBetaling">
     <div class="panel-heading">
         <div class="panel-title fa-pull-left">
-            <h4>
+            <h3>
                 Betalinger
-            </h4>
+            </h3>
         </div>
         <div class="panel-title fa-pull-right">
-
             <button id="betal-alle-btn" class="btn btn-dark-theme pull-right" type="button">
                 <i class="fa fa-handshake-o" aria-hidden="true"></i>
                 Utfør alle betalinger
+            </button>
+            <button id="create-payment-btn" class="btn btn-dark-theme pull-right" type="button" style="margin-right:1em;">
+                <i class="fa fa-files-o" aria-hidden="true"></i>
+                Opprett Betaling
             </button>
             </div>
             <div class="clearfix"></div>
@@ -29,7 +32,7 @@
     </div>
     <div class="panel-body">
         <!-- TABLE -->
-        <table class="table table-hover search-table">
+        <table class="table table-hover search-table paging-table">
             <thead class="thead-inverse">
                 <tr>
                     <th>ID</th>
@@ -45,7 +48,7 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr id="search-row">
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.PaymentID)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.DueDate)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>
@@ -61,7 +64,7 @@
 </div>
 
 <!-- BEKREFT BETALING MODAL -->
-<div class="modal fade" id="bekreft-container" tabindex="-1"
+<div class="modal fade bekreft-container" id="bekreft-container" tabindex="-1"
      role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" id="bekreft-content-container">
@@ -76,15 +79,15 @@
             </div>
             <!-- MODAL FOOTER -->
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal" style="font-size:1.4em; width:5em;">Nei</button>
-                <button class="btn btn-primary betal_modal_btn" type="button" style="margin-left:50px; font-size: 1.4em; width: 5em;">Ja</button>
+                <button class="btn btn-dark-theme" type="button" data-dismiss="modal" style="font-size:1.4em; width:5em;">Nei</button>
+                <button class="btn btn-dark-theme betal_modal_btn" type="button" style="margin-left:50px; font-size: 1.4em; width: 5em;">Ja</button>
             </div>
         </div>
     </div>
 </div> 
 
 <!-- BEKREFT ALLE BETALINGER MODAL -->
-<div class="modal fade" id="bekreft-alle-container" tabindex="-1"
+<div class="modal fade bekreft-container" id="bekreft-alle-container" tabindex="-1"
      role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" id="bekreft-content-container">
@@ -99,27 +102,68 @@
             </div>
             <!-- MODAL FOOTER -->
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal" style="font-size:1.4em; width:5em;">Nei</button>
-                <button class="btn btn-primary betal_modal_btn" type="button"style="margin-left:50px; font-size: 1.4em; width: 5em;">Ja</button>
+                <button class="btn btn-dark-theme" type="button" data-dismiss="modal" style="font-size:1.4em; width:5em;">Nei</button>
+                <button class="btn btn-dark-theme betal_modal_btn" type="button"style="margin-left:50px; font-size: 1.4em; width: 5em;">Ja</button>
             </div>
         </div>
     </div>
 </div> 
 
-<script type="text/javascript">
+<!-- LAG BETALING MODAL -->
+<div class="modal fade" id="create-payment-modal" tabindex="-1"
+     role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" id="create-payment-modal-container">
+            
+        </div>
+    </div>
+</div> 
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Lage ny betaling knapp + henting av modalen
+        $('#create-payment-btn').click( function () {
+
+            $.ajax({
+                url: 'GetPartial',
+                dataType: "html",
+                data: {path:"_CreatePaymentPartial"},
+                beforeSend: function () {
+                    $('#create-payment-modal-container').css('display', 'block');
+                    $('#create-payment-modal-container').animate({ opacity: 0 }, 0);
+                    $('#create-payment-modal-container').html("<img class='center-block' src='/Files/spin.svg' />").animate({ opacity: 1, top: "-10px" }, '500');
+                }
+            }).done(function (data) {
+                $("#create-payment-modal-container").html(data);
+            })
+            $('#create-payment-modal').modal('show');
+
+        });
+
+        
+
+       
+
+
+          
+    });
         var payment_id;
         $(document).on('click', '#betal_btn', function () {
             payment_id = $(this).attr('data-id');
-            $('#bekreft-container').off('hidden.bs.modal'); // Turn off hidden bs modal
             $('#bekreft-container').modal('show');
         });
 
-        $(document).on('click', '#betal-alle-btn', function () {
+        $('#betal-alle-btn').click(function () {
             payment_id = -1;
-            $('#bekreft-alle-container').off('hidden.bs.modal');
             $('#bekreft-alle-container').modal('show');
         });
+
+       
+
+
+      
+
+
 
         $('.betal_modal_btn').click(function () {
             $.ajax({
@@ -128,9 +172,9 @@
                 data: { paymentID: payment_id },
                 success: function (data) {
                     if (data) {
-                        $('#bekreft-alle-container').modal('hide');
+                        $('.bekreft-container').modal('hide');
                         // Turn on hidden bs modal with refresh of partial
-                        $('#bekreft-alle-container').on('hidden.bs.modal', function (e) {
+                        $('.bekreft-container').on('hidden.bs.modal', function (e) {
                             getPartial("RegBetaling");
                         })
                     } else {
@@ -139,8 +183,13 @@
                 }
             }); //End of Ajax
         });
-   
+
+
+
+    
 </script>
 <script src="~/Scripts/AdminPartials.js"></script>
+
+
 
 
