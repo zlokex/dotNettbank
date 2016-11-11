@@ -3,6 +3,7 @@ using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,15 +76,6 @@ namespace BLL.AdminService
         public bool completePayment(int paymentId)
         {
             return _repository.completePayment(paymentId);
-        }
-
-        private static byte[] lagHash(string innPassord)
-        {
-            byte[] innData, utData;
-            var algoritme = System.Security.Cryptography.SHA256.Create();
-            innData = System.Text.Encoding.ASCII.GetBytes(innPassord);
-            utData = algoritme.ComputeHash(innData);
-            return utData;
         }
 
         public List<Transaction> getAllTransactions()
@@ -190,6 +182,52 @@ namespace BLL.AdminService
         public List<Z.EntityFramework.Plus.AuditEntryProperty> getAuditEntryPropertiesByEntryId(int auditEntryId)
         {
             return _repository.getAuditEntryPropertiesByEntryId(auditEntryId);
+        }
+
+        public bool addPostalArea(PostalArea postalArea)
+        {
+            return _repository.addPostalArea(postalArea);
+        }
+
+        public bool addCustomer(Customer customer)
+        {
+            return _repository.addCustomer(customer);
+        }
+
+        public static string generateSalt()
+        {
+            byte[] randomArray = new byte[10];
+            string randomString;
+
+            var rng = new RNGCryptoServiceProvider();
+            rng.GetBytes(randomArray);
+            randomString = Convert.ToBase64String(randomArray);
+            return randomString;
+        }
+
+        public static byte[] createHash(string innStreng)
+        {
+            try
+            {
+                byte[] innData, utData;
+                var algoritme = SHA256.Create();
+                innData = Encoding.UTF8.GetBytes(innStreng);
+                utData = algoritme.ComputeHash(innData);
+                return utData;
+            }
+            catch (NullReferenceException e)
+            {
+                return new byte[0];
+            }
+        }
+
+        private static byte[] lagHash(string innPassord)
+        {
+            byte[] innData, utData;
+            var algoritme = System.Security.Cryptography.SHA256.Create();
+            innData = System.Text.Encoding.ASCII.GetBytes(innPassord);
+            utData = algoritme.ComputeHash(innData);
+            return utData;
         }
     }
 }

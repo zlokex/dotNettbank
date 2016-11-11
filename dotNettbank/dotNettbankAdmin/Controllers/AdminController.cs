@@ -209,17 +209,16 @@ namespace dotNettbankAdmin.Controllers
 
         [HttpPost]
         public ActionResult AddCustomer(AddCustomer regCustomer)
-        {
-            BankService bankService = new BankService();      
-            string salt = BankService.generateSalt();
+        {    
+            string salt = AdminService.generateSalt();
             var passwordAndSalt = regCustomer.Password + salt;
-            byte[] passwordDB = BankService.createHash(passwordAndSalt);
+            byte[] passwordDB = AdminService.createHash(passwordAndSalt);
             PostalArea postalArea = new PostalArea()
             {
                 Area = regCustomer.PostalArea,
                 PostCode = regCustomer.PostCode
             };
-            bankService.addPostalArea(postalArea);
+            _adminService.addPostalArea(postalArea);
             Customer customer = new Customer()
             {
                 BirthNo = regCustomer.BirthNo,
@@ -231,7 +230,7 @@ namespace dotNettbankAdmin.Controllers
                 Password = passwordDB,
                 Salt = salt
             };
-            if (bankService.registerCustomer(customer))
+            if (_adminService.addCustomer(customer))
             {
                 // If succesfull:
                 return Json(new { success = true });
