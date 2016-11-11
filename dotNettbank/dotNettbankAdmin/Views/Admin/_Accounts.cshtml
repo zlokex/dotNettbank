@@ -33,7 +33,7 @@
             <tbody>
                 @foreach (var item in Model)
             {
-                    <tr>
+                    <tr id="search-row">
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.OwnerBirthNo)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.AccountNo)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.Type)</td>

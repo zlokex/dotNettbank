@@ -1,6 +1,27 @@
-﻿var $rows;
+﻿
 
 $(document).ready(function () {
+    setPagingCount();
+
+    var $rows;
+    $rows = $('.search-table tbody tr');
+    $('#search').keyup(function () {
+        
+        var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+          reg = RegExp(val, 'i'),
+          text;
+
+        $rows.show().filter(function () {
+            text = $(this).text().replace(/\s+/g, ' ');
+            return !reg.test(text);
+        }).hide();
+        
+
+    });
+
+});
+
+function setPagingCount() {
     var rowsInt = calculateTableRowsByAvailableHeight();
     $('.paging-table').paging({ limit: rowsInt });
 
@@ -11,21 +32,7 @@ $(document).ready(function () {
         rowsAudit -= 1;
     }
     $('#audit-table').paging({ limit: rowsAudit });
-
-    $rows = $('.search-table tbody tr');
-    $('#search').keyup(function () {
-        var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-          reg = RegExp(val, 'i'),
-          text;
-
-        $rows.show().filter(function () {
-            text = $(this).text().replace(/\s+/g, ' ');
-            return !reg.test(text);
-        }).hide();
-
-    });
-
-});
+}
 
 function calculateTableRowsByAvailableHeight() {
     //var documentHeight = $(document).height();

@@ -282,11 +282,36 @@
 }
 
 div.row { 
-  border: 1px solid;
+  /*border: 1px solid;*/
 }
 
 .row + .row {
-border-top:0;
+/*border-top:0;*/
+}
+
+.table-audit-properties {
+    margin-right: 40px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #222D32;
+}
+
+.property-header {
+  color: #ffffff;
+  background: #303f45;
+}
+
+.property-row-0 {
+    background: #b8c7ce;
+}
+
+.property-row-1 {
+
+}
+
+.property-col {
+    /*border: 1px solid;*/
 }
 
 .hiddenRow {

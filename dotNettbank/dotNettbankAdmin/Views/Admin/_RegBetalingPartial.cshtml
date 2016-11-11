@@ -48,7 +48,7 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr id="search-row">
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.PaymentID)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.DueDate)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>

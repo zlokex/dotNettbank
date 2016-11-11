@@ -38,19 +38,25 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="hiddenRow">
-                            <div id="@item.AuditEntryID" class="collapse">
-                                <div class="row">
+                            <div id="@item.AuditEntryID" class="collapse table-audit-properties">
+                                <div class="row property-header">
                                     <div class="col-lg-4 col-md-4 col-sm-4"><b>Felt</b></div>
                                     <div class="col-lg-4 col-md-4 col-sm-4"><b>Gammel verdi</b></div>
                                     <div class="col-lg-4 col-md-4 col-sm-4"><b>Ny Verdi</b></div>
                                 </div>
+                                @{int i = 0;}
                                 @foreach (var property in item.EntryProperties)
                                 {
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-4">@Html.DisplayFor(modelItem => property.PropertyName)</div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">@Html.DisplayFor(modelItem => property.OldValue)</div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">@Html.DisplayFor(modelItem => property.NewValue)</div>
+                                    if (i == 2) { i = 0; }
+                                    <div class="row property-row-@i">
+                                        <div style="display:none;">@Html.DisplayFor(modelItem => item.Date)</div>
+                                        <div style="display:none;">@Html.DisplayFor(modelItem => item.EntityName)</div>
+                                        <div style="display:none;">@Html.DisplayFor(modelItem => item.State)</div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 property-col">@Html.DisplayFor(modelItem => property.PropertyName)</div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 property-col">@Html.DisplayFor(modelItem => property.OldValue)</div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 property-col">@Html.DisplayFor(modelItem => property.NewValue)</div>
                                     </div>
+                                    i++;
                                 }
                             </div>
                         </td>
