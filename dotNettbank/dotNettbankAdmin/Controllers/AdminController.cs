@@ -179,12 +179,10 @@ namespace dotNettbankAdmin.Controllers
         public ActionResult GetEditAccountPartial(string accountNo)
         {
             var account = _adminService.getAccountByAccountNo(accountNo);
+            var customers = _adminService.getAllCustomers();
             AccountVM model = new AccountVM()
             {
-                AccountNo = account.AccountNo,
-                Balance = account.Balance,
-                OwnerBirthNo = account.OwnerBirthNo,
-                Type = account.Type
+                Customers = customers
             };
             return PartialView("_EditAccountsPartial", model);
         }

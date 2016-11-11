@@ -4,8 +4,21 @@
 
 <div class="panel panel-default" data-id="Accounts">
     <div class="panel-heading">
-        <h4>Kontoer</h4>
+        <div class="panel-title fa-pull-left">
+            <h4>
+                Kontoer
+            </h4>
+        </div>
+        <div class="panel-title fa-pull-right">
+
+            <button class="btn btn-dark-theme" id="edit_btn">
+                <i class="fa fa-list"></i>
+                Opprett Konto
+            </button>
+        </div>
+        <div class="clearfix"></div>
     </div>
+
     <!-- SØKE FELT-->
     <div id="custom-search-input">
         <div class="input-group col-md-12">
@@ -27,7 +40,6 @@
                     <th>Kontonummer</th>
                     <th>Kontonavn</th>
                     <th>Saldo</th>
-                    <th>Endre</th>
                     <th>Deaktiver</th>
                     <th>Velg</th>
                 </tr>
@@ -40,7 +52,6 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.AccountNo)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.Type)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
-                        <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn" data-id="@item.AccountNo"><i class="fa fa-pencil"></i> Endre</button></td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="delete_btn" data-id="@item.AccountNo"><i class="fa fa-close"></i> Deaktiver</button></td>
                         <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => item.Type)" data-type="account" data-name="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Velg</button></td>
                     </tr>

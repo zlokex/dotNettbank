@@ -3,7 +3,7 @@
 <!-- MODAL HEADER -->
 <div class="modal-header ">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Endre konto</h3>
+    <h3 id="myModalLabel">Opprett konto</h3>
 </div>
 @using (Html.BeginForm())
 {
@@ -12,46 +12,65 @@
         <!-- MODAL BODY -->
         <div class="modal-body">
             <div class="form-horizontal">
-                <!-- Kontonummer -->
-                <div class="form-group">
-                    @Html.LabelFor(model => model.AccountNo, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-8">
-                        @Html.DisplayFor(model => model.AccountNo, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.HiddenFor(model => model.AccountNo)
-                        @Html.ValidationMessageFor(model => model.AccountNo, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <!-- Eier personnummer -->
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OwnerBirthNo, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.OwnerBirthNo, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.OwnerBirthNo, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <!-- Kontonavn -->
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            search <input type="text" id="realtxt" onkeyup="javascript:searchSel();" />
+                            <select id="realitems">
+                                <option value="">personnr...</option>
+                                <option value="1">21069044444</option>
+                                <option value="2">25069044444</option>
+                                <option value="3">26069044444</option>
+                                <option value="4">28069034444</option>
+                                <option value="4">28069044444</option>
+                                <option value="4">28069054444</option>
+                                <option value="4">28069064444</option>
+                                <option value="4">28069074444</option>
+                                <option value="4">28069084444</option>
+                                <option value="4">28069094444</option>
+                                <option value="5">19069044444</option>
+                            </select>
+                         </div>
+                     </div>
+                </form>
 
-                <!-- Balanse -->
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Balance, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.Balance, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Balance, "", new { @class = "text-danger" })
+                  
+                    <!-- Kontonavn -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-            </div>
+</div>
         </div>
         <!-- MODAL FOOTER -->
         <div class="modal-footer">
             <button class="btn btn-danger" type="button" data-dismiss="modal">Avbryt</button>
-            <button class="btn btn-primary" type="button" id="update_btn">Endre</button>
+            <button class="btn btn-primary" type="button" id="update_btn">Opprett</button>
         </div>
 }
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        document.getElementById('realtxt').onkeyup = searchSel;
+        function searchSel()
+        {
+            var input = document.getElementById('realtxt').value.toLowerCase();
+
+            len = input.length;
+            output = document.getElementById('realitems').options;
+            for(var i=0; i<output.length; i++)
+                if (output[i].text.toLowerCase().indexOf(input) !=-1 ){
+                    output[i].selected=true;
+                    break;
+                }
+            if (input= ='' )
+            output[0].selected=true;
+        }
+    });
+</script>

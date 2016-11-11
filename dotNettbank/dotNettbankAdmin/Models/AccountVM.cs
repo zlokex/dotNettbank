@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BLL.AdminService;
+using dotNettbank.Model;
 
 namespace dotNettbankAdmin.Models
 {
@@ -18,6 +19,8 @@ namespace dotNettbankAdmin.Models
         [Display(Name = "Eier")]
         
         public string OwnerBirthNo { get; set; }
+
+        public List<Customer> Customers { get; set; }
 
         [Required(ErrorMessage = "Kontonummer kan ikke være blankt")]
         [Display(Name = "Kontonummer")]
