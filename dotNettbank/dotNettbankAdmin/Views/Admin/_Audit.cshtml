@@ -31,8 +31,8 @@
                 @foreach (var item in Model)
             {
                     <tr>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Date)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.EntityName)</td>
+                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.EntityName)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.State)</td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="details_btn" data-toggle="collapse" data-target="#@item.AuditEntryID" data-value="showing"><i class="fa fa-eye"></i> Vis detaljer</button></td>
                     </tr>
