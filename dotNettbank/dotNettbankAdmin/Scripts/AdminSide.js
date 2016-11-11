@@ -9,9 +9,9 @@
     // If so, show the tabs menu, and then hide when closing
     $(".sidebar-toggle").click(function () {
         if ($('body').hasClass('sidebar-collapse')) {
-            $("#tabsmenu").show();
+            $("#tagsdiv").show();
         } else {
-            $("#tabsmenu").hide();
+            $("#tagsdiv").hide();
         }
     });
 
