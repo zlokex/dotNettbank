@@ -16,15 +16,16 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.FromAccountNo, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.FromAccountNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.FromAccountNo, new { htmlAttributes = new { @class = "form-control", @list = "account-tags-selected" } })
                     @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
+                    <datalist id="account-tags-selected"></datalist>
                 </div>
             </div>
             <!-- Til konto -->
             <div class="form-group">
                 @Html.LabelFor(model => model.ToAccountNo, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.ToAccountNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ToAccountNo, new { htmlAttributes = new { @class = "form-control", @list = "account-tags-selected" } })
                     @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -66,9 +67,6 @@
 }
 
 <script type="text/javascript">
-
-        
-
         $(document).ready(function () {
             var today = new Date();
             var dd = today.getDate();
@@ -91,6 +89,22 @@
             }).attr('readonly', true);
 
         });
+
+        
+        
+        //Legger inn account tags som valg i opprett betaling
+        var accountTag = $("#account-tags").find("[data-type='account']");
+        var accountNoArray = accountTag.map(function () {
+            return this.getAttribute("data-id");
+        }).get();
+        
+        var accountselects = "";
+        for (var i = 0; i < accountNoArray.length; i++) {
+            output += '<option>' + accountNoArray[i] + '</option>';
+        }
+        $('#account-tags-selected').html(output)
+
+
         //Submit funksjonen til ny betaling
         $("#create-payment-submit").click(function (e) {
             var self = $(this);
