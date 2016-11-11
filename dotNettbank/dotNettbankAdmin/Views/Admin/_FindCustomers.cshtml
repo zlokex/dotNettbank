@@ -9,7 +9,7 @@
             </h4>
         </div>
         <div class="panel-title fa-pull-right"> 
-            <button class="btn btn-dark-theme" id="addCustomer_btn">
+            <button class="btn btn-dark-theme" id="add-customer-btn">
                 <i class="fa fa-list" aria-hidden="true"></i>
                 Opprett Kunde
             </button>          
@@ -105,8 +105,8 @@
     </div>
 </div>
 
-<!-- ENDRE KUNDE MODAL -->
-<div class="modal fade" id="addCustomer_btn" tabindex="-1"
+<!-- CREATE KUNDE MODAL -->
+<div class="modal fade" id="create-customer-modal" tabindex="-1"
      role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" id="create-customer-modal-container">
@@ -159,7 +159,7 @@
 
 
         // OPPRETTE KUNDE LISTENER:
-        $('#addCustomer_btn').click(function () {
+        $('#add-customer-btn').click(function () {
             $.ajax({
                 url: 'GetPartial',
                 dataType: "html",

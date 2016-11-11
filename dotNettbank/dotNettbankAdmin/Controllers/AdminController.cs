@@ -374,11 +374,6 @@ namespace dotNettbankAdmin.Controllers
 
             return _adminService.deactivateCustomer(birthNo);
         }
-
-
-
-
-        
     
 
         public ActionResult Audit()
