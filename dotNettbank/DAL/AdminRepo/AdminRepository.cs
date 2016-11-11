@@ -222,7 +222,7 @@ namespace DAL.AdminRepo
                 }
                 catch (Exception e)
                 {
-                    string log = "Failed to update account.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    string log = "Failed to add account.\t" + e.Message + "\t" + e.StackTrace.ToString();
                     Debug.Write(log);
                     new LogErrors().errorLog(log);
                     return false;

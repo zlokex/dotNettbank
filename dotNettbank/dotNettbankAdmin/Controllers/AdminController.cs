@@ -108,24 +108,19 @@ namespace dotNettbankAdmin.Controllers
         {
             if (!checkSession()) return RedirectToAction("Index", "");
             List<Payment> payments = new List<Payment>();
-            if (birthNo == null && accountNo == null)
+            if (accountNo != null)
+            {
+                List<Payment>  paymentsAccount = _adminService.getPaymentsByFromAccountNoArray(accountNo);
+                payments.AddRange(paymentsAccount);
+            }
+            else if (birthNo != null)
+            {
+                List<Payment> paymentsBirth = _adminService.getPaymentsByFromBirthNoArray(birthNo);
+                payments.AddRange(paymentsBirth);
+            }
+            else 
             {
                 payments = _adminService.getAllPayments();
-            }
-            else
-            {
-                if (birthNo != null)
-                {
-                    List<Payment>  paymentsBirth = _adminService.getPaymentsByFromBirthNoArray(birthNo);
-                    payments.AddRange(paymentsBirth);
-                }
-                if (accountNo != null)
-                {
-                    List<Payment>  paymentsAccount = _adminService.getPaymentsByFromAccountNoArray(accountNo);
-                    payments.AddRange(paymentsAccount);
-                }
-                //payment = payment.DistinctBy(i => i.FromAccountNo).ToList();
-                payments = payments.GroupBy(x => x.PaymentID).Select(x => x.First()).ToList();
             }
 
             return PartialView("_RegBetalingPartial", payments);
@@ -139,20 +134,19 @@ namespace dotNettbankAdmin.Controllers
             {
                 transactions = _adminService.getAllTransactions();
             }
+            if (accountNo != null)
+            {
+                List<Transaction> transactionsAccount = _adminService.getTransactionsByAccountNoArray(accountNo);
+                transactions.AddRange(transactionsAccount);
+            }
+            else if (birthNo != null)
+            {
+                List<Transaction> transactionsBirth = _adminService.getTransactionsByBirthNoArray(birthNo);
+                transactions.AddRange(transactionsBirth);
+            }
             else
             {
-                if (birthNo != null)
-                {
-                    List<Transaction> transactionsBirth = _adminService.getTransactionsByBirthNoArray(birthNo);
-                    transactions.AddRange(transactionsBirth);
-                }
-                if (accountNo != null)
-                {
-                    List<Transaction> transactionsAccount = _adminService.getTransactionsByAccountNoArray(accountNo);
-                    transactions.AddRange(transactionsAccount);
-                }
-                //payment = payment.DistinctBy(i => i.FromAccountNo).ToList();
-                transactions = transactions.GroupBy(x => x.TransactionID).Select(x => x.First()).ToList();
+                transactions = _adminService.getAllTransactions();
             }
             return PartialView("_Transactions", transactions);
         }
