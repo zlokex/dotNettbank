@@ -104,7 +104,8 @@
     // DOCUMENT READY:
     $(document).ready(function () {
         // OPPRETT KONTO KNAPP LISTENER:
-        $(document).on('click', '#opprettKonto_btn', function () {
+        
+        $('#opprettKonto_btn').click( function() {
             $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
             var accountNo = $(this).attr('data-id');
             $.ajax({
