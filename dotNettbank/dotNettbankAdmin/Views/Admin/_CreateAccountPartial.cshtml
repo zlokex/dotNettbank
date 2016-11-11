@@ -17,8 +17,9 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.OwnerBirthNo, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.OwnerBirthNo, new { htmlAttributes = new { @class = "form-control", maxlength = "11" } })
+                        @Html.EditorFor(model => model.OwnerBirthNo, new { htmlAttributes = new { @class = "form-control", maxlength = "11", @list = "customer-tags-selected" } })
                         @Html.ValidationMessageFor(model => model.OwnerBirthNo, "", new { @class = "text-danger" })
+                        <datalist id="customer-tags-selected"></datalist>
                     </div>
                 </div>
                   
@@ -42,6 +43,20 @@
 }
 
 <script type="text/javascript">
+
+    //Legger inn bruker tags som valg i opprett konto
+    var customerTag = $("#customer-tags").find("[data-type='customer']");
+    var accountNoArray = customerTag.map(function () {
+        return this.getAttribute("data-id");
+    }).get();
+
+    var output = "";
+    for (var i = 0; i < accountNoArray.length; i++) {
+        output += '<option>' + accountNoArray[i] + '</option>';
+    }
+    $('#customer-tags-selected').html(output)
+
+
     // OPPRETT KNAPP I MODAL LISTENER:
     $("#opprett_btn").click( function() {
         //$(document).one('click', '#opprett_btn', function () {
