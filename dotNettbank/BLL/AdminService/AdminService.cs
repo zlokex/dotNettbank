@@ -1,7 +1,9 @@
 ﻿using DAL.AdminRepo;
+using DAL.Log;
 using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -217,6 +219,9 @@ namespace BLL.AdminService
             }
             catch (NullReferenceException e)
             {
+                string log = "Failed to create hash.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
                 return new byte[0];
             }
         }
