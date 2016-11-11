@@ -104,6 +104,12 @@
   border-radius: 3px;
 }
 
+.paging-nav a:hover, a:active, a:focus {
+    outline: none;
+    text-decoration: none;
+    color: #b8c7ce;
+}
+
 .paging-nav .selected-page {
   background: #222D32;
   font-weight: bold;
@@ -114,6 +120,25 @@
 #editor-container .modal-dialog  {width:30%;}
 
 /* MODAL BACKGROUND COLOR */
+
+.modal-header {
+    color: white;
+    background: #303f45;
+}
+
+.modal-footer {
+    /*background: #b8c7ce;*/
+}
+
+.close {
+    color: white !important;
+    opacity: 0.7 !important;
+}
+
+.close:hover {
+    color: white !important;
+    opacity: 0.9 !important;
+}
 
 /*
 #editor-container .modal-content {
