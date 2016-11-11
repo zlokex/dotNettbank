@@ -71,13 +71,14 @@ $('.useraddtab').click(function () {
         if (lastname != null) {
             output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
                     + " " + firstname + " " + lastname + " " + userID + " <i class='fa fa-times tag_close'></i></p></div></li>";
-            // Check if tag with this id allready exists (count > 0 or count ===0)
+            // Check if tag with this id dosen't allready exists (count ===0)
             if ($('#customer-tags').has("div.tag[data-id=" + userID + "]").length === 0) {
                 $("#customer-tags").append(output);
             }
         } else { //Kontotag
             output = "<li class='tagli'><div data-type='" + type + "' data-id='" + userID + "' class='tag'><p><i class='fa fa-tags' aria-hidden='true'></i>"
             + " " + firstname + ": " + userID + " " + " <i class='fa fa-times tag_close'></i></p></div></li>";
+            // Check if tag with this id dosen't allready exists (count ===0)
             if ($('#account-tags').has("div.tag[data-id=" + userID + "]").length === 0) {
                 $("#account-tags").append(output);
             }
