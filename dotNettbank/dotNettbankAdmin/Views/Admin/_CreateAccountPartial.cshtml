@@ -40,3 +40,31 @@
             <button class="btn btn-primary" type="button" id="opprett_btn">Opprett</button>
         </div>
 }
+
+<script type="text/javascript">
+    // OPPRETT KNAPP I MODAL LISTENER:
+    $("#opprett_btn").click( function() {
+        //$(document).one('click', '#opprett_btn', function () {
+            var self = $(this);
+            $.ajax({
+                url: '/Admin/AddAccount',
+                type: 'POST',
+                data: self.closest('form').serialize(),
+                success: function(data) {
+                    if (data.success == true) {
+                        // Turn on hidden bs modal with refresh of partial
+                        $('#editor-container').one('hidden.bs.modal', function (e) {
+                            getPartial("Accounts");
+                        })
+                        $('#editor-container').modal('hide');
+                        $('#editor-content-container').html("");
+
+                    } else {
+
+                        // If not succesful, reload modal with the partial/model from controller
+                        $('#editor-content-container').html(data);
+                    }
+                }
+            });
+        });
+    </script>

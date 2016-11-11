@@ -212,7 +212,7 @@ namespace DAL.AdminRepo
                 try
                 {
                     // Update record:
-                    db.Accounts.AddOrUpdate(addAccount);
+                    db.Accounts.Add(addAccount);
                     //db.Accounts.Attach(updatedAccount);
                     //var entry = db.Entry(updatedAccount);
                     //entry.State = EntityState.Modified;

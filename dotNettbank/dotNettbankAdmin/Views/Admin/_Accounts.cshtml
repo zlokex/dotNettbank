@@ -103,42 +103,17 @@
 <script type="text/javascript">
     // DOCUMENT READY:
     $(document).ready(function () {
-        // ENDRE KONTO LISTENER:
+        // OPPRETT KONTO KNAPP LISTENER:
         $(document).on('click', '#opprettKonto_btn', function () {
             $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
             var accountNo = $(this).attr('data-id');
             $.ajax({
-                url: '/Admin/GetEditAccountPartial',
+                url: '/Admin/GetCreateAccountPartial',
                 type: 'GET',
                 data: { accountNo: accountNo },
                 success: function(data){
                     $('#editor-content-container').html(data);
                     $('#editor-container').modal('show');
-                }
-            });
-        });
-
-        // OPPRETT KNAPP I MODAL LISTENER:
-        $(document).on('click', '#opprett_btn', function () {
-            var self = $(this);
-            $.ajax({
-                url: '/Admin/AddAccount',
-                type: 'POST',
-                data: self.closest('form').serialize(),
-                success: function(data) {
-                    if (data.success == true) {
-                        // Turn on hidden bs modal with refresh of partial
-                        $('#editor-container').one('hidden.bs.modal', function (e) {
-                            getPartial("Accounts");
-                        })
-                        $('#editor-container').modal('hide');
-                        $('#editor-content-container').html("");
-                        
-                    } else {
-                        
-                        // If not succesful, reload modal with the partial/model from controller
-                        $('#editor-content-container').html(data);
-                    }
                 }
             });
         });

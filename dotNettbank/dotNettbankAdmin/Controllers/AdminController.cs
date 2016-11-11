@@ -229,7 +229,7 @@ namespace dotNettbankAdmin.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetEditAccountPartial(string accountNo)
+        public ActionResult GetCreateAccountPartial(string accountNo)
         {
             if (!checkSession()) return RedirectToAction("Index", "");
 
@@ -239,7 +239,7 @@ namespace dotNettbankAdmin.Controllers
             {
                 Customers = customers
             };
-            return PartialView("_EditAccountsPartial", model);
+            return PartialView("_CreateAccountPartial", model);
         }
 
         public ActionResult UpdateCustomer(CustomerVM model)
@@ -308,7 +308,7 @@ namespace dotNettbankAdmin.Controllers
                 return Json(new { success = true });
             }
             // else
-            return PartialView("_EditAccountsPartial", model);
+            return PartialView("_CreateAccountPartial", model);
         }
 
 

@@ -110,10 +110,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Hardbank.mdf" />
-    <Content Include="App_Data\Hardbank_log.ldf">
-      <DependentUpon>Hardbank.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\AdminLTE.css" />
     <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\AdminSide.css" />
@@ -290,7 +286,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Admin\_Transactions.cshtml" />
     <Content Include="Views\Admin\_FindCustomers.cshtml" />
-    <Content Include="Views\Admin\_EditAccountsPartial.cshtml" />
+    <Content Include="Views\Admin\_CreateAccountPartial.cshtml" />
     <Content Include="Views\Admin\_CreatePaymentPartial.cshtml" />
     <Content Include="Views\Admin\_EditCustomersPartial.cshtml" />
     <Content Include="Views\Admin\_Audit.cshtml" />
@@ -302,6 +298,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Validation\" />
   </ItemGroup>
   <ItemGroup>
