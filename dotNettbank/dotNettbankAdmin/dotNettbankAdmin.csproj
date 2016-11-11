@@ -110,6 +110,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Hardbank.mdf" />
+    <Content Include="App_Data\Hardbank_log.ldf">
+      <DependentUpon>Hardbank.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\AdminLTE.css" />
     <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\AdminSide.css" />
@@ -298,7 +302,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Validation\" />
   </ItemGroup>
   <ItemGroup>

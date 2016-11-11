@@ -203,6 +203,33 @@ namespace DAL.AdminRepo
             }
         }
 
+        //--- ADD ---
+
+        public bool addAccount(Account addAccount)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    // Update record:
+                    db.Accounts.AddOrUpdate(addAccount);
+                    //db.Accounts.Attach(updatedAccount);
+                    //var entry = db.Entry(updatedAccount);
+                    //entry.State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string log = "Failed to update account.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
+                    return false;
+                }
+            }
+        }
+
         //--- UPDATE ---
 
         public bool updateAccount(Account updatedAccount)

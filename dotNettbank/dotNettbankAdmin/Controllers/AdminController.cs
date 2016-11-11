@@ -272,8 +272,6 @@ namespace dotNettbankAdmin.Controllers
             {
                 Account account = new Account()
                 {
-                    AccountNo = model.AccountNo,
-                    Balance = model.Balance,
                     OwnerBirthNo = model.OwnerBirthNo,
                     Type = model.Type
                 };
@@ -284,6 +282,35 @@ namespace dotNettbankAdmin.Controllers
             // else
             return PartialView("_EditAccountsPartial", model);
         }
+
+
+        [HttpPost]
+        public ActionResult AddAccount(AccountVM model)
+        {
+            Random random = new Random();
+            int newAccNo1 = random.Next(1000, 9999);
+            int newAccNo2 = random.Next(10, 99);
+            int newAccNo3 = random.Next(10000, 99999);
+
+            if (!checkSession()) return RedirectToAction("Index", "");
+
+            if (ModelState.IsValid)
+            {
+                Account account = new Account()
+                {
+                    AccountNo = "" + newAccNo1 + "." + newAccNo2 + "." + newAccNo3,
+                    Balance = 5000,
+                    OwnerBirthNo = model.OwnerBirthNo,
+                    Type = model.Type
+                };
+
+                _adminService.addAccount(account);
+                return Json(new { success = true });
+            }
+            // else
+            return PartialView("_EditAccountsPartial", model);
+        }
+
 
         public string DeactivateAccount(string accountNo)
         {

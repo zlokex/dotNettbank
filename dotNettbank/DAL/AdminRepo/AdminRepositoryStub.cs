@@ -110,6 +110,11 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
+        public bool addAccount(Account adddAccount)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool updateAccount(Account updatedAccount)
         {
             throw new NotImplementedException();

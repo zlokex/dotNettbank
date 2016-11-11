@@ -17,20 +17,12 @@ namespace dotNettbankAdmin.Models
         [CustomValidation(typeof(AccountVM), "IsBirthNoExisting")]
         [Required(ErrorMessage = "Eier kan ikke være blankt")]
         [Display(Name = "Eier")]
-        
+
         public string OwnerBirthNo { get; set; }
 
         public List<Customer> Customers { get; set; }
 
-        [Required(ErrorMessage = "Kontonummer kan ikke være blankt")]
-        [Display(Name = "Kontonummer")]
-        public string AccountNo { get; set; } //kontonr
-
-        [Required(ErrorMessage = "Balanse kan ikke være blankt")]
-        [Display(Name = "Balanse")]
-        public double Balance { get; set; } //Saldo
-
-        [Required(ErrorMessage = "Kontonavn kan ikke være blankt")]
+        [Required(ErrorMessage = "Kontonavn kan ikke være blankt eller over 20 tegn")]
         [Display(Name = "Kontonavn")]
         public string Type { get; set; } // Kontotype
 

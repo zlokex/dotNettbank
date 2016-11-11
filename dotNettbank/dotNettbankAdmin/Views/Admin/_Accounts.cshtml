@@ -11,7 +11,7 @@
         </div>
         <div class="panel-title fa-pull-right">
 
-            <button class="btn btn-dark-theme" id="edit_btn">
+            <button class="btn btn-dark-theme" id="opprettKonto_btn">
                 <i class="fa fa-list"></i>
                 Opprett Konto
             </button>
@@ -104,7 +104,7 @@
     // DOCUMENT READY:
     $(document).ready(function () {
         // ENDRE KONTO LISTENER:
-        $(document).on('click', '#edit_btn', function () {
+        $(document).on('click', '#opprettKonto_btn', function () {
             $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
             var accountNo = $(this).attr('data-id');
             $.ajax({
@@ -118,11 +118,11 @@
             });
         });
 
-        // ENDRE KNAPP I MODAL LISTENER:
-        $(document).on('click', '#update_btn', function () {
+        // OPPRETT KNAPP I MODAL LISTENER:
+        $(document).on('click', '#opprett_btn', function () {
             var self = $(this);
             $.ajax({
-                url: '/Admin/UpdateAccount',
+                url: '/Admin/AddAccount',
                 type: 'POST',
                 data: self.closest('form').serialize(),
                 success: function(data) {
