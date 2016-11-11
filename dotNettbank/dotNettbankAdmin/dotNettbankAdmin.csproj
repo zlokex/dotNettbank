@@ -272,6 +272,7 @@
     <Compile Include="Models\AuditEntryPropertyVM.cs" />
     <Compile Include="Models\AuditEntryVM.cs" />
     <Compile Include="Models\CustomerVM.cs" />
+    <Compile Include="Models\AddCustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -290,6 +291,7 @@
     <Content Include="Views\Admin\_CreatePaymentPartial.cshtml" />
     <Content Include="Views\Admin\_EditCustomersPartial.cshtml" />
     <Content Include="Views\Admin\_Audit.cshtml" />
+    <Content Include="Views\Admin\_AddCustomerPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -68,6 +68,7 @@
                     <!-- Optionally, you can add icons to the links -->
                    
 
+                    
                     <!-- Kunder -->
                     <li><a href="#" data-id="FindCustomers" class="getPartial"><i class="fa fa-user"></i> <span>Kunder</span></a></li>
                     <!-- Kontoer -->
@@ -140,6 +141,8 @@
 <script src="~/Scripts/app.min.js"></script>
 <script src="~/Scripts/AdminSide.js"></script>
 
+
+<!--LOGG OUT MODAL-->
 <div id="logOutModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
 
@@ -153,7 +156,7 @@
             </div>
             <div class="modal-footer">
                 @Html.ActionLink("Ja", "Logout", "Admin", null, new { @class = "btn btn-dark-theme" })
-                <button type="button" class="btn btn-dark-theme useraddtab" data-dismiss="modal">Nei</button>
+                <button type="button" class="btn btn-dark-theme" data-dismiss="modal">Nei</button>
             </div>
         </div>
     </div>

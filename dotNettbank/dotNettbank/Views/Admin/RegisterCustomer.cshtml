@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "RegisterCustomer";
 }
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -13,10 +14,12 @@
             <div class="col-md-11 col-md-offset-6">
                 <div class="col-sm-6">
                     <div class="panel panel-default">
+
                         <div class="panel-heading">
                             <h3>Bli kunde</h3>
                         </div>
-                      <p></p>
+                      
+
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
