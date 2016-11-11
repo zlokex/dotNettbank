@@ -167,6 +167,11 @@ namespace BLL.AdminService
             return _repository.getAccountsByBirthNoArray(birthNos);
         }
 
+        public bool createPayment(Payment newPayment)
+        {
+            return _repository.createPayment(newPayment);
+        }
+
         public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
         {
             return _repository.getAllAuditEntries();

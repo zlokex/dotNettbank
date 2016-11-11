@@ -180,6 +180,11 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
+        public bool createPayment(Payment newPayment)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
         {
             throw new NotImplementedException();

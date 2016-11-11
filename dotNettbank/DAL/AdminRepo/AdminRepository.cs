@@ -429,6 +429,25 @@ namespace DAL.AdminRepo
             }
         }
 
+        public bool createPayment(Payment newPayment)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Payments.Add(newPayment);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine("DEBUG: " + e.Message);
+                    return false;
+
+                }
+            }
+        }
+
         public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
         {
             using (var db = new BankContext())

@@ -24,6 +24,7 @@ namespace BLL.AdminService
         Customer getCustomerByBirthNo(string birthNo);
         string deactivateAccount(string accountNo);
         string deactivateCustomer(string birthNo);
+        bool createPayment(Payment p);
         List<Account> getAllAccountsByBirthNo(string birthNo);
         List<Payment> getPaymentsByFromBirthNo(string birthNo);
         List<Transaction> getTransactionsByAccountNo(string accountNo);
