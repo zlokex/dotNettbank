@@ -4,8 +4,21 @@
 
 <div class="panel panel-default" data-id="Accounts">
     <div class="panel-heading">
-        <h4>Kontoer</h4>
+        <div class="panel-title fa-pull-left">
+            <h4>
+                Kontoer
+            </h4>
+        </div>
+        <div class="panel-title fa-pull-right">
+
+            <button class="btn btn-dark-theme" id="opprettKonto_btn">
+                <i class="fa fa-list"></i>
+                Opprett Konto
+            </button>
+        </div>
+        <div class="clearfix"></div>
     </div>
+
     <!-- SØKE FELT-->
     <div id="custom-search-input">
         <div class="input-group col-md-12">
@@ -20,14 +33,13 @@
 
     <div class="panel-body">
         <!-- TABLE -->
-        <table class="table table-hover search-table" id="accounts-table">
+        <table class="table table-hover search-table paging-table">
             <thead class="thead-inverse">
                 <tr>
                     <th>Fødselsnummer</th>
                     <th>Kontonummer</th>
                     <th>Kontonavn</th>
                     <th>Saldo</th>
-                    <th>Endre</th>
                     <th>Deaktiver</th>
                     <th>Velg</th>
                 </tr>
@@ -36,13 +48,12 @@
                 @foreach (var item in Model)
             {
                     <tr>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.OwnerBirthNo)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.AccountNo)</td>
-                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.Type)</td>
+                        <td class="col-md-3">@Html.DisplayFor(modelItem => item.OwnerBirthNo)</td>
+                        <td class="col-md-3">@Html.DisplayFor(modelItem => item.AccountNo)</td>
+                        <td class="col-md-3">@Html.DisplayFor(modelItem => item.Type)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Balance)</td>
-                        <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn" data-id="@item.AccountNo"><i class="fa fa-pencil"></i> Endre</button></td>
-                        <td class="col-md-1"><button class="btn btn-dark-theme" id="delete_btn" data-id="@item.AccountNo"><i class="fa fa-close"></i> Deaktiver</button></td>
-                        <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => item.Type)" data-type="account" data-name="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Velg</button></td>
+                        <td class="col-md-1"><button class="btn btn-dark-theme" id="delete_btn" data-id="@item.AccountNo"><i class="fa fa-close"></i><span class="button-text"> Deaktiver</span></button></td>
+                        <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => item.Type)" data-type="account" data-name="@Html.DisplayFor(modelItem => item.Type)" data-id="@Html.DisplayFor(modelItem => item.AccountNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i><span class="button-text">Velg</span></button></td>
                     </tr>
 
                 }
@@ -81,8 +92,8 @@
 
             <!-- MODAL FOOTER -->
             <div class="modal-footer">
-                <button class="btn btn-dark-theme" type="button" data-dismiss="modal" id="cancel_modal_btn">Avbryt</button>
-                <button class="btn btn-dark-theme" type="button" id="delete_modal_btn">Deaktiver</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal" id="cancel_modal_btn">Avbryt</button>
+                <button class="btn btn-danger" type="button" id="delete_modal_btn">Deaktiver</button>
             </div>
 
         </div>
@@ -92,12 +103,12 @@
 <script type="text/javascript">
     // DOCUMENT READY:
     $(document).ready(function () {
-        // ENDRE KONTO LISTENER:
-        $("#accounts-table").on('click', '#edit_btn', function () {
+        // OPPRETT KONTO KNAPP LISTENER:
+        $(document).on('click', '#opprettKonto_btn', function () {
             $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
             var accountNo = $(this).attr('data-id');
             $.ajax({
-                url: '/Admin/GetEditAccountPartial',
+                url: '/Admin/GetCreateAccountPartial',
                 type: 'GET',
                 data: { accountNo: accountNo },
                 success: function(data){
@@ -107,34 +118,9 @@
             });
         });
 
-        // ENDRE KNAPP I MODAL LISTENER:
-        $(document).one('click', '#update_btn', function () {
-            var self = $(this);
-            $.ajax({
-                url: '/Admin/UpdateAccount',
-                type: 'POST',
-                data: self.closest('form').serialize(),
-                success: function(data) {
-                    if (data.success == true) {
-                        // Turn on hidden bs modal with refresh of partial
-                        $('#editor-container').one('hidden.bs.modal', function (e) {
-                            getPartial("Accounts");
-                        })
-                        $('#editor-container').modal('hide');
-                        $('#editor-content-container').html("");
-                        
-                    } else {
-                        
-                        // If not succesful, reload modal with the partial/model from controller
-                        $('#editor-content-container').html(data);
-                    }
-                }
-            });
-        });
-
         var accountNoToDelete;
         // DEAKTIVER KONTO LISTENER:
-        $("#accounts-table").on('click', '#delete_btn', function () {
+        $(document).on('click', '#delete_btn', function () {
             accountNoToDelete = $(this).attr('data-id');
             $('#delete-container').off('hidden.bs.modal'); // Turn off hidden bs modal
             $('#delete-container').modal('show'); // show modal

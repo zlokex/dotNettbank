@@ -110,6 +110,11 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
+        public bool addAccount(Account adddAccount)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool updateAccount(Account updatedAccount)
         {
             throw new NotImplementedException();
@@ -176,6 +181,26 @@ namespace DAL.AdminRepo
         }
 
         public List<Account> getAccountsByBirthNoArray(string[] birthNos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool createPayment(Payment newPayment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Z.EntityFramework.Plus.AuditEntryProperty> getAllAuditEntryProperties()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Z.EntityFramework.Plus.AuditEntryProperty> getAuditEntryPropertiesByEntryId(int auditEntryId)
         {
             throw new NotImplementedException();
         }

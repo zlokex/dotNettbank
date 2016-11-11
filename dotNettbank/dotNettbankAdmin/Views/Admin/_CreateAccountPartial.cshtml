@@ -1,0 +1,85 @@
+﻿@model dotNettbankAdmin.Models.AccountVM
+
+<!-- MODAL HEADER -->
+<div class="modal-header ">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Opprett konto</h3>
+</div>
+@using (Html.BeginForm())
+{
+        <!-- @Html.ValidationSummary() -->
+        @Html.AntiForgeryToken()
+        <!-- MODAL BODY -->
+        <div class="modal-body">
+            <div class="form-horizontal">
+
+                <!-- Personnummer -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OwnerBirthNo, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.OwnerBirthNo, new { htmlAttributes = new { @class = "form-control", maxlength = "11", @list = "customer-tags-selected" } })
+                        @Html.ValidationMessageFor(model => model.OwnerBirthNo, "", new { @class = "text-danger" })
+                        <datalist id="customer-tags-selected"></datalist>
+                    </div>
+                </div>
+                  
+                  <!-- Kontonavn -->
+                 <div class="form-group">
+                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control", maxlength = "20" } })
+                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+        <!-- MODAL FOOTER -->
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" data-dismiss="modal">Avbryt</button>
+            <button class="btn btn-primary" type="button" id="opprett_btn">Opprett</button>
+        </div>
+}
+
+<script type="text/javascript">
+
+    //Legger inn bruker tags som valg i opprett konto
+    var customerTag = $("#customer-tags").find("[data-type='customer']");
+    var accountNoArray = customerTag.map(function () {
+        return this.getAttribute("data-id");
+    }).get();
+
+    var output = "";
+    for (var i = 0; i < accountNoArray.length; i++) {
+        output += '<option>' + accountNoArray[i] + '</option>';
+    }
+    $('#customer-tags-selected').html(output)
+
+
+    // OPPRETT KNAPP I MODAL LISTENER:
+    $("#opprett_btn").click( function() {
+        //$(document).one('click', '#opprett_btn', function () {
+            var self = $(this);
+            $.ajax({
+                url: '/Admin/AddAccount',
+                type: 'POST',
+                data: self.closest('form').serialize(),
+                success: function(data) {
+                    if (data.success == true) {
+                        // Turn on hidden bs modal with refresh of partial
+                        $('#editor-container').one('hidden.bs.modal', function (e) {
+                            getPartial("Accounts");
+                        })
+                        $('#editor-container').modal('hide');
+                        $('#editor-content-container').html("");
+
+                    } else {
+
+                        // If not succesful, reload modal with the partial/model from controller
+                        $('#editor-content-container').html(data);
+                    }
+                }
+            });
+        });
+    </script>

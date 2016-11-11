@@ -8,6 +8,7 @@ using dotNettbank.DAL;
 using System.Data.Entity;
 using System.Diagnostics;
 using DAL.Log;
+using System.Data.Entity.Migrations;
 
 namespace DAL.AdminRepo
 {
@@ -202,6 +203,33 @@ namespace DAL.AdminRepo
             }
         }
 
+        //--- ADD ---
+
+        public bool addAccount(Account addAccount)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    // Update record:
+                    db.Accounts.Add(addAccount);
+                    //db.Accounts.Attach(updatedAccount);
+                    //var entry = db.Entry(updatedAccount);
+                    //entry.State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string log = "Failed to add account.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
+                    return false;
+                }
+            }
+        }
+
         //--- UPDATE ---
 
         public bool updateAccount(Account updatedAccount)
@@ -210,10 +238,11 @@ namespace DAL.AdminRepo
             {
                 try
                 {
-                    db.Accounts.Attach(updatedAccount);
-
-                    var entry = db.Entry(updatedAccount);
-                    entry.State = EntityState.Modified;
+                    // Update record:
+                    db.Accounts.AddOrUpdate(updatedAccount);
+                    //db.Accounts.Attach(updatedAccount);
+                    //var entry = db.Entry(updatedAccount);
+                    //entry.State = EntityState.Modified;
                     db.SaveChanges();
 
                     return true;
@@ -234,10 +263,8 @@ namespace DAL.AdminRepo
             {
                 try
                 {
-                    db.Customers.Attach(updatedCustomer);
-
-                    var entry = db.Entry(updatedCustomer);
-                    entry.State = EntityState.Modified;
+                    // Update record:
+                    db.Customers.AddOrUpdate(updatedCustomer);
                     db.SaveChanges();
                     return true;
                 }
@@ -269,9 +296,11 @@ namespace DAL.AdminRepo
                     account.Active = false;
 
                     // Update record:
-                    db.Accounts.Attach(account);
-                    db.Entry(account).Property(x => x.Active).IsModified = true; // Update only Active property
-                    
+                    // Update record:
+                    db.Accounts.AddOrUpdate(account);
+                    //db.Accounts.Attach(account);
+                    //db.Entry(account).Property(x => x.Active).IsModified = true; // Update only Active property
+
                     // Save changes:
                     db.SaveChanges();
                     return "Suksess";
@@ -311,9 +340,7 @@ namespace DAL.AdminRepo
                     customer.Active = false;
 
                     // Update record:
-                    db.Customers.Attach(customer);
-                    db.Entry(customer).Property(x => x.Active).IsModified = true; // Update only Active property
-
+                    db.Customers.AddOrUpdate(customer);
                     // Save changes:
                     db.SaveChanges();
                     return "Suksess";
@@ -381,7 +408,6 @@ namespace DAL.AdminRepo
                     // Attempt to complete payment:
                     try
                     {
-
                         // Add transaction:
                         db.Transactions.Add(transaction);
 
@@ -389,6 +415,12 @@ namespace DAL.AdminRepo
                         db.Payments.Attach(payment);
                         db.Payments.Remove(payment);
 
+
+                        // Update from acc:
+                        db.Accounts.AddOrUpdate(fromAcc);
+                        // Update to acc:
+                        db.Accounts.AddOrUpdate(toAcc);
+                        /*
                         // Update balances of from account:
                         db.Accounts.Attach(fromAcc);
                         var entryFromAcc = db.Entry(fromAcc);
@@ -404,6 +436,7 @@ namespace DAL.AdminRepo
 
                         // Set only balance to be changed
                         entryToAcc.Property(e => e.Balance).IsModified = true;
+                        */
 
                         // Save changes:
                         db.SaveChanges();
@@ -423,11 +456,50 @@ namespace DAL.AdminRepo
             }
         }
 
+        public bool createPayment(Payment newPayment)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Payments.Add(newPayment);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine("DEBUG: " + e.Message);
+                    return false;
+
+                }
+            }
+        }
+
+        public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
+        {
+            using (var db = new BankContext())
+            {
+                return db.AuditEntries.ToList();
+            }
+        }
+
+        public List<Z.EntityFramework.Plus.AuditEntryProperty> getAllAuditEntryProperties()
+        {
+            using (var db = new BankContext())
+            {
+                return db.AuditEntryProperties.ToList();
+            }
+        }
+
+        public List<Z.EntityFramework.Plus.AuditEntryProperty> getAuditEntryPropertiesByEntryId(int auditEntryId)
+        {
+            using (var db = new BankContext())
+            {
+                return db.AuditEntryProperties.Where(x => x.AuditEntryID == auditEntryId).ToList();
+            }
+        }
 
 
-
-
-        
     }
 }
 

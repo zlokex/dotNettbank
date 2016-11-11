@@ -20,10 +20,12 @@ namespace BLL.AdminService
         List<Customer> getAllCustomers();
         Account getAccountByAccountNo(string accountNo);
         bool updateAccount(Account updatedAccount);
+        bool addAccount(Account addAccount);
         bool updateCustomer(Customer updatedCustomer);
         Customer getCustomerByBirthNo(string birthNo);
         string deactivateAccount(string accountNo);
         string deactivateCustomer(string birthNo);
+        bool createPayment(Payment p);
         List<Account> getAllAccountsByBirthNo(string birthNo);
         List<Payment> getPaymentsByFromBirthNo(string birthNo);
         List<Transaction> getTransactionsByAccountNo(string accountNo);
@@ -33,5 +35,8 @@ namespace BLL.AdminService
         List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos);
         List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos);
         List<Account> getAccountsByBirthNoArray(string[] birthNos);
+        List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries();
+        List<Z.EntityFramework.Plus.AuditEntryProperty> getAllAuditEntryProperties();
+        List<Z.EntityFramework.Plus.AuditEntryProperty> getAuditEntryPropertiesByEntryId(int auditEntryId);
     }
 }

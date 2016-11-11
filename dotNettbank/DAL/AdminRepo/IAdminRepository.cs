@@ -19,6 +19,7 @@ namespace DAL.AdminRepo
         List<Customer> getAllCustomers();
         Account getAccountByAccountNo(string accountNo);
         bool updateAccount(Account updatedAccount);
+        bool addAccount(Account addAccount);
         bool updateCustomer(Customer updatedCustomer);
         Customer getCustomerByBirthNo(string birthNo);
         string deactivateAccount(string accountNo);
@@ -32,5 +33,9 @@ namespace DAL.AdminRepo
         List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos);
         List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos);
         List<Account> getAccountsByBirthNoArray(string[] birthNos);
+        bool createPayment(Payment newPayment);
+        List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries();
+        List<Z.EntityFramework.Plus.AuditEntryProperty> getAllAuditEntryProperties();
+        List<Z.EntityFramework.Plus.AuditEntryProperty> getAuditEntryPropertiesByEntryId(int auditEntryId);
     }
 }
