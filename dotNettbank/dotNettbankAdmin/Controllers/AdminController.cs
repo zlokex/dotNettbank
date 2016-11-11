@@ -323,6 +323,8 @@ namespace dotNettbankAdmin.Controllers
                 };
                 entryVMs.Add(entryVM);
             }
+
+            entryVMs.Reverse();
             return PartialView("_Audit", entryVMs);
         }
     }
