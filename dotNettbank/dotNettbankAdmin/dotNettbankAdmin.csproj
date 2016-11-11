@@ -471,6 +471,7 @@
     <Compile Include="Models\AccountVM.cs" />
     <Compile Include="Models\AdminSideModel.cs" />
     <Compile Include="Models\CustomerVM.cs" />
+    <Compile Include="Models\AddCustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +488,7 @@
     <Content Include="Views\Admin\_FindCustomers.cshtml" />
     <Content Include="Views\Admin\_EditAccountsPartial.cshtml" />
     <Content Include="Views\Admin\_EditCustomersPartial.cshtml" />
+    <Content Include="Views\Admin\_AddCustomerPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
