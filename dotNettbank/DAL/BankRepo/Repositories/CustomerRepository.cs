@@ -64,7 +64,6 @@ namespace dotNettbank.DAL.Repositories
                 new LogErrors().errorLog(log);
                 return false;
             }
-            
         }
 
         /// <summary>

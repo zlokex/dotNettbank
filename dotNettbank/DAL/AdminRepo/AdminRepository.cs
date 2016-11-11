@@ -230,6 +230,65 @@ namespace DAL.AdminRepo
             }
         }
 
+        public bool addPostalArea(PostalArea postalArea)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.PostalAreas.Add(postalArea);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string log = "Failed to add postal area.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
+                    return false;
+                }
+            }
+        }
+
+        public bool addCustomer(Customer customer)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    string log = "Failed to add customer.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
+                    return false;
+                }
+            }
+        }
+
+        public bool createPayment(Payment newPayment)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Payments.Add(newPayment);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("DEBUG: " + e.Message);
+                    return false;
+
+                }
+            }
+        }
+
         //--- UPDATE ---
 
         public bool updateAccount(Account updatedAccount)
@@ -456,24 +515,7 @@ namespace DAL.AdminRepo
             }
         }
 
-        public bool createPayment(Payment newPayment)
-        {
-            using (var db = new BankContext())
-            {
-                try
-                {
-                    db.Payments.Add(newPayment);
-                    db.SaveChanges();
-                    return true;
-                }
-                catch(Exception e)
-                {
-                    Debug.WriteLine("DEBUG: " + e.Message);
-                    return false;
-
-                }
-            }
-        }
+        
 
         public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
         {
