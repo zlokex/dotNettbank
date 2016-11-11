@@ -292,7 +292,7 @@ namespace dotNettbankAdmin.Controllers
             {
                 Account account = new Account()
                 {
-                    AccountNo = "" + newAccNo1 + "." + newAccNo2 + "." + newAccNo3,
+                    AccountNo = "" + newAccNo1  + newAccNo2 + newAccNo3,
                     Balance = 5000,
                     OwnerBirthNo = model.OwnerBirthNo,
                     Type = model.Type
