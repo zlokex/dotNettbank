@@ -12,6 +12,7 @@ using System.Diagnostics;
 using DAL.Log;
 using System.Diagnostics;
 using MoreLinq;
+using Z.EntityFramework.Plus;
 
 namespace dotNettbankAdmin.Controllers
 {
@@ -238,6 +239,58 @@ namespace dotNettbankAdmin.Controllers
         {
 
             return _adminService.deactivateCustomer(birthNo);
+        }
+
+        public ActionResult Audit()
+        {
+            List<AuditEntry> auditEntries = _adminService.getAllAuditEntries();
+
+            List<AuditEntryVM> entryVMs = new List<AuditEntryVM>();
+
+            foreach (AuditEntry entry in auditEntries)
+            {
+                List<AuditEntryProperty> properties =
+                    _adminService.getAuditEntryPropertiesByEntryId(entry.AuditEntryID);
+
+                List<AuditEntryPropertyVM> propertyVMs = new List<AuditEntryPropertyVM>();
+                foreach (AuditEntryProperty property in properties)
+                {
+                    string propertyOldValue = "";
+                    if (property.OldValue != null)
+                    {
+                        propertyOldValue = property.OldValue.ToString();
+                    }
+
+                    string propertyNewValue = "";
+                    if (property.NewValue != null)
+                    {
+                        propertyNewValue = property.NewValue.ToString();
+                    }
+
+                    AuditEntryPropertyVM propertyVM = new AuditEntryPropertyVM()
+                    {
+                        Date = entry.CreatedDate,
+                        EntityName = entry.EntityTypeName,
+                        State = entry.StateName,
+                        PropertyName = property.PropertyName,
+                        OldValue = propertyOldValue,
+                        NewValue = propertyNewValue
+                    };
+                    propertyVMs.Add(propertyVM);
+                }
+
+
+                AuditEntryVM entryVM = new AuditEntryVM()
+                {
+                    AuditEntryID = entry.AuditEntryID,
+                    Date = entry.CreatedDate,
+                    EntityName = entry.EntityTypeName,
+                    State = entry.StateName,
+                    EntryProperties = propertyVMs
+                };
+                entryVMs.Add(entryVM);
+            }
+            return PartialView("_Audit", entryVMs);
         }
     }
 }

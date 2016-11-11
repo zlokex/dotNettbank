@@ -28,13 +28,13 @@ $("#tagsdiv").on('click', '.tag_close', function () {
     //Next we want to reload the partial:
 
     // First we find data-id of panel (which equals controller view name)
-    //alert("HEI");
     var view = $(".panel").data("id");
     getPartial(view);
 });
 
 
 function getPartial(viewName) {
+    
     birthTag = $("#customer-tags").find("[data-type='customer']");
     
     //var birthNo = birthTag.data('id');

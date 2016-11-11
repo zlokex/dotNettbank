@@ -236,14 +236,14 @@
 /* CUSTOM BUTTONS THEME */
 
 .btn-dark-theme {
-  -webkit-border-radius: 10;
-  -moz-border-radius: 10;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   border-radius: 10px;
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
   background: #303f45;
-  padding: 10px 20px 10px 20px;
+  padding: 2px 20px 2px 20px;
   text-decoration: none;
 }
 
@@ -265,4 +265,17 @@
 .scroll-wrapper {
     height: 100%;
     overflow: auto;
+}
+
+div.row { 
+  border: 1px solid;
+}
+
+.row + .row {
+border-top:0;
+}
+
+.hiddenRow {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
