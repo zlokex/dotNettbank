@@ -1,6 +1,6 @@
 ﻿@model List<dotNettbank.Model.Customer>
 
-<div class="panel panel-default" data-id="FindCustomers">
+<div class="panel panel-default" data-id="FindCustomers" id="panel-customer">
     <div class="panel-heading">
         <h3>Kunder</h3>
     </div>
@@ -41,9 +41,9 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.LastName)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.Address)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => c.PhoneNo)</td>
-                        <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn2" data-id="@c.BirthNo"><i class="fa fa-pencil" aria-hidden="true"></i> Endre</button></td>
-                        <td class="col-md-1"><button class="btn btn-dark-theme" id="delete_btn" data-id="@c.BirthNo"><i class="fa fa-user-times" aria-hidden="true"></i> Deaktiver</button></td>
-                        <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => c.FirstName)" data-lastname="@Html.DisplayFor(modelItem => c.LastName)" data-type="customer" data-name="@Html.DisplayFor(modelItem => c.FirstName)" data-id="@Html.DisplayFor(modelItem => c.BirthNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i>Velg</button></td>
+                        <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn2" data-id="@c.BirthNo"><i class="fa fa-pencil" aria-hidden="true"></i><span class="button-text"> Endre</span></button></td>
+                        <td class="col-md-1"><button class="btn btn-dark-theme" id="delete_btn" data-id="@c.BirthNo"><i class="fa fa-user-times" aria-hidden="true"></i><span class="button-text"> Deaktiver</span></button></td>
+                        <td class="col-md-1"><button data-firstname="@Html.DisplayFor(modelItem => c.FirstName)" data-lastname="@Html.DisplayFor(modelItem => c.LastName)" data-type="customer" data-name="@Html.DisplayFor(modelItem => c.FirstName)" data-id="@Html.DisplayFor(modelItem => c.BirthNo)" class="btn btn-dark-theme useraddtab"><i class="fa fa-tags" aria-hidden="true"></i><span class="button-text">Velg</span></button></td>
 
                         <!--<td class="col-md-1"><button class="btn btn-info" id="show_payments_btn">Betalinger</button></td>
                         <td class="col-md-1"><button class="btn btn-info" id="show_transactions_btn">Transaksjoner</button></td>-->
