@@ -253,6 +253,12 @@
   color: #ffffff!important;
 }
 
+.btn:focus {
+  color: #ffffff!important;
+}
+
+/* Datepicker */
+
 
 #datepicker-target{
     background-color:white;

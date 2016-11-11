@@ -34,7 +34,7 @@
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Date)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.EntityName)</td>
                         <td class="col-md-4">@Html.DisplayFor(modelItem => item.State)</td>
-                        <td class="col-md-1"><button class="btn btn-dark-theme" id="edit_btn" data-toggle="collapse" data-target="#@item.AuditEntryID"><i class="fa fa-pencil"></i> Vis detaljer</button></td>
+                        <td class="col-md-1"><button class="btn btn-dark-theme" id="details_btn" data-toggle="collapse" data-target="#@item.AuditEntryID" data-value="showing"><i class="fa fa-eye"></i> Vis detaljer</button></td>
                     </tr>
                     <tr>
                         <td colspan="4" class="hiddenRow">
@@ -60,5 +60,21 @@
         </table>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).on("click", "#details_btn", function () {
+        var closedHtml ="<i class=\"fa fa-eye\"></i> Vis detaljer";
+        var openHtml = "<i class=\"fa fa-eye-slash\"></i> Skjul detaljer";
+        if ($(this).attr("data-value") === "showing") {
+            $(this).attr("data-value", "hiding");
+            $(this).html(openHtml);
+        } else {
+            $(this).attr("data-value", "showing");
+            $(this).html(closedHtml);
+        }
+    });
+</script>
+
 
 <script src="~/Scripts/AdminPartials.js"></script>
