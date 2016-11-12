@@ -125,69 +125,200 @@ namespace DAL.AdminRepo
 
         public List<Transaction> getAllTransactions()
         {
-            throw new NotImplementedException();
+            var currDate = DateTime.Now;
+            var transactions = new List<Transaction>();
+            int testObjects = 20;
+           
+            for(int i = 0; i < testObjects; i++)
+            {
+               
+                var temp = new Transaction()
+                {
+                    TransactionID = i,
+                    DatePayed = currDate,
+                    Date = currDate,
+                    Amount = 100 + (5*i),
+                    Message = "Test"
+                };
+                transactions.Add(temp);
+            }
+
+            return transactions;
         }
 
         public List<Account> getAllAccounts()
         {
-            throw new NotImplementedException();
+            var accounts= new List<Account>();
+            int testObjects = 20;
+            for (int i = 0; i < testObjects; i++)
+            {
+                var temp = new Account()
+                {
+                   AccountNo = "100000000" + i,
+                   Balance = 100+(50*i),
+                   Type = "TestKonto",
+                   Name = null,
+                   Active = true,
+                   InterestRate = 1.2
+                };
+                accounts.Add(temp);
+            }
+
+            return accounts;
         }
 
         public Account getAccountByAccountNo(string accountNo)
         {
-            throw new NotImplementedException();
+            return new Account()
+            {
+                AccountNo = accountNo,
+                Balance = 150,
+                Type = "TestKonto",
+                Name = null,
+                Active = true,
+                InterestRate = 1.2
+            };
         }
 
-        public bool addAccount(Account adddAccount)
+        public bool addAccount(Account addAccount)
         {
-            throw new NotImplementedException();
+            if (addAccount == null) return false;
+            return true;
         }
 
         public bool updateAccount(Account updatedAccount)
         {
-            throw new NotImplementedException();
+            if (updatedAccount == null) return false;
+            return true;
         }
 
         public bool updateCustomer(Customer updatedCustomer)
         {
-            throw new NotImplementedException();
+            if (updatedCustomer == null) return false;
+            return true;
+                   
         }
 
         public Customer getCustomerByBirthNo(string birthNo)
         {
-            throw new NotImplementedException();
+            var salt = "salt";
+            var passwordAndSalt = "Test123salt";
+
+            return new Customer()
+            {
+                BirthNo = birthNo,
+                FirstName = "Ola",
+                LastName = "Nordmann",
+                Address = "Testveien 3a",
+                PostCode = "0182",
+                PhoneNo = "11223344",
+                Password = createHash(passwordAndSalt),
+                Salt = salt,
+                Active = true
+
+            };
         }
 
         public string deactivateAccount(string accountNo)
         {
-            throw new NotImplementedException();
+            if(accountNo == "") return "Klarte ikke å deaktivere konto";
+            return "Suksess";
         }
 
         public string deactivateCustomer(string birthNo)
         {
-            throw new NotImplementedException();
+            if(birthNo == "") return "Klarte ikke å deaktivere kunde";
+            return "Suksess";
         }
 
         
 
         public List<Transaction> getTransactionsByBirthNoArray(string[] birthNos)
         {
-            throw new NotImplementedException();
+            DateTime currDate = DateTime.Now;
+
+            var transactions = new List<Transaction>();
+
+            int testObjects = 20;
+            for (int i = 0; i < testObjects; i++)
+            {
+                var temp = new Transaction()
+                {
+                    TransactionID = i,
+                    DatePayed = currDate,
+                    Date = currDate,
+                    Amount = 100 + (5 * i),
+                    Message = "Test"
+                };
+                transactions.Add(temp);
+            }
+
+            return transactions;
         }
 
         public List<Transaction> getTransactionsByAccountNoArray(string[] accountNos)
         {
-            throw new NotImplementedException();
+            DateTime currDate = DateTime.Now;
+
+            var transactions = new List<Transaction>();
+
+            int testObjects = 20;
+            for (int i = 0; i < testObjects; i++)
+            {
+                var temp = new Transaction()
+                {
+                    TransactionID = i,
+                    DatePayed = currDate,
+                    Date = currDate,
+                    Amount = 100 + (5 * i),
+                    Message = "Test"
+                };
+                transactions.Add(temp);
+            }
+
+            return transactions;
         }
 
         public List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos)
         {
-            throw new NotImplementedException();
+            var currDate = DateTime.Now;
+            var payments = new List<Payment>();
+            var payment = new Payment()
+            {
+                Amount = 100,
+                DateAdded = currDate,
+                DueDate = currDate,
+                FromAccountNo = "1000000001",
+                ToAccountNo = "1000000009",
+                Message = "Test",
+                PaymentID = 1
+            };
+            payments.Add(payment);
+            payments.Add(payment);
+            payments.Add(payment);
+
+            return payments;
         }
 
         public List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos)
         {
-            throw new NotImplementedException();
+            var currDate = DateTime.Now;
+            var payments = new List<Payment>();
+            var payment = new Payment()
+            {
+                Amount = 100,
+                DateAdded = currDate,
+                DueDate = currDate,
+                FromAccountNo = "1000000001",
+                ToAccountNo = "1000000009",
+                Message = "Test",
+                PaymentID = 1
+            };
+            payments.Add(payment);
+            payments.Add(payment);
+            payments.Add(payment);
+
+            return payments;
         }
 
         public List<Account> getAccountsByBirthNoArray(string[] birthNos)
@@ -211,7 +342,8 @@ namespace DAL.AdminRepo
 
         public bool createPayment(Payment newPayment)
         {
-            throw new NotImplementedException();
+            if (newPayment != null) return true;
+            return false;
         }
 
         public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
@@ -231,12 +363,14 @@ namespace DAL.AdminRepo
 
         public bool addPostalArea(PostalArea postalArea)
         {
-            throw new NotFiniteNumberException();
+            if(postalArea != null)return true;
+            return false;
         }
 
         public bool addCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            if (customer != null) return true;
+            return false;
         }
 
 
