@@ -16,17 +16,29 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.FromAccountNo, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.FromAccountNo, new { htmlAttributes = new { @class = "form-control", @list = "account-tags-selected" } })
-                    @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
-                    <datalist id="account-tags-selected"></datalist>
-                </div>
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.FromAccountNo, new { htmlAttributes = new { @class = "form-control", @id="from-account-input" } })
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle account-tags-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags <span class="caret"></span></button>
+                            <ul id="from-account-tags" class="dropdown-menu account-dropdown"></ul>
+                        </div><!-- /btn-group -->
+
+                    </div>
+                        @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
+               </div>
             </div>
             <!-- Til konto -->
             <div class="form-group">
                 @Html.LabelFor(model => model.ToAccountNo, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.ToAccountNo, new { htmlAttributes = new { @class = "form-control", @list = "account-tags-selected" } })
-                    @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.ToAccountNo, new { htmlAttributes = new { @class = "form-control", @id = "to-account-input" } })
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle account-tags-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags <span class="caret"></span></button>
+                            <ul id="to-account-tags" class="dropdown-menu account-dropdown"></ul>
+                        </div><!-- /btn-group -->
+                    </div>
+                        @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -101,9 +113,27 @@
         
         var output = "";
         for (var i = 0; i < accountNoArray.length; i++) {
-            output += '<option>' + accountNoArray[i] + '</option>';
+            output += '<li><a href="#" class="account-tags-option" data-id="' + accountNoArray[i] + '" >' + accountNoArray[i] + '</a></li>';
         }
-        $('#account-tags-selected').html(output)
+        if (output == "") {
+            $(".account-tags-btn").addClass("disabled")
+        } else {
+            $('.account-dropdown').html(output)
+        }
+
+
+
+    //Klikker på tag valg
+        $(".account-tags-option").click(function () {
+            var temp = $(this).data("id");
+            var id = $(this).closest("ul").prop("id");
+
+            if (id == "from-account-tags") {
+                $("#from-account-input").val(temp);
+            } else {
+                $("#to-account-input").val(temp);
+            }
+        });
 
 
         //Submit funksjonen til ny betaling
