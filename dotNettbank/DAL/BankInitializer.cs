@@ -132,11 +132,11 @@ namespace dotNettbank.DAL
                 new Account {AccountNo="33030900234",Balance=760,Type="Regningskonto",InterestRate=1.2,OwnerBirthNo="01010199887"},
                 new Account {AccountNo="33030950020",Balance=4284,Type="Brukskonto",InterestRate=1.2,OwnerBirthNo="01010199887"},
 
-                new Account {AccountNo="71740170011",Balance=600,Type="Sparekonto",InterestRate=1.2,OwnerBirthNo="031276105610"},
-                new Account {AccountNo="61050298882",Balance=10506,Type="BSU",InterestRate=1.2,OwnerBirthNo="031276105610"},
-                new Account {AccountNo="61050244012",Balance=0,Type="BSU 2.0",InterestRate=1.2,OwnerBirthNo="031276105610"},
-                new Account {AccountNo="33030917112",Balance=259,Type="Regningskonto",InterestRate=1.2,OwnerBirthNo="031276105610"},
-                new Account {AccountNo="33030976939",Balance=805,Type="Brukskonto",InterestRate=1.2,OwnerBirthNo="031276105610"},
+                new Account {AccountNo="71740170011",Balance=600,Type="Sparekonto",InterestRate=1.2,OwnerBirthNo="03127610561"},
+                new Account {AccountNo="61050298881",Balance=10506,Type="BSU",InterestRate=1.2,OwnerBirthNo="03127610561"},
+                new Account {AccountNo="61050244012",Balance=0,Type="BSU 2.0",InterestRate=1.2,OwnerBirthNo="03127610561"},
+                new Account {AccountNo="33030917112",Balance=259,Type="Regningskonto",InterestRate=1.2,OwnerBirthNo="03127610561"},
+                new Account {AccountNo="33030976939",Balance=805,Type="Brukskonto",InterestRate=1.2,OwnerBirthNo="03127610561"},
 
                 new Account {AccountNo="71740122219",Balance=302540,Type="Sparekonto",InterestRate=1.2,OwnerBirthNo="22058444767"},
                 new Account {AccountNo="61050290786",Balance=250700,Type="BSU",InterestRate=1.2,OwnerBirthNo="22058444767"},
