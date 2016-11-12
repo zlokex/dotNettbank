@@ -23,6 +23,19 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void Login()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            // Act:
+            var result = controller.Login("admin", "admin");
+
+            // Assert:
+            Assert.AreEqual(result, true);
+        }
+
+        [TestMethod]
         public void LoginEmpty()
         {
             // Arrange:
@@ -34,5 +47,24 @@ namespace dotNettbankAdmin.Tests
             // Assert:
             Assert.AreEqual(result, false);
         }
+
+        [TestMethod]
+        public void Logout()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            // Act:
+            var result = (RedirectToRouteResult) controller.Logout();
+
+            //result.RouteValues["action"].Equals("Index");
+            //result.RouteValues["controller"].Equals("Index");
+
+            // Assert:
+            Assert.AreEqual(result.RouteValues["Action"], "Index");
+            Assert.AreEqual(result.RouteValues["Controller"], "Index");
+        }
+
+
     }
 }

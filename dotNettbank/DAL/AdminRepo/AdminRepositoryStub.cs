@@ -11,11 +11,13 @@ namespace DAL.AdminRepo
     {
         public Admin getAdmin(string username)
         {
+
+            var password = lagHash("admin");
             Admin admin = new Admin()
             {
                 Username = username,
                 Email = "admin@admin.com",
-                Password = new byte[0],
+                Password = password,
                 Salt = "salt"
             };
             return admin;
@@ -214,5 +216,18 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+
+
+
+        private static byte[] lagHash(string innPassord)
+        {
+            byte[] innData, utData;
+            var algoritme = System.Security.Cryptography.SHA256.Create();
+            innData = System.Text.Encoding.ASCII.GetBytes(innPassord);
+            utData = algoritme.ComputeHash(innData);
+            return utData;
+        }
+
     }
 }

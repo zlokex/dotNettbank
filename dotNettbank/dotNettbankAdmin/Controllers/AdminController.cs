@@ -115,7 +115,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult FindCustomers(string[] birthNo, string[] accountNo)
         {
-            if(!checkSession()) return RedirectToAction("Index", "");
+            if(!checkSession()) return RedirectToAction("Index", "Index");
             List<Customer> customers = _adminService.getAllCustomers();
 
             return PartialView("_FindCustomers", customers);
@@ -138,7 +138,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult RegBetaling(string[] birthNo, string[] accountNo)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
             List<Payment> payments = new List<Payment>();
             if (accountNo != null)
             {
@@ -160,7 +160,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult Transactions(string[] birthNo, string[] accountNo)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
             List<Transaction> transactions = new List<Transaction>();
             if (birthNo == null && accountNo == null)
             {
@@ -203,7 +203,7 @@ namespace dotNettbankAdmin.Controllers
         [HttpGet]
         public ActionResult EditCustomerPartial(string birthNo)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
             /*Debug.Indent();
             Debug.WriteLine("Ditt personummer er: " + birthNo);*/
             var customer = _adminService.getCustomerByBirthNo(birthNo);
@@ -259,7 +259,7 @@ namespace dotNettbankAdmin.Controllers
         [HttpPost]
         public ActionResult CreatePayment (PaymentVM form)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {
@@ -286,7 +286,7 @@ namespace dotNettbankAdmin.Controllers
         
         public ActionResult GetPartial(string path)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             return PartialView(path);
         }
@@ -307,7 +307,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult UpdateCustomer(CustomerVM model)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {
@@ -329,7 +329,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult UpdateAccount(AccountVM model)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {
@@ -355,7 +355,7 @@ namespace dotNettbankAdmin.Controllers
             int newAccNo2 = random.Next(10, 99);
             int newAccNo3 = random.Next(10000, 99999);
 
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {
@@ -390,7 +390,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult Audit()
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
             List<AuditEntry> auditEntries = _adminService.getAllAuditEntries();
 
             List<AuditEntryVM> entryVMs = new List<AuditEntryVM>();
