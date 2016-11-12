@@ -498,23 +498,6 @@ namespace DAL.AdminRepo
                         db.Accounts.AddOrUpdate(fromAcc);
                         // Update to acc:
                         db.Accounts.AddOrUpdate(toAcc);
-                        /*
-                        // Update balances of from account:
-                        db.Accounts.Attach(fromAcc);
-                        var entryFromAcc = db.Entry(fromAcc);
-                        entryFromAcc.State = EntityState.Modified;
-
-                        // Set only balance to be changed
-                        entryFromAcc.Property(e => e.Balance).IsModified = true;
-
-                        // Update balances of to account:
-                        db.Accounts.Attach(toAcc);
-                        var entryToAcc = db.Entry(toAcc);
-                        entryToAcc.State = EntityState.Modified;
-
-                        // Set only balance to be changed
-                        entryToAcc.Property(e => e.Balance).IsModified = true;
-                        */
 
                         // Save changes:
                         db.SaveChanges();

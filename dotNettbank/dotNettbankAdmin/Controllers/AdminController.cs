@@ -32,30 +32,37 @@ namespace dotNettbankAdmin.Controllers
             _adminService = stub;
         }
 
-        public bool checkSession()
+        private bool checkSession()
         {
-            if(Session["LoggedIn"] != null)
+            if (Session != null)
             {
-                return true;
-            }else
-            {
-                return false;
+                if (Session["LoggedIn"] != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+            return true;
         }
 
         // GET: Admin
         public ActionResult AdminSide()
         {
-            if (Session["LoggedIn"] != null) //Dette skal sjekke om den innloggede sitt navn er likt session 
+            if (checkSession())
             {
-                List<Payment> bl = _adminService.getAllPayments();
-                AdminSideModel model = new AdminSideModel(bl);
-                
-                Admin u = _adminService.getAdmin("" + Session["LoggedIn"]);
-                ViewBag.UserName = u.Username;
-                ViewBag.Email = u.Email;
+                //List<Payment> bl = _adminService.getAllPayments();
+                //AdminSideModel model = new AdminSideModel(bl);
 
-                return View(model);
+                if (Session != null)
+                {
+                    Admin u = _adminService.getAdmin("" + Session["LoggedIn"]);
+                    ViewBag.UserName = u.Username;
+                    ViewBag.Email = u.Email;
+                }
+                return View();
             }
             else
             {
@@ -69,7 +76,10 @@ namespace dotNettbankAdmin.Controllers
         {          
                 if (_adminService.validateLogin(username, password))
                 {
-                  Session["LoggedIn"] = username;
+                    if (Session != null)
+                    {
+                        Session["LoggedIn"] = username;
+                    }
                   return true;
                 }       
             return false;       
@@ -77,7 +87,10 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult Logout()
         {
-            Session["LoggedIn"] = null;
+            if (Session != null)
+            {
+                Session["LoggedIn"] = null;
+            }
             return RedirectToAction("Index", "Index");
         }
 
@@ -102,7 +115,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult FindCustomers(string[] birthNo, string[] accountNo)
         {
-            if(!checkSession()) return RedirectToAction("Index", "");
+            if(!checkSession()) return RedirectToAction("Index", "Index");
             List<Customer> customers = _adminService.getAllCustomers();
 
             return PartialView("_FindCustomers", customers);
@@ -125,7 +138,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult RegBetaling(string[] birthNo, string[] accountNo)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
             List<Payment> payments = new List<Payment>();
             if (accountNo != null)
             {
@@ -147,7 +160,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult Transactions(string[] birthNo, string[] accountNo)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
             List<Transaction> transactions = new List<Transaction>();
             if (birthNo == null && accountNo == null)
             {
@@ -198,7 +211,7 @@ namespace dotNettbankAdmin.Controllers
         [HttpGet]
         public ActionResult EditCustomerPartial(string birthNo)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
             /*Debug.Indent();
             Debug.WriteLine("Ditt personummer er: " + birthNo);*/
             var customer = _adminService.getCustomerByBirthNo(birthNo);
@@ -254,7 +267,7 @@ namespace dotNettbankAdmin.Controllers
         [HttpPost]
         public ActionResult CreatePayment (PaymentVM form)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {
@@ -281,7 +294,7 @@ namespace dotNettbankAdmin.Controllers
         
         public ActionResult GetPartial(string path)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             return PartialView(path);
         }
@@ -302,7 +315,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult UpdateCustomer(CustomerVM model)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {
@@ -324,7 +337,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult UpdateAccount(AccountVM model)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {
@@ -350,7 +363,7 @@ namespace dotNettbankAdmin.Controllers
             int newAccNo2 = random.Next(10, 99);
             int newAccNo3 = random.Next(10000, 99999);
 
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {
@@ -385,7 +398,7 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult Audit()
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
             List<AuditEntry> auditEntries = _adminService.getAllAuditEntries();
 
             List<AuditEntryVM> entryVMs = new List<AuditEntryVM>();

@@ -1,7 +1,10 @@
-﻿using dotNettbank.Model;
+﻿using DAL.Log;
+using dotNettbank.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,11 +14,13 @@ namespace DAL.AdminRepo
     {
         public Admin getAdmin(string username)
         {
+
+            var password = lagHash("admin");
             Admin admin = new Admin()
             {
                 Username = username,
                 Email = "admin@admin.com",
-                Password = null,
+                Password = password,
                 Salt = "salt"
             };
             return admin;
@@ -37,7 +42,30 @@ namespace DAL.AdminRepo
 
         public List<Customer> getAllCustomers()
         {
-            return null; //TODO!!!!!!!!!!
+            var customers = new List<Customer>();
+
+            var salt = "salt";
+            var passwordAndSalt = "Test123salt";
+            var password = createHash(passwordAndSalt);
+
+            var customer = new Customer()
+            {
+                Active = true,
+                Address = "Storgata 83",
+                BirthNo = "0101891245",
+                FirstName = "André",
+                LastName = "Hovda",
+                Password = password,
+                Salt = salt,
+                PhoneNo = "94486775",
+                PostCode = "0182"
+            };
+
+            customers.Add(customer);
+            customers.Add(customer);
+            customers.Add(customer);
+
+            return customers;
         }
 
         public List<Payment> getAllPayments()
@@ -140,25 +168,7 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
-        public List<Account> getAllAccountsByBirthNo(string birthNo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Payment> getPaymentsByFromBirthNo(string birthNo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Transaction> getTransactionsByAccountNo(string accountNo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Transaction> getTransactionsByBirthNo(string birthNo)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public List<Transaction> getTransactionsByBirthNoArray(string[] birthNos)
         {
@@ -182,7 +192,21 @@ namespace DAL.AdminRepo
 
         public List<Account> getAccountsByBirthNoArray(string[] birthNos)
         {
-            throw new NotImplementedException();
+            var accounts = new List<Account>();
+
+            var account = new Account()
+            {
+                AccountNo = "12341212345",
+                Active = true,
+                Balance = 100,
+                Type = "BSU",
+                OwnerBirthNo = "01018912345"
+            };
+            accounts.Add(account);
+            accounts.Add(account);
+            accounts.Add(account);
+
+            return accounts;
         }
 
         public bool createPayment(Payment newPayment)
@@ -211,6 +235,62 @@ namespace DAL.AdminRepo
         }
 
         public bool addCustomer(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+        private static byte[] lagHash(string innPassord)
+        {
+            byte[] innData, utData;
+            var algoritme = System.Security.Cryptography.SHA256.Create();
+            innData = System.Text.Encoding.ASCII.GetBytes(innPassord);
+            utData = algoritme.ComputeHash(innData);
+            return utData;
+        }
+
+        public static byte[] createHash(string innStreng)
+        {
+            try
+            {
+                byte[] innData, utData;
+                var algoritme = SHA256.Create();
+                innData = Encoding.UTF8.GetBytes(innStreng);
+                utData = algoritme.ComputeHash(innData);
+                return utData;
+            }
+            catch (NullReferenceException e)
+            {
+                string log = "Failed to create hash.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                Debug.Write(log);
+                new LogErrors().errorLog(log);
+                return new byte[0];
+            }
+        }
+
+
+        /* ---------------------------*/
+        /*     NOT CURRENTLY IN USE   */
+        /* ---------------------------*/
+
+        public List<Account> getAllAccountsByBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Payment> getPaymentsByFromBirthNo(string birthNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByAccountNo(string accountNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Transaction> getTransactionsByBirthNo(string birthNo)
         {
             throw new NotImplementedException();
         }
