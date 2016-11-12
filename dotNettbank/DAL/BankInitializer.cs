@@ -90,7 +90,7 @@ namespace dotNettbank.DAL
                 },
                 new Customer
                 {
-                    BirthNo = "031276105610",
+                    BirthNo = "03127610561",
                     FirstName = "Jens",
                     LastName = "Jensen",
                     Address = "Storgata 71",
@@ -202,7 +202,6 @@ namespace dotNettbank.DAL
 
 
         //--- PRIVATE METHODS ---
-
         private static string generateSalt()
         {
             byte[] randomArray = new byte[10];

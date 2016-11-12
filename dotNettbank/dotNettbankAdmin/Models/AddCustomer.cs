@@ -9,6 +9,7 @@ namespace dotNettbankAdmin.Models
 {
     public class AddCustomer
     {
+        [CustomValidation(typeof(AddCustomer), "IsBirthNoExisting")]
         [Required(ErrorMessage = "Fødselsnummer må oppgis")]
         [Display(Name = "Fødselsnummer")]
         [RegularExpression(@"^((0[1-9]|[12]\d|3[01])([04][1-9]|[15][0-2])\d{7})$", ErrorMessage = "Ugyldig fødselsnummer")]
@@ -61,6 +62,34 @@ namespace dotNettbankAdmin.Models
         [DataType(DataType.Password)]
         [Compare("Password")] // Enables compare validation of PasswordRepeat and Password (they need to be identical)
         public string PasswordRepeat { get; set; }
+
+
+        public static ValidationResult IsBirthNoExisting(string BirthNo)
+        {
+            bool isValid;
+
+            AdminService db = new AdminService();
+
+            var customer = db.getCustomerByBirthNo(BirthNo);
+            if (customer == null)
+            {
+                isValid = true;
+            }
+            else
+            {
+                isValid = false;
+            }
+
+            if (isValid)
+            {
+                return ValidationResult.Success;
+            }
+            else
+            {
+                return new ValidationResult("Fødselsnummer allerede registrert");
+            }
+
+        }
 
     }
 }

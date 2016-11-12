@@ -5,14 +5,14 @@
 <div class="panel panel-default" data-id="Accounts">
     <div class="panel-heading">
         <div class="panel-title fa-pull-left">
-            <h4>
+            <h3>
                 Kontoer
-            </h4>
+            </h3>
         </div>
         <div class="panel-title fa-pull-right">
 
             <button class="btn btn-dark-theme" id="opprettKonto_btn">
-                <i class="fa fa-list"></i>
+                <i class="fa fa-folder-open-o"></i>
                 Opprett Konto
             </button>
         </div>
@@ -92,8 +92,8 @@
 
             <!-- MODAL FOOTER -->
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal" id="cancel_modal_btn">Avbryt</button>
-                <button class="btn btn-danger" type="button" id="delete_modal_btn">Deaktiver</button>
+                <button class="btn btn-dark-theme" type="button" data-dismiss="modal" id="cancel_modal_btn">Avbryt</button>
+                <button class="btn btn-dark-theme" type="button" id="delete_modal_btn">Deaktiver</button>
             </div>
 
         </div>
@@ -104,7 +104,8 @@
     // DOCUMENT READY:
     $(document).ready(function () {
         // OPPRETT KONTO KNAPP LISTENER:
-        $(document).on('click', '#opprettKonto_btn', function () {
+        
+        $('#opprettKonto_btn').click( function() {
             $('#editor-container').off('hidden.bs.modal'); // Turn of hidden bs modal
             var accountNo = $(this).attr('data-id');
             $.ajax({

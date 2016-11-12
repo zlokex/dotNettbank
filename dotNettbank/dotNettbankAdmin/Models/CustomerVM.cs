@@ -12,7 +12,7 @@ namespace dotNettbankAdmin.Models
 {
     public class CustomerVM
     {
-        [CustomValidation(typeof(AccountVM), "IsBirthNoExisting")]
+        [CustomValidation(typeof(CustomerVM), "IsBirthNoExisting")]
         [Required(ErrorMessage = "Eier kan ikke være blankt")]
         [Display(Name ="Eier")]
         public string BirthNo { get; set; }

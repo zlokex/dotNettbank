@@ -204,5 +204,15 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public bool addPostalArea(PostalArea postalArea)
+        {
+            throw new NotFiniteNumberException();
+        }
+
+        public bool addCustomer(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

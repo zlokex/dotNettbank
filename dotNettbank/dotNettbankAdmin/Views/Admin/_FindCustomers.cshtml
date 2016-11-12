@@ -2,15 +2,12 @@
 
 <div class="panel panel-default" data-id="FindCustomers" id="panel-customer">
     <div class="panel-heading">
-        <h3>Kunder</h3>
         <div class="panel-title fa-pull-left">
-            <h4>
-                Kunder
-            </h4>
+            <h3>Kunder</h3>
         </div>
         <div class="panel-title fa-pull-right"> 
-            <button class="btn btn-dark-theme" id="addCustomer_btn">
-                <i class="fa fa-list" aria-hidden="true"></i>
+            <button class="btn btn-dark-theme" id="add-customer-btn">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
                 Opprett Kunde
             </button>          
         </div>
@@ -35,7 +32,6 @@
                 <tr>
                     <th>Fødselsnummer</th>
                     <th>Fornavn</th>
-
                     <th>Etternavn</th>
                     <th>Adresse</th>
                     <th>Telefonnummer</th>
@@ -106,11 +102,37 @@
     </div>
 </div>
 
-<!-- ENDRE KUNDE MODAL -->
-<div class="modal fade" id="addCustomer_btn" tabindex="-1"
+<!-- CREATE KUNDE MODAL -->
+<div class="modal fade" id="create-customer-modal" tabindex="-1"
      role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" id="create-customer-modal-container">
+        </div>
+    </div>
+</div>
+
+
+<!--OPPRETT KUNDE MODAL-->
+<div id="customerModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+
+            <!-- MODAL HEADER -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Opprett kunde</h4>
+            </div>
+
+            <!-- MODAL BODY -->
+            <div class="modal-body">
+
+            </div>
+            <!-- MODAL FOOTER -->
+            <div class="modal-footer">
+                @Html.ActionLink("Opprett kunde", "AdminSide", "Admin", null, new { @class = "btn btn-dark-theme" })
+                <button type="button" class="btn btn-dark-theme useraddtab" data-dismiss="modal">Avbryt</button>
+            </div>
         </div>
     </div>
 </div>
@@ -160,7 +182,7 @@
 
 
         // OPPRETTE KUNDE LISTENER:
-        $('#addCustomer_btn').click(function () {
+        $('#add-customer-btn').click(function () {
             $.ajax({
                 url: 'GetPartial',
                 dataType: "html",
@@ -235,28 +257,4 @@
 
 
 
-<!--OPPRETT KUNDE MODAL-->
 
-<div id="customerModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
-
-        <div class="modal-content">
-
-            <!-- MODAL HEADER -->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Opprett kunde</h4>
-            </div>
-
-            <!-- MODAL BODY -->
-            <div class="modal-body">
-               
-            </div>
-                        <!-- MODAL FOOTER -->
-                        <div class="modal-footer"> 
-                            @Html.ActionLink("Opprett kunde", "AdminSide", "Admin", null, new { @class = "btn btn-dark-theme" })                    
-                            <button type="button" class="btn btn-dark-theme useraddtab" data-dismiss="modal">Avbryt</button>
-                        </div>
-                    </div>
-                </div>
-            </div>

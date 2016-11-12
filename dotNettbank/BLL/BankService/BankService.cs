@@ -228,14 +228,19 @@ namespace dotNettbank.BLL
             return randomString;
         }
 
-        //TODO Lag en try catch for tilfellet hvor passord ikke er skrevet inn
         public static byte[] createHash(string innStreng)
         {
-            byte[] innData, utData;
-            var algoritme = SHA256.Create();
-            innData = Encoding.UTF8.GetBytes(innStreng);
-            utData = algoritme.ComputeHash(innData);
-            return utData;
+            try
+            {
+                byte[] innData, utData;
+                var algoritme = SHA256.Create();
+                innData = Encoding.UTF8.GetBytes(innStreng);
+                utData = algoritme.ComputeHash(innData);
+                return utData;
+            } catch (NullReferenceException e)
+            {
+                return new byte[0];
+            }
         }
 
         public string HashString(string innStreng)
