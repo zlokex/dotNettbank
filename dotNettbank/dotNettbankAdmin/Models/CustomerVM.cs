@@ -19,7 +19,7 @@ namespace dotNettbankAdmin.Models
 
         [Required(ErrorMessage = "Fornavn kan ikke være blankt")]
         [Display(Name = "Fornavn")]
-        [RegularExpression(@"^([äÄöÖüÜéÉëËÆØÅæøåA-Za-z]{2,25})$", ErrorMessage = "Fornavn må være mellom 2 og 25 bokstaver lang")]
+        [RegularExpression(@"^([äÄöÖüÜéÉëËÆØÅæøåA-Za-z ]{2,25})$", ErrorMessage = "Fornavn må være mellom 2 og 25 bokstaver lang")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Etternavn kan ikke være blankt")]
