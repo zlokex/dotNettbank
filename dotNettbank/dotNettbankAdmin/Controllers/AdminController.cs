@@ -32,30 +32,37 @@ namespace dotNettbankAdmin.Controllers
             _adminService = stub;
         }
 
-        public bool checkSession()
+        private bool checkSession()
         {
-            if(Session["LoggedIn"] != null)
+            if (Session != null)
             {
-                return true;
-            }else
-            {
-                return false;
+                if (Session["LoggedIn"] != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+            return true;
         }
 
         // GET: Admin
         public ActionResult AdminSide()
         {
-            if (Session["LoggedIn"] != null) //Dette skal sjekke om den innloggede sitt navn er likt session 
+            if (checkSession())
             {
-                List<Payment> bl = _adminService.getAllPayments();
-                AdminSideModel model = new AdminSideModel(bl);
-                
-                Admin u = _adminService.getAdmin("" + Session["LoggedIn"]);
-                ViewBag.UserName = u.Username;
-                ViewBag.Email = u.Email;
+                //List<Payment> bl = _adminService.getAllPayments();
+                //AdminSideModel model = new AdminSideModel(bl);
 
-                return View(model);
+                if (Session != null)
+                {
+                    Admin u = _adminService.getAdmin("" + Session["LoggedIn"]);
+                    ViewBag.UserName = u.Username;
+                    ViewBag.Email = u.Email;
+                }
+                return View();
             }
             else
             {
@@ -69,7 +76,10 @@ namespace dotNettbankAdmin.Controllers
         {          
                 if (_adminService.validateLogin(username, password))
                 {
-                  Session["LoggedIn"] = username;
+                    if (Session != null)
+                    {
+                        Session["LoggedIn"] = username;
+                    }
                   return true;
                 }       
             return false;       
@@ -77,7 +87,10 @@ namespace dotNettbankAdmin.Controllers
 
         public ActionResult Logout()
         {
-            Session["LoggedIn"] = null;
+            if (Session != null)
+            {
+                Session["LoggedIn"] = null;
+            }
             return RedirectToAction("Index", "Index");
         }
 

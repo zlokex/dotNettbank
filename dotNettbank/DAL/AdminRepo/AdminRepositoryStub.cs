@@ -15,7 +15,7 @@ namespace DAL.AdminRepo
             {
                 Username = username,
                 Email = "admin@admin.com",
-                Password = null,
+                Password = new byte[0],
                 Salt = "salt"
             };
             return admin;
