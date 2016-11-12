@@ -164,7 +164,7 @@ namespace dotNettbank.DAL
                 new Payment {PaymentID=5,DateAdded=dateFuture,DueDate=dateFuture,Amount=3995,Message="Ny DBS sykkel fra Finn.no",FromAccountNo="71740105555",ToAccountNo="33030976939"},
                 new Payment {PaymentID=6,DateAdded=dateFuture,DueDate=dateFuture,Amount=512.32,Message="Biff middag med gutta",FromAccountNo="71740105555",ToAccountNo="33030976939"},
 
-                new Payment {PaymentID=7,DateAdded=dateNow,DueDate=dateNow,Amount=149,Message="DVD-Tarzan",FromAccountNo="33030938948",ToAccountNo="71740105555"},
+                new Payment {PaymentID=7,DateAdded=dateNow,DueDate=dateNow,Amount=149,Message="Blu-Ray-Tarzan",FromAccountNo="33030938948",ToAccountNo="71740105555"},
                 new Payment {PaymentID=8,DateAdded=dateNow,DueDate=dateNow,Amount=5000,Message="Årlig innskudd til BSU",FromAccountNo="71740122219",ToAccountNo="61050295007"},
                 new Payment {PaymentID=9,DateAdded=datePast,DueDate=datePast,Amount=700,Message="Sparing til bil",FromAccountNo="33030938948",ToAccountNo="33030976939"},
                 new Payment {PaymentID=10,DateAdded=datePast,DueDate=datePast,Amount=2900,Message="Helgetur til Kjøbenhavn",FromAccountNo="33030991846",ToAccountNo="33030976939"},
@@ -183,18 +183,18 @@ namespace dotNettbank.DAL
             DateTime dateFuture = new DateTime(2017, 10, 20);
             var transactions = new List<Transaction>
             {
-                new Transaction {TransactionID=1,DatePayed=dateNow,Date=dateNow,Amount=100.12,Message="Beskrivelse",FromAccountNo="71740105555",ToAccountNo="10000000010"},
-                new Transaction {TransactionID=2,DatePayed=dateNow,Date=dateNow,Amount=100,Message="Beskrivelse",FromAccountNo="71740105555",ToAccountNo="10000000010"},
-                new Transaction {TransactionID=3,DatePayed=datePast,Date=datePast,Amount=1000,Message="Beskrivelse",FromAccountNo="61050276597",ToAccountNo="10000000010"},
-                new Transaction {TransactionID=4,DatePayed=datePast,Date=datePast,Amount=200,Message="Beskrivelse",FromAccountNo="61050298882",ToAccountNo="10000000009"},
-                new Transaction {TransactionID=5,DatePayed=dateFuture,Date=dateFuture,Amount=100.54,Message="Beskrivelse",FromAccountNo="71740105555",ToAccountNo="10000000010"},
-                new Transaction {TransactionID=6,DatePayed=dateFuture,Date=dateFuture,Amount=100,Message="Beskrivelse",FromAccountNo="71740105555",ToAccountNo="10000000010"},
+                new Transaction {TransactionID=1,DatePayed=dateNow,Date=dateNow,Amount=458.25,Message="Meny Norgesgruppen",FromAccountNo="71740105555",ToAccountNo="33030976939"},
+                new Transaction {TransactionID=2,DatePayed=dateNow,Date=dateNow,Amount=125,Message="Ringen Kino",FromAccountNo="71740105555",ToAccountNo="71740170011"},
+                new Transaction {TransactionID=3,DatePayed=datePast,Date=datePast,Amount=99,Message="Spotify Premium",FromAccountNo="61050276597",ToAccountNo="71740170011"},
+                new Transaction {TransactionID=4,DatePayed=datePast,Date=datePast,Amount=649,Message="Heinemann TaxFree Gardemoen",FromAccountNo="33030940219",ToAccountNo="33030950020"},
+                new Transaction {TransactionID=5,DatePayed=dateFuture,Date=dateFuture,Amount=1208.87,Message="Hafslund Fakturaservice AS",FromAccountNo="71740105555",ToAccountNo="33030976939"},
+                new Transaction {TransactionID=6,DatePayed=dateFuture,Date=dateFuture,Amount=132.10,Message="SIO Mat Pilestredet 35",FromAccountNo="71740105555",ToAccountNo="33030976939"},
 
-                new Transaction {TransactionID=7,DatePayed=dateNow,Date=dateNow,Amount=100,Message="Beskrivelse",FromAccountNo="10000000010",ToAccountNo="71740105555"},
-                new Transaction {TransactionID=8,DatePayed=dateNow,Date=dateNow,Amount=100,Message="Beskrivelse",FromAccountNo="10000000010",ToAccountNo="71740105555"},
-                new Transaction {TransactionID=9,DatePayed=datePast,Date=datePast,Amount=100,Message="Beskrivelse",FromAccountNo="10000000010",ToAccountNo="71740105555"},
-                new Transaction {TransactionID=10,DatePayed=datePast,Date=datePast,Amount=100,Message="Beskrivelse",FromAccountNo="10000000010",ToAccountNo="71740105555"},
-                new Transaction {TransactionID=11,DatePayed=dateFuture,Date=dateFuture,Amount=100,Message="Beskrivelse",FromAccountNo="10000000010",ToAccountNo="71740105555"},
+                new Transaction {TransactionID=7,DatePayed=dateNow,Date=dateNow,Amount=2500,Message="Penger på sparing",FromAccountNo="33030938948",ToAccountNo="71740105555"},
+                new Transaction {TransactionID=8,DatePayed=dateNow,Date=dateNow,Amount=20000,Message="Årlig sparing til BSU",FromAccountNo="71740122219",ToAccountNo="61050295007"},
+                new Transaction {TransactionID=9,DatePayed=datePast,Date=datePast,Amount=744,Message="Grefsen Tannlegepraksis",FromAccountNo="33030938948",ToAccountNo="33030976939"},
+                new Transaction {TransactionID=10,DatePayed=datePast,Date=datePast,Amount=299,Message="Elkjøp Vinterbro",FromAccountNo="33030991846",ToAccountNo="33030976939"},
+                new Transaction {TransactionID=11,DatePayed=dateFuture,Date=dateFuture,Amount=7088,Message="Hansen og Dysvik Sandvika",FromAccountNo="33030991846",ToAccountNo="33030976939"},
             };
             transactions.ForEach(s => context.Transactions.Add(s));
             context.SaveChanges();
