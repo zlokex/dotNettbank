@@ -22,9 +22,9 @@
                             <button type="button" class="btn btn-default dropdown-toggle account-tags-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags <span class="caret"></span></button>
                             <ul id="from-account-tags" class="dropdown-menu account-dropdown"></ul>
                         </div><!-- /btn-group -->
-                        @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
 
                     </div>
+                        @Html.ValidationMessageFor(model => model.FromAccountNo, "", new { @class = "text-danger" })
                </div>
             </div>
             <!-- Til konto -->
@@ -37,8 +37,8 @@
                             <button type="button" class="btn btn-default dropdown-toggle account-tags-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags <span class="caret"></span></button>
                             <ul id="to-account-tags" class="dropdown-menu account-dropdown"></ul>
                         </div><!-- /btn-group -->
-                        @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
                     </div>
+                        @Html.ValidationMessageFor(model => model.ToAccountNo, "", new { @class = "text-danger" })
                 </div>
             </div>
 
