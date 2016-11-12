@@ -214,5 +214,10 @@ namespace DAL.AdminRepo
         {
             throw new NotImplementedException();
         }
+
+        public bool deletePayment(int paymentID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -171,6 +171,11 @@ namespace BLL.AdminService
             return _repository.createPayment(newPayment);
         }
 
+        public bool deletePayment(int paymentID)
+        {
+            return _repository.deletePayment(paymentID);
+        }
+
         public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
         {
             return _repository.getAllAuditEntries();

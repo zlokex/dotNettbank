@@ -289,6 +289,25 @@ namespace DAL.AdminRepo
             }
         }
 
+        public bool deletePayment(int paymentID)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    db.Payments.Remove(db.Payments.Where(p => p.PaymentID == paymentID).First());
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("DEBUG: " + e.Message);
+                    return false;
+
+                }
+            } 
+        }
+
         //--- UPDATE ---
 
         public bool updateAccount(Account updatedAccount)
@@ -541,7 +560,7 @@ namespace DAL.AdminRepo
             }
         }
 
-
+        
     }
 }
 

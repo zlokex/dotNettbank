@@ -26,6 +26,7 @@ namespace BLL.AdminService
         string deactivateAccount(string accountNo);
         string deactivateCustomer(string birthNo);
         bool createPayment(Payment p);
+        bool deletePayment(int paymentID);
         bool addPostalArea(PostalArea postalArea);
         bool addCustomer(Customer customer);
         List<Account> getAllAccountsByBirthNo(string birthNo);

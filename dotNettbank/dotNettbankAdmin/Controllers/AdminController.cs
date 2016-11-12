@@ -186,6 +186,14 @@ namespace dotNettbankAdmin.Controllers
             return _adminService.completePayment(paymentID);
         }
 
+        //Slette
+        [HttpPost]
+        public bool DeletePayment(int paymentID)
+        {
+            return _adminService.deletePayment(paymentID);
+        }
+
+
 
         [HttpGet]
         public ActionResult EditCustomerPartial(string birthNo)
