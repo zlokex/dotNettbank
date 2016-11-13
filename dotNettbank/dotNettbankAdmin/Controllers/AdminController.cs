@@ -66,7 +66,7 @@ namespace dotNettbankAdmin.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "");
+                return RedirectToAction("Index", "Index");
             }
         }
 
@@ -386,12 +386,12 @@ namespace dotNettbankAdmin.Controllers
         [HttpPost]
         public ActionResult AddAccount(AccountVM model)
         {
+            if (!checkSession()) return RedirectToAction("Index", "Index");
+
             Random random = new Random();
             int newAccNo1 = random.Next(1000, 9999);
             int newAccNo2 = random.Next(10, 99);
             int newAccNo3 = random.Next(10000, 99999);
-
-            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             if (ModelState.IsValid)
             {

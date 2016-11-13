@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using dotNettbankAdmin.Models;
 using System.Linq;
+using MvcContrib.TestHelper;
 
 namespace dotNettbankAdmin.Tests
 {
@@ -31,6 +32,27 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void AdminSide_Session_LoggedOut()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult) controller.AdminSide();
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
+        }
+
+        
+
+        [TestMethod]
         public void Login()
         {
             // Arrange:
@@ -41,6 +63,22 @@ namespace dotNettbankAdmin.Tests
 
             // Assert:
             Assert.AreEqual(true, result);
+        }
+
+        [TestMethod]
+        public void Login_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+
+            // Act:
+            var actual = controller.Login("admin", "admin");
+
+            // Assert:
+            Assert.IsNotNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
         }
 
         [TestMethod]
@@ -71,6 +109,26 @@ namespace dotNettbankAdmin.Tests
             // Assert:
             Assert.AreEqual("Index", result.RouteValues["Action"]);
             Assert.AreEqual("Index", result.RouteValues["Controller"]);
+        }
+
+        [TestMethod]
+        public void Logout_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to not null first:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = "admin";
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.Logout();
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
         }
 
         [TestMethod]
@@ -128,6 +186,26 @@ namespace dotNettbankAdmin.Tests
             }
         }
 
+        [TestMethod]
+        public void FindCustomers_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.FindCustomers(null, null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
+        }
+
 
         [TestMethod]
         public void AccountsNoCustomerSelected()
@@ -171,6 +249,26 @@ namespace dotNettbankAdmin.Tests
                 Assert.AreEqual(expectedAccounts[i].InterestRate, modelResult[i].InterestRate);
                 Assert.AreEqual(expectedAccounts[i].OwnerBirthNo, modelResult[i].OwnerBirthNo);
             }
+        }
+
+        [TestMethod]
+        public void Accounts_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.Accounts(null, null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
         }
 
         [TestMethod]
@@ -258,6 +356,26 @@ namespace dotNettbankAdmin.Tests
                 Assert.AreEqual(expectedPayments[i].Message, modelResult[i].Message);
                 Assert.AreEqual(expectedPayments[i].PaymentID, modelResult[i].PaymentID);
             }
+        }
+
+        [TestMethod]
+        public void Payments_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.RegBetaling(null, null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
         }
 
         [TestMethod]
@@ -436,6 +554,26 @@ namespace dotNettbankAdmin.Tests
                 Assert.AreEqual(expectedTransactions[i].FromAccountNo, modelResult[i].FromAccountNo);
                 Assert.AreEqual(expectedTransactions[i].ToAccountNo, modelResult[i].ToAccountNo);
             }
+        }
+
+        [TestMethod]
+        public void Transactions_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.Transactions(null, null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
         }
 
         [TestMethod]
@@ -728,6 +866,26 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void EditCustomerPartial_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.EditCustomerPartial(null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
+        }
+
+        [TestMethod]
         public void AddCustomer_Success()
         {
             // Arrange:
@@ -808,6 +966,26 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void CreatePayment_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.CreatePayment(null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
+        }
+
+        [TestMethod]
         public void CreatePayment_InvalidModelState()
         {
             // Arrange:
@@ -868,6 +1046,26 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void GetPartial_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.GetPartial(null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
+        }
+
+        [TestMethod]
         public void GetCreateAccountPartial()
         {
             // Arrange:
@@ -918,6 +1116,26 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void GetCreateAccountPartial_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.GetCreateAccountPartial(null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
+        }
+
+        [TestMethod]
         public void UpdateCustomer()
         {
             // Arrange:
@@ -938,6 +1156,26 @@ namespace dotNettbankAdmin.Tests
 
             // Assert:
             Assert.AreEqual(new { success = true }.ToString(), result.Data.ToString());
+        }
+
+        [TestMethod]
+        public void UpdateCustomer_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.UpdateCustomer(null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
         }
 
         [TestMethod]
@@ -978,6 +1216,26 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void UpdateAccount_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.UpdateAccount(null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
+        }
+
+        [TestMethod]
         public void UpdateAccount_InvalidModelState()
         {
             // Arrange:
@@ -1012,6 +1270,26 @@ namespace dotNettbankAdmin.Tests
 
             // Assert:
             Assert.AreEqual(new { success = true }.ToString(), result.Data.ToString());
+        }
+
+        [TestMethod]
+        public void AddAccount_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.AddAccount(null);
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
         }
 
         [TestMethod]
@@ -1196,6 +1474,26 @@ namespace dotNettbankAdmin.Tests
                     Assert.AreEqual(expectedProperties[j].NewValue, propertyModelResult[j].NewValue);
                 }
             }
+        }
+
+        [TestMethod]
+        public void Audit_CheckSession()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            // Set Session to null:
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = null;
+
+            // Act:
+            var actual = (RedirectToRouteResult)controller.Audit();
+
+            // Assert:
+            Assert.IsNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("Index", actual.RouteValues["Action"]);
+            Assert.AreEqual("Index", actual.RouteValues["Controller"]);
         }
 
 
