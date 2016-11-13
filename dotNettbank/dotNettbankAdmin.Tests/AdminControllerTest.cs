@@ -808,6 +808,23 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void CreatePayment_InvalidModelState()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            var model = new PaymentVM();
+            controller.ViewData.ModelState.AddModelError("Amount", "Beløpet må fylles ut");
+
+            // Act:
+            var result = (PartialViewResult)controller.CreatePayment(model);
+
+            // Assert:
+            Assert.IsTrue(result.ViewData.ModelState.Count == 1);
+            Assert.AreEqual("_CreatePaymentPartial", result.ViewName);
+        }
+
+        [TestMethod]
         public void CreatePayment_FromAccountNoNotExisting()
         {
             // Arrange:
@@ -924,6 +941,24 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void UpdateCustomer_InvalidModelState()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            var model = new CustomerVM();
+            controller.ViewData.ModelState.AddModelError("BirthNo", "Eier kan ikke være blankt");
+
+
+            // Act:
+            var result = (PartialViewResult) controller.UpdateCustomer(model);
+
+            // Assert:
+            Assert.IsTrue(result.ViewData.ModelState.Count == 1);
+            Assert.AreEqual("_EditCustomersPartial", result.ViewName);
+        }
+
+        [TestMethod]
         public void UpdateAccount()
         {
             // Arrange:
@@ -943,6 +978,24 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void UpdateAccount_InvalidModelState()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            var model = new AccountVM();
+            controller.ViewData.ModelState.AddModelError("BirthNo", "Eier kan ikke være blankt");
+
+
+            // Act:
+            var result = (PartialViewResult)controller.UpdateAccount(model);
+
+            // Assert:
+            Assert.IsTrue(result.ViewData.ModelState.Count == 1);
+            Assert.AreEqual("_EditAccountsPartial", result.ViewName);
+        }
+
+        [TestMethod]
         public void AddAccount()
         {
             // Arrange:
@@ -959,6 +1012,24 @@ namespace dotNettbankAdmin.Tests
 
             // Assert:
             Assert.AreEqual(new { success = true }.ToString(), result.Data.ToString());
+        }
+
+        [TestMethod]
+        public void AddAccount_InvalidModelState()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            var model = new AccountVM();
+            controller.ViewData.ModelState.AddModelError("BirthNo", "Eier kan ikke være blankt");
+
+
+            // Act:
+            var result = (PartialViewResult)controller.AddAccount(model);
+
+            // Assert:
+            Assert.IsTrue(result.ViewData.ModelState.Count == 1);
+            Assert.AreEqual("_CreateAccountPartial", result.ViewName);
         }
 
         [TestMethod]

@@ -17,7 +17,6 @@ namespace dotNettbankAdmin.Models
         [CustomValidation(typeof(AccountVM), "IsBirthNoExisting")]
         [Required(ErrorMessage = "Eier kan ikke være blankt")]
         [Display(Name = "Eier")]
-
         public string OwnerBirthNo { get; set; }
 
         public List<Customer> Customers { get; set; }

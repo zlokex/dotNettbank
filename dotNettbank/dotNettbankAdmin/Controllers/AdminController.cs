@@ -360,7 +360,7 @@ namespace dotNettbankAdmin.Controllers
                 return Json(new { success = true });
             }
             // else
-            return PartialView("_EditAccountsPartial", model);
+            return PartialView("_EditCustomersPartial", model);
         }
 
         public ActionResult UpdateAccount(AccountVM model)
