@@ -113,7 +113,7 @@ namespace dotNettbankAdmin.Controllers
                     Address = findCustomers.Address,
                     PhoneNo = findCustomers.PhoneNo,
                     PostCode = findCustomers.PostCode,
-                    //PostalArea = tempPA.Area
+                    PostalArea = tempPA.Area
                 };
                 customersVM.Add(model);
             }
