@@ -1,0 +1,10 @@
+12/11/2016 19:53:14 ---> Failed to add postal area.	An error occurred while updating the entries. See the inner exception for details.	   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at dotNettbank.DAL.BankContext.SaveChanges() in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankContext.cs:line 52
+   at DAL.AdminRepo.AdminRepository.addPostalArea(PostalArea postalArea) in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\AdminRepo\AdminRepository.cs:line 240
+12/11/2016 19:55:09 ---> Failed to add postal area.	An error occurred while updating the entries. See the inner exception for details.	   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at dotNettbank.DAL.BankContext.SaveChanges() in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\BankContext.cs:line 52
+   at DAL.AdminRepo.AdminRepository.addPostalArea(PostalArea postalArea) in C:\Users\andre\Documents\Webapps\dotNettbank\dotNettbank\DAL\AdminRepo\AdminRepository.cs:line 240

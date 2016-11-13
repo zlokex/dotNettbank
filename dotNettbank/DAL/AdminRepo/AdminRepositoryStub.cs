@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Z.EntityFramework.Plus;
 
 namespace DAL.AdminRepo
 {
@@ -38,8 +39,6 @@ namespace DAL.AdminRepo
             }
         }
 
-    
-
         public List<Customer> getAllCustomers()
         {
             var customers = new List<Customer>();
@@ -52,7 +51,7 @@ namespace DAL.AdminRepo
             {
                 Active = true,
                 Address = "Storgata 83",
-                BirthNo = "0101891245",
+                BirthNo = "01018912345",
                 FirstName = "André",
                 LastName = "Hovda",
                 Password = password,
@@ -70,15 +69,15 @@ namespace DAL.AdminRepo
 
         public List<Payment> getAllPayments()
         {
-            var currDate = DateTime.Now;
             var payments = new List<Payment>();
+            var date = new DateTime(2010, 1, 18);
             var payment = new Payment()
             {
                 Amount = 100,
-                DateAdded = currDate,
-                DueDate = currDate,
-                FromAccountNo = "1000000000",
-                ToAccountNo = "1000000009",
+                DateAdded = date,
+                DueDate = date,
+                FromAccountNo = "10000000000",
+                ToAccountNo = "10000000009",
                 Message = "Test",
                 PaymentID = 1
             };
@@ -89,54 +88,80 @@ namespace DAL.AdminRepo
             return payments;
         }
 
-        public List<Payment> getPaymentsByFromAccountNo(string fromAccountNo)
-        {
-            var currDate = DateTime.Now;
-            var payments = new List<Payment>();
-            var payment = new Payment()
-            {
-                Amount = 100,
-                DateAdded = currDate,
-                DueDate = currDate,
-                FromAccountNo = fromAccountNo,
-                ToAccountNo = "1000000009",
-                Message = "Test",
-                PaymentID = 1
-            };
-            payments.Add(payment);
-            payments.Add(payment);
-            payments.Add(payment);
-
-            return payments;
-        }
+        
 
         public bool completePayment(int paymentId)
         {
-            if (paymentId != -1)
+            var date = new DateTime(2010, 1, 18);
+            var paymentTooMuchAmount = new Payment()
             {
-                return true;
-            }
-            else
+                Amount = 1000000,
+                DateAdded = date,
+                DueDate = date,
+                FromAccountNo = "10000000000",
+                ToAccountNo = "10000000009",
+                Message = "Test",
+                PaymentID = 100
+            };
+            if (paymentTooMuchAmount.PaymentID == paymentId)
             {
                 return false;
             }
+            else
+            {
+                var payments = getAllPayments();
+                foreach (var payment in payments)
+                {
+                    if (payment.PaymentID == paymentId)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
 
+        public bool createPayment(Payment newPayment)
+        {
+            // If fromaccountNo to payment exists return true, false otherwise
+            var accounts = getAllAccounts();
+            foreach (var account in accounts)
+            {
+                if (account.AccountNo == newPayment.FromAccountNo)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool deletePayment(int paymentID)
+        {
+            // If payment exists, return true, if not return false:
+            var payments = getAllPayments();
+            foreach (var payment in payments)
+            {
+                if (payment.PaymentID == paymentID)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public List<Transaction> getAllTransactions()
         {
-            var currDate = DateTime.Now;
             var transactions = new List<Transaction>();
+            var date = new DateTime(2010, 1, 18);
             int testObjects = 20;
            
             for(int i = 0; i < testObjects; i++)
             {
-               
                 var temp = new Transaction()
                 {
                     TransactionID = i,
-                    DatePayed = currDate,
-                    Date = currDate,
+                    DatePayed = date,
+                    Date = date,
                     Amount = 100 + (5*i),
                     Message = "Test"
                 };
@@ -154,12 +179,13 @@ namespace DAL.AdminRepo
             {
                 var temp = new Account()
                 {
-                   AccountNo = "100000000" + i,
+                   AccountNo = "1000000000" + i,
                    Balance = 100+(50*i),
                    Type = "TestKonto",
                    Name = null,
                    Active = true,
-                   InterestRate = 1.2
+                   InterestRate = 1.2,
+                   OwnerBirthNo = "01018912345"
                 };
                 accounts.Add(temp);
             }
@@ -176,27 +202,52 @@ namespace DAL.AdminRepo
                 Type = "TestKonto",
                 Name = null,
                 Active = true,
-                InterestRate = 1.2
+                InterestRate = 1.2,
+                OwnerBirthNo = "01018912345"
             };
         }
 
         public bool addAccount(Account addAccount)
         {
-            if (addAccount == null) return false;
-            return true;
+            // If account exists, return true, if not return false:
+            var accounts = getAllAccounts();
+            foreach (var account in accounts)
+            {
+                if (account.AccountNo == addAccount.AccountNo)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool updateAccount(Account updatedAccount)
         {
-            if (updatedAccount == null) return false;
-            return true;
+            // If account exists, return true, if not return false:
+            var accounts = getAllAccounts();
+            foreach (var account in accounts)
+            {
+                if (account.AccountNo == updatedAccount.AccountNo)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool updateCustomer(Customer updatedCustomer)
         {
-            if (updatedCustomer == null) return false;
-            return true;
-                   
+            // If customer exists, return true, if not return false:
+            var customers = getAllCustomers();
+            foreach (var customer in customers)
+            {
+                if (customer.BirthNo == updatedCustomer.BirthNo)
+                {
+                    return true;
+                }
+            }
+            return false;
+
         }
 
         public Customer getCustomerByBirthNo(string birthNo)
@@ -221,36 +272,54 @@ namespace DAL.AdminRepo
 
         public string deactivateAccount(string accountNo)
         {
-            if(accountNo == "") return "Klarte ikke å deaktivere konto";
-            return "Suksess";
+            bool exists = false;
+            var accounts = getAllAccounts();
+            foreach (var account in accounts)
+            {
+                if (account.AccountNo == accountNo)
+                {
+                    exists = true;
+                }
+            }
+            if (accountNo == null) { return "Klarte ikke å deaktivere konto"; }
+            else if (exists) { return "Suksess"; }
+            else { return "Konto eksisterer ikke"; }
         }
 
         public string deactivateCustomer(string birthNo)
         {
-            if(birthNo == "") return "Klarte ikke å deaktivere kunde";
-            return "Suksess";
+            bool exists = false;
+            var customers = getAllCustomers();
+            foreach (var customer in customers)
+            {
+                if (customer.BirthNo == birthNo)
+                {
+                    exists = true;
+                }
+            }
+            if (birthNo == null) { return "Klarte ikke å deaktivere kunde"; }
+            else if (exists) { return "Suksess"; }
+            else { return "Kunde eksisterer ikke"; }
         }
 
-        
 
         public List<Transaction> getTransactionsByBirthNoArray(string[] birthNos)
         {
-            DateTime currDate = DateTime.Now;
-
             var transactions = new List<Transaction>();
-
-            int testObjects = 20;
-            for (int i = 0; i < testObjects; i++)
+            var date = new DateTime(2010, 1, 18);
+            int j = 0;
+            foreach (var birthNo in birthNos)
             {
                 var temp = new Transaction()
                 {
-                    TransactionID = i,
-                    DatePayed = currDate,
-                    Date = currDate,
-                    Amount = 100 + (5 * i),
+                    TransactionID = j,
+                    DatePayed = date,
+                    Date = date,
+                    Amount = 100 + (5 * j),
                     Message = "Test"
                 };
                 transactions.Add(temp);
+                j++;
             }
 
             return transactions;
@@ -258,22 +327,33 @@ namespace DAL.AdminRepo
 
         public List<Transaction> getTransactionsByAccountNoArray(string[] accountNos)
         {
-            DateTime currDate = DateTime.Now;
-
             var transactions = new List<Transaction>();
-
-            int testObjects = 20;
-            for (int i = 0; i < testObjects; i++)
+            var date = new DateTime(2010, 1, 18);
+            int i = 0;
+            foreach (var accountNo in accountNos)
             {
-                var temp = new Transaction()
+                var from = new Transaction()
                 {
-                    TransactionID = i,
-                    DatePayed = currDate,
-                    Date = currDate,
+                    TransactionID = i++,
+                    DatePayed = date,
+                    Date = date,
                     Amount = 100 + (5 * i),
-                    Message = "Test"
+                    Message = "Test",
+                    FromAccountNo = accountNo,
+                    ToAccountNo = "10000000000"
                 };
-                transactions.Add(temp);
+                var to = new Transaction()
+                {
+                    TransactionID = i++,
+                    DatePayed = date,
+                    Date = date,
+                    Amount = 100 + (5 * i),
+                    Message = "Test",
+                    FromAccountNo = "10000000000",
+                    ToAccountNo = accountNo
+                };
+                transactions.Add(from);
+                transactions.Add(to);
             }
 
             return transactions;
@@ -281,42 +361,44 @@ namespace DAL.AdminRepo
 
         public List<Payment> getPaymentsByFromAccountNoArray(string[] fromAccountNos)
         {
-            var currDate = DateTime.Now;
+            var date = new DateTime(2010, 1, 18);
             var payments = new List<Payment>();
-            var payment = new Payment()
+            foreach (var fromAccountNo in fromAccountNos)
             {
-                Amount = 100,
-                DateAdded = currDate,
-                DueDate = currDate,
-                FromAccountNo = "1000000001",
-                ToAccountNo = "1000000009",
-                Message = "Test",
-                PaymentID = 1
-            };
-            payments.Add(payment);
-            payments.Add(payment);
-            payments.Add(payment);
+                var payment = new Payment()
+                {
+                    Amount = 100,
+                    DateAdded = date,
+                    DueDate = date,
+                    FromAccountNo = fromAccountNo,
+                    ToAccountNo = "10000000009",
+                    Message = "Test",
+                    PaymentID = 1
+                };
+                payments.Add(payment);
+            }
 
             return payments;
         }
 
         public List<Payment> getPaymentsByFromBirthNoArray(string[] birthNos)
         {
-            var currDate = DateTime.Now;
+            var date = new DateTime(2010, 1, 18);
             var payments = new List<Payment>();
-            var payment = new Payment()
+            foreach (var birthNo in birthNos)
             {
-                Amount = 100,
-                DateAdded = currDate,
-                DueDate = currDate,
-                FromAccountNo = "1000000001",
-                ToAccountNo = "1000000009",
-                Message = "Test",
-                PaymentID = 1
-            };
-            payments.Add(payment);
-            payments.Add(payment);
-            payments.Add(payment);
+                var payment = new Payment()
+                {
+                    Amount = 100,
+                    DateAdded = date,
+                    DueDate = date,
+                    FromAccountNo = "10000000001",
+                    ToAccountNo =   "10000000009",
+                    Message = "Test",
+                    PaymentID = 1
+                };
+                payments.Add(payment);
+            }
 
             return payments;
         }
@@ -325,40 +407,86 @@ namespace DAL.AdminRepo
         {
             var accounts = new List<Account>();
 
-            var account = new Account()
+            foreach (var birthNo in birthNos)
             {
-                AccountNo = "12341212345",
-                Active = true,
-                Balance = 100,
-                Type = "BSU",
-                OwnerBirthNo = "01018912345"
-            };
-            accounts.Add(account);
-            accounts.Add(account);
-            accounts.Add(account);
-
+                var account = new Account()
+                {
+                    AccountNo = "12341212345",
+                    Active = true,
+                    Balance = 100,
+                    Type = "BSU",
+                    OwnerBirthNo = birthNo,
+                    InterestRate = 1.2,
+                    Name = null
+                };
+                accounts.Add(account);
+            }
             return accounts;
         }
 
-        public bool createPayment(Payment newPayment)
-        {
-            if (newPayment != null) return true;
-            return false;
-        }
+        
 
         public List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries()
         {
-            throw new NotImplementedException();
+            var entries = new List<AuditEntry>();
+            var date = new DateTime(2010, 1, 18);
+            for (int i = 0; i < 5; i++) {
+                var entry = new AuditEntry()
+                {
+                    AuditEntryID = i,
+                    CreatedDate = date,
+                    EntityTypeName = "Customer",
+                    State = 0,
+                    StateName = "EntityAdded",
+                };
+                entries.Add(entry);
+            }
+            return entries;
         }
 
         public List<Z.EntityFramework.Plus.AuditEntryProperty> getAllAuditEntryProperties()
         {
-            throw new NotImplementedException();
+            var entries = getAllAuditEntries();
+            var properties = new List<AuditEntryProperty>();
+            int i = 0;
+            foreach (var entry in entries)
+            {
+                var property = new AuditEntryProperty()
+                {
+                    AuditEntryID = entry.AuditEntryID,
+                    AuditEntryPropertyID = i++,
+                    PropertyName = "FirstName",
+                    OldValue = null,
+                    NewValue = "Hans"
+                };
+                var property2 = new AuditEntryProperty()
+                {
+                    AuditEntryID = entry.AuditEntryID,
+                    AuditEntryPropertyID = i++,
+                    PropertyName = "LastName",
+                    OldValue = null,
+                    NewValue = "Hansen"
+                };
+                properties.Add(property);
+                properties.Add(property2);
+            }
+            return properties;
         }
 
         public List<Z.EntityFramework.Plus.AuditEntryProperty> getAuditEntryPropertiesByEntryId(int auditEntryId)
         {
-            throw new NotImplementedException();
+            var properties = getAllAuditEntryProperties();
+
+            var propertiesToSend = new List<AuditEntryProperty>();
+
+            foreach (var property in properties)
+            {
+                if (property.AuditEntryID == auditEntryId)
+                {
+                    propertiesToSend.Add(property);
+                }
+            }
+            return propertiesToSend;
         }
 
         public bool addPostalArea(PostalArea postalArea)
@@ -369,6 +497,15 @@ namespace DAL.AdminRepo
 
         public bool addCustomer(Customer customer)
         {
+            var customers = getAllCustomers();
+
+            foreach (var c in customers)
+            {
+                if (c.BirthNo == customer.BirthNo)
+                {
+                    return false;
+                }
+            }
             if (customer != null) return true;
             return false;
         }
@@ -414,6 +551,27 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
+        public List<Payment> getPaymentsByFromAccountNo(string fromAccountNo)
+        {
+            var currDate = DateTime.Now;
+            var payments = new List<Payment>();
+            var payment = new Payment()
+            {
+                Amount = 100,
+                DateAdded = currDate,
+                DueDate = currDate,
+                FromAccountNo = fromAccountNo,
+                ToAccountNo = "10000000009",
+                Message = "Test",
+                PaymentID = 1
+            };
+            payments.Add(payment);
+            payments.Add(payment);
+            payments.Add(payment);
+
+            return payments;
+        }
+
         public List<Payment> getPaymentsByFromBirthNo(string birthNo)
         {
             throw new NotImplementedException();
@@ -429,9 +587,6 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
-        public bool deletePayment(int paymentID)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

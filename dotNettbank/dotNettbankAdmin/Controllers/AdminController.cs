@@ -95,34 +95,19 @@ namespace dotNettbankAdmin.Controllers
         }
 
         //--- GetPartials() PARTIALS LINKED FROM SIDEBAR MENU: ---
-        public ActionResult RegCustomer(string[] birthNo)
-        {
-            List<Customer> customers = new List<Customer>();
-            if (birthNo == null)
-            {
-                customers = _adminService.getAllCustomers();
-            }
-            else
-            {
-                if (birthNo != null)
-                {
-                    
-                }    
-            }
-            return PartialView("_AddCustomerPartial", customers);
-        }
 
 
         public ActionResult FindCustomers(string[] birthNo, string[] accountNo)
         {
             if(!checkSession()) return RedirectToAction("Index", "Index");
+
             List<Customer> customers = _adminService.getAllCustomers();
 
             return PartialView("_FindCustomers", customers);
         }
         public ActionResult Accounts(string[] birthNo, string[] accountNo)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             List<Account> accounts;
 
@@ -302,7 +287,7 @@ namespace dotNettbankAdmin.Controllers
         [HttpGet]
         public ActionResult GetCreateAccountPartial(string accountNo)
         {
-            if (!checkSession()) return RedirectToAction("Index", "");
+            if (!checkSession()) return RedirectToAction("Index", "Index");
 
             var account = _adminService.getAccountByAccountNo(accountNo);
             var customers = _adminService.getAllCustomers();
@@ -385,13 +370,11 @@ namespace dotNettbankAdmin.Controllers
 
         public string DeactivateAccount(string accountNo)
         {
-            
             return _adminService.deactivateAccount(accountNo);
         }
 
         public string DeactivateCustomer(string birthNo)
         {
-
             return _adminService.deactivateCustomer(birthNo);
         }
     
@@ -450,5 +433,29 @@ namespace dotNettbankAdmin.Controllers
             entryVMs.Reverse();
             return PartialView("_Audit", entryVMs);
         }
+
+
+
+
+
+        /*
+    public ActionResult RegCustomer(string[] birthNo)
+    {
+        List<Customer> customers = new List<Customer>();
+        if (birthNo == null)
+        {
+            customers = _adminService.getAllCustomers();
+        }
+        else
+        {
+            if (birthNo != null)
+            {
+
+            }    
+        }
+        return PartialView("_AddCustomerPartial", customers);
+    }
+    */
+
     }
 }
