@@ -140,7 +140,27 @@ namespace dotNettbankAdmin.Controllers
                 payments = _adminService.getAllPayments();
             }
 
-            return PartialView("_RegBetalingPartial", payments);
+            //Create view model from domain model:
+            var paymentVMs = new List<PaymentRow>();
+            foreach (var payment in payments)
+            {
+                var fromBirthNo = _adminService.getBirthNoByAccountNo(payment.FromAccountNo);
+
+                var paymentVM = new PaymentRow()
+                {
+                    PaymentID = payment.PaymentID,
+                    DateAdded = payment.DateAdded,
+                    DueDate = payment.DueDate,
+                    Amount = payment.Amount,
+                    FromAccountNo = payment.FromAccountNo,
+                    ToAccountNo = payment.ToAccountNo,
+                    Message = payment.Message,
+                    FromBirthNo = fromBirthNo
+                };
+                paymentVMs.Add(paymentVM);
+            }
+
+            return PartialView("_RegBetalingPartial", paymentVMs);
         }
 
         public ActionResult Transactions(string[] birthNo, string[] accountNo)
@@ -165,7 +185,30 @@ namespace dotNettbankAdmin.Controllers
             {
                 transactions = _adminService.getAllTransactions();
             }
-            return PartialView("_Transactions", transactions);
+
+            //Create view model from domain model:
+            var transactionVMs = new List<TransactionRow>();
+            foreach(var transaction in transactions)
+            {
+                var fromBirthNo = _adminService.getBirthNoByAccountNo(transaction.FromAccountNo);
+                var toBirthNo = _adminService.getBirthNoByAccountNo(transaction.ToAccountNo);
+
+                var transactionVM = new TransactionRow()
+                {
+                    Date = transaction.Date,
+                    DatePayed = transaction.DatePayed,
+                    Amount = transaction.Amount,
+                    FromAccountNo = transaction.FromAccountNo,
+                    ToAccountNo = transaction.ToAccountNo,
+                    Message = transaction.Message,
+                    FromBirthNo = fromBirthNo,
+                    ToBirthNo = toBirthNo
+                };
+                transactionVMs.Add(transactionVM);
+            }
+
+
+            return PartialView("_Transactions", transactionVMs);
         }
 
         // --- GET MODAL PARTIALS ---

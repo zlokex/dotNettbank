@@ -12,6 +12,7 @@ namespace BLL.AdminService
         Admin getAdmin(string username);
         bool adminExists(string username);
         bool validateLogin(string username, string password);
+        string getBirthNoByAccountNo(string accountNo);
         List<Payment> getAllPayments();
         List<Payment> getPaymentsByFromAccountNo(string fromAccountNo);
         bool completePayment(int paymentId);

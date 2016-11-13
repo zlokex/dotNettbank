@@ -37,8 +37,5 @@ namespace dotNettbank.Model
         public virtual Account FromAccount { get; set; } //FraKonto
         [ForeignKey("ToAccountNo")]
         public virtual Account ToAccount { get; set; } //TilKonto
-
-        // TEST
-        //public PaymentStatus PaymentStatus { get; set; }
     }
 }

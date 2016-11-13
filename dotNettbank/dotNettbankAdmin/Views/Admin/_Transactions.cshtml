@@ -1,4 +1,4 @@
-﻿@model List<dotNettbank.Model.Transaction>
+﻿@model List<dotNettbankAdmin.Models.TransactionRow>
 
 
 
@@ -23,30 +23,31 @@
         <table class="table table-hover search-table paging-table">
             <thead class="thead-inverse">
                 <tr>
-                    <th>ID</th>
+                    <th>Fra Konto</th>
+                    <th>Kunde</th>
+                    <th>Til Konto</th>
+                    <th>Kunde</th>
                     <th>Dato Betalt</th>
                     <th>Dato Registrert</th>
                     <th>Beløp</th>
                     <th>KID</th>
-                    <th>Fra Konto</th>
-                    <th>Til Konto</th>
                 </tr>
             </thead>
             <tbody>
                
 
                 @foreach (var item in Model)
-            {
+                {
                     <tr id="search-row" class="row-padding">
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.TransactionID)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.DatePayed)</td>
-                        <td class="col-md-4">@Html.DisplayFor(modelItem => item.Date)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Message)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FromBirthNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ToBirthNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DatePayed)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Message)</td>
                     </tr>
-
                 }
             </tbody>
         </table>

@@ -39,6 +39,23 @@ namespace DAL.AdminRepo
             }
         }
 
+        public string getBirthNoByAccountNo(string accountNo)
+        {
+            /*
+            var customers = getAllCustomers();
+            foreach (var customer in customers)
+            {
+                if (customer.Accounts.First.AccountNo == accountNo)
+                {
+                    return customer.BirthNo;
+                }
+            }
+            */
+            return "01018912345";
+            //return null;
+        }
+
+
         public List<Customer> getAllCustomers()
         {
             var customers = new List<Customer>();

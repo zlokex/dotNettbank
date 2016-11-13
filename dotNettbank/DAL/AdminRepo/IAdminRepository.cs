@@ -9,6 +9,7 @@ namespace DAL.AdminRepo
 {
     public interface IAdminRepository
     {
+        string getBirthNoByAccountNo(string accountNo);
         Admin getAdmin(string username);
         bool adminExists(string username);
         List<Payment> getAllPayments();

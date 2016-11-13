@@ -1,4 +1,4 @@
-﻿@model List<dotNettbank.Model.Payment>
+﻿@model List<dotNettbankAdmin.Models.PaymentRow>
 
 <div class="panel panel-default" data-id="RegBetaling">
     <div class="panel-heading">
@@ -35,12 +35,12 @@
         <table class="table table-hover search-table paging-table">
             <thead class="thead-inverse">
                 <tr>
-                    <th>ID</th>
+                    <th>Fra Konto</th>
+                    <th>Kunde</th>
+                    <th>Til Konto</th>
                     <th>Dato Registrert</th>
                     <th>Beløp</th>
                     <th>KID</th>
-                    <th>Fra Konto</th>
-                    <th>Til Konto</th>
                     <th>Slett</th>
                     <th>Bekreft</th>
                 </tr>
@@ -50,14 +50,14 @@
                 @foreach (var item in Model)
                 {
                     <tr id="search-row">
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.PaymentID)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromBirthNo)</td>
+                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.DueDate)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.Message)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
-                        <td class="col-md-2"><button class="btn btn-dark-theme" id="delete-payment-btn" data-id="@item.PaymentID"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
-                        <td class="col-md-2"><button class="btn btn-dark-theme" id="betal_btn" data-id="@item.PaymentID"><i class="fa fa-handshake-o" aria-hidden="true"></i></button></td>
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.Message)</td>
+                        <td class="col-md-1"><button class="btn btn-dark-theme" id="delete-payment-btn" data-id="@item.PaymentID"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+                        <td class="col-md-1"><button class="btn btn-dark-theme" id="betal_btn" data-id="@item.PaymentID"><i class="fa fa-handshake-o" aria-hidden="true"></i></button></td>
                     </tr>
                 }
             </tbody>

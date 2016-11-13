@@ -224,14 +224,10 @@ namespace dotNettbankAdmin.Tests
             // Arrange:
             var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
 
-            var expectedPayments = new List<Payment>();
-
-            //string[] birthNos = new string[] { "01018912345", "010189112233", "01018911111" };
-            //string[] accountNos = new string[] { "10000000000", "12341212345", "98769898765" };
+            var expectedPayments = new List<PaymentRow>();
 
             var date = new DateTime(2010, 1, 18);
-            var payments = new List<Payment>();
-            var payment = new Payment()
+            var payment = new PaymentRow()
             {
                 Amount = 100,
                 DateAdded = date,
@@ -247,7 +243,7 @@ namespace dotNettbankAdmin.Tests
 
             // Act:
             var result = (PartialViewResult)controller.RegBetaling(null, null);
-            var modelResult = (List<Payment>)result.Model;
+            var modelResult = (List<PaymentRow>)result.Model;
 
             // Assert:
             Assert.AreEqual("_RegBetalingPartial", result.ViewName);
@@ -273,11 +269,11 @@ namespace dotNettbankAdmin.Tests
             string[] birthNos = new string[] { "01018912345", "010189112233", "01018911111" };
             string[] accountNos = new string[] { "10000000000", "12341212345", "98769898765" };
 
-            var expectedPayments = new List<Payment>();
+            var expectedPayments = new List<PaymentRow>();
             var date = new DateTime(2010, 1, 18);
             foreach (var birthNo in birthNos)
             {
-                var payment = new Payment()
+                var payment = new PaymentRow()
                 {
                     Amount = 100,
                     DateAdded = date,
@@ -292,7 +288,7 @@ namespace dotNettbankAdmin.Tests
 
             // Act:
             var result = (PartialViewResult)controller.RegBetaling(birthNos, null);
-            var modelResult = (List<Payment>)result.Model;
+            var modelResult = (List<PaymentRow>)result.Model;
 
             // Assert:
             Assert.AreEqual("_RegBetalingPartial", result.ViewName);
@@ -319,10 +315,10 @@ namespace dotNettbankAdmin.Tests
             string[] accountNos = new string[] { "10000000000", "12341212345", "98769898765" };
 
             var date = new DateTime(2010, 1, 18);
-            var expectedPayments = new List<Payment>();
+            var expectedPayments = new List<PaymentRow>();
             foreach (var fromAccountNo in accountNos)
             {
-                var payment = new Payment()
+                var payment = new PaymentRow()
                 {
                     Amount = 100,
                     DateAdded = date,
@@ -337,7 +333,7 @@ namespace dotNettbankAdmin.Tests
 
             // Act:
             var result = (PartialViewResult)controller.RegBetaling(null, accountNos);
-            var modelResult = (List<Payment>)result.Model;
+            var modelResult = (List<PaymentRow>)result.Model;
 
             // Assert:
             Assert.AreEqual("_RegBetalingPartial", result.ViewName);
@@ -364,10 +360,10 @@ namespace dotNettbankAdmin.Tests
             string[] accountNos = new string[] { "10000000000", "12341212345", "98769898765" };
 
             var date = new DateTime(2010, 1, 18);
-            var expectedPayments = new List<Payment>();
+            var expectedPayments = new List<PaymentRow>();
             foreach (var fromAccountNo in accountNos)
             {
-                var payment = new Payment()
+                var payment = new PaymentRow()
                 {
                     Amount = 100,
                     DateAdded = date,
@@ -382,7 +378,7 @@ namespace dotNettbankAdmin.Tests
 
             // Act:
             var result = (PartialViewResult)controller.RegBetaling(birthNos, accountNos);
-            var modelResult = (List<Payment>)result.Model;
+            var modelResult = (List<PaymentRow>)result.Model;
 
             // Assert:
             Assert.AreEqual("_RegBetalingPartial", result.ViewName);
@@ -408,15 +404,14 @@ namespace dotNettbankAdmin.Tests
             //string[] birthNos = new string[] { "01018912345", "010189112233", "01018911111" };
             //string[] accountNos = new string[] { "10000000000", "12341212345", "98769898765" };
 
-            var expectedTransactions = new List<Transaction>();
+            var expectedTransactions = new List<TransactionRow>();
             var date = new DateTime(2010, 1, 18);
             int testObjects = 20;
 
             for (int i = 0; i < testObjects; i++)
             {
-                var temp = new Transaction()
+                var temp = new TransactionRow()
                 {
-                    TransactionID = i,
                     DatePayed = date,
                     Date = date,
                     Amount = 100 + (5 * i),
@@ -427,14 +422,13 @@ namespace dotNettbankAdmin.Tests
 
             // Act:
             var result = (PartialViewResult)controller.Transactions(null, null);
-            var modelResult = (List<Transaction>)result.Model;
+            var modelResult = (List<TransactionRow>)result.Model;
 
             // Assert:
             Assert.AreEqual("_Transactions", result.ViewName);
 
             for (var i = 0; i < modelResult.Count; i++)
             {
-                Assert.AreEqual(expectedTransactions[i].TransactionID, modelResult[i].TransactionID);
                 Assert.AreEqual(expectedTransactions[i].DatePayed, modelResult[i].DatePayed);
                 Assert.AreEqual(expectedTransactions[i].Date, modelResult[i].Date);
                 Assert.AreEqual(expectedTransactions[i].Amount, modelResult[i].Amount);
@@ -453,14 +447,13 @@ namespace dotNettbankAdmin.Tests
             string[] birthNos = new string[] { "01018912345", "010189112233", "01018911111" };
             //string[] accountNos = new string[] { "10000000000", "12341212345", "98769898765" };
 
-            var expectedTransactions = new List<Transaction>();
+            var expectedTransactions = new List<TransactionRow>();
             var date = new DateTime(2010, 1, 18);
             int j = 0;
             foreach (var birthNo in birthNos)
             {
-                var temp = new Transaction()
+                var temp = new TransactionRow()
                 {
-                    TransactionID = j,
                     DatePayed = date,
                     Date = date,
                     Amount = 100 + (5 * j),
@@ -472,14 +465,13 @@ namespace dotNettbankAdmin.Tests
 
             // Act:
             var result = (PartialViewResult)controller.Transactions(birthNos, null);
-            var modelResult = (List<Transaction>)result.Model;
+            var modelResult = (List<TransactionRow>)result.Model;
 
             // Assert:
             Assert.AreEqual("_Transactions", result.ViewName);
 
             for (var i = 0; i < modelResult.Count; i++)
             {
-                Assert.AreEqual(expectedTransactions[i].TransactionID, modelResult[i].TransactionID);
                 Assert.AreEqual(expectedTransactions[i].DatePayed, modelResult[i].DatePayed);
                 Assert.AreEqual(expectedTransactions[i].Date, modelResult[i].Date);
                 Assert.AreEqual(expectedTransactions[i].Amount, modelResult[i].Amount);
@@ -498,14 +490,14 @@ namespace dotNettbankAdmin.Tests
             //string[] birthNos = new string[] { "01018912345", "010189112233", "01018911111" };
             string[] accountNos = new string[] { "10000000000", "12341212345", "98769898765" };
 
-            var expectedTransactions = new List<Transaction>();
+            var expectedTransactions = new List<TransactionRow>();
             var date = new DateTime(2010, 1, 18);
             int j = 0;
             foreach (var accountNo in accountNos)
             {
-                var from = new Transaction()
+                j++;
+                var from = new TransactionRow()
                 {
-                    TransactionID = j++,
                     DatePayed = date,
                     Date = date,
                     Amount = 100 + (5 * j),
@@ -513,9 +505,9 @@ namespace dotNettbankAdmin.Tests
                     FromAccountNo = accountNo,
                     ToAccountNo = "10000000000"
                 };
-                var to = new Transaction()
+                j++;
+                var to = new TransactionRow()
                 {
-                    TransactionID = j++,
                     DatePayed = date,
                     Date = date,
                     Amount = 100 + (5 * j),
@@ -523,20 +515,20 @@ namespace dotNettbankAdmin.Tests
                     FromAccountNo = "10000000000",
                     ToAccountNo = accountNo
                 };
+                
                 expectedTransactions.Add(from);
                 expectedTransactions.Add(to);
             }
 
             // Act:
             var result = (PartialViewResult)controller.Transactions(null, accountNos);
-            var modelResult = (List<Transaction>)result.Model;
+            var modelResult = (List<TransactionRow>)result.Model;
 
             // Assert:
             Assert.AreEqual("_Transactions", result.ViewName);
 
             for (var i = 0; i < modelResult.Count; i++)
             {
-                Assert.AreEqual(expectedTransactions[i].TransactionID, modelResult[i].TransactionID);
                 Assert.AreEqual(expectedTransactions[i].DatePayed, modelResult[i].DatePayed);
                 Assert.AreEqual(expectedTransactions[i].Date, modelResult[i].Date);
                 Assert.AreEqual(expectedTransactions[i].Amount, modelResult[i].Amount);
@@ -555,14 +547,14 @@ namespace dotNettbankAdmin.Tests
             string[] birthNos = new string[] { "01018912345", "010189112233", "01018911111" };
             string[] accountNos = new string[] { "10000000000", "12341212345", "98769898765" };
 
-            var expectedTransactions = new List<Transaction>();
+            var expectedTransactions = new List<TransactionRow>();
             var date = new DateTime(2010, 1, 18);
             int j = 0;
             foreach (var accountNo in accountNos)
             {
-                var from = new Transaction()
+                j++;
+                var from = new TransactionRow()
                 {
-                    TransactionID = j++,
                     DatePayed = date,
                     Date = date,
                     Amount = 100 + (5 * j),
@@ -570,9 +562,9 @@ namespace dotNettbankAdmin.Tests
                     FromAccountNo = accountNo,
                     ToAccountNo = "10000000000"
                 };
-                var to = new Transaction()
+                j++;
+                var to = new TransactionRow()
                 {
-                    TransactionID = j++,
                     DatePayed = date,
                     Date = date,
                     Amount = 100 + (5 * j),
@@ -586,14 +578,13 @@ namespace dotNettbankAdmin.Tests
 
             // Act:
             var result = (PartialViewResult)controller.Transactions(birthNos, accountNos);
-            var modelResult = (List<Transaction>)result.Model;
+            var modelResult = (List<TransactionRow>)result.Model;
 
             // Assert:
             Assert.AreEqual("_Transactions", result.ViewName);
 
             for (var i = 0; i < modelResult.Count; i++)
             {
-                Assert.AreEqual(expectedTransactions[i].TransactionID, modelResult[i].TransactionID);
                 Assert.AreEqual(expectedTransactions[i].DatePayed, modelResult[i].DatePayed);
                 Assert.AreEqual(expectedTransactions[i].Date, modelResult[i].Date);
                 Assert.AreEqual(expectedTransactions[i].Amount, modelResult[i].Amount);

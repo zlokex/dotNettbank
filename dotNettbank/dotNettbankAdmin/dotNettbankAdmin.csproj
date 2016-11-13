@@ -267,11 +267,13 @@
     </Compile>
     <Compile Include="Models\AccountVM.cs" />
     <Compile Include="Models\AdminSideModel.cs" />
+    <Compile Include="Models\PaymentRow.cs" />
     <Compile Include="Models\PaymentVM.cs" />
     <Compile Include="Models\AuditEntryPropertyVM.cs" />
     <Compile Include="Models\AuditEntryVM.cs" />
     <Compile Include="Models\CustomerVM.cs" />
     <Compile Include="Models\AddCustomer.cs" />
+    <Compile Include="Models\TransactionRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

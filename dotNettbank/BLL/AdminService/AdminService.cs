@@ -53,6 +53,11 @@ namespace BLL.AdminService
             return false;
         }
 
+        public string getBirthNoByAccountNo(string accountNo)
+        {
+            return _repository.getBirthNoByAccountNo(accountNo);
+        }
+
         public List<Customer> getAllCustomers()
         {
             return _repository.getAllCustomers();

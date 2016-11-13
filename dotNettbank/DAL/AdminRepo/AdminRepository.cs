@@ -44,6 +44,15 @@ namespace DAL.AdminRepo
             }
         }
 
+        public string getBirthNoByAccountNo(string accountNo)
+        {
+            using (var db = new BankContext())
+            {
+                var account = db.Accounts.FirstOrDefault(x => x.AccountNo == accountNo);
+                return account.OwnerBirthNo;
+            }
+        }
+
         //--- GET LIST ---
 
         public List<Customer> getAllCustomers()
