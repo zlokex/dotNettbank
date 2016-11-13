@@ -266,7 +266,7 @@ namespace dotNettbankAdmin.Controllers
             {
                 Area = tempPA.Area
             };*/
-            ExtendedCustomerVM model = new ExtendedCustomerVM()
+            var model = new CustomerVM()
             {
                 BirthNo = customer.BirthNo,
                 FirstName = customer.FirstName,
@@ -274,7 +274,7 @@ namespace dotNettbankAdmin.Controllers
                 Address = customer.Address,
                 PhoneNo = customer.PhoneNo,
                 PostCode = customer.PostCode,
-                //PostalArea = postalArea.Area
+                PostalArea = tempPA.Area
             };
             return PartialView("_EditCustomersPartial", model);
         }
@@ -371,13 +371,22 @@ namespace dotNettbankAdmin.Controllers
 
             if (ModelState.IsValid)
             {
+                var newPostalArea = new PostalArea()
+                {
+                    Area = model.PostalArea,
+                    PostCode = model.PostCode
+                };
+                // Attempt to create new postal area:
+                _adminService.addPostalArea(newPostalArea);
+
                 Customer customer = new Customer()
                 {
                     BirthNo = model.BirthNo,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Address = model.Address,
-                    PhoneNo = model.PhoneNo
+                    PhoneNo = model.PhoneNo,
+                    PostCode = model.PostCode
                 };
 
                 _adminService.updateCustomer(customer);

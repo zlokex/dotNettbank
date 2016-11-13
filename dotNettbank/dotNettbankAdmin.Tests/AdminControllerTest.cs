@@ -157,23 +157,21 @@ namespace dotNettbankAdmin.Tests
             // Arrange:
             var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
 
-            var expectedCustomers = new List<Customer>();
+            var expectedCustomers = new List<ExtendedCustomerVM>();
 
             var salt = "salt";
             var passwordAndSalt = "Test123salt";
             var password = createHash(passwordAndSalt);
 
-            var customer = new Customer()
+            var customer = new ExtendedCustomerVM()
             {
-                Active = true,
                 Address = "Storgata 83",
                 BirthNo = "01018912345",
                 FirstName = "André",
                 LastName = "Hovda",
-                Password = password,
-                Salt = salt,
                 PhoneNo = "94486775",
-                PostCode = "0182"
+                PostCode = "0182",
+                PostalArea = "Oslo"
             };
 
             expectedCustomers.Add(customer);
@@ -184,7 +182,7 @@ namespace dotNettbankAdmin.Tests
 
             // Act:
             var result = (PartialViewResult)controller.FindCustomers(birthNo, birthNo);
-            var modelResult = (List<Customer>)result.Model;
+            var modelResult = (List<ExtendedCustomerVM>)result.Model;
 
             //result.RouteValues["action"].Equals("Index");
             //result.RouteValues["controller"].Equals("Index");
@@ -194,15 +192,13 @@ namespace dotNettbankAdmin.Tests
             
             for (var i = 0; i < modelResult.Count; i++)
             {
-                Assert.AreEqual(expectedCustomers[i].Active, modelResult[i].Active);
                 Assert.AreEqual(expectedCustomers[i].Address, modelResult[i].Address);
                 Assert.AreEqual(expectedCustomers[i].BirthNo, modelResult[i].BirthNo);
                 Assert.AreEqual(expectedCustomers[i].FirstName, modelResult[i].FirstName);
                 Assert.AreEqual(expectedCustomers[i].LastName, modelResult[i].LastName);
-                Assert.IsTrue(expectedCustomers[i].Password.SequenceEqual(modelResult[i].Password));
-                Assert.AreEqual(expectedCustomers[i].Salt, modelResult[i].Salt);
                 Assert.AreEqual(expectedCustomers[i].PhoneNo, modelResult[i].PhoneNo);
                 Assert.AreEqual(expectedCustomers[i].PostCode, modelResult[i].PostCode);
+                Assert.AreEqual(expectedCustomers[i].PostalArea, modelResult[i].PostalArea);
             }
         }
 
@@ -868,7 +864,9 @@ namespace dotNettbankAdmin.Tests
                 FirstName = "Ola",
                 LastName = "Nordmann",
                 Address = "Testveien 3a",
-                PhoneNo = "11223344"
+                PhoneNo = "11223344",
+                PostalArea = "Oslo",
+                PostCode = "0182"
             };
 
             // Act:

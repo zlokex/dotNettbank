@@ -592,6 +592,22 @@ namespace DAL.AdminRepo
             return payments;
         }
 
+        public PostalArea getPostalAreaByPostCode(string postCode)
+        {
+            if (postCode == "")
+            {
+                return null;
+            }
+            else
+            {
+                return new PostalArea()
+                {
+                    Area = "Oslo",
+                    PostCode = "0182"
+                };
+            }
+        }
+
         public List<Payment> getPaymentsByFromBirthNo(string birthNo)
         {
             throw new NotImplementedException();
@@ -607,10 +623,7 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
-        public PostalArea getPostalAreaByPostCode(string postCode)
-        {
-            throw new NotImplementedException();
-        }
+        
 
 
     }
