@@ -111,6 +111,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ErrorLogs\2016_11_12_19.log.txt" />
+    <Content Include="App_Data\Hardbank.mdf" />
+    <Content Include="App_Data\Hardbank_log.ldf">
+      <DependentUpon>Hardbank.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\AdminLTE.css" />
     <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\AdminSide.css" />
