@@ -50,7 +50,27 @@ namespace dotNettbankAdmin.Tests
             Assert.AreEqual("Index", actual.RouteValues["Controller"]);
         }
 
-        
+        [TestMethod]
+        public void AdminSide_Session_LoggedIn()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            TestControllerBuilder builder = new TestControllerBuilder();
+            builder.InitializeController(controller);
+            controller.ControllerContext.HttpContext.Session["LoggedIn"] = "admin";
+
+            // Act:
+            var actual = (ViewResult) controller.AdminSide();
+
+            // Assert:
+            Assert.IsNotNull(controller.ControllerContext.HttpContext.Session["LoggedIn"]);
+            Assert.AreEqual("", actual.ViewName);
+            Assert.AreEqual("admin", actual.ViewData["UserName"]);
+            Assert.AreEqual("admin@admin.com", actual.ViewData["Email"]);
+        }
+
+
 
         [TestMethod]
         public void Login()
@@ -1159,6 +1179,29 @@ namespace dotNettbankAdmin.Tests
         }
 
         [TestMethod]
+        public void UpdateCustomer_NotExisting()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            var model = new CustomerVM()
+            {
+                Address = "Storgata 83",
+                BirthNo = "01018999999",
+                FirstName = "André",
+                LastName = "Hovda",
+                PhoneNo = "94486775"
+            };
+
+
+            // Act:
+            var result = (JsonResult)controller.UpdateCustomer(model);
+
+            // Assert:
+            Assert.AreEqual(new { success = true }.ToString(), result.Data.ToString());
+        }
+
+        [TestMethod]
         public void UpdateCustomer_CheckSession()
         {
             // Arrange:
@@ -1208,6 +1251,25 @@ namespace dotNettbankAdmin.Tests
                 Type = "BSU"
             };
             
+            // Act:
+            var result = (JsonResult)controller.UpdateAccount(model);
+
+            // Assert:
+            Assert.AreEqual(new { success = true }.ToString(), result.Data.ToString());
+        }
+
+        [TestMethod]
+        public void UpdateAccount_NotExisting()
+        {
+            // Arrange:
+            var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
+
+            var model = new AccountVM()
+            {
+                OwnerBirthNo = "01018900000",
+                Type = "BSU"
+            };
+
             // Act:
             var result = (JsonResult)controller.UpdateAccount(model);
 
@@ -1266,12 +1328,13 @@ namespace dotNettbankAdmin.Tests
             };
 
             // Act:
-            var result = (JsonResult)controller.UpdateAccount(model);
+            var result = (JsonResult)controller.AddAccount(model);
 
             // Assert:
             Assert.AreEqual(new { success = true }.ToString(), result.Data.ToString());
         }
 
+        
         [TestMethod]
         public void AddAccount_CheckSession()
         {
@@ -1298,16 +1361,23 @@ namespace dotNettbankAdmin.Tests
             // Arrange:
             var controller = new AdminController(new AdminService(new AdminRepositoryStub()));
 
-            var model = new AccountVM();
+            var model = new AccountVM()
+            {
+                OwnerBirthNo = "",
+                Type = "BSU"
+            };
             controller.ViewData.ModelState.AddModelError("BirthNo", "Eier kan ikke være blankt");
 
 
             // Act:
             var result = (PartialViewResult)controller.AddAccount(model);
+            var modelResult = (AccountVM)result.Model;
 
             // Assert:
             Assert.IsTrue(result.ViewData.ModelState.Count == 1);
             Assert.AreEqual("_CreateAccountPartial", result.ViewName);
+            Assert.AreEqual(model.OwnerBirthNo, modelResult.OwnerBirthNo);
+            Assert.AreEqual(model.Type, modelResult.Type);
         }
 
         [TestMethod]

@@ -15,6 +15,10 @@ namespace DAL.AdminRepo
     {
         public Admin getAdmin(string username)
         {
+            if (username == "")
+            {
+                return null;
+            }
 
             var password = lagHash("admin");
             Admin admin = new Admin()
@@ -264,7 +268,6 @@ namespace DAL.AdminRepo
                 }
             }
             return false;
-
         }
 
         public Customer getCustomerByBirthNo(string birthNo)

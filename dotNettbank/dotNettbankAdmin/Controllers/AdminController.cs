@@ -53,9 +53,6 @@ namespace dotNettbankAdmin.Controllers
         {
             if (checkSession())
             {
-                //List<Payment> bl = _adminService.getAllPayments();
-                //AdminSideModel model = new AdminSideModel(bl);
-
                 if (Session != null)
                 {
                     Admin u = _adminService.getAdmin("" + Session["LoggedIn"]);
