@@ -50,12 +50,12 @@
                 @foreach (var item in Model)
                 {
                     <tr id="search-row">
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.FromBirthNo)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
-                        <td class="col-md-2">@Html.DisplayFor(modelItem => item.DueDate)</td>
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.FromAccountNo)</td>
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.FromBirthNo)</td>
+                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.ToAccountNo)</td>
+                        <td class="col-md-3">@Html.DisplayFor(modelItem => item.DateAdded)</td>
                         <td class="col-md-2">@Html.DisplayFor(modelItem => item.Amount)</td>
-                        <td class="col-md-1">@Html.DisplayFor(modelItem => item.Message)</td>
+                        <td class="col-md-3">@Html.DisplayFor(modelItem => item.Message)</td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="delete-payment-btn" data-id="@item.PaymentID"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
                         <td class="col-md-1"><button class="btn btn-dark-theme" id="betal_btn" data-id="@item.PaymentID"><i class="fa fa-handshake-o" aria-hidden="true"></i></button></td>
                     </tr>
