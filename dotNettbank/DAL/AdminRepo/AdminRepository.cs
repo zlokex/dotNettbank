@@ -259,6 +259,25 @@ namespace DAL.AdminRepo
             }
         }
 
+        public PostalArea getPostalAreaByPostCode(string postCode)
+        {
+            using (var db = new BankContext())
+            {
+                try
+                {
+                    var postalArea = db.PostalAreas.Where(p => p.PostCode == postCode).First();
+                    return postalArea;
+                }
+                catch (Exception e)
+                {
+                    string log = "Failed to find post area.\t" + e.Message + "\t" + e.StackTrace.ToString();
+                    Debug.Write(log);
+                    new LogErrors().errorLog(log);
+                    return null;
+                }
+            }
+        }
+
         public bool addCustomer(Customer customer)
         {
             using (var db = new BankContext())

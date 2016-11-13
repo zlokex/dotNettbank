@@ -10,11 +10,11 @@ using BLL.AdminService;
 
 namespace dotNettbankAdmin.Models
 {
-    public class CustomerVM
+    public class ExtendedCustomerVM
     {
         /*[CustomValidation(typeof(CustomerVM), "IsBirthNoExisting")]
         [Required(ErrorMessage = "Eier kan ikke være blankt")]*/
-        [Display(Name ="Eier")]
+        [Display(Name = "Eier")]
         public string BirthNo { get; set; }
 
         [Required(ErrorMessage = "Fornavn kan ikke være blankt")]
@@ -48,31 +48,6 @@ namespace dotNettbankAdmin.Models
         [RegularExpression(@"^([äÄöÖüÜéÉëËÆØÅæøåA-Za-z]{2,15})$", ErrorMessage = "Feil poststed, har du skrevet riktig?")]
         public string PostalArea { get; set; }
 
-        /*public static ValidationResult IsBirthNoExisting(string OwnerBirthNo)
-        {
-            bool isValid;
-
-            AdminService db = new AdminService();
-
-            var customer = db.getCustomerByBirthNo(OwnerBirthNo);
-            if (customer == null)
-            {
-                isValid = false;
-            }
-            else
-            {
-                isValid = true;
-            }
-
-            if (isValid)
-            {
-                return ValidationResult.Success;
-            }
-            else
-            {
-                return new ValidationResult("Ingen registrerte kunder med '" + OwnerBirthNo + "' som fødselsnummer");
-            }
-
-        }*/
+        
     }
 }

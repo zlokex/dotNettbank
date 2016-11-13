@@ -607,6 +607,11 @@ namespace DAL.AdminRepo
             throw new NotImplementedException();
         }
 
-        
+        public PostalArea getPostalAreaByPostCode(string postCode)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
