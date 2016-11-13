@@ -41,5 +41,6 @@ namespace DAL.AdminRepo
         List<Z.EntityFramework.Plus.AuditEntry> getAllAuditEntries();
         List<Z.EntityFramework.Plus.AuditEntryProperty> getAllAuditEntryProperties();
         List<Z.EntityFramework.Plus.AuditEntryProperty> getAuditEntryPropertiesByEntryId(int auditEntryId);
+        PostalArea getPostalAreaByPostCode(string postCode);
     }
 }

@@ -200,6 +200,10 @@ namespace BLL.AdminService
         {
             return _repository.addPostalArea(postalArea);
         }
+        public PostalArea getPostalAreaByPostCode(string postCode)
+        {
+            return _repository.getPostalAreaByPostCode(postCode);
+        }
 
         public bool addCustomer(Customer customer)
         {

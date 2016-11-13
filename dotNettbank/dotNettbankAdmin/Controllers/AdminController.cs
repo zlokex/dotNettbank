@@ -103,7 +103,26 @@ namespace dotNettbankAdmin.Controllers
 
             List<Customer> customers = _adminService.getAllCustomers();
 
-            return PartialView("_FindCustomers", customers);
+            List<ExtendedCustomerVM> customersVM = new List<ExtendedCustomerVM>();
+            foreach (var findCustomers in customers)
+            {
+                var tempPA = _adminService.getPostalAreaByPostCode(findCustomers.PostCode);
+
+                ExtendedCustomerVM model = new ExtendedCustomerVM()
+                {
+                    BirthNo = findCustomers.BirthNo,
+                    FirstName = findCustomers.FirstName,
+                    LastName = findCustomers.LastName,
+                    Address = findCustomers.Address,
+                    PhoneNo = findCustomers.PhoneNo,
+                    PostCode = findCustomers.PostCode,
+                    //PostalArea = tempPA.Area
+                };
+                customersVM.Add(model);
+            }
+
+            return PartialView("_FindCustomers", customersVM);
+
         }
         public ActionResult Accounts(string[] birthNo, string[] accountNo)
         {
@@ -243,14 +262,22 @@ namespace dotNettbankAdmin.Controllers
             /*Debug.Indent();
             Debug.WriteLine("Ditt personummer er: " + birthNo);*/
             var customer = _adminService.getCustomerByBirthNo(birthNo);
-            
-            CustomerVM model = new CustomerVM()
+
+            PostalArea tempPA = _adminService.getPostalAreaByPostCode(customer.PostCode);
+
+            /*PostalArea postalArea = new PostalArea()
+            {
+                Area = tempPA.Area
+            };*/
+            ExtendedCustomerVM model = new ExtendedCustomerVM()
             {
                 BirthNo = customer.BirthNo,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Address = customer.Address,
-                PhoneNo = customer.PhoneNo
+                PhoneNo = customer.PhoneNo,
+                PostCode = customer.PostCode,
+                //PostalArea = postalArea.Area
             };
             return PartialView("_EditCustomersPartial", model);
         }

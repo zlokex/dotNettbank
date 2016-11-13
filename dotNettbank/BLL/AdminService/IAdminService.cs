@@ -29,6 +29,7 @@ namespace BLL.AdminService
         bool createPayment(Payment p);
         bool deletePayment(int paymentID);
         bool addPostalArea(PostalArea postalArea);
+        PostalArea getPostalAreaByPostCode(string postCode);
         bool addCustomer(Customer customer);
         List<Account> getAllAccountsByBirthNo(string birthNo);
         List<Payment> getPaymentsByFromBirthNo(string birthNo);
