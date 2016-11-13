@@ -225,7 +225,7 @@ td .btn-dark-theme {
 }
 
 /* Remove button text when screen is smaller */
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1300px) {
     #panel-customer .button-text {
         display: none;
     }
